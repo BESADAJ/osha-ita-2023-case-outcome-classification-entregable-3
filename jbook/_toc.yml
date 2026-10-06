@@ -1,0 +1,10 @@
+format: jb-book
+root: intro
+chapters:
+  - file: 01_contexto
+  - file: 02_eda_dashboard
+  - file: 03_eda_adicional
+  - file: 04_modelos
+  - file: 05_conclusiones
+  - file: 06_reproducibilidad
+  - file: anexo_entregable1

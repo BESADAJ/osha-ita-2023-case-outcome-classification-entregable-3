@@ -1,0 +1,16 @@
+# Sitio compilado del JBook (se publica en la rama gh-pages, no se versiona aquí)
+jbook/_build/
+
+# Python / Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Datos crudos y resultados pesados del entregable 1 (no van al repo)
+ITA Case Detail Data*.csv
+*.joblib
+*.npz
+partition.csv
+
+# Archivos de entrega
+*.zip

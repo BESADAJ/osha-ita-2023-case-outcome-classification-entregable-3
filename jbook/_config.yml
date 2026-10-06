@@ -1,0 +1,19 @@
+title: "OSHA ITA 2023: resultado de los casos reportados"
+author: "Ivan"
+logo: ""
+execute:
+  execute_notebooks: "off"
+html:
+  use_issues_button: false
+  use_repository_button: false
+  use_edit_page_button: false
+sphinx:
+  config:
+    language: es
+    nb_render_markdown_format: myst
+    html_show_copyright: false
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - dollarmath
+    - colon_fence

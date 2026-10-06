@@ -1,0 +1,5 @@
+# Solo para build_data.py (se corre en tu PC, no en Render)
+numpy
+pandas
+lxml
+scikit-learn
