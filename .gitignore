@@ -14,3 +14,8 @@ partition.csv
 
 # Archivos de entrega
 *.zip
+
+# Entregable 3: cachés y predicciones pesadas (se regeneran con los scripts)
+results/cache/
+results/final/
+results/logs/

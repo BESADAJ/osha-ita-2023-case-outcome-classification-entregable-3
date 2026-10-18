@@ -14,6 +14,11 @@ La tarea es **clasificar** el resultado de un caso a partir de ocho datos que se
 del incidente. Es una clasificación retrospectiva sobre casos ya reportados. No predice quién se lesionará y no
 atribuye causas.
 
+**Tarea de regresión (nueva en el entregable 3).** La guía del tercer entregable exige también modelos de
+regresión. El objetivo es el **número de días de ausencia** de los casos que terminaron en «días de ausencia»,
+en escala `log(1 + días)`, con las mismas variables. En clasificación esa columna se excluye porque revela
+el resultado; en regresión es el objetivo y solo se usa dentro de esa clase (capítulo 4).
+
 ## Los datos
 
 - **Fuente:** [OSHA ITA 2023, detalle de casos](https://www.osha.gov/itadata). Datos abiertos del Departamento
@@ -21,6 +26,9 @@ atribuye causas.
 - **Tamaño:** 890.934 casos y 91.334 establecimientos, 49 columnas.
 - **Unidad de observación:** un caso reportado, agrupado por establecimiento.
 - **Objetivo:** `incident_outcome`, categórica nominal (códigos 1 a 4, sin orden de gravedad).
+
+En el entregable 3, NAICS y SOC entran agrupados (subsector de 3 dígitos y grupo menor SOC) y se añade
+una variable de horas desde el inicio de la jornada (capítulo 4).
 
 | Predictor | Tipo | Qué es |
 |---|---|---|

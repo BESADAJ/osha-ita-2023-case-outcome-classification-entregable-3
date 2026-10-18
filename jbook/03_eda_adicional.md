@@ -100,3 +100,19 @@ retrospectiva.
 | Atípicos son subpoblaciones legítimas | No eliminar filas |
 | Casos agrupados por establecimiento | Separar establecimientos; bootstrap por establecimiento |
 | Patrón semanal y feriados | Partición hacia adelante con purga de 7 días |
+
+## 3.8 Correcciones solicitadas en el entregable 1
+
+:::{admonition} Pendiente
+:class: warning
+Esta sección recogerá, una por una, las correcciones que el profesor pidió sobre el entregable 1 y dónde
+se aplicó cada una en este informe. Todavía no se han recibido; cuando lleguen se completará la tabla.
+:::
+
+| Corrección solicitada | Dónde se aplicó |
+|---|---|
+| *(pendiente)* | |
+
+Mejoras al EDA que ya se incorporaron por hallazgos del desarrollo del proyecto (capítulo 4): agrupación
+jerárquica de NAICS y SOC, horas desde el inicio de la jornada y el análisis del objetivo de regresión
+(días de ausencia).

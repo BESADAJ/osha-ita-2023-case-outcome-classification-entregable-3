@@ -1,6 +1,13 @@
-# 4. Modelos base
+# 5. Modelo base del entregable 2
 
-## 4.1 Qué se entrenó
+:::{note}
+Este capítulo es el del entregable 2, sin cambios en sus cifras: una regresión logística (C = 1, L2,
+`class_weight='balanced'`, NAICS y SOC completos) frente a un `DummyClassifier`, entrenada con todo el
+desarrollo y evaluada en la misma prueba de octubre a diciembre. Sirve de punto de referencia para los
+140 modelos del entregable 3 (capítulos 6 a 13).
+:::
+
+## 5.1 Qué se entrenó
 
 - **Modelo:** regresión logística multinomial (`LogisticRegression`, penalización L2 con C = 1,
   `class_weight='balanced'`, solver `newton-cg`, semilla 42). Sin búsqueda de hiperparámetros.
@@ -11,7 +18,7 @@
 - **Relación n/p:** 269.516 filas y 1.433 columnas después del one-hot, unas 188 filas por columna.
 - **Por qué logística:** el objetivo es categórico. El SVR lineal es de regresión y no aplica.
 
-## 4.2 Resultado en la prueba
+## 5.2 Resultado en la prueba
 
 La prueba son los 127.391 casos de octubre a diciembre en establecimientos que el modelo nunca vio. Los
 intervalos son del 95 % por bootstrap de **establecimientos completos** (1.000 réplicas; 200 para el AUC).
@@ -29,7 +36,7 @@ intervalos son del 95 % por bootstrap de **establecimientos completos** (1.000 r
 - Los intervalos solo cubren la variación entre establecimientos de este trimestre. No incluyen la incertidumbre
   del entrenamiento ni choques comunes del calendario.
 
-## 4.3 Resultado por clase
+## 5.3 Resultado por clase
 
 ```{include} _generated/tabla_por_clase.md
 ```
@@ -39,7 +46,7 @@ el modelo identifica 1 de 39 casos (recall 2,6 %; intervalo de Wilson del 95 %: 
 precision es de 0,03 %. Con 39 casos, cada uno en un establecimiento distinto, no se puede afirmar nada fiable
 sobre esa clase.
 
-## 4.4 Matriz de confusión
+## 5.4 Matriz de confusión
 
 ```{figure} figures/modelo_confusion.png
 :width: 70%
@@ -52,7 +59,7 @@ sobre todo entre esas mismas tres clases. El modelo separa mejor «otro caso reg
 ausencia» (recall 100 % en esa clase y 0 % en las demás). Más de la mitad de los fallecimientos reales
 (51,3 %) se clasifican como «traslado / restricción».
 
-## 4.5 Curvas ROC y Precision-Recall
+## 5.5 Curvas ROC y Precision-Recall
 
 ```{figure} figures/modelo_roc_pr.png
 :width: 100%
@@ -64,7 +71,7 @@ curva muy irregular: son 39 casos. En la curva Precision-Recall, la línea de ba
 proporción de casos (0,36; 0,29 y 0,35); la logística la supera, pero con margen modesto. Para Fallecimiento el
 AP es 0,0005 frente a una prevalencia de 0,0003.
 
-## 4.6 Validación cronológica y por establecimiento
+## 5.6 Validación cronológica y por establecimiento
 
 Se probaron tres ventanas hacia adelante dentro del desarrollo (entrenar antes de abril y validar abril–mayo;
 antes de junio y validar junio–julio; antes de agosto y validar agosto–septiembre), siempre con establecimientos
@@ -78,7 +85,7 @@ distintos y 7 días de purga.
 comprobada, que esto se deba a que cada pliegue tiene solo 1 a 8 fallecimientos y esa clase pesa un cuarto en
 el promedio. Las desviaciones entre pliegues no son intervalos de confianza.
 
-## 4.7 Curva de aprendizaje
+## 5.7 Curva de aprendizaje
 
 ```{figure} figures/modelo_aprendizaje.png
 :width: 70%
@@ -91,13 +98,13 @@ cambiar el resultado. La brecha de balanced accuracy probablemente se debe en bu
 que con muy pocos casos el modelo ajusta bien en el entrenamiento y no generaliza (inferencia, no
 comprobada). La brecha de accuracy simple es mucho menor (0,54 frente a 0,51).
 
-## 4.8 Calibración
+## 5.8 Calibración
 
 Las probabilidades salen de un modelo con clases ponderadas, así que pueden sobreestimar las clases raras
 respecto de su frecuencia real (las curvas de calibración están en el anexo). El Brier multiclase es 0,583 (Dummy: 0,664) y la pérdida logarítmica es 1,001 (Dummy: 1,097);
 menor es mejor. No se recalibró nada con la prueba.
 
-## 4.9 Qué dicen los coeficientes
+## 5.9 Qué dicen los coeficientes
 
 Se comparan **dos categorías del mismo predictor con todo lo demás fijo**, siempre contra la clase
 «otro caso registrable». El número es una razón de posibilidades relativa dentro del modelo: 1 significa sin
@@ -117,7 +124,7 @@ terminar en traslado o restricción (0,32). Para ocupaciones y sectores, enferme
 causales: pueden reflejar mezcla de ocupaciones, confusión y prácticas de reporte. Los coeficientes de
 Fallecimiento son inestables (solo 69 casos de entrenamiento) y las cifras de esa columna no se interpretan.
 
-## 4.10 Por sector
+## 5.10 Por sector
 
 Se evaluó por separado cada uno de los 12 sectores con al menos 1.000 casos en el desarrollo (criterio fijado
 sin mirar la prueba). El accuracy de la logística va de 0,33 en servicios administrativos y de apoyo (sector 56)

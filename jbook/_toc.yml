@@ -1,10 +1,25 @@
 format: jb-book
 root: intro
-chapters:
-  - file: 01_contexto
-  - file: 02_eda_dashboard
-  - file: 03_eda_adicional
-  - file: 04_modelos
-  - file: 05_conclusiones
-  - file: 06_reproducibilidad
-  - file: anexo_entregable1
+parts:
+  - caption: Datos (entregables 1 y 2, con mejoras)
+    chapters:
+      - file: 01_contexto
+      - file: 02_eda_dashboard
+      - file: 03_eda_adicional
+      - file: 04_eda_mejorado
+  - caption: Modelos del entregable 3
+    chapters:
+      - file: 05_modelo_base_e2
+      - file: 06_diseno_pipeline
+      - file: 07_optimizacion_hiperparametros
+      - file: 08_optimizacion_computacional
+      - file: 09_clasificacion
+      - file: 10_regresion
+      - file: 11_interpretabilidad
+      - file: 12_robustez
+      - file: 13_comparacion_estadistica
+  - caption: Cierre
+    chapters:
+      - file: 14_conclusiones
+      - file: 15_reproducibilidad
+      - file: anexo_entregable1
