@@ -1,0 +1,771 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>5. Modelo base del entregable 2 &#8212; OSHA ITA 2023: resultado y días de ausencia de los casos reportados (entregable 3)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=78d55cf8"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/translations.js?v=d190bf04"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '05_modelo_base_e2';</script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="6. Diseño del pipeline combinatorio" href="06_diseno_pipeline.html" />
+    <link rel="prev" title="4. EDA mejorado para el entregable 3" href="04_eda_mejorado.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Saltar al contenido principal</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Volver arriba</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Advertencia de versión"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">OSHA ITA 2023: resultado y días de ausencia de los casos reportados (entregable 3)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Búsqueda</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Informe del entregable 3
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Datos (entregables 1 y 2, con mejoras)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_contexto.html">1. Contexto y datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_eda_dashboard.html">2. EDA: lo que muestra el dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_eda_adicional.html">3. EDA: detalles que no están en el dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_eda_mejorado.html">4. EDA mejorado para el entregable 3</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos del entregable 3</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. Modelo base del entregable 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_diseno_pipeline.html">6. Diseño del pipeline combinatorio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_optimizacion_hiperparametros.html">7. Optimización de hiperparámetros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_optimizacion_computacional.html">8. Optimización computacional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_clasificacion.html">9. Evaluación de los modelos de clasificación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_regresion.html">10. Evaluación de los modelos de regresión</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_interpretabilidad.html">11. Interpretabilidad global y local (SHAP y LIME)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_robustez.html">12. Robustez y estabilidad de las métricas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_comparacion_estadistica.html">13. Comparación estadística de los modelos</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Cierre</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="14_conclusiones.html">14. Conclusiones y límites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_reproducibilidad.html">15. Reproducibilidad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="anexo_entregable1.html">OSHA ITA 2023: primer entregable del proyecto de Machine Learning</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/05_modelo_base_e2.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="claro/oscuro" aria-label="claro/oscuro" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>5. Modelo base del entregable 2</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-se-entreno">5.1 Qué se entrenó</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resultado-en-la-prueba">5.2 Resultado en la prueba</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resultado-por-clase">5.3 Resultado por clase</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriz-de-confusion">5.4 Matriz de confusión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#curvas-roc-y-precision-recall">5.5 Curvas ROC y Precision-Recall</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validacion-cronologica-y-por-establecimiento">5.6 Validación cronológica y por establecimiento</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#curva-de-aprendizaje">5.7 Curva de aprendizaje</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibracion">5.8 Calibración</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-dicen-los-coeficientes">5.9 Qué dicen los coeficientes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#por-sector">5.10 Por sector</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="modelo-base-del-entregable-2">
+<h1>5. Modelo base del entregable 2<a class="headerlink" href="#modelo-base-del-entregable-2" title="Link to this heading">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Este capítulo es el del entregable 2, sin cambios en sus cifras: una regresión logística (C = 1, L2,
+<code class="docutils literal notranslate"><span class="pre">class_weight='balanced'</span></code>, NAICS y SOC completos) frente a un <code class="docutils literal notranslate"><span class="pre">DummyClassifier</span></code>, entrenada con todo el
+desarrollo y evaluada en la misma prueba de octubre a diciembre. Sirve de punto de referencia para los
+140 modelos del entregable 3 (capítulos 6 a 13).</p>
+</div>
+<section id="que-se-entreno">
+<h2>5.1 Qué se entrenó<a class="headerlink" href="#que-se-entreno" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Modelo:</strong> regresión logística multinomial (<code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code>, penalización L2 con C = 1,
+<code class="docutils literal notranslate"><span class="pre">class_weight='balanced'</span></code>, solver <code class="docutils literal notranslate"><span class="pre">newton-cg</span></code>, semilla 42). Sin búsqueda de hiperparámetros.</p></li>
+<li><p><strong>Línea base trivial:</strong> <code class="docutils literal notranslate"><span class="pre">DummyClassifier(strategy='prior')</span></code>, que responde siempre la clase más frecuente.</p></li>
+<li><p><strong>Pipeline</strong> (todo se ajusta solo con el desarrollo): preparación de variables → imputación con la categoría
+«Unknown» → one-hot (1.433 columnas) → regresión logística. No hay escalado (todas las columnas son 0/1)
+ni eliminación de atípicos.</p></li>
+<li><p><strong>Relación n/p:</strong> 269.516 filas y 1.433 columnas después del one-hot, unas 188 filas por columna.</p></li>
+<li><p><strong>Por qué logística:</strong> el objetivo es categórico. El SVR lineal es de regresión y no aplica.</p></li>
+</ul>
+</section>
+<section id="resultado-en-la-prueba">
+<h2>5.2 Resultado en la prueba<a class="headerlink" href="#resultado-en-la-prueba" title="Link to this heading">#</a></h2>
+<p>La prueba son los 127.391 casos de octubre a diciembre en establecimientos que el modelo nunca vio. Los
+intervalos son del 95 % por bootstrap de <strong>establecimientos completos</strong> (1.000 réplicas; 200 para el AUC).</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Métrica</p></th>
+<th class="head"><p>Regresión logística [IC 95 %]</p></th>
+<th class="head"><p>Dummy [IC 95 %]</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Accuracy</p></td>
+<td><p>0,524 [0,518 – 0,530]</p></td>
+<td><p>0,362 [0,356 – 0,369]</p></td>
+</tr>
+<tr class="row-odd"><td><p>Balanced accuracy</p></td>
+<td><p>0,402 [0,392 – 0,416]</p></td>
+<td><p>0,250 [0,250 – 0,250]</p></td>
+</tr>
+<tr class="row-even"><td><p>Macro F1 score</p></td>
+<td><p>0,397 [0,392 – 0,402]</p></td>
+<td><p>0,133 [0,131 – 0,135]</p></td>
+</tr>
+<tr class="row-odd"><td><p>Macro AUC (one-vs-rest)</p></td>
+<td><p>0,693 [0,671 – 0,715]</p></td>
+<td><p>0,500 [0,500 – 0,500]</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Interpretación.</strong></p>
+<ul class="simple">
+<li><p>La logística supera a la línea base en las cuatro métricas y los intervalos no se solapan. Por ejemplo, la
+diferencia en balanced accuracy es 0,152 (IC 95 % 0,142 a 0,166).</p></li>
+<li><p>El nivel es moderado: acierta el 52 % de los casos. Un accuracy tan por debajo del 80–90 % no es señal de
+fuga de información (el enunciado pide revisarla solo si es alta), y el accuracy supera con claridad al 36 %
+de la clase mayoritaria.</p></li>
+<li><p>Los intervalos solo cubren la variación entre establecimientos de este trimestre. No incluyen la incertidumbre
+del entrenamiento ni choques comunes del calendario.</p></li>
+</ul>
+</section>
+<section id="resultado-por-clase">
+<h2>5.3 Resultado por clase<a class="headerlink" href="#resultado-por-clase" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Resultado</p></th>
+<th class="head"><p>Precision</p></th>
+<th class="head"><p>Recall</p></th>
+<th class="head"><p>F1 score</p></th>
+<th class="head"><p>Casos en prueba</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Fallecimiento (Death)</p></td>
+<td><p>0,000</p></td>
+<td><p>0,026</p></td>
+<td><p>0,001</p></td>
+<td><p>39</p></td>
+</tr>
+<tr class="row-odd"><td><p>Días de ausencia</p></td>
+<td><p>0,600</p></td>
+<td><p>0,436</p></td>
+<td><p>0,505</p></td>
+<td><p>46.169</p></td>
+</tr>
+<tr class="row-even"><td><p>Traslado / restricción</p></td>
+<td><p>0,478</p></td>
+<td><p>0,562</p></td>
+<td><p>0,516</p></td>
+<td><p>37.231</p></td>
+</tr>
+<tr class="row-odd"><td><p>Otro caso registrable</p></td>
+<td><p>0,546</p></td>
+<td><p>0,585</p></td>
+<td><p>0,564</p></td>
+<td><p>43.952</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Interpretación.</strong> Las tres clases frecuentes tienen F1 score entre 0,505 y 0,564. Fallecimiento casi no se detecta:
+el modelo identifica 1 de 39 casos (recall 2,6 %; intervalo de Wilson del 95 %: 0,5 % a 13,2 %) y su
+precision es de 0,03 %. Con 39 casos, cada uno en un establecimiento distinto, no se puede afirmar nada fiable
+sobre esa clase.</p>
+</section>
+<section id="matriz-de-confusion">
+<h2>5.4 Matriz de confusión<a class="headerlink" href="#matriz-de-confusion" title="Link to this heading">#</a></h2>
+<figure class="align-default" id="id1">
+<a class="reference internal image-reference" href="_images/modelo_confusion.png"><img alt="_images/modelo_confusion.png" src="_images/modelo_confusion.png" style="width: 70%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figura 6 </span><span class="caption-text">Matriz de confusión de la regresión logística en la prueba (cada fila suma 100 % de la clase real).</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Interpretación.</strong> La diagonal de las tres clases frecuentes está entre 43,6 % y 58,5 %, y el resto se reparte
+sobre todo entre esas mismas tres clases. El modelo separa mejor «otro caso registrable» (58,5 %) y
+«traslado / restricción» (56,2 %) que «días de ausencia» (43,6 %). El Dummy manda todos los casos a «días de
+ausencia» (recall 100 % en esa clase y 0 % en las demás). Más de la mitad de los fallecimientos reales
+(51,3 %) se clasifican como «traslado / restricción».</p>
+</section>
+<section id="curvas-roc-y-precision-recall">
+<h2>5.5 Curvas ROC y Precision-Recall<a class="headerlink" href="#curvas-roc-y-precision-recall" title="Link to this heading">#</a></h2>
+<figure class="align-default" id="id2">
+<a class="reference internal image-reference" href="_images/modelo_roc_pr.png"><img alt="_images/modelo_roc_pr.png" src="_images/modelo_roc_pr.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figura 7 </span><span class="caption-text">Curvas ROC (una clase contra las otras tres) y Precision-Recall de la regresión logística.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Interpretación.</strong> Los AUC de las tres clases frecuentes van de 0,70 a 0,73. Fallecimiento tiene 0,61 con una
+curva muy irregular: son 39 casos. En la curva Precision-Recall, la línea de base de cada clase es su
+proporción de casos (0,36; 0,29 y 0,35); la logística la supera, pero con margen modesto. Para Fallecimiento el
+AP es 0,0005 frente a una prevalencia de 0,0003.</p>
+</section>
+<section id="validacion-cronologica-y-por-establecimiento">
+<h2>5.6 Validación cronológica y por establecimiento<a class="headerlink" href="#validacion-cronologica-y-por-establecimiento" title="Link to this heading">#</a></h2>
+<p>Se probaron tres ventanas hacia adelante dentro del desarrollo (entrenar antes de abril y validar abril–mayo;
+antes de junio y validar junio–julio; antes de agosto y validar agosto–septiembre), siempre con establecimientos
+distintos y 7 días de purga.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Modelo</p></th>
+<th class="head"><p>Pliegue</p></th>
+<th class="head"><p>Accuracy</p></th>
+<th class="head"><p>Balanced accuracy</p></th>
+<th class="head"><p>Macro F1 score</p></th>
+<th class="head"><p>Macro AUC</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>LogisticRegression</p></td>
+<td><p>1</p></td>
+<td><p>0,505</p></td>
+<td><p>0,380</p></td>
+<td><p>0,375</p></td>
+<td><p>0,762</p></td>
+</tr>
+<tr class="row-odd"><td><p>DummyClassifier</p></td>
+<td><p>1</p></td>
+<td><p>0,337</p></td>
+<td><p>0,250</p></td>
+<td><p>0,126</p></td>
+<td><p>0,500</p></td>
+</tr>
+<tr class="row-even"><td><p>LogisticRegression</p></td>
+<td><p>2</p></td>
+<td><p>0,506</p></td>
+<td><p>0,383</p></td>
+<td><p>0,379</p></td>
+<td><p>0,629</p></td>
+</tr>
+<tr class="row-odd"><td><p>DummyClassifier</p></td>
+<td><p>2</p></td>
+<td><p>0,353</p></td>
+<td><p>0,250</p></td>
+<td><p>0,130</p></td>
+<td><p>0,500</p></td>
+</tr>
+<tr class="row-even"><td><p>LogisticRegression</p></td>
+<td><p>3</p></td>
+<td><p>0,519</p></td>
+<td><p>0,392</p></td>
+<td><p>0,391</p></td>
+<td><p>0,687</p></td>
+</tr>
+<tr class="row-odd"><td><p>DummyClassifier</p></td>
+<td><p>3</p></td>
+<td><p>0,357</p></td>
+<td><p>0,250</p></td>
+<td><p>0,132</p></td>
+<td><p>0,500</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Interpretación.</strong> El balanced accuracy de la logística es estable entre pliegues (media 0,385; desviación
+0,006) y siempre mejora a la línea base (0,25). El macro AUC varía más (0,629 a 0,762). Es una inferencia, no
+comprobada, que esto se deba a que cada pliegue tiene solo 1 a 8 fallecimientos y esa clase pesa un cuarto en
+el promedio. Las desviaciones entre pliegues no son intervalos de confianza.</p>
+</section>
+<section id="curva-de-aprendizaje">
+<h2>5.7 Curva de aprendizaje<a class="headerlink" href="#curva-de-aprendizaje" title="Link to this heading">#</a></h2>
+<figure class="align-default" id="id3">
+<a class="reference internal image-reference" href="_images/modelo_aprendizaje.png"><img alt="_images/modelo_aprendizaje.png" src="_images/modelo_aprendizaje.png" style="width: 70%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figura 8 </span><span class="caption-text">Balanced accuracy con el 25 %, 50 % y 100 % de los establecimientos de cada entrenamiento.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Interpretación.</strong> La validación casi no mejora al triplicar los datos (de 0,377 a 0,385) y la distancia con el
+entrenamiento (cerca de 0,28) no se cierra. Con estos 8 predictores y un modelo lineal, más casos no parecen
+cambiar el resultado. La brecha de balanced accuracy probablemente se debe en buena parte a Fallecimiento,
+que con muy pocos casos el modelo ajusta bien en el entrenamiento y no generaliza (inferencia, no
+comprobada). La brecha de accuracy simple es mucho menor (0,54 frente a 0,51).</p>
+</section>
+<section id="calibracion">
+<h2>5.8 Calibración<a class="headerlink" href="#calibracion" title="Link to this heading">#</a></h2>
+<p>Las probabilidades salen de un modelo con clases ponderadas, así que pueden sobreestimar las clases raras
+respecto de su frecuencia real (las curvas de calibración están en el anexo). El Brier multiclase es 0,583 (Dummy: 0,664) y la pérdida logarítmica es 1,001 (Dummy: 1,097);
+menor es mejor. No se recalibró nada con la prueba.</p>
+</section>
+<section id="que-dicen-los-coeficientes">
+<h2>5.9 Qué dicen los coeficientes<a class="headerlink" href="#que-dicen-los-coeficientes" title="Link to this heading">#</a></h2>
+<p>Se comparan <strong>dos categorías del mismo predictor con todo lo demás fijo</strong>, siempre contra la clase
+«otro caso registrable». El número es una razón de posibilidades relativa dentro del modelo: 1 significa sin
+diferencia; 2, el doble de posibilidades.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Comparación</p></th>
+<th class="head"><p>Fallecimiento</p></th>
+<th class="head"><p>Días de ausencia</p></th>
+<th class="head"><p>Traslado / restricción</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Enfermedad respiratoria frente a lesión</p></td>
+<td><p>44,80</p></td>
+<td><p>18,86</p></td>
+<td><p>0,32</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pérdida auditiva frente a lesión</p></td>
+<td><p>0,002</p></td>
+<td><p>0,14</p></td>
+<td><p>0,14</p></td>
+</tr>
+<tr class="row-even"><td><p>Enfermería profesional frente a movimiento manual de materiales</p></td>
+<td><p>0,027</p></td>
+<td><p>0,48</p></td>
+<td><p>0,54</p></td>
+</tr>
+<tr class="row-odd"><td><p>Hospitales generales frente a almacenamiento general</p></td>
+<td><p>1,57</p></td>
+<td><p>0,20</p></td>
+<td><p>0,11</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Interpretación.</strong> Frente a una lesión, una enfermedad respiratoria se asocia dentro del modelo con muchas más
+posibilidades de terminar en días de ausencia que en «otro caso registrable» (18,9 veces) y con menos de
+terminar en traslado o restricción (0,32). Para ocupaciones y sectores, enfermería y hospitales tienden hacia
+«otro caso registrable» y se alejan de los días de ausencia y de la restricción. Son asociaciones, no efectos
+causales: pueden reflejar mezcla de ocupaciones, confusión y prácticas de reporte. Los coeficientes de
+Fallecimiento son inestables (solo 69 casos de entrenamiento) y las cifras de esa columna no se interpretan.</p>
+</section>
+<section id="por-sector">
+<h2>5.10 Por sector<a class="headerlink" href="#por-sector" title="Link to this heading">#</a></h2>
+<p>Se evaluó por separado cada uno de los 12 sectores con al menos 1.000 casos en el desarrollo (criterio fijado
+sin mirar la prueba). El accuracy de la logística va de 0,33 en servicios administrativos y de apoyo (sector 56)
+a 0,62 en salud y asistencia social (sector 62). La logística supera al Dummy en 10 de los 12, pero <strong>no en
+todos</strong>: en agricultura (sector 11) queda por debajo (0,361 frente a 0,384), en servicios administrativos y de apoyo
+también (0,330 frente a 0,364), y en construcción (sector 23) están prácticamente empatados (0,338 frente a
+0,334). Como el accuracy del Dummy cambia con la mezcla de clases de cada sector (de 0,25 a 0,40), estas
+comparaciones se leen con cuidado. No son un ranking de seguridad de los sectores.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="04_eda_mejorado.html"
+       title="página anterior">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">4. EDA mejorado para el entregable 3</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="06_diseno_pipeline.html"
+       title="siguiente página">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">siguiente</p>
+        <p class="prev-next-title">6. Diseño del pipeline combinatorio</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-se-entreno">5.1 Qué se entrenó</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resultado-en-la-prueba">5.2 Resultado en la prueba</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resultado-por-clase">5.3 Resultado por clase</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriz-de-confusion">5.4 Matriz de confusión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#curvas-roc-y-precision-recall">5.5 Curvas ROC y Precision-Recall</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validacion-cronologica-y-por-establecimiento">5.6 Validación cronológica y por establecimiento</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#curva-de-aprendizaje">5.7 Curva de aprendizaje</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibracion">5.8 Calibración</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-dicen-los-coeficientes">5.9 Qué dicen los coeficientes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#por-sector">5.10 Por sector</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por Jaime Andrés Besada e Iván Prada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

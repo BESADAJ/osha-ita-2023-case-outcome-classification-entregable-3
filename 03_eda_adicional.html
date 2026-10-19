@@ -1,0 +1,686 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3. EDA: detalles que no están en el dashboard &#8212; OSHA ITA 2023: resultado y días de ausencia de los casos reportados (entregable 3)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=78d55cf8"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/translations.js?v=d190bf04"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '03_eda_adicional';</script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="4. EDA mejorado para el entregable 3" href="04_eda_mejorado.html" />
+    <link rel="prev" title="2. EDA: lo que muestra el dashboard" href="02_eda_dashboard.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Saltar al contenido principal</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Volver arriba</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Advertencia de versión"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">OSHA ITA 2023: resultado y días de ausencia de los casos reportados (entregable 3)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Búsqueda</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Informe del entregable 3
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Datos (entregables 1 y 2, con mejoras)</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_contexto.html">1. Contexto y datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_eda_dashboard.html">2. EDA: lo que muestra el dashboard</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. EDA: detalles que no están en el dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_eda_mejorado.html">4. EDA mejorado para el entregable 3</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos del entregable 3</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="05_modelo_base_e2.html">5. Modelo base del entregable 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_diseno_pipeline.html">6. Diseño del pipeline combinatorio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_optimizacion_hiperparametros.html">7. Optimización de hiperparámetros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_optimizacion_computacional.html">8. Optimización computacional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_clasificacion.html">9. Evaluación de los modelos de clasificación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_regresion.html">10. Evaluación de los modelos de regresión</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_interpretabilidad.html">11. Interpretabilidad global y local (SHAP y LIME)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_robustez.html">12. Robustez y estabilidad de las métricas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_comparacion_estadistica.html">13. Comparación estadística de los modelos</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Cierre</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="14_conclusiones.html">14. Conclusiones y límites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_reproducibilidad.html">15. Reproducibilidad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="anexo_entregable1.html">OSHA ITA 2023: primer entregable del proyecto de Machine Learning</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/03_eda_adicional.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="claro/oscuro" aria-label="claro/oscuro" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>3. EDA: detalles que no están en el dashboard</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descripcion-de-cada-variable">3.1 Descripción de cada variable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relaciones-entre-predictores">3.2 Relaciones entre predictores</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estructura-multivariada">3.3 Estructura multivariada</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#auditoria-de-fuga-de-informacion">3.4 Auditoría de fuga de información</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#establecimientos-repeticiones-y-calidad-de-datos">3.5 Establecimientos, repeticiones y calidad de datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tiempo-y-geografia">3.6 Tiempo y geografía</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#del-eda-al-modelo">3.7 Del EDA al modelo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correcciones-solicitadas-en-el-entregable-1">3.8 Correcciones solicitadas en el entregable 1</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="eda-detalles-que-no-estan-en-el-dashboard">
+<h1>3. EDA: detalles que no están en el dashboard<a class="headerlink" href="#eda-detalles-que-no-estan-en-el-dashboard" title="Link to this heading">#</a></h1>
+<p>Todo con los datos de desarrollo. El análisis completo, con el código, está en el anexo (notebook del
+entregable 1). Aquí van los resultados que sostienen las decisiones del modelo.</p>
+<section id="descripcion-de-cada-variable">
+<h2>3.1 Descripción de cada variable<a class="headerlink" href="#descripcion-de-cada-variable" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Categóricas.</strong> NAICS tiene 715 códigos distintos y 700 de ellos pesan menos del 1 % cada uno (en total, el
+39 % de los casos). SOC tiene 598 códigos más los faltantes (582 categorías por debajo del 1 %, 36,7 % de los casos). Estado tiene 55, con California
+como el más frecuente (13,3 %). El 93,7 % de los casos viene de establecimientos privados (código 1) y el 89,7 % son
+lesiones.</p></li>
+<li><p><strong>Categorías raras.</strong> 354 códigos NAICS y 309 SOC tienen menos de 30 casos (1,2 % y 0,9 % de los casos).
+Se conservan: la regularización L2 de la regresión logística contrae los coeficientes con poco soporte y
+<code class="docutils literal notranslate"><span class="pre">handle_unknown='ignore'</span></code> evita errores si aparece un código nuevo en la prueba.</p></li>
+<li><p><strong>Horas.</strong> La hora de inicio es asimétrica a la derecha (asimetría 0,77; mediana 7 h, turnos de mañana). La
+hora del incidente es casi simétrica (asimetría −0,01; mediana 12 h). Las pruebas de normalidad rechazan en las
+dos (p ≈ 0), algo esperable con tantos datos y con una variable discreta y acotada; no se transforman. Como
+la hora es cíclica (la hora 23 está pegada a la 0), se calculó también la media circular (7,3 h y 11,7 h).</p></li>
+<li><p><strong>Valores atípicos.</strong> La regla del IQR no marca ninguno: 0–23 es el rango válido del reloj.</p></li>
+</ul>
+</section>
+<section id="relaciones-entre-predictores">
+<h2>3.2 Relaciones entre predictores<a class="headerlink" href="#relaciones-entre-predictores" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Entre las dos horas:</strong> correlación moderada (Pearson 0,25; Spearman 0,34). La mediana entre el inicio de
+la jornada y el incidente es 4 horas.</p></li>
+<li><p><strong>Horas frente al resultado:</strong> 4 de 18 comparaciones salen significativas tras corregir por comparaciones
+múltiples (Holm), pero el mayor tamaño de efecto es |r| = 0,154: pequeño o despreciable. Las horas no
+ordenan el resultado de forma monótona, por eso se codifican como categorías y no con una pendiente lineal.</p></li>
+<li><p><strong>Entre categóricas:</strong> la asociación más fuerte es NAICS con tipo de establecimiento (V = 0,513). Industria,
+ocupación y establecimiento describen el mismo lugar desde ángulos distintos.</p></li>
+<li><p><strong>Multicolinealidad (GVIF):</strong> solo <code class="docutils literal notranslate"><span class="pre">time_unknown</span></code> pasa el umbral (3,80), por construcción: casi siempre
+coincide con «hora desconocida». El resto queda por debajo de 1,2 una vez ajustado por grados de libertad.</p></li>
+</ul>
+</section>
+<section id="estructura-multivariada">
+<h2>3.3 Estructura multivariada<a class="headerlink" href="#estructura-multivariada" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Dimensionalidad alta:</strong> 10 componentes explican solo el 56,8 % de la varianza y hacen falta 49 para el
+80 %. Esto se debe a que NAICS, SOC y estado aportan cientos de indicadores casi independientes.</p></li>
+<li><p><strong>Atípicos multivariados:</strong> Isolation Forest marca el 16,8 % de los casos y Mahalanobis el 1,2 %, y los dos
+criterios coinciden poco. Sobrerrepresentan enfermedades no traumáticas: son subpoblaciones legítimas, no
+errores, por eso no se eliminan.</p></li>
+<li><p><strong>Grupos:</strong> k-means elige 3 grupos (silueta 0,31) que se distinguen sobre todo por el sector. Su asociación con
+el resultado es baja (V = 0,022): reflejan el tipo de lugar de trabajo, no clases del objetivo.</p></li>
+</ul>
+</section>
+<section id="auditoria-de-fuga-de-informacion">
+<h2>3.4 Auditoría de fuga de información<a class="headerlink" href="#auditoria-de-fuga-de-informacion" title="Link to this heading">#</a></h2>
+<p>Cada predictor se evaluó solo, con una regresión logística de una variable, validada hacia adelante en
+agosto–septiembre. Un AUC cercano a 1 sería una alarma.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Predictor</p></th>
+<th class="head"><p>Macro AUC solo</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">naics_code</span></code></p></td>
+<td><p>0,629</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">soc_code</span></code></p></td>
+<td><p>0,618</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">type_of_incident</span></code></p></td>
+<td><p>0,572</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hora</span> <span class="pre">de</span> <span class="pre">inicio</span></code></p></td>
+<td><p>0,517</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hora</span> <span class="pre">del</span> <span class="pre">incidente</span></code></p></td>
+<td><p>0,517</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">establishment_type</span></code></p></td>
+<td><p>0,515</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">state</span></code></p></td>
+<td><p>0,512</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">time_unknown</span></code></p></td>
+<td><p>0,499</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Ninguno se acerca a 1; el más alto es 0,629. Aun así, el código SOC se asigna retrospectivamente y no se puede
+asegurar que existiera al momento del incidente. Por eso el problema se plantea como clasificación
+retrospectiva.</p>
+</section>
+<section id="establecimientos-repeticiones-y-calidad-de-datos">
+<h2>3.5 Establecimientos, repeticiones y calidad de datos<a class="headerlink" href="#establecimientos-repeticiones-y-calidad-de-datos" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Concentración:</strong> la mediana es de 3 casos por establecimiento y el máximo de 2.249. Los 100 mayores
+concentran el 12,2 % de los casos. Los casos de un mismo establecimiento no son independientes, y por eso la
+partición separa establecimientos completos y el bootstrap remuestrea establecimientos.</p></li>
+<li><p><strong>Duplicados:</strong> no hay filas exactamente duplicadas. Hay 64.748 repeticiones de la pareja
+establecimiento–número de caso, pero repetir el número no demuestra duplicación (cambian fecha o resultado),
+así que no se eliminan.</p></li>
+<li><p><strong>Códigos no documentados:</strong> el tipo de establecimiento 0 (243 casos) no está en el diccionario oficial. Se
+conserva como categoría propia sin suponer que signifique algo.</p></li>
+<li><p><strong>Fechas:</strong> hay 562 casos con fecha de incidente fuera de 2023 (otros años de reporte); se excluyen.</p></li>
+</ul>
+</section>
+<section id="tiempo-y-geografia">
+<h2>3.6 Tiempo y geografía<a class="headerlink" href="#tiempo-y-geografia" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Serie diaria completa y regular:</strong> no hay días sin casos entre el 1 de enero y el corte.</p></li>
+<li><p><strong>Estacionariedad:</strong> ADF (p = 0,109) y KPSS (p &gt; 0,10) no rechazan su hipótesis nula. Los dos resultados no
+son contradictorios pero tampoco concluyentes con un solo año y un ciclo semanal fuerte.</p></li>
+<li><p><strong>Feriados:</strong> reducen el volumen (razón media feriado/día de referencia 0,70; el menor es Memorial Day,
+0,46). Es un efecto de cantidad, no necesariamente de tipo de resultado.</p></li>
+<li><p><strong>Deriva:</strong> la composición del resultado cambia poco entre trimestres (diferencia total máxima 0,036). No hay
+evidencia de un cambio fuerte dentro de 2023, pero sí cambios pequeños que justifican validar hacia adelante.</p></li>
+<li><p><strong>Posible maduración de la etiqueta:</strong> los días de ausencia pueden seguir acumulándose después del reporte,
+así que los casos más recientes podrían figurar como menos graves. No se puede verificar sin versiones
+históricas del archivo.</p></li>
+<li><p><strong>Geografía:</strong> no hay coordenadas, solo estado. Entre los 41 estados con al menos 1.000 casos, la proporción
+de días de ausencia va del 23,5 % al 69,2 %. Puede reflejar composición industrial y prácticas de reporte, no
+riesgo geográfico.</p></li>
+</ul>
+</section>
+<section id="del-eda-al-modelo">
+<h2>3.7 Del EDA al modelo<a class="headerlink" href="#del-eda-al-modelo" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Hallazgo</p></th>
+<th class="head"><p>Decisión</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Fallecimiento es el 0,026 %</p></td>
+<td><p>Conservar 4 clases; métricas macro y por clase; intervalos</p></td>
+</tr>
+<tr class="row-odd"><td><p>Días de ausencia/restricción y fecha de muerte revelan el resultado</p></td>
+<td><p>Excluirlos del modelo</p></td>
+</tr>
+<tr class="row-even"><td><p>Faltantes de SOC y horas no son MCAR</p></td>
+<td><p>Categoría «Unknown» dentro del Pipeline</p></td>
+</tr>
+<tr class="row-odd"><td><p>Códigos nominales de alta cardinalidad</p></td>
+<td><p>One-hot + regularización L2</p></td>
+</tr>
+<tr class="row-even"><td><p>Horas sin relación monótona con el resultado</p></td>
+<td><p>Horas como categorías</p></td>
+</tr>
+<tr class="row-odd"><td><p>Atípicos son subpoblaciones legítimas</p></td>
+<td><p>No eliminar filas</p></td>
+</tr>
+<tr class="row-even"><td><p>Casos agrupados por establecimiento</p></td>
+<td><p>Separar establecimientos; bootstrap por establecimiento</p></td>
+</tr>
+<tr class="row-odd"><td><p>Patrón semanal y feriados</p></td>
+<td><p>Partición hacia adelante con purga de 7 días</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="correcciones-solicitadas-en-el-entregable-1">
+<h2>3.8 Correcciones solicitadas en el entregable 1<a class="headerlink" href="#correcciones-solicitadas-en-el-entregable-1" title="Link to this heading">#</a></h2>
+<p>El entregable 1 obtuvo 4,5/5,0 (base de datos 4,6; EDA 4,6; modelo base 4,2). Los comentarios del profesor y
+dónde se atiende cada uno en este informe:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Comentario del profesor</p></th>
+<th class="head"><p>Qué se hizo</p></th>
+<th class="head"><p>Dónde</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>La brecha entre entrenamiento y validación (0,65 frente a 0,39) no se analiza a fondo</p></td>
+<td><p>Se descompone la brecha por clase. En la logística del entregable 1, Fallecimiento tiene recall 1,0 en entrenamiento y 0 en validación: esa clase sola explica unos 0,25 de los ~0,28 de brecha (el modelo memoriza los pocos fallecimientos con 1.433 columnas). Se repite el análisis con los modelos de este entregable</p></td>
+<td><p>Sección 12.4</p></td>
+</tr>
+<tr class="row-odd"><td><p>La clase Death queda sin tratamiento</p></td>
+<td><p>Se trata con SMOTE, ADASYN y <code class="docutils literal notranslate"><span class="pre">class_weight</span></code> en los 7 modelos y con los 4 optimizadores; se reporta su recall y su precisión con intervalos de Wilson y el balanced accuracy con y sin esa clase</p></td>
+<td><p>Secciones 9.5 y 9.6</p></td>
+</tr>
+<tr class="row-even"><td><p>El diseño descarta cerca de la mitad de los casos sin discutir su costo</p></td>
+<td><p>Se cuantifica el descarte (55,4 %), se explica por qué cada bloque queda fuera y se discute el costo; el bloque de octubre a diciembre de los establecimientos de desarrollo se usa como segunda prueba (solo separa por tiempo) para medir cuánto cuesta exigir establecimientos nuevos</p></td>
+<td><p>Secciones 4.7 y 9.8</p></td>
+</tr>
+<tr class="row-odd"><td><p>El código de entrenamiento no es visible en el notebook</p></td>
+<td><p>Los capítulos nuevos son notebooks con el código que produce cada resultado, y una sección imprime el código fuente real de entrenamiento y evaluación</p></td>
+<td><p>Sección 6.9 y capítulos 6 a 13</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">time_unknown</span></code> supera el umbral de colinealidad que el propio trabajo fija</p></td>
+<td><p>Se recalcula el GVIF (sigue siendo 3,81: es redundante con la hora «Unknown») y se reajustan los 7 mejores modelos sin ella para medir su efecto</p></td>
+<td><p>Secciones 4.6 y 12.5</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Mejoras adicionales al EDA por hallazgos del desarrollo del proyecto (capítulo 4): agrupación jerárquica de
+NAICS y SOC, horas desde el inicio de la jornada, el objetivo de regresión (días de ausencia) y la censura
+de ese objetivo al final del año.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="02_eda_dashboard.html"
+       title="página anterior">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">2. EDA: lo que muestra el dashboard</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="04_eda_mejorado.html"
+       title="siguiente página">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">siguiente</p>
+        <p class="prev-next-title">4. EDA mejorado para el entregable 3</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descripcion-de-cada-variable">3.1 Descripción de cada variable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relaciones-entre-predictores">3.2 Relaciones entre predictores</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estructura-multivariada">3.3 Estructura multivariada</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#auditoria-de-fuga-de-informacion">3.4 Auditoría de fuga de información</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#establecimientos-repeticiones-y-calidad-de-datos">3.5 Establecimientos, repeticiones y calidad de datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tiempo-y-geografia">3.6 Tiempo y geografía</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#del-eda-al-modelo">3.7 Del EDA al modelo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correcciones-solicitadas-en-el-entregable-1">3.8 Correcciones solicitadas en el entregable 1</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por Jaime Andrés Besada e Iván Prada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
