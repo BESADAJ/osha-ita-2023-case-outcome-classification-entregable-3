@@ -93,7 +93,15 @@ axes[0].legend(ncol=4, fontsize=8, loc='upper center', bbox_to_anchor=(1.1, 1.22
 P.save(fig, 'e3_hpo_por_modelo'); plt.show()
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** Con el mismo presupuesto (16 configuraciones), los cuatro métodos llegan a modelos de calidad casi igual
+# en el bucle externo: la balanced accuracy media de sus 140 celdas va de 0,397 (genético) a 0,402
+# (bayesiano), y el RMSE de regresión difiere en la cuarta cifra decimal (1,3705 a 1,3709). Por modelo, las
+# diferencias grandes aparecen solo donde la métrica depende de Fallecimiento (árbol: 0,461 con TPE frente a
+# 0,395 con el genético; SVM: 0,469 con Random frente a 0,445 con TPE), es decir, donde el ruido de esa clase
+# domina. En costo, la búsqueda bayesiana gastó un 17 % más de tiempo (14,1 frente a ~12 horas·núcleo en
+# clasificación) porque explora más las zonas caras del espacio (más árboles, más vecinos); en regresión el
+# genético fue el más barato. En total, la validación anidada consumió unas 51 horas·núcleo en clasificación
+# y 3,1 en regresión, con 8.960 y 2.240 configuraciones evaluadas (26.880 y 6.720 ajustes).
 
 # %% [markdown]
 # ## 7.3 Convergencia: curvas de desempeño en cualquier momento (*anytime*)
@@ -166,7 +174,30 @@ bt_c.round(4)
 bt_r.round(4)
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** **Evidencia cuantitativa de eficiencia.** Las pruebas pareadas sobre las 140 celdas de clasificación
+# confirman lo que muestran las curvas:
+#
+# - **Friedman** sobre el área bajo la curva *anytime* rechaza que los cuatro métodos sean equivalentes
+#   (clasificación χ² = 50,4, p = 6,5·10⁻¹¹; regresión χ² = 24,4, p = 2,1·10⁻⁵). Rangos promedio en
+#   clasificación: bayesiano 2,11 (mejor), genético 2,28, Random 2,49, Grid 3,13.
+# - **Bayesiano frente a Grid:** +0,116 de área *anytime* (gana en el 72 % de las celdas, Holm p < 0,001,
+#   δ de Cliff 0,39, mediano) y +0,112 de calidad con la mitad del presupuesto (t = 8).
+# - **Bayesiano frente a Random:** +0,047 de área (gana en el 66 %, Holm p < 0,001, δ = 0,22, pequeño) y
+#   +0,059 en t = 8. El TPE alcanza con 8 evaluaciones (0,896) más de lo que Random alcanza con 16 (0,901 en
+#   la escala normalizada, prácticamente igual) y el 99 % de su valor final en una mediana de 7.
+# - **Genético frente a Grid:** +0,082 de área (Holm p < 0,001, δ = 0,29). **Genético frente a Random:**
+#   +0,013, no significativo tras Holm (p = 0,23).
+# - En regresión el patrón se repite frente a Grid (bayesiano y genético +0,13, δ ≈ 0,40 a 0,44, Holm
+#   p < 0,001), pero bayesiano, genético y Random quedan empatados (el espacio de Ridge, Lasso y SVR tiene 1 o
+#   2 dimensiones y cualquier método lo cubre).
+#
+# **Pero esa eficiencia no se traduce en mejores modelos finales.** En la métrica externa ninguna
+# diferencia entre métodos es significativa tras Holm (la mayor, bayesiano frente a Random, +0,005 de
+# balanced accuracy, p crudo 0,018 y ajustado 0,11; δ de Cliff 0,06, despreciable). La explicación es que
+# el paisaje es plano: muchas configuraciones distintas dan casi el mismo desempeño, así que el método que
+# encuentra antes la cima solo ahorra presupuesto. La ventaja práctica del bayesiano y del genético es esa:
+# **llegan al mismo nivel con la mitad de evaluaciones**. Grid es el peor porque su rejilla de 16 puntos
+# prueba solo 2 valores de cada hiperparámetro en los modelos con 4 o más (XGBoost, Random Forest).
 
 # %% [markdown]
 # ## 7.5 Tiempo de reloj
@@ -191,7 +222,10 @@ axes[0].set_ylabel('mejor puntaje interno (normalizado)'); axes[0].legend(fontsi
 P.save(fig, 'e3_hpo_anytime_tiempo'); plt.show()
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** En tiempo de reloj el orden se mantiene: el bayesiano alcanza antes su nivel aun gastando más por
+# evaluación, y Grid sigue siendo el más lento en mejorar. Como el presupuesto se fijó en evaluaciones, un
+# método que elige configuraciones caras (como hace TPE al explorar muchos árboles) consume más reloj; aun
+# así su curva queda por encima en casi todo el rango.
 
 # %% [markdown]
 # ## 7.6 Optuna: historia de una búsqueda y superficie explorada
@@ -206,7 +240,7 @@ h = pd.DataFrame(cells['bayes']['history'])
 fig, axes = plt.subplots(1, 2, figsize=(11, 3.8))
 axes[0].scatter(h['eval'], h.score, color=P.OPT_COLORS['bayes'], s=30, zorder=3, label='configuración evaluada')
 axes[0].step(h['eval'], h.score.cummax(), where='post', color=P.INK, lw=1.5, label='mejor hasta t')
-axes[0].axvline(5.5, color=P.INK2, ls='--', lw=1); axes[0].text(5.6, h.score.min(), ' fin de la fase aleatoria', fontsize=8, color=P.INK2)
+axes[0].axvline(5.5, color=P.INK2, ls='--', lw=1); axes[0].text(5.6, h.score.max(), ' fin de la fase aleatoria', fontsize=8, color=P.INK2, va='top')
 axes[0].set_xlabel('prueba (t)'); axes[0].set_ylabel('balanced accuracy interna'); axes[0].set_title('Optuna (TPE): historia de la búsqueda')
 axes[0].legend(fontsize=8, loc='lower right')
 markers = {'grid': 's', 'random': 'o', 'bayes': '^', 'genetic': 'D'}
@@ -223,7 +257,15 @@ plt.colorbar(sc, ax=axes[1], label='balanced accuracy interna')
 P.save(fig, 'e3_hpo_optuna'); plt.show()
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** **Historia:** las 5 primeras pruebas son aleatorias (fase de exploración); desde la sexta el TPE propone
+# configuraciones guiadas por el cociente l(x)/g(x) y la mejor balanced accuracy interna sube de 0,377 a
+# 0,383 en la prueba 10. Después siguen apareciendo configuraciones peores (pruebas 11, 14 y 15): el
+# muestreo desde l(x) mantiene algo de exploración, como se espera de la mejora esperada. **Superficie:** en
+# el plano learning rate × profundidad, la rejilla solo prueba 4 combinaciones (2 × 2); Random reparte puntos
+# por todo el plano; TPE y el genético se concentran en learning rates de 0,01 a 0,1 y profundidades
+# variadas, donde están los puntos más oscuros (mejor puntaje). Los mejores puntajes aparecen en zonas muy
+# distintas del plano con valores casi iguales (0,375 a 0,383): es el paisaje plano que explica por qué los
+# cuatro métodos terminan en modelos equivalentes.
 
 # %% [markdown]
 # ## 7.7 Algoritmo genético: diversidad de la población
@@ -246,7 +288,15 @@ P.save(fig, 'e3_hpo_ga_diversidad'); plt.show()
 gsum.round(3)
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** La diversidad empieza en 0,35 (población aleatoria) y cae rápido: 0,24 en la generación 1, 0,13 en la 2
+# y 0,10 en la 3, para estabilizarse en torno a 0,05. Es decir, en 3 generaciones la población se concentra
+# en una región del espacio. Con 6 individuos y elitismo es una convergencia **rápida, casi prematura**, y
+# explica por qué el genético mejora tan poco después de la evaluación 8 (curva *anytime* casi plana). Las
+# generaciones posteriores a la 4 aparecen en pocas búsquedas: cuando la población converge, muchos hijos
+# repiten configuraciones ya evaluadas, que no consumen presupuesto, y la búsqueda necesita más generaciones
+# para agotar las 16 evaluaciones. Una población mayor o una mutación más fuerte mantendría más diversidad,
+# pero con 16 evaluaciones sería prácticamente una búsqueda aleatoria; es el compromiso de usar un genético
+# con poco presupuesto.
 
 # %% [markdown]
 # ## 7.8 Sesgo de selección: puntaje interno frente a externo
@@ -266,7 +316,14 @@ print('Media global regresión:', round(sb_r.optimismo.mean(), 4), '| % de celda
 tab.round(4)
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** Sorprende que el optimismo medio sea ligeramente **negativo** (−0,002 en clasificación): el puntaje externo
+# es, en promedio, algo mejor que el interno. Hay dos efectos opuestos. El sesgo de selección (elegir el
+# máximo de 16 estimaciones ruidosas) empuja el interno hacia arriba, y por eso en el 58 % de las celdas el
+# interno supera al externo. Pero el modelo final se reajusta con todo el entrenamiento externo (unas 24.000
+# filas), un 50 % más de datos que cada entrenamiento interno (unas 16.000), y eso mejora el externo. Con este
+# presupuesto pequeño y un paisaje plano, el sesgo de selección es pequeño y el efecto del tamaño lo
+# compensa. La validación anidada no cambia mucho las cifras en este problema, pero es la única forma de
+# saberlo; la desviación entre pliegues (±0,06 a ±0,10) es mucho mayor que ese optimismo.
 
 # %% [markdown]
 # ## 7.9 Optimización multi-fidelidad: Successive Halving
@@ -319,4 +376,11 @@ halv = cache.cached('hpo_halving', run_halving)
 halv
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** Successive Halving (η = 3) evaluó 39 configuraciones en 3 rondas (27 con 15 árboles, 9 con 45, 3 con 135)
+# ajustando en total 3.645 árboles, frente a los 32.400 de la búsqueda aleatoria con presupuesto completo:
+# **8,9 veces menos árboles y 4 veces menos tiempo de reloj** (24 frente a 95 segundos con 11 procesos). Su
+# mejor puntaje interno fue igual (0,383 frente a 0,382) y la balanced accuracy externa, prácticamente igual
+# (0,359 frente a 0,362; diferencia menor que la variación entre pliegues). La fidelidad elegida, el número de
+# árboles, funciona porque las configuraciones malas (learning rate muy bajo, árboles muy poco profundos) ya se
+# notan con pocos árboles. Con un paisaje tan plano como este, la multi-fidelidad es la mejora de eficiencia
+# más grande de todo el capítulo.

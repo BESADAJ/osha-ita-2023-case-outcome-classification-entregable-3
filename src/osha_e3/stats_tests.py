@@ -78,7 +78,7 @@ def cd_diagram(names, avg_ranks, cd, ax, title=''):
         ax.hlines(y, r[a] - 0.03, r[b] + 0.03, color='C0', lw=3)
         level += 1
     if title:
-        ax.set_title(title, fontsize=10)
+        ax.set_title(title, fontsize=10, pad=26)
     return groups
 
 
@@ -251,7 +251,23 @@ def group_bca_ci(values, weights, groups, reps=2000, seed=0, alpha=0.05):
     """
     df = pd.DataFrame({'g': groups, 'num': np.asarray(values) * np.asarray(weights), 'den': weights})
     agg = df.groupby('g')[['num', 'den']].sum()
-    res = stats.bootstrap((agg.num.to_numpy(), agg.den.to_numpy()), lambda a, b: a.sum() / b.sum(),
-                          paired=True, vectorized=False, n_resamples=reps, method='BCa',
-                          confidence_level=1 - alpha, random_state=seed)
-    return float(res.confidence_interval.low), float(res.confidence_interval.high)
+    num, den = agg.num.to_numpy(float), agg.den.to_numpy(float)
+    G, S_num, S_den = len(num), num.sum(), den.sum()
+    theta = S_num / S_den
+    # Bootstrap: cada réplica remuestrea G establecimientos con reemplazo (conteos multinomiales).
+    rng = np.random.default_rng(seed)
+    boot = np.empty(reps)
+    for i in range(0, reps, 200):
+        k = min(200, reps - i)
+        w = rng.multinomial(G, np.full(G, 1.0 / G), size=k)
+        boot[i:i + k] = (w @ num) / (w @ den)
+    # Corrección de sesgo z0 y aceleración a (jackknife dejando fuera un establecimiento, O(G)).
+    z0 = stats.norm.ppf(np.clip((boot < theta).mean() + 0.5 * (boot == theta).mean(), 1e-6, 1 - 1e-6))
+    jack = (S_num - num) / (S_den - den)
+    d = jack.mean() - jack
+    a = (d ** 3).sum() / (6.0 * ((d ** 2).sum()) ** 1.5)
+    q = []
+    for z in stats.norm.ppf([alpha / 2, 1 - alpha / 2]):
+        q.append(stats.norm.cdf(z0 + (z0 + z) / (1 - a * (z0 + z))))
+    lo, hi = np.quantile(boot, q)
+    return float(lo), float(hi)

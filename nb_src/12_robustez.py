@@ -47,7 +47,14 @@ pd.DataFrame({'Clasificación: combinación': [f'{M.PRETTY[r.balance]} · {M.PRE
              index=[M.PRETTY[m] for m in bc.index])
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** La variación entre pliegues externos es grande frente a las diferencias entre modelos. En balanced
+# accuracy las desviaciones van de ±0,06 (Naive Bayes, Random Forest) a ±0,10–0,11 (SVM y KNN con SMOTE),
+# mientras que las medias de los 7 modelos caben en un rango de 0,08 (0,389 a 0,469). Los puntos de cada
+# pliegue (izquierda) muestran que un mismo modelo puede pasar de 0,31 a 0,55 (KNN) o de 0,35 a 0,62 (SVM) según el pliegue: los
+# pliegues con 3 o 4 fallecimientos premian a los modelos que los marcan masivamente. En AUC la dispersión
+# es menor (±0,04 a ±0,06) y la logística, XGBoost y SVM quedan arriba (0,71 a 0,73). En regresión, en
+# cambio, la variación entre pliegues es pequeña (±0,008 a ±0,014 de RMSE) y ordena a los modelos con
+# claridad.
 
 # %% [markdown]
 # ## 12.2 Sensibilidad a la semilla aleatoria
@@ -89,7 +96,24 @@ axes[0].legend(fontsize=7.5, ncol=2); axes[0].set_title('Clasificación'); axes[
 fig.tight_layout(); P.save(fig, 'e3_robustez_semillas'); plt.show()
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** Con los datos fijos, cambiar solo la semilla del algoritmo mueve poco a los modelos estables y mucho a
+# los inestables:
+#
+# - **Random Forest con SMOTE** (clasificación) y todas las combinaciones de regresión: desviación entre
+#   semillas de 0,004 en balanced accuracy y de ≤ 0,001 en RMSE, entre 10 y 15 veces menor que la
+#   desviación entre pliegues.
+# - **SVM con SMOTE** es el más sensible: con la búsqueda aleatoria, la media de los 5 pliegues va de unas
+#   semillas a otras en un rango de 0,075 (desviación 0,032), y con la semilla 42 obtuvo 0,469, la más alta
+#   de las cuatro (la media de las cuatro semillas es 0,426). Es decir, parte de su primer puesto en la tabla
+#   maestra se debe a la semilla: SMOTE genera fallecimientos sintéticos distintos con cada semilla y la
+#   búsqueda aleatoria cae en configuraciones distintas.
+# - XGBoost con `class_weight` queda en medio (desviación 0,011).
+# - **Los hiperparámetros elegidos cambian siempre** (20 configuraciones distintas en 20 búsquedas por
+#   combinación): el paisaje es plano y muchas configuraciones son equivalentes, lo que ya se vio en el
+#   capítulo 7.
+#
+# La conclusión práctica: el primer puesto de SVM con SMOTE no es robusto a la semilla, y la combinación
+# elegida «mejor» por balanced accuracy debe leerse con esa cautela.
 
 # %% [markdown]
 # ## 12.3 ¿Las diferencias entre modelos superan la variabilidad de cada modelo?
@@ -116,7 +140,14 @@ print('Clasificación (balanced accuracy):'); display(diff_vs_noise(fc, mc, 'rec
 print('Regresión (RMSE):'); display(diff_vs_noise(fr, mr, 'rmse', False).round(4))
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** En clasificación, ninguna de las diferencias entre el mejor (SVM con SMOTE) y los demás supera la
+# desviación entre pliegues del propio modelo salvo en Random Forest y Naive Bayes, y aun en esos el mejor
+# gana solo en 2 y 5 de los 5 pliegues respectivamente. La logística, XGBoost y el árbol pierden en promedio
+# por 0,01 a 0,04, menos que su propia variación (0,07 a 0,08). En regresión ocurre al revés: Random Forest
+# gana a SVR, al árbol y a KNN en los 5 pliegues, y la diferencia con el árbol y con KNN (0,014 a 0,016)
+# supera la desviación de esos modelos; frente a XGBoost, Lasso y Ridge la diferencia (0,001 a 0,004) es
+# menor que el ruido. Con diferencias así de pequeñas y tantas comparaciones posibles, mirar las medias no
+# basta: el capítulo 13 aplica las pruebas formales.
 
 # %% [markdown]
 # ## 12.4 Corrección del entregable 1: la brecha entre entrenamiento y validación
@@ -171,7 +202,23 @@ out['aporte de las 3 clases frecuentes'] = out['brecha balanced acc.'] - out['ap
 out.round(3)
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** **La brecha del entregable 1 se debe casi entera a Fallecimiento.** En la logística del entregable 1 la
+# brecha de balanced accuracy entre entrenamiento y validación es de 0,26 a 0,29 en los 3 pliegues, y en
+# todos el recall de Fallecimiento es 1,0 en entrenamiento y 0 en validación: esa clase aporta 0,25 a la
+# brecha y las otras tres solo 0,01 a 0,04. Con 1.433 columnas one-hot y `class_weight='balanced'`, el modelo
+# tiene parámetros suficientes para separar los 16 a 37 fallecimientos del entrenamiento (cada uno pesa
+# como unos 3.900 casos de las demás clases), pero esa separación es memoria, no un patrón: no reconoce
+# ninguno de los fallecimientos de validación. En las tres clases frecuentes el modelo casi no sobreajusta.
+#
+# **En los modelos de este entregable pasa lo mismo, con menos intensidad en algunos.** La brecha va de 0,09
+# (KNN) a 0,30 (Random Forest), y Fallecimiento aporta entre el 51 % (KNN) y el 91 % (Naive Bayes) de ella: la
+# logística, Random Forest, XGBoost y Naive Bayes reconocen casi todos los fallecimientos de entrenamiento
+# (recall 0,85 a 1,0) y muy pocos en validación (0 a 0,13). En las tres clases frecuentes la brecha es de
+# 0,02 a 0,05, típica de un modelo con poca varianza. Agrupar NAICS y SOC (210 columnas en lugar de 1.433)
+# no basta para evitar que se memoricen 5 a 9 casos. **Conclusión:** el problema no es sobreajuste general,
+# sino que con menos de 10 ejemplos de una clase no hay patrón que aprender; las métricas de 4 clases
+# sobrestiman la brecha y el desempeño de entrenamiento, y por eso el informe reporta también las métricas
+# de las 3 clases frecuentes.
 
 # %% [markdown]
 # ## 12.5 Corrección del entregable 1: ¿qué pasa si se quita `time_unknown`?
@@ -205,7 +252,15 @@ for m in P.MODEL_ORDER_CLF:
 pd.DataFrame(rows).set_index('modelo').round(4)
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** Quitar `time_unknown` no cambia nada relevante: las diferencias en balanced accuracy, F1 y AUC van de 0 a
+# 0,02, todas mucho menores que la desviación entre pliegues (0,06 a 0,08); en el árbol la diferencia es
+# exactamente 0 (nunca usó esa variable) y en Random Forest y SVM es de una milésima. Los cambios mayores
+# son en KNN y Naive Bayes, que mejoran ligeramente sin ella (AUC +0,016 y +0,021): son los dos modelos que
+# tratan todas las columnas por igual (distancias o independencia), así que contar dos veces la misma
+# información (hora desconocida) les perjudica. Coherente con el umbral de colinealidad del entregable 1,
+# **la variable sobra**: no aporta información y en dos modelos estorba un poco. No se reentrenaron las 140
+# combinaciones sin ella (no cambiaría las conclusiones y costaría otra corrida completa); queda anotado
+# como decisión para cualquier modelo que se use después.
 
 # %% [markdown]
 # ## 12.6 Diseño alternativo: validación anidada con pliegues temporales (corrida de Iván Prada)
@@ -244,4 +299,16 @@ top_iv = pooled[~pooled.model.isin(['dummy'])].sort_values('BA_pooled', ascendin
 top_iv[['model', 'balance', 'optimizer', 'deaths', 'hits', 'pred_death', 'prec_death', 'BA_pooled']].round(4)
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** **Los dos diseños coinciden en lo que importa y discrepan en el balanced accuracy.** Sobre las 108
+# combinaciones comunes, el ordenamiento por AUC macro es bastante parecido entre diseños (Spearman 0,77), el
+# de F1 macro razonablemente (0,65) y el de balanced accuracy solo moderadamente (0,48). Es lo esperado: AUC y
+# F1 dependen poco de Fallecimiento y el balanced accuracy depende mucho, y cada diseño tiene muy pocos
+# fallecimientos en sus pliegues (12 en total en el temporal; 9 en esta submuestra).
+#
+# La corrida temporal llega a la misma advertencia por otro camino: su mejor balanced accuracy (0,516,
+# XGBoost con `class_weight` y búsqueda bayesiana) acierta 8 de 12 fallecimientos marcando 5.337 casos como
+# fallecimiento (precisión del 0,15 %). Las seis combinaciones con mejor balanced accuracy en ese diseño
+# tienen la misma firma: miles de casos marcados para acertar 4 a 8 fallecimientos. **Conclusiones robustas
+# a los dos diseños:** (1) el desempeño en las clases frecuentes es moderado (AUC ~0,70); (2) ningún modelo
+# detecta Fallecimiento de forma útil; (3) las combinaciones «ganadoras» por balanced accuracy lo son por
+# marcar Fallecimiento masivamente, no por clasificar mejor.

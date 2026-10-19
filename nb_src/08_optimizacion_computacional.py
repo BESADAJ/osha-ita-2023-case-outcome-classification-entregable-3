@@ -62,13 +62,17 @@ specs = {
     'XGBoost hist (200 árboles)': lambda: XGBClassifier(n_estimators=200, max_depth=6, tree_method='hist', n_jobs=1, verbosity=0),
     'LinearSVC': lambda: LinearSVC(C=0.1, dual=True, max_iter=3000, tol=1e-3),
 }
+# Para medir tiempos se usan las 3 clases frecuentes: con n = 2.000 no aparece ningún fallecimiento
+# y XGBoost exige que estén todas las clases.
+keep3 = yall > 0
+X3, y3 = Xall[keep3], yall[keep3] - 1
 def run_scaling():
     with threadpool_limits(1):
-        out = X.scaling_curves(Xall, yall, ns, {k: v for k, v in specs.items() if 'Random' not in k}, repeats=2)
-        rf = X.scaling_curves(Xall.toarray()[:max(ns)], yall, ns, {k: v for k, v in specs.items() if 'Random' in k}, repeats=1)
+        out = X.scaling_curves(X3, y3, ns, {k: v for k, v in specs.items() if 'Random' not in k}, repeats=2)
+        rf = X.scaling_curves(X3[:max(ns)].toarray(), y3, ns, {k: v for k, v in specs.items() if 'Random' in k}, repeats=1)
         knn_rows = []
         for n in ns:
-            knn = KNeighborsClassifier(31, algorithm='brute', n_jobs=1).fit(Xall[:n], yall[:n])
+            knn = KNeighborsClassifier(31, algorithm='brute', n_jobs=1).fit(X3[:n], y3[:n])
             t, sd, mem, _ = X.timed(lambda: knn.predict(Xte[:2000]), 2)
             knn_rows.append({'modelo': 'KNN (predicción de 2.000 casos)', 'n': n, 'fit_s': t, 'fit_sd': sd, 'mem_mb': mem})
     return pd.concat([out, rf, pd.DataFrame(knn_rows)], ignore_index=True)
@@ -85,10 +89,21 @@ P.save(fig, 'e3_comp_escalamiento'); plt.show()
 expo.round(2).to_frame()
 
 # %% [markdown]
-# **Interpretación.** La interpretación cuantitativa se completa en la tabla 8.10 con los valores
-# medidos. Como referencia teórica: Naive Bayes y LinearSVC deberían tener pendiente cercana a 1
-# (una pasada por los datos, O(n·p)); los árboles y bosques algo más que 1 por el factor log n del
-# ordenamiento; KNN por fuerza bruta debería crecer linealmente con n por consulta.
+# **Interpretación.** La teoría predice pendiente ≈ 1 para todos estos modelos (lineales en n, salvo
+# el factor log n de los árboles). Lo medido:
+#
+# - **Logística (1,08), árbol (1,07) y Random Forest (1,03):** coinciden con la teoría; el factor
+#   log n del ordenamiento apenas se nota en este rango.
+# - **KNN (0,87):** la predicción por fuerza bruta es lineal en n por consulta; la pendiente algo menor
+#   que 1 se debe a costos fijos por consulta que pesan más con n pequeño.
+# - **LinearSVC (1,33):** algo superlineal: con más datos el solver dual necesita más iteraciones para
+#   converger (el costo por época es lineal, pero el número de épocas crece).
+# - **Naive Bayes (0,71) y XGBoost hist (0,63):** sublineales en este rango porque dominan costos fijos
+#   (crear los histogramas y los árboles en XGBoost, la validación de entrada en Naive Bayes); con n
+#   mucho mayor la pendiente tendería a 1.
+#
+# En conjunto, ningún modelo de los usados muestra el comportamiento cuadrático que impediría la
+# corrida; el cuadrático es el SVM con núcleo (sección 8.7).
 
 # %% [markdown]
 # ## 8.3 KNN: fuerza bruta, árboles de búsqueda y vecinos aproximados (FAISS)
@@ -106,13 +121,23 @@ knn = cache.cached('complexity_knn', run_knn)
 knn.round(4)
 
 # %% [markdown]
-# **Interpretación.** (Se completa con los números medidos; ver resumen 8.10.)
+# **Interpretación.** Con las 293 columnas one-hot, la fuerza bruta tarda 9,0 s en predecir 5.000 casos.
+# Proyectando a 10 dimensiones baja a 0,83 s. En dimensión baja, KD-Tree (0,54 s) ya mejora a la fuerza
+# bruta y Ball Tree (1,15 s) no, porque con 30.000 puntos y p = 10 el árbol todavía poda poco. FAISS IVF
+# es el más rápido: 0,06 s con `nprobe = 1` (recupera el 97 % de los 31 vecinos exactos) y 0,20 s con
+# `nprobe = 8` (99,7 %). Es entre 4 y 14 veces más rápido que la fuerza bruta en el mismo espacio, y 46
+# veces más rápido que la fuerza bruta en el one-hot, **sin pérdida de balanced accuracy** (0,353 frente
+# a 0,353). El compromiso exactitud-velocidad de la aproximación aquí es casi gratis: un 3 % de vecinos
+# distintos no cambia el voto. Lo que sí cuesta es la proyección SVD (0,371 → 0,353): con 10 componentes
+# se pierde información de las categorías. Por eso la corrida usó fuerza bruta en el one-hot. FAISS sería
+# la opción para predecir los 127.391 casos de la prueba con KNN.
 
 # %% [markdown]
 # ## 8.4 Ridge y Lasso: solvers
 #
-# Ridge con Cholesky necesita la matriz densa y resuelve un sistema p × p (O(n·p² + p³)); SAGA y
-# los gradientes conjugados trabajan sobre la matriz dispersa con costo por época lineal en n y p.
+# Ridge con Cholesky resuelve un sistema p × p (O(n·p² + p³)); SAGA y los gradientes conjugados tienen
+# costo por época lineal en n y p. (En scikit-learn 1.3, SAGA no ajusta intercepto con matrices
+# dispersas, así que se le pasa la matriz densa; los gradientes conjugados sí usan la dispersa.)
 # Para Lasso se compara el descenso por coordenadas con un gradiente estocástico con penalización
 # L1 (la familia de SAGA). Datos: objetivo de regresión, 20.000 casos de desarrollo.
 
@@ -122,6 +147,15 @@ enc_r = M.make_encoder().fit(rdev[D.FEATURES].iloc[:20000])
 Ar, Br = enc_r.transform(rdev[D.FEATURES].iloc[:20000]), enc_r.transform(rtest[D.FEATURES])
 lin = cache.cached('complexity_linear', lambda: X.linear_solvers(Ar, rdev.y_reg.to_numpy()[:20000], Br, rtest.y_reg.to_numpy()))
 lin.round(4)
+
+# %% [markdown]
+# **Interpretación.** Con p = 210 la teoría se invierte: Cholesky (O(n·p² + p³)) es muy barato porque
+# p³ ≈ 9·10⁶ es poco, y SAGA (0,65 s) es 15 veces más lento que Cholesky (0,04 s): necesita varias pasadas
+# por los datos para converger y se le debe pasar la matriz densa. El ganador es el gradiente conjugado
+# sobre la matriz **dispersa** (0,02 s y 3,1 MB frente a 17,4 MB), porque solo recorre los valores no nulos
+# (9 por fila). Los tres llegan al mismo RMSE (1,210). SAGA solo compensa cuando p es tan grande que el
+# p³ de Cholesky es prohibitivo o los datos no caben en memoria. En Lasso, el gradiente estocástico con
+# L1 es 2 veces más rápido que el descenso por coordenadas y da el mismo RMSE (1,188).
 
 # %% [markdown]
 # ## 8.5 Naive Bayes: aprendizaje incremental con `partial_fit`
@@ -135,18 +169,41 @@ nb = cache.cached('complexity_nb', lambda: X.naive_bayes_online(Xall, yall, Xte,
 nb.round(4)
 
 # %% [markdown]
+# **Interpretación.** `partial_fit` por bloques de 20.000 casos da exactamente el mismo modelo
+# (balanced accuracy 0,3918 en ambos: Naive Bayes solo suma conteos por clase) con la décima parte de memoria
+# pico (4,9 MB frente a 50,7 MB) y el mismo tiempo. Con todo el desarrollo (269.516 casos) la memoria no
+# es un problema, pero el método escala a archivos de cualquier tamaño leyéndolos por partes.
+
+# %% [markdown]
 # ## 8.6 XGBoost: método exacto, histogramas, early stopping y GPU
 #
 # 100.000 casos de entrenamiento, 20.000 de validación (para early stopping) y la muestra de prueba.
 # `hist` discretiza cada variable en ≤ 256 intervalos y busca divisiones sobre los histogramas en vez
-# de ordenar todos los valores. Early stopping detiene el boosting cuando el log-loss de validación
-# deja de mejorar 20 rondas seguidas.
+# de ordenar todos los valores. Early stopping detiene el boosting cuando el log-loss de un conjunto de
+# validación independiente deja de mejorar 20 rondas seguidas (máximo 1.000 árboles); se compara con
+# 1.000 árboles fijos.
 
 # %%
 def run_xgb():
     return X.xgboost_methods(Xall[:100000], yall[:100000], Xall[100000:120000], yall[100000:120000], Xte, yte, gpu=True)
 xgbt = cache.cached('complexity_xgb', run_xgb)
 xgbt.round(4)
+
+# %% [markdown]
+# **Interpretación.**
+#
+# - **`hist` frente a exacto:** 3,9 veces más rápido (4,4 s frente a 17,2 s con 400 árboles) con el mismo
+#   desempeño (balanced accuracy 0,400 frente a 0,401; log-loss 0,928 frente a 0,929). Con variables
+#   binarias, cada columna tiene solo 2 valores, así que el histograma no pierde nada.
+# - **Early stopping:** se detuvo en 802 árboles (de 1.000) y obtuvo un log-loss de prueba de 0,931, mejor
+#   que con 1.000 árboles fijos (0,934): evita el leve sobreajuste de las últimas rondas. Pero en tiempo
+#   costó 126 s frente a 11 s, porque en esta versión de XGBoost evaluar el conjunto de validación en cada
+#   ronda es caro. Además, el óptimo está en torno a 400–800 árboles con learning rate 0,1, así que aquí la
+#   parada temprana mejora poco: tiene sentido con presupuestos de árboles mucho mayores.
+# - **GPU (RTX 3050):** 5,1 s frente a 4,4 s en CPU con 12 hilos (aceleración de 0,86, es decir, más
+#   lenta) y el mismo desempeño. Con 100.000 filas y 210 columnas binarias, el costo de copiar los datos a la
+#   GPU y lanzar los núcleos no se amortiza; la GPU convendría con millones de filas o árboles más
+#   profundos. Por eso la corrida principal usó CPU.
 
 # %% [markdown]
 # ## 8.7 SVM: núcleo RBF frente a LinearSVC y SGD
@@ -163,6 +220,16 @@ ax.set_xscale('log'); ax.set_yscale('log'); ax.set_xlabel('n (escala log)'); ax.
 ax.set_title('SVM: costo de entrenamiento frente a n'); ax.legend(fontsize=8)
 P.save(fig, 'e3_comp_svm'); plt.show()
 svm.round(4)
+
+# %% [markdown]
+# **Interpretación.** El SVM con núcleo RBF tiene un exponente empírico cercano a 2 (pasar de 2.000 a
+# 12.000 casos multiplica por 33 el tiempo: de 0,39 s a 13,1 s), coherente con su complejidad O(n²·p) a
+# O(n³). Extrapolando, con 24.000 casos (un entrenamiento externo) tardaría cerca de 1 minuto por ajuste, y
+# cada combinación necesita 245 ajustes; con el desarrollo completo (269.516) serían horas por ajuste.
+# `LinearSVC` y SGD crecen casi linealmente (LinearSVC: 0,06 s con 12.000 y 0,98 s con 64.000) y su
+# predicción es instantánea. En desempeño, el RBF es apenas mejor con el mismo n (0,390 frente a 0,389 con
+# 12.000), y LinearSVC con 64.000 casos (0,400) supera al RBF con el máximo de 12.000 que es viable
+# entrenar: más datos con un modelo lineal valen más que el núcleo con pocos datos.
 
 # %% [markdown]
 # ## 8.8 Paralelización con joblib
@@ -185,6 +252,14 @@ def work(i):
     return i
 jb = cache.cached('complexity_joblib', lambda: X.joblib_backends(work, n_tasks=12, n_jobs=6))
 jb.round(2)
+
+# %% [markdown]
+# **Interpretación.** Con 6 procesos `loky` acelera 2,2 veces y `threading` 4,2 veces. Que los hilos ganen
+# a los procesos se explica porque el solver SAGA está escrito en Cython y libera el GIL, así que los hilos
+# trabajan en paralelo de verdad sin el costo de arrancar procesos y copiarles los datos (que en `loky` se
+# paga en cada lote de tareas cortas). La aceleración queda lejos de 6 por el ancho de banda de memoria
+# compartido. Para la corrida principal se usó `loky` igualmente: allí cada tarea dura minutos (el costo
+# de arranque es despreciable) y mezcla código Python (Optuna, DEAP, imblearn) que no libera el GIL.
 
 # %% [markdown]
 # ## 8.9 Perfilamiento: dónde se va el tiempo de una búsqueda
@@ -227,6 +302,16 @@ prof['sin caché']['profile'].round(3)
 prof['con caché']['profile'].round(3)
 
 # %% [markdown]
+# **Interpretación.** El perfil muestra el cuello de botella real, que no era el modelo. Sin caché, la
+# búsqueda de 4 configuraciones tardó 127 s y el 88 % del tiempo (112 s) se fue en `fit_resample` de
+# ADASYN, concretamente en la búsqueda de vecinos (`kneighbors`), que se repetía en cada configuración y en
+# cada pliegue. LinearSVC en sí costaba ~13 s. Con la caché (codificación y remuestreo una vez por pliegue
+# interno) la misma búsqueda tardó 42 s, **3 veces menos con exactamente el mismo resultado** (0,3785 en
+# ambos casos), y el tiempo restante se reparte entre ADASYN (28 s, una vez por pliegue) y el modelo (13
+# s). Con 16 configuraciones la ganancia es mayor. Es un ejemplo de lo que pide la guía: perfilar antes de
+# optimizar; la intuición habría apuntado al modelo y no al remuestreo.
+
+# %% [markdown]
 # ## 8.10 Resumen: modelo estándar frente a optimizado
 
 # %%
@@ -238,26 +323,42 @@ def row(modelo, est, opt, comp_est, comp_opt, fit_e, fit_o, pred_e, pred_o, mem_
             f'Desempeño estándar': perf_e, f'Desempeño optimizado': perf_o, 'Métrica': metric}
 k = knn.set_index('método'); xg = xgbt.set_index('método'); l = lin.set_index('método'); n_ = nb.set_index('método')
 sv = svm[svm.n == svm[svm['método'] == 'SVC (RBF)'].n.max()].set_index('método')
-ri, ro = 'Ridge (cholesky, denso)', 'Ridge (SAGA)'
+ri, ro = 'Ridge (cholesky, denso)', 'Ridge (sparse_cg)'
+xe, xh = 'exact (CPU, 12 hilos), 400 árboles', 'hist (CPU, 12 hilos), 400 árboles'
 kb = [i for i in k.index if i.startswith('fuerza bruta (SVD')][0]; kf = [i for i in k.index if 'nprobe=8' in i][0]
 summary = pd.DataFrame([
     row('KNN', kb, kf, 'O(n·p)/consulta', 'O((n/nlist)·nprobe·p)', k.loc[kb, 'fit_s'], k.loc[kf, 'fit_s'],
         k.loc[kb, 'predict_s'], k.loc[kf, 'predict_s'], k.loc[kb, 'mem_mb'], k.loc[kf, 'mem_mb'],
         k.loc[kb, 'balanced_accuracy'], k.loc[kf, 'balanced_accuracy'], 'balanced acc.'),
-    row('Ridge', ri, ro, 'O(n·p² + p³)', 'O(n·p) por época', l.loc[ri, 'fit_s'], l.loc[ro, 'fit_s'],
+    row('Ridge', ri, ro, 'O(n·p² + p³)', 'O(nnz·iter), disperso', l.loc[ri, 'fit_s'], l.loc[ro, 'fit_s'],
         l.loc[ri, 'predict_s'], l.loc[ro, 'predict_s'], l.loc[ri, 'mem_mb'], l.loc[ro, 'mem_mb'],
         l.loc[ri, 'rmse'], l.loc[ro, 'rmse'], 'RMSE'),
     row('Naive Bayes', n_.index[0], n_.index[1], 'O(n·p), todo en memoria', 'O(n·p), por bloques',
         n_.iloc[0].fit_s, n_.iloc[1].fit_s, np.nan, np.nan, n_.iloc[0].mem_mb, n_.iloc[1].mem_mb,
         n_.iloc[0].balanced_accuracy, n_.iloc[1].balanced_accuracy, 'balanced acc.'),
-    row('XGBoost', 'exact (CPU, 12 hilos)', 'hist + early stopping (CPU)', 'O(T·p·n log n)', 'O(T·p·n), T menor',
-        xg.loc['exact (CPU, 12 hilos)', 'fit_s'], xg.loc['hist + early stopping (CPU)', 'fit_s'],
-        xg.loc['exact (CPU, 12 hilos)', 'predict_s'], xg.loc['hist + early stopping (CPU)', 'predict_s'],
-        xg.loc['exact (CPU, 12 hilos)', 'mem_mb'], xg.loc['hist + early stopping (CPU)', 'mem_mb'],
-        xg.loc['exact (CPU, 12 hilos)', 'balanced_accuracy'], xg.loc['hist + early stopping (CPU)', 'balanced_accuracy'], 'balanced acc.'),
+    row('XGBoost', xe, xh, 'O(T·p·n log n)', 'O(T·p·n) + O(T·p·bins)', xg.loc[xe, 'fit_s'], xg.loc[xh, 'fit_s'],
+        xg.loc[xe, 'predict_s'], xg.loc[xh, 'predict_s'], xg.loc[xe, 'mem_mb'], xg.loc[xh, 'mem_mb'],
+        xg.loc[xe, 'balanced_accuracy'], xg.loc[xh, 'balanced_accuracy'], 'balanced acc.'),
     row('SVM', 'SVC (RBF)', 'LinearSVC', 'O(n²·p) a O(n³)', 'O(n·p) por época',
         sv.loc['SVC (RBF)', 'fit_s'], sv.loc['LinearSVC', 'fit_s'], sv.loc['SVC (RBF)', 'predict_s'], sv.loc['LinearSVC', 'predict_s'],
         sv.loc['SVC (RBF)', 'mem_mb'], sv.loc['LinearSVC', 'mem_mb'], sv.loc['SVC (RBF)', 'balanced_accuracy'],
         sv.loc['LinearSVC', 'balanced_accuracy'], 'balanced acc.'),
 ])
 summary.round(4).set_index('Modelo')
+
+# %% [markdown]
+# **Interpretación.** Resumen de las optimizaciones con su efecto medido:
+#
+# | Modelo | Cambio | Efecto en tiempo | Efecto en memoria | Efecto en desempeño |
+# |---|---|---|---|---|
+# | KNN | FAISS IVF en lugar de fuerza bruta (mismo espacio de 10 dimensiones) | predicción 4 veces más rápida | despreciable | ninguno (0,353) |
+# | Ridge | gradiente conjugado sobre la matriz dispersa en lugar de Cholesky denso | 2 veces más rápido | 5,5 veces menos | ninguno (RMSE 1,210) |
+# | Naive Bayes | `partial_fit` por bloques | igual | 10 veces menos | ninguno |
+# | XGBoost | `hist` en lugar de exacto | 3,9 veces más rápido | igual | ninguno |
+# | SVM | LinearSVC en lugar de SVC con núcleo RBF (12.000 casos) | 220 veces más rápido al entrenar y 3.000 al predecir | 3,4 veces menos | ninguno (0,389 frente a 0,390) |
+# | Búsqueda | caché de codificación y remuestreo por pliegue | 3 veces más rápida | algo más (guarda 3 matrices) | ninguno |
+#
+# En todos los casos el desempeño se mantuvo y el costo bajó; el análisis de complejidad anticipó cuáles
+# cambios iban a importar (SVM, KNN) y el perfilamiento encontró el que la teoría no mostraba (el remuestreo
+# repetido). La GPU y el early stopping, en cambio, no ayudaron con el tamaño de este problema.
+

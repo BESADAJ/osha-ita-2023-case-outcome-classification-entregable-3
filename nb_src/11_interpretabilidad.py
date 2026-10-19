@@ -62,7 +62,19 @@ display(by_var.round(4))
 imp.sort_values('total', ascending=False).head(12).round(4)
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** El mejor modelo de clasificación según la validación anidada es SVM lineal con SMOTE (búsqueda
+# aleatoria), así que sus SHAP son exactos y aditivos en la escala de la función de decisión. Para la clase
+# «días de ausencia» domina el **tipo de incidente**: una enfermedad respiratoria (`type_of_incident=3`)
+# empuja con fuerza hacia días de ausencia (+1,45), y las enfermedades «otras» (6) y la pérdida auditiva (5)
+# empujan en contra (−0,5). Le siguen categorías concretas de sector y ocupación (transporte aéreo,
+# `naics3=481`; ocupaciones de despacho y distribución, `soc_minor=43-5`). Sumando todas las clases, el
+# orden de las variables es subsector NAICS > grupo SOC > tipo de incidente > estado, el mismo que la V de
+# Cramér del capítulo 4. Las horas aportan poco. `time_unknown` aparece con peso propio, pero es la misma
+# información que `incident_hour=Unknown` (sección 4.6): las dos columnas se reparten el crédito.
+#
+# Las contribuciones a Fallecimiento son grandes y dispersas (estado, hora de inicio, sector). Con 9
+# fallecimientos reales y miles sintéticos de SMOTE, el modelo aprendió a reconocer las combinaciones de
+# esos pocos casos, no un patrón general; por eso esas contribuciones no se interpretan.
 
 # %% [markdown]
 # ## 11.2 Clasificación: interpretabilidad local
@@ -75,18 +87,28 @@ imp.sort_values('total', ascending=False).head(12).round(4)
 pc = pipe_c.predict_proba(test_c[D.FEATURES].iloc[ic]); yy = yt_c[ic]
 ok = np.where((pc.argmax(1) == CLASS) & (yy == CLASS))[0]; ok = ok[np.argmax(pc[ok, CLASS])]
 bad = np.where((pc.argmax(1) != CLASS) & (yy == CLASS))[0]; bad = bad[np.argmin(pc[bad, CLASS])]
-fig = plt.figure(figsize=(13, 5))
-for j, (i, title) in enumerate([(ok, 'bien clasificado'), (bad, 'error elevado')]):
-    ax = fig.add_subplot(1, 2, j + 1); plt.sca(ax)
+for i, title, fname in [(ok, 'bien clasificado', 'e3_shap_clf_waterfall_ok'), (bad, 'error elevado', 'e3_shap_clf_waterfall_error')]:
     b = base_c[CLASS] if np.ndim(base_c) else base_c
     shap.plots.waterfall(shap.Explanation(sv1[i], b, A_c[i], feature_names=names), max_display=10, show=False)
-    ax.set_title(f'Caso {title}: P(días de ausencia) = {pc[i, CLASS]:.2f}, real = {C.CLASS_NAMES[yy[i]]}, '
-                 f'predicho = {C.CLASS_NAMES[pc[i].argmax()]}', fontsize=9)
-plt.tight_layout(); P.save(plt.gcf(), 'e3_shap_clf_waterfall'); plt.show()
+    plt.gcf().set_size_inches(8, 4.6)
+    plt.title(f'Caso {title}: P(días de ausencia) = {pc[i, CLASS]:.2f} · real: {C.CLASS_NAMES[yy[i]]} · '
+              f'predicho: {C.CLASS_NAMES[pc[i].argmax()]}', fontsize=9.5)
+    P.save(plt.gcf(), fname); plt.show()
 pd.DataFrame({'bien clasificado': test_c[D.FEATURES].iloc[ic].iloc[ok], 'error elevado': test_c[D.FEATURES].iloc[ic].iloc[bad]})
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** **Caso bien clasificado:** una enfermedad respiratoria de un técnico de salud (`soc_minor=29-2`) en un
+# centro de cuidados de enfermería (`naics3=623`). La enfermedad respiratoria aporta casi toda la
+# decisión (+1,45); el resto de variables apenas la mueve. Es el patrón más claro del archivo: muchas
+# ausencias cortas por enfermedad respiratoria en el sector salud.
+#
+# **Caso con error elevado:** una lesión (`type_of_incident=1`) de un profesional de la salud
+# (`soc_minor=29-1`) en un hospital (`naics3=622`) que terminó en días de ausencia, pero el modelo le dio
+# solo 0,10 de probabilidad y lo clasificó como «otro registrable». Ser lesión y no enfermedad resta, y el
+# hospital y la ocupación sanitaria también empujan hacia «otro registrable» (en los hospitales muchas
+# lesiones se registran sin días perdidos). Lo que hizo que este caso terminara en ausencia (la gravedad
+# de la lesión, la parte del cuerpo, la política del empleador) no está entre las variables del modelo:
+# el error no es un defecto del ajuste sino un límite de la información disponible.
 
 # %% [markdown]
 # ## 11.3 Regresión: interpretabilidad global y local
@@ -102,15 +124,27 @@ imp_r.groupby(lambda n: n.split('=')[0]).sum().sort_values(ascending=False).roun
 # %%
 pr = pipe_r.predict(test_r[D.FEATURES].iloc[ir]); er = np.abs(yt_r[ir] - pr)
 good, worst = int(np.argmin(er)), int(np.argmax(er))
-fig = plt.figure(figsize=(13, 5))
-for j, (i, title) in enumerate([(good, 'bien predicho'), (worst, 'error elevado')]):
-    ax = fig.add_subplot(1, 2, j + 1); plt.sca(ax)
+for i, title, fname in [(good, 'bien predicho', 'e3_shap_reg_waterfall_ok'), (worst, 'error elevado', 'e3_shap_reg_waterfall_error')]:
     shap.plots.waterfall(shap.Explanation(sv_r[i], float(np.ravel(base_r)[0]), A_r[i], feature_names=names_r), max_display=10, show=False)
-    ax.set_title(f'Caso {title}: real {np.expm1(yt_r[ir][i]):.0f} días, predicho {np.expm1(pr[i]):.0f} días', fontsize=9.5)
-plt.tight_layout(); P.save(plt.gcf(), 'e3_shap_reg_waterfall'); plt.show()
+    plt.gcf().set_size_inches(8, 4.6)
+    plt.title(f'Caso {title}: real {np.expm1(yt_r[ir][i]):.0f} días, predicho {np.expm1(pr[i]):.0f} días', fontsize=9.5)
+    P.save(plt.gcf(), fname); plt.show()
+pd.DataFrame({'bien predicho': test_r[D.FEATURES].iloc[ir].iloc[good], 'error elevado': test_r[D.FEATURES].iloc[ir].iloc[worst]})
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** En regresión (Random Forest), las variables más importantes son subsector, estado, tipo de incidente y
+# grupo ocupacional, con aportes de la misma magnitud (0,10 a 0,17 de |SHAP| medio en log-días); las horas
+# aportan poco. El estado pesa más que en clasificación, lo que es coherente con la variación entre estados
+# de la proporción de días de ausencia que mostró el EDA del entregable 2 (23,5 % a 69,2 %), atribuible a
+# prácticas de registro y a reglas de compensación laboral de cada estado (inferencia, no comprobada).
+#
+# **Caso bien predicho:** 19 días reales y 19 predichos en un caso de construcción pesada (`naics3=237`) en
+# Illinois: el subsector sube la predicción por encima del promedio (2,69 en escala log, unos 14 días).
+# **Caso con error elevado:** 1 día real y 35 predichos. Un trabajador de despacho y distribución
+# (`soc_minor=43-5`) en mensajería y reparto (`naics3=492`): sector y ocupación están asociados a ausencias
+# largas en promedio, pero este caso fue una ausencia de un día. El modelo predice el promedio de casos
+# parecidos y no puede distinguir una ausencia corta de una larga dentro del mismo perfil, otra vez
+# porque no ve la lesión concreta. Este es el patrón típico del R² bajo del capítulo 10.
 
 # %% [markdown]
 # ## 11.4 XGBoost: SHAP frente a LIME
@@ -118,9 +152,11 @@ plt.tight_layout(); P.save(plt.gcf(), 'e3_shap_reg_waterfall'); plt.show()
 # Se explica el mismo caso con las dos técnicas, para la clase «días de ausencia».
 #
 # - **SHAP (TreeExplainer)** calcula valores de Shapley exactos para el ensamble de árboles,
-#   relativos a una distribución de fondo. Las contribuciones suman exactamente la predicción
-#   (log-odds) menos el valor base y son consistentes entre casos.
-# - **LIME** perturba el caso (aquí, apaga y prende categorías al azar), pondera las perturbaciones
+#   usando la cobertura de cada rama de los árboles (*tree path dependent*). Las contribuciones
+#   suman exactamente la salida del modelo (log-odds) menos el valor base. Se agregan por variable
+#   original sumando sus categorías (válido por aditividad) para compararlas con LIME.
+# - **LIME** perturba el caso (aquí, cambia la categoría de algunas de las 9 variables por otra
+#   observada en el entrenamiento y pasa cada fila por el pipeline completo), pondera las perturbaciones
 #   por cercanía y ajusta un modelo **lineal local** sobre la probabilidad. Sus coeficientes
 #   dependen del núcleo de proximidad, del muestreo y de la semilla, y no tienen por qué sumar la
 #   predicción.
@@ -128,52 +164,69 @@ plt.tight_layout(); P.save(plt.gcf(), 'e3_shap_reg_waterfall'); plt.show()
 # %%
 def run_xgb_explain():
     pipe = S.refit('clf', 'xgboost', json.loads(bx.final_params), bx.balance, Xc, yc, C.SEED)
-    vals, base, A, nm = I.shap_values('clf', 'xgboost', pipe, Xc.sample(1000, random_state=C.SEED), test_c[D.FEATURES].iloc[ic[:300]])
+    rows = test_c[D.FEATURES].iloc[ic[:300]]
+    vals, base, A, nm = I.shap_values('clf', 'xgboost', pipe, Xc.sample(1000, random_state=C.SEED), rows)
     return pipe, vals, base, A, nm
-pipe_x, sv_x, base_x, A_x, names_x = cache.cached('shap_xgb', run_xgb_explain)
-px = pipe_x.predict_proba(test_c[D.FEATURES].iloc[ic[:300]])
+pipe_x, sv_x, base_x, A_x, names_x = cache.cached('shap_xgb_v2', run_xgb_explain)
+rows_x = test_c[D.FEATURES].iloc[ic[:300]]
+px = pipe_x.predict_proba(rows_x)
+margin = pipe_x.named_steps['model'].predict(pipe_x.named_steps['onehot'].transform(rows_x), output_margin=True)
+print('Aditividad SHAP (máx. |suma SHAP + base − salida del modelo|):',
+      float(np.abs(sv_x.sum(axis=1) + base_x - margin).max()))
 case = int(np.argmax(px[:, CLASS]))
-def run_lime():
-    out = []
-    for seed in [C.SEED, C.SEED + 1, C.SEED + 2]:
-        lst, _ = I.lime_explain(pipe_x, Xc.sample(5000, random_state=C.SEED), test_c[D.FEATURES].iloc[ic[:300]].iloc[[case]],
-                                CLASS, num_features=10, seed=seed)
-        out.append(dict(lst))
-    return out
-lime_runs = cache.cached('lime_xgb', run_lime)
-shap_case = pd.Series(sv_x[case, :, CLASS], index=names_x)
-present = [n for n, a in zip(names_x, A_x[case]) if a > 0]
-top_shap = shap_case.abs().sort_values(ascending=False).head(10).index
-lime_df = pd.DataFrame(lime_runs).T
-lime_df.columns = ['LIME semilla 42', 'LIME semilla 43', 'LIME semilla 44']
-comp = pd.DataFrame({'SHAP (log-odds)': shap_case[top_shap], 'presente en el caso': [n in present for n in top_shap]})
-print(f'Caso {case}: P(días de ausencia) = {px[case, CLASS]:.3f}')
-print('Categorías presentes:', present)
-display(comp.round(4))
-lime_df.round(4)
+x_case = rows_x.iloc[[case]]
+print(f'Caso explicado: P(días de ausencia) = {px[case, CLASS]:.3f}')
+display(x_case.T.rename(columns=lambda c: 'categoría del caso'))
 
 # %%
-fig, axes = plt.subplots(1, 2, figsize=(13, 4.6))
-s = shap_case[top_shap][::-1]
-axes[0].barh(range(len(s)), s.values, color=[P.SERIES[7] if v > 0 else P.SERIES[0] for v in s.values])
-axes[0].set_yticks(range(len(s)), s.index, fontsize=8); axes[0].axvline(0, color=P.INK2, lw=0.8)
-axes[0].set_title('SHAP (TreeExplainer): 10 mayores contribuciones', fontsize=10); axes[0].set_xlabel('contribución a los log-odds')
-l = lime_df.iloc[:, 0].dropna().sort_values(key=np.abs).tail(10)
-axes[1].barh(range(len(l)), l.values, color=[P.SERIES[7] if v > 0 else P.SERIES[0] for v in l.values])
-axes[1].set_yticks(range(len(l)), l.index, fontsize=8); axes[1].axvline(0, color=P.INK2, lw=0.8)
-axes[1].set_title('LIME (semilla 42): 10 mayores coeficientes locales', fontsize=10); axes[1].set_xlabel('coeficiente sobre la probabilidad')
-for a in axes: a.grid(axis='y', visible=False)
+shap_var = I.group_by_variable(sv_x[:, :, CLASS], names_x).iloc[case]
+lime_runs = cache.cached('lime_xgb_v2', lambda: [I.lime_explain(pipe_x, Xc.sample(5000, random_state=C.SEED), x_case, CLASS, seed=s)
+                                                for s in [C.SEED, C.SEED + 1, C.SEED + 2]])
+def lime_by_var(run):
+    return pd.Series({k.split('=')[0]: v for k, v in run})
+lime_tab = pd.DataFrame({f'LIME semilla {s}': lime_by_var(r) for s, r in zip([C.SEED, C.SEED + 1, C.SEED + 2], lime_runs)}).reindex(D.FEATURES)
+comp = pd.DataFrame({'SHAP (log-odds, suma de la variable)': shap_var}).join(lime_tab)
+comp['rango SHAP'] = comp.iloc[:, 0].abs().rank(ascending=False)
+comp['rango LIME (semilla 42)'] = comp[f'LIME semilla {C.SEED}'].abs().rank(ascending=False)
+display(comp.round(4))
+from scipy.stats import spearmanr
+rho, p = spearmanr(comp.iloc[:, 0].abs(), comp[f'LIME semilla {C.SEED}'].abs())
+signs = (np.sign(comp.iloc[:, 0]) == np.sign(comp[f'LIME semilla {C.SEED}'])).mean()
+stab = lime_tab.std(axis=1).mean()
+print(f'Spearman entre |SHAP| y |LIME| por variable: {rho:.2f} | signos coincidentes: {signs:.0%} | '
+      f'd.e. media de LIME entre semillas: {stab:.4f}')
+
+# %%
+fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+for ax, s, title, xl in [(axes[0], comp.iloc[:, 0], 'SHAP (TreeExplainer), por variable', 'contribución a los log-odds de «días de ausencia»'),
+                         (axes[1], comp[f'LIME semilla {C.SEED}'], 'LIME (semilla 42), por variable', 'peso local sobre P(días de ausencia)')]:
+    s = s.reindex(s.abs().sort_values().index)
+    ax.barh(range(len(s)), s.values, color=[P.SERIES[7] if v > 0 else P.SERIES[0] for v in s.values], height=0.6)
+    ax.set_yticks(range(len(s)), s.index, fontsize=8.5); ax.axvline(0, color=P.INK2, lw=0.8)
+    ax.set_title(title, fontsize=10); ax.set_xlabel(xl); ax.grid(axis='y', visible=False)
 fig.tight_layout(); P.save(fig, 'e3_shap_vs_lime'); plt.show()
-overlap = len({k.rsplit('=', 1)[0] for k in lime_df.iloc[:, 0].dropna().index} & set(top_shap))
-stab = [len(set(lime_df.iloc[:, a].dropna().index) & set(lime_df.iloc[:, b].dropna().index)) for a, b in [(0, 1), (0, 2), (1, 2)]]
-print('Variables en común entre el top 10 de SHAP y el de LIME:', overlap, '| coincidencias del top 10 de LIME entre semillas:', stab)
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** Las dos técnicas coinciden en lo principal: para este caso (una enfermedad respiratoria en un hospital,
+# P(días de ausencia) = 0,90 con XGBoost), las dos ponen el tipo de incidente en primer lugar y con signo
+# positivo. En el resto discrepan: la correlación de rangos entre |SHAP| y |LIME| de las 9 variables es
+# solo 0,15 y los signos coinciden en el 78 % de las variables. SHAP pone en segundo lugar `time_unknown`
+# (el caso tiene la hora desconocida); LIME casi no le da peso y, en cambio, da peso negativo al tipo de
+# establecimiento y al subsector, que para SHAP son casi nulos. LIME es estable entre semillas en este caso
+# (desviación media de 0,003 entre las 3 semillas).
+#
+# Las diferencias tienen explicación: (1) LIME mide el efecto de *cambiar* una variable a otro valor
+# típico, en la escala de probabilidad, y promedia ese efecto con un modelo lineal en un vecindario; SHAP
+# reparte la salida del modelo en log-odds según los caminos de los árboles. (2) `time_unknown`, la hora y
+# las horas desde el inicio son redundantes: SHAP les asigna crédito a ellas según la estructura de los
+# árboles, mientras que LIME, al cambiar una sola a la vez, crea filas incoherentes (hora desconocida pero
+# `time_unknown = 0`) y el modelo apenas reacciona. Con información redundante, ninguna de las dos
+# atribuciones es «la verdadera»; lo robusto es lo que coincide: el tipo de incidente manda.
 #
 # **Cuándo divergen.** (1) Con variables correlacionadas (aquí, sector y ocupación describen el
-# mismo lugar de trabajo), LIME perturba cada categoría por separado y genera combinaciones
-# irreales; SHAP intervencional también las usa, pero promedia sobre todos los órdenes. (2) Si el
+# mismo lugar de trabajo), LIME cambia cada variable por separado y genera combinaciones poco
+# realistas (un hospital con una ocupación de la construcción); SHAP *path dependent* respeta las
+# divisiones de los árboles, pero reparte el crédito entre variables correlacionadas. (2) Si el
 # modelo es muy no lineal cerca del caso, la aproximación lineal de LIME es pobre. (3) LIME explica
 # la *probabilidad* y SHAP aquí explica los *log-odds*: los signos coinciden pero las magnitudes no
 # son comparables. (4) LIME depende de la semilla y del ancho del núcleo; SHAP para árboles es

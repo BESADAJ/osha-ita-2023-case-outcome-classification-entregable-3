@@ -36,15 +36,18 @@ def classification_metrics(y, proba):
     ``y`` va codificado 0..3 (0 = fallecimiento). El recall macro es el balanced accuracy.
     """
     y = np.asarray(y)
-    proba = np.clip(np.asarray(proba, dtype=float), 1e-12, 1)
+    raw = np.asarray(proba, dtype=float)
+    # El AUC se calcula con las probabilidades originales: recortarlas y renormalizarlas rompería los
+    # empates (KNN y los árboles dan muchas probabilidades exactamente 0) y cambiaría el AUC.
+    proba = np.clip(raw, 1e-12, 1)
     proba = proba / proba.sum(axis=1, keepdims=True)
-    pred = proba.argmax(axis=1)
+    pred = raw.argmax(axis=1)
     labels = list(range(K))
     present = np.unique(y)
     try:
-        auc = roc_auc_score(y, proba, labels=labels, multi_class='ovr', average='macro') \
+        auc = roc_auc_score(y, raw / raw.sum(axis=1, keepdims=True), labels=labels, multi_class='ovr', average='macro') \
             if len(present) == K else roc_auc_score(
-                (y[:, None] == present).astype(int), proba[:, present], average='macro')
+                (y[:, None] == present).astype(int), raw[:, present], average='macro')
     except ValueError:
         auc = np.nan
     return {

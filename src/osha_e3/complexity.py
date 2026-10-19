@@ -118,15 +118,16 @@ def linear_solvers(Xtr, ytr, Xte, yte, alpha_ridge=10.0, alpha_lasso=1e-3):
     rows = []
     for name, est in [('Ridge (cholesky, denso)', Ridge(alpha_ridge, solver='cholesky')),
                       ('Ridge (sparse_cg)', Ridge(alpha_ridge, solver='sparse_cg')),
-                      ('Ridge (SAGA)', Ridge(alpha_ridge, solver='saga', max_iter=200, tol=1e-3, random_state=0)),
+                      ('Ridge (SAGA, denso)', Ridge(alpha_ridge, solver='saga', max_iter=200, tol=1e-3, random_state=0)),
                       ('Lasso (coordinate descent)', Lasso(alpha_lasso, max_iter=3000, tol=1e-3)),
                       ('Lasso (SAGA vía SGD L1)', None)]:
         if est is None:
             from sklearn.linear_model import SGDRegressor
             est = SGDRegressor(penalty='l1', alpha=alpha_lasso, max_iter=50, tol=1e-3, random_state=0)
-        A = Xtr.toarray() if 'cholesky' in name else Xtr
+        dense = 'denso' in name  # SAGA de sklearn 1.3 no ajusta intercepto con matrices dispersas
+        A = Xtr.toarray() if dense else Xtr
         fit_s, sd, mem, _ = timed(lambda: est.fit(A, ytr), 3)
-        B = Xte.toarray() if 'cholesky' in name else Xte
+        B = Xte.toarray() if dense else Xte
         pred_s, _, _, pred = timed(lambda: est.predict(B), 3)
         rows.append({'método': name, 'fit_s': fit_s, 'fit_sd': sd, 'predict_s': pred_s, 'mem_mb': mem,
                      'rmse': float(np.sqrt(mean_squared_error(yte, pred)))})
@@ -152,28 +153,36 @@ def naive_bayes_online(X, y, Xte, yte, chunk=20_000):
 
 
 def xgboost_methods(Xtr, ytr, Xva, yva, Xte, yte, gpu=True):
-    """XGBoost: método exacto frente a ``hist``, early stopping y GPU (``device='cuda'``)."""
-    base = dict(n_estimators=400, max_depth=6, learning_rate=0.1, subsample=0.8, colsample_bytree=0.8,
-                random_state=0, verbosity=0)
-    configs = [('exact (CPU, 12 hilos)', dict(tree_method='exact', n_jobs=12)),
-               ('hist (CPU, 12 hilos)', dict(tree_method='hist', n_jobs=12)),
-               ('hist + early stopping (CPU)', dict(tree_method='hist', n_jobs=12, early_stopping_rounds=20))]
+    """XGBoost: método exacto frente a ``hist``, early stopping y GPU (``device='cuda'``).
+
+    El conjunto de validación del early stopping se pasa denso con los ceros como ``NaN``: el modelo se
+    entrena con matrices dispersas, donde un cero no almacenado es *faltante*, y una matriz densa con
+    ceros reales se enrutaría distinto por los árboles.
+    """
+    base = dict(max_depth=6, learning_rate=0.1, subsample=0.8, colsample_bytree=0.8, random_state=0, verbosity=0)
+    V = Xva.toarray().astype(np.float32)
+    V[V == 0] = np.nan
+    configs = [('exact (CPU, 12 hilos), 400 árboles', dict(tree_method='exact', n_jobs=12, n_estimators=400)),
+               ('hist (CPU, 12 hilos), 400 árboles', dict(tree_method='hist', n_jobs=12, n_estimators=400)),
+               ('hist (CPU), 1.000 árboles', dict(tree_method='hist', n_jobs=12, n_estimators=1000)),
+               ('hist + early stopping (CPU), hasta 1.000', dict(tree_method='hist', n_jobs=12, n_estimators=1000,
+                                                                early_stopping_rounds=20))]
     if gpu:
-        configs.append(('hist (GPU, cuda)', dict(tree_method='hist', device='cuda')))
+        configs.append(('hist (GPU, cuda), 400 árboles', dict(tree_method='hist', device='cuda', n_estimators=400)))
     rows = []
     for name, cfg in configs:
         est = XGBClassifier(**base, **cfg)
-        kw = {'eval_set': [(Xva, yva)], 'verbose': False} if 'early_stopping_rounds' in cfg else {}
+        kw = {'eval_set': [(V, yva)], 'verbose': False} if 'early_stopping_rounds' in cfg else {}
         try:
-            fit_s, sd, mem, _ = timed(lambda: est.fit(Xtr, ytr, **kw), 2)
+            fit_s, sd, mem, _ = timed(lambda: est.fit(Xtr, ytr, **kw), 2 if 'early' not in name else 1)
         except Exception as exc:  # sin GPU disponible
             rows.append({'método': name, 'error': str(exc)[:80]})
             continue
         pred_s, _, _, p = timed(lambda: est.predict_proba(Xte), 2)
+        trees = int(est.best_iteration + 1) if 'early_stopping_rounds' in cfg else cfg['n_estimators']
         rows.append({'método': name, 'fit_s': fit_s, 'fit_sd': sd, 'predict_s': pred_s, 'mem_mb': mem,
-                     'arboles': int(getattr(est, 'best_iteration', base['n_estimators'] - 1) + 1)
-                     if 'early_stopping_rounds' in cfg else base['n_estimators'],
-                     'balanced_accuracy': balanced_accuracy_score(yte, p.argmax(axis=1))})
+                     'arboles': trees, 'balanced_accuracy': balanced_accuracy_score(yte, p.argmax(axis=1)),
+                     'log_loss_prueba': float(-np.mean(np.log(np.clip(p[np.arange(len(yte)), yte], 1e-12, 1))))})
     return pd.DataFrame(rows)
 
 

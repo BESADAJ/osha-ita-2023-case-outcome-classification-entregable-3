@@ -31,6 +31,12 @@ fmt = lambda m, s: f'{m:.3f} ± {s:.3f}'
 #
 # Tabla maestra completa: `results/master_clf.csv` (una fila por combinación, con hiperparámetros
 # finales, métricas externas, tiempos y semilla). Aquí, las 15 mejores por balanced accuracy externa.
+#
+# *Nota de medición.* Durante la corrida, el AUC del bucle externo se calculó después de recortar las
+# probabilidades a 10⁻¹² y renormalizarlas, lo que rompe los empates de los modelos que dan muchas
+# probabilidades exactamente 0 (KNN y el árbol). Eso subestima su AUC externo en torno a 0,005 a 0,015
+# (en la prueba: KNN 0,620 frente a 0,624; árbol 0,613 frente a 0,628). Las demás métricas no se ven
+# afectadas. Desde la sección 9.2 todas las AUC de la prueba usan el cálculo corregido.
 
 # %%
 cols = ['recall', 'f1', 'auc', 'accuracy', 'precision', 'brier', 'ece']
@@ -55,7 +61,14 @@ plt.colorbar(im, ax=ax, fraction=0.04)
 P.save(fig, 'e3_clf_heatmap'); plt.show()
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** Las mejores balanced accuracy anidadas (0,46 a 0,47) son de SVM con SMOTE o ADASYN y del árbol con
+# `class_weight`, pero vienen con desviaciones de ±0,08 a ±0,11 entre pliegues, el doble que el resto. La
+# razón está en la sección 9.6: esas combinaciones predicen Fallecimiento para miles de casos, y en un
+# pliegue con 1 a 4 fallecimientos acertar uno más sube la métrica hasta 0,25. Las combinaciones con mejor
+# AUC y F1 (logística con SMOTE o ADASYN, XGBoost con `class_weight`) tienen balanced accuracy algo menor
+# (0,42 a 0,43) pero mucho más estable (±0,05 a ±0,07). En el mapa de calor, el balanceo solo mueve la
+# métrica de forma apreciable en SVM (+0,07 con SMOTE), KNN (+0,05) y el árbol (+0,07 con `class_weight`);
+# en Naive Bayes, Random Forest y XGBoost la diferencia entre técnicas es de centésimas.
 
 # %% [markdown]
 # ## 9.2 Mejor combinación de cada modelo en la prueba
@@ -69,10 +82,12 @@ P.save(fig, 'e3_clf_heatmap'); plt.show()
 best = mc.loc[mc.groupby('model').outer_recall_mean.idxmax()].set_index('model').reindex(MODELS)
 best_combo = best.combo.to_dict()
 tt = tc.set_index('combo')
+probs = {m: F.load('clf', best_combo[m])[0] for m in MODELS}
+tm = {m: E.classification_metrics(yt, probs[m]) for m in MODELS}
 res = pd.DataFrame({
     'Combinación elegida': [f'{M.PRETTY[best.loc[m, "balance"]]} · {M.PRETTY[best.loc[m, "optimizer"]]}' for m in MODELS],
     'Balanced acc. anidada': [fmt(best.loc[m, 'outer_recall_mean'], best.loc[m, 'outer_recall_std']) for m in MODELS],
-    **{k: [tt.loc[best_combo[m], f'test_{v}'] for m in MODELS] for k, v in
+    **{k: [tm[m][v] for m in MODELS] for k, v in
        [('Accuracy', 'accuracy'), ('Precision', 'precision'), ('Recall (balanced acc.)', 'recall'),
         ('F1-score', 'f1'), ('AUC', 'auc'), ('Brier', 'brier'), ('ECE', 'ece')]}
 }, index=[M.PRETTY[m] for m in MODELS])
@@ -84,7 +99,15 @@ res.round(3)
 # (C = 1, L2, `class_weight='balanced'`, 1.433 columnas, entrenada con todo el desarrollo) un
 # balanced accuracy de 0,40, F1 macro de 0,40 y AUC macro de 0,69 en esta misma prueba.
 #
-# **Interpretación.** TODO
+# **Interpretación.** En la prueba todos los modelos quedan por debajo de su balanced accuracy anidada (0,38 a 0,43 frente a
+# 0,39 a 0,47); la caída es mayor justo en las combinaciones más dependientes de Fallecimiento (SVM de 0,469
+# a 0,435, árbol de 0,461 a 0,384), consistente con que su ventaja anidada era en parte ruido de esa clase.
+# El mejor balanced accuracy en la prueba es el de SVM (0,435), pero con F1 macro bajo (0,366). Random Forest,
+# XGBoost y la logística dan el mejor equilibrio: accuracy de 0,51 a 0,52, F1 macro de 0,38 a 0,39 y AUC de
+# 0,69 a 0,70. Frente al entregable 2 (logística con C = 1 y 1.433 columnas: balanced accuracy 0,40, F1 0,40,
+# AUC 0,69), **ningún modelo mejora de forma clara**: con estas 8 variables el techo parece estar en torno a
+# 0,40 de balanced accuracy y 0,70 de AUC, y el capítulo 13 contrasta si alguna diferencia es significativa.
+# KNN y el árbol son los peores en AUC (0,62 a 0,63).
 
 # %% [markdown]
 # ## 9.3 Matrices de confusión
@@ -108,7 +131,13 @@ fig.supxlabel('clase predicha'); fig.supylabel('clase real (cada fila suma 100 %
 fig.tight_layout(); P.save(fig, 'e3_clf_confusion'); plt.show()
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** Las tres clases frecuentes se confunden entre sí en todos los modelos: la diagonal va del 23 % al 65 %.
+# «Traslado/restricción» y «otro registrable» se reconocen mejor (50 % a 65 % y 43 % a 62 %) que «días de
+# ausencia» (23 % a 41 %), igual que en el entregable 2. Fallecimiento muestra el costo del balanceo: KNN con
+# SMOTE acierta 16 de 39 (41 %) pero manda a esa clase el 23 % de los casos de las demás (más de 29.000
+# falsos fallecimientos); SVM acierta 11 con unos 7.900 falsos. XGBoost, Random Forest y Naive Bayes casi
+# nunca predicen Fallecimiento, así que no pagan ese costo, pero tampoco la detectan. Ningún modelo
+# encuentra una forma de separar los fallecimientos sin sacrificar mucho las demás clases.
 
 # %% [markdown]
 # ## 9.4 Curvas ROC
@@ -123,14 +152,18 @@ for ax, m in zip(axes.flat, MODELS):
         fpr, tpr, _ = roc_curve(yt == k, probs[m][:, k])
         ax.plot(fpr, tpr, color=P.CLASS_COLORS[k], lw=1.6, label=f'{short[k]} ({roc_auc_score(yt == k, probs[m][:, k]):.2f})')
     ax.plot([0, 1], [0, 1], color=P.INK2, lw=0.8, ls='--')
-    ax.set_title(f'{M.PRETTY[m]} (AUC macro {tt.loc[best_combo[m], "test_auc"]:.3f})', fontsize=9.5)
+    ax.set_title(f'{M.PRETTY[m]} (AUC macro {tm[m]["auc"]:.3f})', fontsize=9.5)
     ax.legend(fontsize=7, loc='lower right')
 axes[1, 3].axis('off')
 fig.supxlabel('tasa de falsos positivos'); fig.supylabel('tasa de verdaderos positivos (recall)')
 fig.tight_layout(); P.save(fig, 'e3_clf_roc'); plt.show()
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** Las curvas de las tres clases frecuentes son parecidas entre modelos (AUC de 0,60 a 0,73 por clase); la
+# mejor separada es «otro registrable» (hasta 0,73 en Random Forest y XGBoost). La curva de Fallecimiento es
+# irregular por sus 39 casos y su AUC cambia mucho entre combinaciones, de 0,50 (KNN sin balanceo) a 0,72
+# (SVM con SMOTE, Naive Bayes y Random Forest sin balanceo), sin que eso se traduzca en detectarlos con un
+# umbral razonable: con 39 positivos, ordenar bien unos pocos casos basta para mover mucho esa AUC. Las AUC macro van de 0,62 (KNN) y 0,63 (árbol) a 0,70 (logística, Random Forest).
 
 # %% [markdown]
 # ## 9.5 Balanceo de clases: con y sin
@@ -166,7 +199,14 @@ for m in MODELS:
 pd.DataFrame(rec).set_index(['modelo', 'balanceo']).round(3)
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** El balanceo **no es gratis**. Pareado por modelo, optimizador y pliegue: SMOTE y ADASYN suben el
+# balanced accuracy en KNN (+0,03) y sobre todo en SVM (+0,05 a +0,07), pero bajan el F1 macro (−0,05 en
+# KNN) y el accuracy (−0,10 en KNN). `class_weight` sube el balanced accuracy del árbol (+0,045) a costa de
+# AUC (−0,044) y accuracy (−0,043), y en la logística lo empeora todo (−0,02 en balanced accuracy y −0,07
+# en AUC). En Naive Bayes, Random Forest y XGBoost el efecto es de milésimas. La tabla de la prueba muestra
+# el mecanismo: el balanceo cambia sobre todo el recall de Fallecimiento y lo paga con recall de «días de
+# ausencia» (KNN pasa de 0,47 a 0,23 con SMOTE). La técnica «óptima» depende de la métrica que se elija,
+# y con balanced accuracy la elección queda dominada por una clase de 39 casos.
 
 # %% [markdown]
 # ## 9.6 Tratamiento de la clase Fallecimiento
@@ -221,7 +261,21 @@ axes[0].legend(fontsize=8, ncol=2)
 fig.tight_layout(); P.save(fig, 'e3_clf_death_ba3'); plt.show()
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** **Fallecimiento sigue sin poder detectarse de forma útil.** La mejor detección es la de KNN con SMOTE:
+# 16 de 39 (recall 0,41, IC de Wilson [0,27; 0,57]), con una precisión del 0,05 % (16 aciertos entre 29.274
+# casos marcados). SVM con cualquiera de las tres técnicas acierta 11 (0,28, [0,17; 0,44]) con unos 8.000 a
+# 9.600 casos marcados. Sin balanceo casi ningún modelo predice esa clase. Es decir, el tratamiento
+# funciona en el sentido de la métrica (sube el recall), pero no produce un detector utilizable: por cada
+# fallecimiento encontrado hay más de 700 falsas alarmas.
+#
+# El balanced accuracy de las **3 clases frecuentes** cuenta otra historia y cambia el ordenamiento:
+# Random Forest (0,52), XGBoost (0,52) y la logística sin balanceo o con ADASYN (0,51 a 0,52) quedan
+# arriba, mientras que las combinaciones que «ganaban» con 4 clases caen: KNN con SMOTE baja a 0,39 (sin
+# balanceo tenía 0,48) y SVM con `class_weight` a 0,42. El balanceo agresivo quita aciertos en las clases
+# frecuentes para dárselos a Fallecimiento. Por eso las conclusiones del informe se apoyan en las dos
+# métricas y en AUC/F1, y no solo en el balanced accuracy de 4 clases. La misma conclusión aparece en la
+# corrida con diseño temporal (sección 12.6): su mejor balanced accuracy (0,52) viene de acertar 8 de 12
+# fallecimientos marcando 5.337 casos.
 
 # %% [markdown]
 # ## 9.7 Calibración de probabilidades
@@ -281,7 +335,20 @@ recal, recal_curves = cache.cached('clf_recalibration', run_recal)
 recal.set_index(['modelo', 'método'])[['brier', 'ece', 'log_loss', 'recall', 'auc']].round(4)
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** - **Bien calibrados sin hacer nada:** XGBoost (ECE 0,024) y la logística (0,025). Sus curvas siguen la
+#   diagonal.
+# - **Mal calibrados:** Naive Bayes (ECE 0,146) es sobreconfiado, como se espera por el supuesto de
+#   independencia (las variables de un mismo lugar de trabajo están correlacionadas y el modelo cuenta la
+#   misma evidencia varias veces). KNN (0,114) y el árbol (0,091) producen probabilidades extremas en pocas
+#   hojas o vecindarios. Random Forest con SMOTE es **subconfiado** (su curva va por encima de la
+#   diagonal): el bosque promedia árboles y el sobremuestreo aplana las probabilidades.
+# - **Recalibración:** la isotónica baja el ECE de Naive Bayes de 0,146 a 0,021, el de Random Forest de 0,099
+#   a 0,024, el de KNN de 0,114 a 0,048 y el del árbol de 0,091 a 0,045, y mejora el Brier en todos ellos. En
+#   la logística y en XGBoost, ya calibrados, recalibrar no ayuda (el ECE de la logística sube de 0,025 a
+#   0,057 porque el calibrador se ajusta con un tercio de la submuestra). Recalibrar baja el balanced
+#   accuracy de los modelos balanceados (SVM de 0,435 a 0,338 con Platt): las probabilidades calibradas
+#   devuelven a Fallecimiento su frecuencia real y el argmax deja de elegirla. Si el uso final requiere
+#   probabilidades confiables, conviene XGBoost o un Random Forest recalibrado con regresión isotónica.
 
 # %% [markdown]
 # ## 9.8 Segunda prueba: mismos establecimientos, meses nuevos
@@ -321,4 +388,12 @@ tmp_tab['Δ AUC (mismos − nuevos)'] = tmp_tab['AUC (mismos establ.)'] - tmp_ta
 tmp_tab.round(4)
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** En la segunda prueba (mismos establecimientos, octubre–diciembre; 83.912 casos, 25 fallecimientos), el
+# AUC sube en todos los modelos, entre 0,004 (Naive Bayes) y 0,046 (KNN). El accuracy cambia muy poco (≤ 0,005).
+# El modelo que más gana es KNN (balanced accuracy de 0,40 a 0,48): sus vecinos más cercanos son casos del
+# mismo establecimiento, que comparten códigos de sector, ocupación y estado, y heredan sus prácticas de
+# registro. Esto cuantifica el costo de la partición: exigir establecimientos nuevos le cuesta a la mayoría
+# de los modelos entre 0,004 y 0,03 de AUC. Un diseño que mezclara establecimientos habría reportado esas
+# cifras más altas sin que el modelo generalizara mejor a lugares nuevos, que es el uso que interesa.
+# El costo de descartar casos (sección 4.7) es, entonces, una diferencia pequeña en las métricas a cambio de
+# una estimación honesta.
