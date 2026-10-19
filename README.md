@@ -17,7 +17,7 @@ de los entregables anteriores (octubre–diciembre, establecimientos no vistos).
 
 | Qué | Dónde |
 |---|---|
-| Informe (Jupyter Book) | `jbook/` (publicado en GitHub Pages, rama `gh-pages`) |
+| Informe (Jupyter Book) | <https://besadaj.github.io/osha-ita-2023-case-outcome-classification-entregable-3/> (fuentes en `jbook/`) |
 | Código | `src/osha_e3/` |
 | Corridas largas | `scripts/` |
 | Resultados (tablas maestras, una fila por combinación) | `results/master_clf.csv`, `results/master_reg.csv` |
