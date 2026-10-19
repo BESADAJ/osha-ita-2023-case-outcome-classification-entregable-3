@@ -103,16 +103,17 @@ retrospectiva.
 
 ## 3.8 Correcciones solicitadas en el entregable 1
 
-:::{admonition} Pendiente
-:class: warning
-Esta sección recogerá, una por una, las correcciones que el profesor pidió sobre el entregable 1 y dónde
-se aplicó cada una en este informe. Todavía no se han recibido; cuando lleguen se completará la tabla.
-:::
+El entregable 1 obtuvo 4,5/5,0 (base de datos 4,6; EDA 4,6; modelo base 4,2). Los comentarios del profesor y
+dónde se atiende cada uno en este informe:
 
-| Corrección solicitada | Dónde se aplicó |
-|---|---|
-| *(pendiente)* | |
+| Comentario del profesor | Qué se hizo | Dónde |
+|---|---|---|
+| La brecha entre entrenamiento y validación (0,65 frente a 0,39) no se analiza a fondo | Se descompone la brecha por clase. En la logística del entregable 1, Fallecimiento tiene recall 1,0 en entrenamiento y 0 en validación: esa clase sola explica unos 0,25 de los ~0,28 de brecha (el modelo memoriza los pocos fallecimientos con 1.433 columnas). Se repite el análisis con los modelos de este entregable | Sección 12.4 |
+| La clase Death queda sin tratamiento | Se trata con SMOTE, ADASYN y `class_weight` en los 7 modelos y con los 4 optimizadores; se reporta su recall y su precisión con intervalos de Wilson y el balanced accuracy con y sin esa clase | Secciones 9.5 y 9.6 |
+| El diseño descarta cerca de la mitad de los casos sin discutir su costo | Se cuantifica el descarte (55,4 %), se explica por qué cada bloque queda fuera y se discute el costo; el bloque de octubre a diciembre de los establecimientos de desarrollo se usa como segunda prueba (solo separa por tiempo) para medir cuánto cuesta exigir establecimientos nuevos | Secciones 4.7 y 9.8 |
+| El código de entrenamiento no es visible en el notebook | Los capítulos nuevos son notebooks con el código que produce cada resultado, y una sección imprime el código fuente real de entrenamiento y evaluación | Sección 6.9 y capítulos 6 a 13 |
+| `time_unknown` supera el umbral de colinealidad que el propio trabajo fija | Se recalcula el GVIF (sigue siendo 3,81: es redundante con la hora «Unknown») y se reajustan los 7 mejores modelos sin ella para medir su efecto | Secciones 4.6 y 12.5 |
 
-Mejoras al EDA que ya se incorporaron por hallazgos del desarrollo del proyecto (capítulo 4): agrupación
-jerárquica de NAICS y SOC, horas desde el inicio de la jornada y el análisis del objetivo de regresión
-(días de ausencia).
+Mejoras adicionales al EDA por hallazgos del desarrollo del proyecto (capítulo 4): agrupación jerárquica de
+NAICS y SOC, horas desde el inicio de la jornada, el objetivo de regresión (días de ausencia) y la censura
+de ese objetivo al final del año.

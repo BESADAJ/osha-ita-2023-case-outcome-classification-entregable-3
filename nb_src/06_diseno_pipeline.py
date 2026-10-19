@@ -157,8 +157,19 @@ pipe
 # |---|---|---|
 # | Sin balanceo | Línea base | — |
 # | SMOTE | Interpola casos sintéticos entre un caso minoritario y sus vecinos de la misma clase | Lleva todas las clases al tamaño de la mayoritaria; `k_neighbors = min(5, n_min − 1)` |
-# | ADASYN | Como SMOTE, pero genera más casos donde la minoritaria está rodeada de otras clases (más difícil) | `n_neighbors = min(5, n_min − 1)`; si no puede generar, no remuestrea |
+# | ADASYN | Como SMOTE, pero genera más casos donde la minoritaria está rodeada de otras clases (más difícil) | Implementación propia clase por clase (`models.SafeADASYN`), `k = min(5, n_min − 1)`; ver nota abajo |
 # | `class_weight='balanced'` | Pondera los errores por la inversa de la frecuencia de la clase | Nativo en logística, árbol, RF y SVM; pesos por observación en Naive Bayes y XGBoost; en KNN, división de la probabilidad por la prior (regla de decisión equivalente) |
+#
+# **Nota sobre ADASYN.** La implementación de imblearn falló en el 78 % de las celdas de una primera
+# corrida, por dos razones: usa `n_neighbors + 1` vecinos dentro de la clase minoritaria (imposible con
+# 4 o 5 fallecimientos) y redondea por separado las muestras de cada punto, de modo que cuando hay que
+# generar menos de 0,5 muestras por punto (p. ej. 581 entre 4.063 casos de una clase casi tan grande
+# como la mayoritaria) todas redondean a 0 y la función se detiene; con la estrategia por defecto basta
+# que falle una clase para que falle todo. Esas celdas quedaron en la práctica sin balanceo. Se
+# reimplementó ADASYN siguiendo el artículo original (He et al., 2008): la dificultad de cada caso es la
+# fracción de vecinos de otra clase, las G muestras se reparten en proporción a ella con redondeo por
+# restos mayores (suman exactamente G) y cada muestra interpola con un vecino de la misma clase. Las
+# 140 celdas de ADASYN se volvieron a correr con esta versión.
 #
 # Una advertencia: las variables son todas binarias (one-hot). SMOTE y ADASYN interpolan y producen
 # valores fraccionarios entre 0 y 1 que no corresponden a ninguna categoría real. SMOTE-NC está
@@ -219,3 +230,46 @@ pd.DataFrame(rows).set_index(['Tarea', 'Modelo'])
 
 # %%
 pd.Series({k: C.seed_for(k) for k in C.OFFSETS}, name='semilla (índice 0)').to_frame()
+
+# %% [markdown]
+# ## 6.9 El código de entrenamiento, visible
+#
+# Corrección del entregable 1: el profesor señaló que el código de entrenamiento no se veía en el
+# notebook. Aquí se imprime el código fuente real (no una copia) de las funciones que entrenan y
+# evalúan cada combinación. Lo que se ve es exactamente lo que ejecutó `scripts/run_nested.py`.
+#
+# **1. El evaluador del bucle interno** (`search.Evaluator`): prepara una vez la codificación y el
+# balanceo de cada pliegue interno y, para cada configuración, ajusta el modelo en cada pliegue y
+# promedia la métrica de validación.
+
+# %%
+import inspect
+from osha_e3 import search as S, final as F
+print(inspect.getsource(S.Evaluator))
+
+# %% [markdown]
+# **2. Una celda de la validación anidada** (`nested.run_cell`): busca en el bucle interno, reajusta
+# con los mejores hiperparámetros en todo el entrenamiento externo y mide en el pliegue externo.
+
+# %%
+print(inspect.getsource(N.run_cell))
+
+# %% [markdown]
+# **3. Construcción del pipeline y del modelo** (`models.make_pipeline`, `models.make_estimator`).
+
+# %%
+print(inspect.getsource(M.make_pipeline))
+print(inspect.getsource(M.make_estimator))
+
+# %% [markdown]
+# **4. Los métodos de búsqueda** (Optuna-TPE y el algoritmo genético de DEAP).
+
+# %%
+print(inspect.getsource(S.bayes_search))
+print(inspect.getsource(S.genetic_search))
+
+# %% [markdown]
+# **5. Reajuste final y evaluación en la prueba** (`final.run_one`).
+
+# %%
+print(inspect.getsource(F.run_one))

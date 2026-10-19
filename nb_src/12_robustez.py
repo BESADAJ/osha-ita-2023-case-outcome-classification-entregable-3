@@ -117,3 +117,131 @@ print('Regresión (RMSE):'); display(diff_vs_noise(fr, mr, 'rmse', False).round(
 
 # %% [markdown]
 # **Interpretación.** TODO
+
+# %% [markdown]
+# ## 12.4 Corrección del entregable 1: la brecha entre entrenamiento y validación
+#
+# El profesor observó que la brecha del entregable 1 (balanced accuracy de 0,65 en entrenamiento
+# frente a 0,39 en validación) no se analizó a fondo. Como el balanced accuracy es el promedio del
+# recall de las 4 clases, la brecha se puede **descomponer por clase**:
+# brecha = ¼ Σₖ (recallₖ entrenamiento − recallₖ validación).
+#
+# **(a) La logística del entregable 1.** La corrida con diseño temporal de Iván (sección 12.6)
+# reprodujo esa logística (C = 1, L2, `class_weight='balanced'`, 1.433 columnas) en los 3 pliegues
+# hacia adelante del entregable 1 y guardó el recall de Fallecimiento en entrenamiento y validación.
+
+# %%
+iv = pd.read_csv(C.RESULTS / 'disenio_temporal' / 'master_registry.csv')
+e1 = iv[iv.model == 'logreg_e1'][['outer_fold', 'train_deaths', 'valid_deaths', 'train_balanced_accuracy', 'outer_balanced_accuracy',
+                                  'train_recall_death', 'outer_recall_death']].copy()
+e1['brecha total'] = e1.train_balanced_accuracy - e1.outer_balanced_accuracy
+e1['aporte de Fallecimiento (¼ Δ recall)'] = (e1.train_recall_death - e1.outer_recall_death) / 4
+e1['aporte de las otras 3 clases'] = e1['brecha total'] - e1['aporte de Fallecimiento (¼ Δ recall)']
+e1.set_index('outer_fold').round(3)
+
+# %% [markdown]
+# **(b) Los mejores modelos de este entregable.** Para la mejor combinación de cada modelo se
+# reajusta en el entrenamiento de cada pliegue externo y se mide el recall por clase en ese mismo
+# entrenamiento y en el pliegue externo.
+
+# %%
+import json, warnings
+from osha_e3 import search as S, data as D, models as MM, evaluation as E, cache
+def run_gap():
+    X, y, g, s = N.task_data('clf')
+    rows = []
+    for m, r in bc.iterrows():
+        for f, (tr, te) in enumerate(N.outer_folds('clf')):
+            pipe = S.refit('clf', m, json.loads(r.final_params), r.balance, X.iloc[tr], y[tr], C.SEED)
+            for part, idx in [('entrenamiento', tr), ('validación', te)]:
+                pred = pipe.predict_proba(X.iloc[idx]).argmax(1)
+                rec = [((pred == k) & (y[idx] == k)).sum() / (y[idx] == k).sum() if (y[idx] == k).any() else np.nan for k in range(4)]
+                rows.append({'model': m, 'fold': f, 'parte': part, **{f'recall_{k}': rec[k] for k in range(4)}})
+    return pd.DataFrame(rows)
+gap = cache.cached('robustez_gap', run_gap)
+g = gap.groupby(['model', 'parte'])[[f'recall_{k}' for k in range(4)]].mean().unstack('parte')
+out = pd.DataFrame(index=[M.PRETTY[m] for m in P.MODEL_ORDER_CLF])
+for k, name in enumerate(C.CLASS_NAMES):
+    out[f'recall entren. {name}'] = g[(f'recall_{k}', 'entrenamiento')].reindex(P.MODEL_ORDER_CLF).to_numpy()
+    out[f'recall valid. {name}'] = g[(f'recall_{k}', 'validación')].reindex(P.MODEL_ORDER_CLF).to_numpy()
+deltas = pd.DataFrame({f'Δ {n}': out[f'recall entren. {n}'] - out[f'recall valid. {n}'] for n in C.CLASS_NAMES})
+out['brecha balanced acc.'] = deltas.mean(axis=1)
+out['aporte de Fallecimiento'] = deltas[f'Δ {C.CLASS_NAMES[0]}'] / 4
+out['aporte de las 3 clases frecuentes'] = out['brecha balanced acc.'] - out['aporte de Fallecimiento']
+out.round(3)
+
+# %% [markdown]
+# **Interpretación.** TODO
+
+# %% [markdown]
+# ## 12.5 Corrección del entregable 1: ¿qué pasa si se quita `time_unknown`?
+#
+# `time_unknown` supera el umbral de colinealidad (sección 4.6). Se reajusta la mejor combinación de
+# cada modelo **sin esa variable** en los 5 pliegues externos (mismos hiperparámetros) y se compara,
+# pliegue a pliegue, con el resultado original.
+
+# %%
+def run_ablation():
+    X, y, g, s = N.task_data('clf')
+    Xd = X.drop(columns=['time_unknown'])
+    rows = []
+    for m, r in bc.iterrows():
+        for f, (tr, te) in enumerate(N.outer_folds('clf')):
+            for label, XX in [('con time_unknown', X), ('sin time_unknown', Xd)]:
+                pipe = MM.make_pipeline('clf', m, json.loads(r.final_params), r.balance, C.SEED)
+                with warnings.catch_warnings():
+                    warnings.simplefilter('ignore')
+                    pipe.fit(XX.iloc[tr], y[tr])
+                met = E.classification_metrics(y[te], pipe.predict_proba(XX.iloc[te]))
+                rows.append({'model': m, 'fold': f, 'variante': label, **met})
+    return pd.DataFrame(rows)
+abl = cache.cached('robustez_ablation_time_unknown', run_ablation)
+rows = []
+for m in P.MODEL_ORDER_CLF:
+    a = abl[(abl.model == m) & (abl.variante == 'con time_unknown')].set_index('fold')
+    b = abl[(abl.model == m) & (abl.variante == 'sin time_unknown')].set_index('fold')
+    rows.append({'modelo': M.PRETTY[m], **{f'Δ {k} (sin − con)': (b[k] - a[k]).mean() for k in ['recall', 'f1', 'auc', 'log_loss']},
+                 'd.e. entre pliegues (balanced acc.)': a.recall.std(ddof=1)})
+pd.DataFrame(rows).set_index('modelo').round(4)
+
+# %% [markdown]
+# **Interpretación.** TODO
+
+# %% [markdown]
+# ## 12.6 Diseño alternativo: validación anidada con pliegues temporales (corrida de Iván Prada)
+#
+# En paralelo, Iván corrió una validación anidada con otro diseño (tablas en
+# `results/disenio_temporal/`): 3 pliegues externos **hacia adelante en el tiempo** (los del
+# entregable 1), NAICS y SOC completos con el agrupamiento de categorías raras como hiperparámetro,
+# búsqueda en el 25 % del entrenamiento externo (con todas las muertes) y reentrenamiento con el
+# 100 %, 20 evaluaciones por optimizador y SMOTE/ADASYN solo sobre Fallecimiento. KNN ×
+# `class_weight` no se corrió (108 combinaciones). Comparar los dos diseños indica qué conclusiones
+# dependen de cómo se valida.
+
+# %%
+from scipy.stats import spearmanr
+pooled = pd.read_csv(C.RESULTS / 'disenio_temporal' / 'pooled_summary.csv')
+ivm = iv[~iv.model.isin(['dummy', 'logreg_e1'])].groupby(['model', 'balance', 'optimizer']).agg(
+    ba_temporal=('outer_balanced_accuracy', 'mean'), auc_temporal=('outer_roc_auc_macro_ovr', 'mean'),
+    f1_temporal=('outer_f1_macro', 'mean')).reset_index()
+both = mc.merge(ivm, on=['model', 'balance', 'optimizer'])
+print('Combinaciones comunes:', len(both))
+for a, b, lab in [('outer_recall_mean', 'ba_temporal', 'balanced accuracy'), ('outer_auc_mean', 'auc_temporal', 'AUC macro'),
+                  ('outer_f1_mean', 'f1_temporal', 'F1 macro')]:
+    rho, p = spearmanr(both[a], both[b])
+    print(f'Spearman entre diseños ({lab}): rho = {rho:.2f} (p = {p:.2g})')
+fig, axes = plt.subplots(1, 2, figsize=(11.5, 4))
+for ax, a, b, lab in [(axes[0], 'outer_recall_mean', 'ba_temporal', 'balanced accuracy'), (axes[1], 'outer_auc_mean', 'auc_temporal', 'AUC macro')]:
+    for m in P.MODEL_ORDER_CLF:
+        x = both[both.model == m]
+        ax.scatter(x[a], x[b], color=P.MODEL_COLORS[m], s=28, label=M.PRETTY[m], edgecolor='white', linewidth=0.5)
+    lo = min(both[a].min(), both[b].min()); hi = max(both[a].max(), both[b].max())
+    ax.plot([lo, hi], [lo, hi], color=P.INK2, ls='--', lw=0.8)
+    ax.set_xlabel(f'{lab}: este diseño (5 pliegues por establecimiento)'); ax.set_ylabel(f'{lab}: diseño temporal (3 pliegues)')
+axes[1].legend(fontsize=7.5, loc='lower right')
+fig.tight_layout(); P.save(fig, 'e3_robustez_disenios'); plt.show()
+top_iv = pooled[~pooled.model.isin(['dummy'])].sort_values('BA_pooled', ascending=False).head(6)
+top_iv[['model', 'balance', 'optimizer', 'deaths', 'hits', 'pred_death', 'prec_death', 'BA_pooled']].round(4)
+
+# %% [markdown]
+# **Interpretación.** TODO

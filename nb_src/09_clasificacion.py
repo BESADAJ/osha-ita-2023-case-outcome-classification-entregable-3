@@ -169,7 +169,62 @@ pd.DataFrame(rec).set_index(['modelo', 'balanceo']).round(3)
 # **Interpretación.** TODO
 
 # %% [markdown]
-# ## 9.6 Calibración de probabilidades
+# ## 9.6 Tratamiento de la clase Fallecimiento
+#
+# Corrección del entregable 1: el profesor señaló que la clase Fallecimiento quedó sin tratamiento.
+# En este entregable se trata con las tres técnicas de balanceo de la guía (SMOTE, ADASYN y
+# `class_weight`) y se mide su efecto con intervalos, porque con 39 casos en la prueba cualquier
+# recall es muy incierto. Intervalo de Wilson al 95 % para el recall (aciertos de 39) y para la
+# precisión (aciertos entre los casos predichos como fallecimiento).
+#
+# Además, el balanced accuracy promedia el recall de las 4 clases: acertar **un** fallecimiento más de
+# 39 sube la métrica 0,25/39 ≈ 0,006, y en un pliegue externo con 1 fallecimiento la sube 0,25. Por eso
+# se reporta también el balanced accuracy de las **3 clases frecuentes** (sin Fallecimiento), que es
+# mucho más estable.
+
+# %%
+def wilson(k, n, z=1.959964):
+    if n == 0:
+        return (np.nan, np.nan)
+    p = k / n; den = 1 + z * z / n; c = (p + z * z / (2 * n)) / den; h = z * np.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / den
+    return (c - h, c + h)
+rows = []
+for m in MODELS:
+    for b in BALS:
+        sub = mc[(mc.model == m) & (mc.balance == b)]
+        combo = sub.loc[sub.outer_recall_mean.idxmax(), 'combo']
+        pr = F.load('clf', combo)[0]; pred = pr.argmax(1)
+        hits, n_pred, n_true = int(((pred == 0) & (yt == 0)).sum()), int((pred == 0).sum()), int((yt == 0).sum())
+        rlo, rhi = wilson(hits, n_true); plo, phi = wilson(hits, n_pred)
+        rec = [((pred == k) & (yt == k)).sum() / (yt == k).sum() for k in range(4)]
+        rows.append({'modelo': M.PRETTY[m], 'balanceo': M.PRETTY[b], 'aciertos (de 39)': hits, 'predichos como fallec.': n_pred,
+                     'recall fallec.': hits / n_true, 'IC Wilson recall': f'[{rlo:.3f}, {rhi:.3f}]',
+                     'precisión fallec.': hits / n_pred if n_pred else np.nan,
+                     'IC Wilson precisión': f'[{plo:.4f}, {phi:.4f}]' if n_pred else '—',
+                     'AUC fallec. (1 vs resto)': roc_auc_score(yt == 0, pr[:, 0]),
+                     'balanced acc. (4 clases)': np.mean(rec), 'balanced acc. (3 clases frecuentes)': np.mean(rec[1:])})
+death = pd.DataFrame(rows).set_index(['modelo', 'balanceo'])
+death.round(4)
+
+# %%
+ba3 = death['balanced acc. (3 clases frecuentes)'].unstack('balanceo')[[M.PRETTY[b] for b in BALS]]
+ba4 = death['balanced acc. (4 clases)'].unstack('balanceo')[[M.PRETTY[b] for b in BALS]]
+fig, axes = plt.subplots(1, 2, figsize=(11.5, 3.8), sharey=False)
+for ax, tab, title in [(axes[0], ba4, 'Balanced accuracy, 4 clases (prueba)'), (axes[1], ba3, 'Balanced accuracy, 3 clases frecuentes (prueba)')]:
+    x = np.arange(len(tab)); w = 0.2
+    for j, b in enumerate(BALS):
+        ax.bar(x + (j - 1.5) * w, tab[M.PRETTY[b]], width=w - 0.02, color=P.BAL_COLORS[b], label=M.PRETTY[b])
+    ax.set_xticks(x, tab.index, rotation=30, ha='right', fontsize=8); ax.set_title(title)
+    lo, hi = np.nanmin(tab.to_numpy()), np.nanmax(tab.to_numpy()); ax.set_ylim(lo - (hi - lo) * 0.5, hi + (hi - lo) * 0.2)
+    ax.grid(axis='x', visible=False)
+axes[0].legend(fontsize=8, ncol=2)
+fig.tight_layout(); P.save(fig, 'e3_clf_death_ba3'); plt.show()
+
+# %% [markdown]
+# **Interpretación.** TODO
+
+# %% [markdown]
+# ## 9.7 Calibración de probabilidades
 #
 # - **Brier multiclase:** media de Σₖ (pₖ − 1[y = k])²; 0 es perfecto. El Dummy que predice las
 #   frecuencias de la prueba obtendría ≈ 0,664 (entregable 2).
@@ -224,6 +279,46 @@ def run_recal():
     return pd.DataFrame(rows), curves
 recal, recal_curves = cache.cached('clf_recalibration', run_recal)
 recal.set_index(['modelo', 'método'])[['brier', 'ece', 'log_loss', 'recall', 'auc']].round(4)
+
+# %% [markdown]
+# **Interpretación.** TODO
+
+# %% [markdown]
+# ## 9.8 Segunda prueba: mismos establecimientos, meses nuevos
+#
+# Corrección del entregable 1 (costo del diseño; ver sección 4.7). Los 83.912 casos de octubre a
+# diciembre de los establecimientos de **desarrollo** quedaban descartados. Aquí se usan como una
+# segunda prueba que solo separa por tiempo: el modelo ya vio esos establecimientos (en enero a
+# septiembre), pero no esos meses. La diferencia con la prueba principal (establecimientos nuevos)
+# mide cuánto cuesta, en desempeño, exigir que el modelo generalice a lugares que no conoce. Se usan
+# los mismos 7 modelos, reajustados sobre la misma submuestra de desarrollo.
+
+# %%
+from osha_e3 import data as D
+df_all = D.load_prepared()
+dev_est = set(df_all.loc[df_all.split.eq('development'), 'establishment_id'])
+temporal = df_all[df_all.establishment_id.isin(dev_est) & df_all.date.ge('2023-10-01')].reset_index(drop=True)
+y_tmp = temporal.y_clf.to_numpy() - 1
+print(f'Segunda prueba: {len(temporal):,} casos, {temporal.establishment_id.nunique():,} establecimientos, '
+      f'{(y_tmp == 0).sum()} fallecimientos')
+def run_temporal():
+    X, y, _, _ = N.task_data('clf')
+    out = {}
+    for m in MODELS:
+        r = best.loc[m]
+        pipe = S.refit('clf', m, json.loads(r.final_params), r.balance, X, y, C.SEED)
+        out[m] = pipe.predict_proba(temporal[D.FEATURES])
+    return out
+p_tmp = cache.cached('clf_temporal_only', run_temporal)
+rows = []
+for m in MODELS:
+    a = E.classification_metrics(yt, probs[m]); b = E.classification_metrics(y_tmp, p_tmp[m])
+    rows.append({'modelo': M.PRETTY[m], 'balanced acc. (establ. nuevos)': a['recall'], 'balanced acc. (mismos establ.)': b['recall'],
+                 'AUC (establ. nuevos)': a['auc'], 'AUC (mismos establ.)': b['auc'],
+                 'accuracy (establ. nuevos)': a['accuracy'], 'accuracy (mismos establ.)': b['accuracy']})
+tmp_tab = pd.DataFrame(rows).set_index('modelo')
+tmp_tab['Δ AUC (mismos − nuevos)'] = tmp_tab['AUC (mismos establ.)'] - tmp_tab['AUC (establ. nuevos)']
+tmp_tab.round(4)
 
 # %% [markdown]
 # **Interpretación.** TODO

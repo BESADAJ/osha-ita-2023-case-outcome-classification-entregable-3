@@ -35,7 +35,14 @@ pd.DataFrame({'RMSE externo': [fmt(a, b) for a, b in zip(t.outer_rmse_mean, t.ou
              index=t['Combinación'])
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** Las 28 combinaciones quedan en un rango estrecho: RMSE externo entre 1,364 y 1,381 y R² entre 0,04 y
+# 0,07. Los modelos de árboles en ensamble (Random Forest y XGBoost) encabezan la tabla, seguidos de cerca
+# por Lasso y Ridge; SVR, el árbol simple y KNN quedan al final. Las diferencias entre optimizadores dentro de
+# un mismo modelo (≤ 0,004 de RMSE) son menores que la desviación entre pliegues (≈ 0,01): con este
+# presupuesto, el método de búsqueda importa poco en regresión (capítulo 7). El costo sí cambia mucho:
+# Random Forest gastó unos 20 minutos·núcleo de búsqueda por combinación y XGBoost unos 3 para el mismo
+# RMSE. Con estas variables se explica solo alrededor del 6 % de la varianza de log(1 + días): la duración
+# de una ausencia depende sobre todo de la lesión concreta, que el modelo no ve.
 
 # %% [markdown]
 # ## 10.2 Mejor combinación de cada modelo: métricas y supuestos en la prueba
@@ -75,7 +82,26 @@ reg_table = pd.DataFrame(rows).set_index('Modelo')
 reg_table.round(4)
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** En la prueba el orden se mantiene (Random Forest y XGBoost primero, KNN último), pero aparecen dos cosas
+# que la validación no mostraba:
+#
+# 1. **El RMSE baja** (1,14 frente a 1,36) **y el R² se hunde** (0,016 en el mejor modelo, negativo en KNN y
+#    el árbol). No es que el modelo mejore: la prueba tiene menos dispersión (desviación de 1,15 frente a 1,41
+#    en el entrenamiento) y un nivel más bajo (media 2,44 frente a 2,73). Hasta la referencia que predice la
+#    media del entrenamiento obtiene R² = −0,064.
+# 2. **Sesgo sistemático:** el 58 % de los residuos son negativos y el residuo medio es −0,22 (el modelo
+#    sobrestima). El sesgo crece mes a mes: −0,12 en octubre, −0,21 en noviembre y −0,34 en diciembre.
+#
+# La causa más probable es **censura a la derecha** de la etiqueta. El archivo se cierra con el reporte
+# anual: un caso de diciembre no puede acumular 180 días de ausencia antes de esa fecha. En los datos, los
+# casos con 180 días o más pasan de cerca del 8 % (enero a junio) al 0,5 % (diciembre). Es la «maduración de la
+# etiqueta» que el entregable 2 dejó anotada como posible y que aquí se confirma. Si se quita el sesgo medio,
+# el R² del mejor modelo en la prueba sube de 0,016 a 0,053, cerca del 0,066 de la validación anidada.
+#
+# **Supuestos.** El test de White rechaza la homocedasticidad en todos los modelos (p ≈ 0): la varianza del
+# residuo cambia con la predicción, en parte por la forma acotada del objetivo y por la censura. BDS no
+# rechaza la independencia (p entre 0,85 y 0,90), pero los 3.000 residuos usados están muy separados en el
+# tiempo; Ljung-Box (sección 10.4) sí detecta dependencia entre residuos cercanos.
 
 # %% [markdown]
 # ## 10.3 Entrenamiento, validación y prueba con sus predicciones
@@ -115,7 +141,12 @@ for i, (name, d, yy, pp, col) in enumerate(parts):
 fig.tight_layout(); P.save(fig, 'e3_reg_train_valid_test'); plt.show()
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** El modelo sigue bien el nivel medio del entrenamiento (RMSE 1,27) y de la validación (1,38). La serie de
+# validación es más irregular porque cada semana tiene pocos establecimientos de un solo pliegue. En la
+# prueba la diferencia es visible: el promedio real cae de forma sostenida de unos 2,6 a 2,15 entre octubre y
+# fin de año, mientras la predicción queda casi plana en torno a 2,6–2,7. Es la huella de la censura descrita
+# arriba. Caso a caso (abajo), las predicciones se concentran entre 2 y 3,5 sea cual sea el valor real: el
+# modelo apenas separa ausencias cortas de largas, consistente con un R² de 0,05 a 0,07.
 
 # %% [markdown]
 # ## 10.4 Análisis de residuos del mejor modelo
@@ -146,4 +177,23 @@ print(f'Asimetría {stats.skew(res):.3f}, curtosis en exceso {stats.kurtosis(res
 print(f'BDS (3.000 residuos equiespaciados), dimensiones 2-4:', np.round(bds(res[idx_bds], max_dim=4)[1], 4))
 
 # %% [markdown]
-# **Interpretación.** TODO
+# **Interpretación.** - **Residuos frente a predicción:** bandas diagonales, porque el objetivo es discreto (días enteros) y la
+#   predicción se mueve en un rango corto. La forma de abanico confirma la heterocedasticidad que detectó
+#   White. El modelo nunca predice ausencias muy cortas ni muy largas: subestima las largas y sobrestima las
+#   cortas (regresión hacia la media).
+# - **Histograma:** asimetría casi nula (0,12) pero colas más cortas que la normal (curtosis en exceso
+#   −0,63) y una forma irregular que hereda los picos del objetivo (1, 2, 3 días y el tope de 180).
+#   Jarque-Bera y D'Agostino rechazan la normalidad; con 45.861 casos rechazarían casi cualquier desviación,
+#   pero aquí la desviación también se ve en la gráfica. Para estos modelos (no paramétricos o penalizados)
+#   la normalidad no es un requisito de estimación; solo afectaría a intervalos de predicción basados en ella.
+# - **ACF y Ljung-Box:** caso a caso la autocorrelación es pequeña (0,06 en el rezago 1) pero significativa
+#   con tantos datos (Ljung-Box p ≈ 0): casos del mismo día y establecimiento se parecen. El residuo medio
+#   diario tiene una autocorrelación alta que decae lentamente (0,73 en el rezago 1): no es ruido, es la
+#   tendencia descendente de la prueba (censura) que el modelo no captura. Es un problema de
+#   especificación más que de dependencia entre casos.
+#
+# **Conclusión del capítulo.** La regresión tiene poder predictivo bajo y su evaluación en la prueba está
+# afectada por la censura de la etiqueta. Una versión correcta debería modelar la censura (por ejemplo, un
+# modelo de supervivencia con el tiempo hasta el cierre del reporte como límite) o evaluar solo casos con
+# seguimiento suficiente. Se deja como siguiente paso; los resultados de este capítulo se leen como
+# comparación relativa entre modelos, no como desempeño absoluto.

@@ -41,5 +41,5 @@ y los capítulos leen sus resultados de `results/`; el capítulo 15 explica cóm
 
 :::{note}
 **Correcciones del entregable 1.** La guía pide incorporar las correcciones que se hicieron al primer
-entregable. Se listan en la sección 3.8 a medida que se integran.
+entregable. La sección 3.8 lista cada comentario del profesor y el lugar del informe donde se atiende.
 :::

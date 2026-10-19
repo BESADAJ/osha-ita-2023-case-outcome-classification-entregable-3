@@ -166,7 +166,128 @@ by_type.sort_values('count', ascending=False)
 # con muchas más posibilidades de terminar en días de ausencia: muchas ausencias, pero cortas.
 
 # %% [markdown]
-# ## 4.5 Del EDA a la configuración del entregable 3
+# ## 4.5 Hallazgo durante el proyecto: la etiqueta de días está censurada
+#
+# Al evaluar los modelos de regresión en la prueba (capítulo 10) apareció un sesgo que crecía mes a
+# mes. La causa se ve ya en los datos: un caso solo puede acumular días de ausencia hasta que se
+# cierra el reporte anual, así que los incidentes de fin de año no alcanzan ausencias largas. Se
+# muestra con **todos** los casos de 2023 con días de ausencia (desarrollo, prueba y casos
+# excluidos por la partición), porque es una propiedad del archivo, no de un modelo.
+
+# %%
+allr = df[df.y_reg.notna()].copy()
+allr['mes'] = allr.date.dt.month
+m = allr.groupby('mes').agg(casos=('y_reg', 'size'), mediana_dias=('days_away', 'median'),
+                            media_log=('y_reg', 'mean'), pct_180=('days_away', lambda x: (x >= 180).mean() * 100))
+fig, axes = plt.subplots(1, 2, figsize=(10.5, 3.4))
+axes[0].bar(m.index, m.pct_180, color=P.SERIES[0], width=0.7)
+axes[0].set_title('% de casos con 180 días o más'); axes[0].set_xlabel('mes del incidente (2023)')
+axes[1].plot(m.index, m.media_log, marker='o', ms=6, color=P.SERIES[1])
+axes[1].set_title('Media de log(1 + días)'); axes[1].set_xlabel('mes del incidente (2023)')
+for a in axes:
+    a.set_xticks(range(1, 13)); a.grid(axis='x', visible=False)
+    a.axvspan(9.5, 12.5, color=P.GRID, alpha=0.6, lw=0); a.text(11, a.get_ylim()[1] * 0.97, 'prueba', ha='center', va='top', fontsize=8, color=P.INK2)
+P.save(fig, 'e3_eda_censura'); plt.show()
+m.round(2)
+
+# %% [markdown]
+# **Interpretación.** De enero a junio, alrededor del 8 % de los casos con días de ausencia llega al
+# tope de 180 días; desde julio la proporción cae (4,8 %, 2,3 %, 0,8 %) hasta el 0,5 % en diciembre,
+# y la media de log(1 + días) baja de ~2,8 a 2,29. No es que las lesiones de fin de año sean más
+# leves: a esos casos les faltó tiempo para acumular días antes del cierre del archivo. La etiqueta
+# está **censurada a la derecha** y la censura es más fuerte justo en el trimestre de prueba.
+#
+# Consecuencias: (1) la clasificación no se ve afectada en la misma medida (basta un día de ausencia
+# para que el caso sea «días de ausencia»), aunque algún caso reciente podría figurar como
+# «traslado» u «otro» si su ausencia empezó tarde; (2) en regresión, cualquier modelo entrenado con
+# enero–septiembre sobrestima los días de octubre–diciembre (capítulo 10). Corregirlo bien exige un
+# modelo de supervivencia o restringir la evaluación a casos con seguimiento suficiente.
+
+# %% [markdown]
+# ## 4.6 Corrección del entregable 1: `time_unknown` y la colinealidad
+#
+# El profesor señaló que `time_unknown` superaba el umbral de colinealidad que el propio entregable
+# 1 fijó (GVIF ajustado por grados de libertad de 3,80) y aun así se conservó sin discutirlo. Se
+# recalcula con las variables del entregable 3. El GVIF de un bloque de columnas one-hot j es
+# det(R_jj)·det(R_−j,−j)/det(R), con R la matriz de correlación de todas las columnas; se reporta
+# GVIF^(1/(2·gl)), comparable con √VIF.
+
+# %%
+from sklearn.preprocessing import OneHotEncoder
+smp = dev.sample(60_000, random_state=C.SEED)
+enc = OneHotEncoder(drop='first', min_frequency=200, handle_unknown='infrequent_if_exist', sparse_output=False).fit(smp[D.FEATURES])
+Z = enc.transform(smp[D.FEATURES])
+names_z = enc.get_feature_names_out(D.FEATURES)
+keep = Z.std(axis=0) > 0
+Z, names_z = Z[:, keep], names_z[keep]
+R = np.corrcoef(Z, rowvar=False)
+_, logdet_all = np.linalg.slogdet(R)
+rows = []
+for f in D.FEATURES:
+    idx = np.array([n.startswith(f + '_') for n in names_z])
+    _, a = np.linalg.slogdet(R[np.ix_(idx, idx)]); _, b = np.linalg.slogdet(R[np.ix_(~idx, ~idx)])
+    gvif = np.exp(a + b - logdet_all); dfj = int(idx.sum())
+    rows.append({'variable': f, 'gl (columnas)': dfj, 'GVIF': gvif, 'GVIF^(1/(2·gl))': gvif ** (1 / (2 * dfj))})
+gv = pd.DataFrame(rows).set_index('variable').sort_values('GVIF^(1/(2·gl))', ascending=False)
+display(gv.round(3))
+print('Cruce time_unknown × hora del incidente desconocida (desarrollo):')
+pd.crosstab(dev.time_unknown, dev.incident_hour.eq('Unknown'), margins=True)
+
+# %% [markdown]
+# **Interpretación.** `time_unknown` sigue siendo, con diferencia, la variable más colineal (GVIF
+# ajustado 3,81; la siguiente es 1,23), por construcción: en los 35.786 casos con `time_unknown = 1`
+# la hora del incidente es «Unknown» (y `hours_since_start` también). No aporta
+# información propia; su contenido ya está en la categoría «Unknown» de la hora. Con el criterio
+# del entregable 1 debería salir del modelo. Para los modelos de este entregable (regularizados o de
+# árboles) la colinealidad no afecta la predicción, solo la interpretación de coeficientes y de
+# importancias, que se reparten entre las dos columnas redundantes. Se comprueba empíricamente en
+# el capítulo 12 (sección 12.5): quitar `time_unknown` y reajustar los 7 mejores modelos no cambia
+# el desempeño más allá del ruido. Por coherencia con el umbral fijado, la interpretación (capítulo 11)
+# se lee considerando ambas columnas como una sola fuente de información.
+
+# %% [markdown]
+# ## 4.7 Corrección del entregable 1: el costo de los casos que el diseño descarta
+#
+# El profesor observó que el diseño descarta cerca de la mitad de los casos sin discutir su costo.
+# La partición de los entregables 1 y 2 (que se mantiene) usa dos cortes a la vez: establecimientos
+# (40 % desarrollo, 60 % prueba) y tiempo (enero–septiembre para desarrollo, octubre–diciembre para
+# prueba, con 7 días de purga). Los casos que caen en el cruce «equivocado» no se usan.
+
+# %%
+dev_est = set(df.loc[df.split.eq('development'), 'establishment_id'])
+cat = np.select([df.split.eq('development'), df.split.eq('test'),
+                 df.date.ge('2023-09-24') & df.date.lt('2023-10-01'),
+                 ~df.establishment_id.isin(dev_est) & df.date.lt('2023-09-24'),
+                 df.establishment_id.isin(dev_est) & df.date.ge('2023-10-01')],
+                ['Desarrollo (40 % establ., ene–23 sep)', 'Prueba (60 % establ., oct–dic)', 'Purga de 7 días (24–30 sep)',
+                 'Descartado: establecimientos de prueba, ene–sep', 'Descartado: establecimientos de desarrollo, oct–dic'],
+                'Descartado: otros (establecimientos solo en el periodo excluido)')
+tab = pd.Series(cat).value_counts().to_frame('casos')
+tab['%'] = tab.casos / len(df) * 100
+tab.round(1)
+
+# %% [markdown]
+# **Interpretación.** Se usan 396.907 casos (44,6 %) y quedan fuera 493.465 (55,4 %). La mayor parte
+# del descarte (43,7 % del archivo) son los casos de enero a septiembre de los establecimientos
+# reservados para la prueba:
+# usarlos para entrenar haría que el modelo conociera esos establecimientos y la prueba dejaría de
+# medir la generalización a lugares nuevos (el riesgo de fuga que motivó la partición). El otro
+# bloque grande (9,4 %, 83.912 casos) son los casos de octubre a diciembre de los establecimientos de
+# desarrollo; la purga de 7 días suma un 2,0 %.
+#
+# **Costo.** (1) *Menos datos para entrenar.* La curva de aprendizaje del entregable 2 mostró que
+# triplicar los datos casi no mejora la validación (0,377 → 0,385 de balanced accuracy), y en este
+# entregable los modelos se optimizan sobre una submuestra de 30.000 casos; el cuello de botella no es
+# la cantidad de casos sino la información de las variables. (2) *Menos casos raros:* se pierden
+# fallecimientos (69 en desarrollo, 39 en prueba, 172 descartados), lo que agrava el problema de esa
+# clase. (3) *Prueba más pequeña,* intervalos más anchos. **Beneficio:** una estimación honesta para
+# establecimientos y fechas nuevos. Además, el bloque descartado de octubre a diciembre de los
+# establecimientos de desarrollo sirve como una **segunda prueba** que solo separa por tiempo; en el
+# capítulo 9 (sección 9.8) se evalúan ahí los modelos para medir cuánto cuesta exigir establecimientos
+# nuevos.
+
+# %% [markdown]
+# ## 4.8 Del EDA a la configuración del entregable 3
 #
 # | Hallazgo | Decisión |
 # |---|---|
@@ -174,4 +295,5 @@ by_type.sort_values('count', ascending=False)
 # | Horas sin relación monótona; faltantes no aleatorios | Horas y tramos de horas desde el inicio como categorías con «Unknown» |
 # | Fallecimiento = 0,026 % | 4 clases; balanced accuracy como métrica de validación; SMOTE/ADASYN con vecinos ajustados a la clase minoritaria |
 # | Días de ausencia muy asimétricos | Objetivo de regresión `log1p(días)` |
+# | Días censurados por el cierre del archivo (más en oct–dic) | Leer la regresión en la prueba como comparación relativa; modelar la censura queda como siguiente paso |
 # | Casos agrupados por establecimiento | Todos los pliegues (externos e internos) separan establecimientos |

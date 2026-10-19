@@ -105,17 +105,66 @@ class SafeSMOTE(SMOTE):
 
 
 class SafeADASYN(ADASYN):
-    """ADASYN con vecinos ajustados al tamaño de la minoritaria; si no puede generar, no remuestrea."""
+    """ADASYN (He et al., 2008) implementado clase por clase, válido con clases diminutas.
+
+    La versión de imblearn falla en este problema por dos motivos: (1) usa ``n_neighbors + 1``
+    vecinos *dentro* de la clase minoritaria, imposible con 4-5 fallecimientos, y (2) redondea por
+    separado el número de muestras de cada punto, así que cuando hay que generar menos de 0,5 por
+    punto (p. ej. 581 muestras entre 4.063 casos) todas redondean a 0 y lanza «No samples will be
+    generated»; con ``sampling_strategy='auto'`` basta que falle una clase para que falle todo.
+
+    Aquí, para cada clase c con menos casos que la mayoritaria:
+
+    1. r_i = fracción de los k vecinos (en todos los datos) de cada caso de c que son de otra clase
+       (dificultad); k = min(5, n_c − 1).
+    2. Se reparten G = n_mayoritaria − n_c muestras proporcionalmente a r_i, con redondeo por restos
+       mayores (la suma es exactamente G). Si todos los r_i son 0, el reparto es uniforme (= SMOTE).
+    3. Cada muestra interpola entre el caso y uno de sus k vecinos de la misma clase.
+
+    ``notes_`` deja constancia de lo hecho en cada clase.
+    """
 
     def fit_resample(self, X, y):
-        m = np.bincount(y).astype(float)
-        m = int(m[m > 0].min())
-        self.n_neighbors = max(1, min(5, m - 1))
-        try:
-            return super().fit_resample(X, y)
-        except (ValueError, RuntimeError) as exc:  # p. ej. «No samples will be generated»
-            warnings.warn(f'ADASYN no generó muestras: {exc}')
+        from scipy import sparse
+        from sklearn.neighbors import NearestNeighbors
+        rng = np.random.default_rng(self.random_state)
+        is_sparse = sparse.issparse(X)
+        X = X.tocsr() if is_sparse else np.asarray(X)
+        y = np.asarray(y)
+        counts = np.bincount(y)
+        target = counts.max()
+        nn_all = NearestNeighbors().fit(X)
+        new_X, new_y, self.notes_ = [], [], []
+        for c in np.flatnonzero((counts > 0) & (counts < target)):
+            idx = np.flatnonzero(y == c)
+            n_c, G = len(idx), int(target - counts[c])
+            if n_c < 2:
+                self.notes_.append(f'clase {c}: {n_c} caso, no se remuestrea')
+                continue
+            k = max(1, min(5, n_c - 1))
+            Xc = X[idx]
+            nb = nn_all.kneighbors(Xc, n_neighbors=k + 1, return_distance=False)[:, 1:]
+            r = (y[nb] != c).mean(axis=1)
+            uniform = r.sum() == 0
+            r = np.full(n_c, 1.0 / n_c) if uniform else r / r.sum()
+            raw = r * G
+            g = np.floor(raw).astype(int)
+            g[np.argsort(raw - g)[::-1][:G - g.sum()]] += 1
+            within = NearestNeighbors(n_neighbors=k + 1).fit(Xc).kneighbors(Xc, return_distance=False)[:, 1:]
+            rows = np.repeat(np.arange(n_c), g)
+            pick = within[rows, rng.integers(0, k, len(rows))]
+            lam = rng.random(len(rows))[:, None]
+            if is_sparse:
+                synth = Xc[rows] + Xc[pick].multiply(lam) - Xc[rows].multiply(lam)
+            else:
+                synth = Xc[rows] + lam * (Xc[pick] - Xc[rows])
+            new_X.append(sparse.csr_matrix(synth) if is_sparse else synth)
+            new_y.append(np.full(len(rows), c))
+            self.notes_.append(f'clase {c}: n={n_c}, k={k}, {G} sintéticos' + (' (reparto uniforme)' if uniform else ''))
+        if not new_X:
             return X, y
+        stack = sparse.vstack if is_sparse else np.vstack
+        return stack([X] + new_X).tocsr() if is_sparse else stack([X] + new_X), np.concatenate([y] + new_y)
 
 
 # --------------------------------------------------------------------------------------------
