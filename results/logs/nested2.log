@@ -1,0 +1,13 @@
+reg: 140 celdas, 60 pendientes, n_jobs=11
+[Parallel(n_jobs=11)]: Using backend LokyBackend with 11 concurrent workers.
+[Parallel(n_jobs=11)]: Done  52 out of  60 | elapsed:  8.0min remaining:  1.2min
+[Parallel(n_jobs=11)]: Done  60 out of  60 | elapsed:  8.6min finished
+Tabla maestra escrita: C:\Users\Usuario\Desktop\MachineLearningConda\Proyecto_ML_Entregable_3\osha-ita-2023-entregable-3\results\master_reg.csv
+clf: 560 celdas, 560 pendientes, n_jobs=11
+[Parallel(n_jobs=11)]: Using backend LokyBackend with 11 concurrent workers.
+[Parallel(n_jobs=11)]: Done  50 tasks      | elapsed: 48.3min
+[Parallel(n_jobs=11)]: Done 140 tasks      | elapsed: 141.1min
+[Parallel(n_jobs=11)]: Done 266 tasks      | elapsed: 232.1min
+[Parallel(n_jobs=11)]: Done 428 tasks      | elapsed: 325.4min
+[Parallel(n_jobs=11)]: Done 560 out of 560 | elapsed: 338.2min finished
+Tabla maestra escrita: C:\Users\Usuario\Desktop\MachineLearningConda\Proyecto_ML_Entregable_3\osha-ita-2023-entregable-3\results\master_clf.csv

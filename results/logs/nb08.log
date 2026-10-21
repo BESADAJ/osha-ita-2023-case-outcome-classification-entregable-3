@@ -1,0 +1,7 @@
+C:\Users\Usuario\miniconda3\envs\ml_venv\lib\site-packages\debugpy\_vendored\pydevd\pydevd_plugins\__init__.py:5: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  __import__('pkg_resources').declare_namespace(__name__)
+C:\Users\Usuario\miniconda3\envs\ml_venv\lib\site-packages\zmq\_future.py:693: RuntimeWarning: Proactor event loop does not implement add_reader family of methods required for zmq. Registering an additional selector thread for add_reader support via tornado. Use `asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())` to avoid this warning.
+  self._get_loop()
+C:\Users\Usuario\miniconda3\envs\ml_venv\lib\site-packages\debugpy\_vendored\pydevd\pydevd_plugins\__init__.py:5: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  __import__('pkg_resources').declare_namespace(__name__)
+08_optimizacion_computacional: ejecutado en 223 s

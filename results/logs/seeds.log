@@ -1,0 +1,2 @@
+semillas: 105 celdas, 105 pendientes
+[Parallel(n_jobs=11)]: Using backend LokyBackend with 11 concurrent workers.

@@ -22,6 +22,9 @@ de los entregables anteriores (octubre–diciembre, establecimientos no vistos).
 | Corridas largas | `scripts/` |
 | Resultados (tablas maestras, una fila por combinación) | `results/master_clf.csv`, `results/master_reg.csv` |
 | Registro de cada corrida (combinación × pliegue externo) | `results/nested/<tarea>/*.json` |
+| Predicciones de prueba de las 140 combinaciones | `results/final/<tarea>/*.npz` (sin identificadores) |
+| Cálculos guardados de los capítulos (SHAP, bootstrap, tiempos…) | `results/cache/*.joblib` |
+| Guía del entregable (PDF) | `docs/guia_entregable_3.pdf` |
 | Dashboard del entregable 2 | `dashboard/` y <https://osha-ita-2023-case-outcome.onrender.com/> |
 
 ## Estructura del código
@@ -61,4 +64,6 @@ jupyter-book build jbook
 ghp-import -n -p -f jbook/_build/html   # publica en gh-pages
 ```
 
-Los capítulos guardan sus cálculos costosos en `results/cache/` (no versionado); la primera ejecución los calcula.
+Los capítulos guardan sus cálculos costosos en `results/cache/` y las predicciones de prueba están en `results/final/`, ambos
+versionados: el libro se puede volver a ejecutar sin repetir las corridas largas. Solo `results/cache/*.parquet` (datos
+preparados con identificadores) no se versiona; se regenera desde el CSV.

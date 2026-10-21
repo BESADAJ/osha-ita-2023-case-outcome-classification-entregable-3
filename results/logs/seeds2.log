@@ -1,0 +1,4 @@
+semillas: 105 celdas, 105 pendientes
+[Parallel(n_jobs=11)]: Using backend LokyBackend with 11 concurrent workers.
+[Parallel(n_jobs=11)]: Done  50 tasks      | elapsed: 31.3min
+[Parallel(n_jobs=11)]: Done 105 out of 105 | elapsed: 46.2min finished

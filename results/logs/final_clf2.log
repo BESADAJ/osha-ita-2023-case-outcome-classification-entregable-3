@@ -1,0 +1,7 @@
+clf: 112 combinaciones, 28 pendientes
+[Parallel(n_jobs=11)]: Using backend LokyBackend with 11 concurrent workers.
+[Parallel(n_jobs=11)]: Done  13 out of  28 | elapsed:  2.8min remaining:  3.3min
+[Parallel(n_jobs=11)]: Done  19 out of  28 | elapsed:  3.8min remaining:  1.8min
+[Parallel(n_jobs=11)]: Done  25 out of  28 | elapsed:  4.9min remaining:   35.3s
+[Parallel(n_jobs=11)]: Done  28 out of  28 | elapsed:  5.3min finished
+Tabla de prueba escrita: C:\Users\Usuario\Desktop\MachineLearningConda\Proyecto_ML_Entregable_3\osha-ita-2023-entregable-3\results\test_clf.csv
