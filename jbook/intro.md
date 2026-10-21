@@ -24,6 +24,7 @@ interpretabilidad y comparación estadística jerárquica.
 | Datos | 1. Contexto · 2–3. EDA de los entregables 1 y 2 · **4. EDA mejorado** (variables agrupadas, horas desde el inicio de la jornada, objetivo de regresión) |
 | Modelos | 5. Modelo base del entregable 2 · **6. Diseño del pipeline combinatorio** · **7. Optimización de hiperparámetros** · **8. Optimización computacional** · **9. Clasificación** · **10. Regresión** · **11. Interpretabilidad** · **12. Robustez** · **13. Comparación estadística** |
 | Cierre | 14. Conclusiones · 15. Reproducibilidad · Anexo: notebook del entregable 1 |
+| Todo en uno | **Notebook único** (`entregable3_completo.ipynb`): los 15 capítulos y el anexo en un solo archivo |
 
 Los capítulos en negrita son nuevos y son notebooks con el código que produce cada tabla y figura. Las
 corridas largas (validación anidada de las 140 combinaciones) se ejecutan con los scripts de `scripts/`

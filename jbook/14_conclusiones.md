@@ -48,7 +48,7 @@
 | Brecha entrenamiento–validación (0,65 frente a 0,39) | Se debe casi entera a Fallecimiento: recall 1,0 en entrenamiento y 0 en validación aporta 0,25 de los ~0,28 de brecha. En las clases frecuentes la brecha es de 0,01 a 0,05 (sección 12.4). |
 | Death sin tratamiento | Tratada con SMOTE, ADASYN y `class_weight` en todos los modelos y optimizadores; se reporta con intervalos de Wilson. El tratamiento sube el recall, pero no produce un detector útil (secciones 9.5 y 9.6). |
 | Casos descartados sin discutir su costo | 55,4 % descartado; el costo en desempeño de exigir establecimientos nuevos es de 0,004 a 0,05 de AUC, medido con una segunda prueba (secciones 4.7 y 9.8). |
-| Código de entrenamiento no visible | Capítulos como notebooks y código fuente impreso (sección 6.9). |
+| Código de entrenamiento no visible | Capítulos como notebooks y código fuente impreso (sección 6.8). |
 | `time_unknown` sobre el umbral de colinealidad | GVIF de 3,81 confirmado; quitarla no cambia el desempeño (≤ 0,02) y en KNN y Naive Bayes mejora un poco: la variable sobra (secciones 4.6 y 12.5). |
 
 ## Límites

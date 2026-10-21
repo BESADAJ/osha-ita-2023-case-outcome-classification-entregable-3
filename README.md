@@ -18,6 +18,7 @@ de los entregables anteriores (octubre–diciembre, establecimientos no vistos).
 | Qué | Dónde |
 |---|---|
 | Informe (Jupyter Book) | <https://besadaj.github.io/osha-ita-2023-case-outcome-classification-entregable-3/> (fuentes en `jbook/`) |
+| **Notebook único con todo el entregable** | `jbook/entregable3_completo.ipynb` (también como última página del libro) |
 | Código | `src/osha_e3/` |
 | Corridas largas | `scripts/` |
 | Resultados (tablas maestras, una fila por combinación) | `results/master_clf.csv`, `results/master_reg.csv` |
@@ -60,6 +61,7 @@ python scripts/run_nested.py all 11     # 700 celdas de validación anidada (~1-
 python scripts/run_final.py all 11      # reajuste y prueba de las 140 combinaciones
 python scripts/run_seeds.py 11          # sensibilidad a semillas
 python scripts/build_notebooks.py       # genera y ejecuta los capítulos en jbook/
+python scripts/build_single_notebook.py # une todo en jbook/entregable3_completo.ipynb y lo ejecuta
 jupyter-book build jbook
 ghp-import -n -p -f jbook/_build/html   # publica en gh-pages
 ```

@@ -232,7 +232,7 @@ pd.DataFrame(rows).set_index(['Tarea', 'Modelo'])
 pd.Series({k: C.seed_for(k) for k in C.OFFSETS}, name='semilla (índice 0)').to_frame()
 
 # %% [markdown]
-# ## 6.9 El código de entrenamiento, visible
+# ## 6.8 El código de entrenamiento, visible
 #
 # Corrección del entregable 1: el profesor señaló que el código de entrenamiento no se veía en el
 # notebook. Aquí se imprime el código fuente real (no una copia) de las funciones que entrenan y
@@ -273,3 +273,101 @@ print(inspect.getsource(S.genetic_search))
 
 # %%
 print(inspect.getsource(F.run_one))
+
+# %% [markdown]
+# ## 6.9 Inventario: los 140 modelos entrenados y los modelos base de la guía
+#
+# Esta sección comprueba con los archivos de resultados (no con el texto) que están todas las
+# combinaciones exigidas: 112 de clasificación y 28 de regresión, cada una con sus 5 pliegues externos
+# de validación anidada y su evaluación final en la prueba.
+
+# %%
+import glob
+from osha_e3 import config as C
+checks = []
+for task, n_combos in [('clf', 112), ('reg', 28)]:
+    combos = M.combos(task)
+    cells = [N.cell_path(task, m, b, o, f).exists() for (m, b, o) in combos for f in range(C.OUTER_FOLDS)]
+    finals = [F.out_path(task, f'{m}|{b}|{o}').exists() for (m, b, o) in combos]
+    checks.append({'tarea': 'Clasificación' if task == 'clf' else 'Regresión', 'combinaciones exigidas': n_combos,
+                   'combinaciones definidas': len(combos), 'celdas de validación anidada (× 5 pliegues)': sum(cells),
+                   'evaluaciones en la prueba': sum(finals)})
+inv = pd.DataFrame(checks).set_index('tarea')
+inv.loc['Total'] = inv.sum()
+assert inv.loc['Total', 'combinaciones definidas'] == 140 and inv.loc['Total', 'evaluaciones en la prueba'] == 140
+assert inv.loc['Total', 'celdas de validación anidada (× 5 pliegues)'] == 700
+inv
+
+# %% [markdown]
+# **Modelos base exigidos en la sección 7.2 de la guía** y su implementación:
+
+# %%
+req = pd.DataFrame([
+    ('K-Nearest Neighbors (KNN)', 'Clasificación y regresión', 'KNeighborsClassifier / KNeighborsRegressor', 'knn'),
+    ('Naive Bayes', 'Clasificación', 'BernoulliNB (variables binarias)', 'naive_bayes'),
+    ('Regresión logística L1 y L2', 'Clasificación', 'LogisticRegression (saga), penalización L1 o L2 como hiperparámetro', 'logreg'),
+    ('Ridge', 'Regresión', 'Ridge', 'ridge'),
+    ('Lasso', 'Regresión', 'Lasso', 'lasso'),
+    ('Decision Tree', 'Clasificación y regresión', 'DecisionTreeClassifier / DecisionTreeRegressor', 'tree'),
+    ('Random Forest', 'Clasificación y regresión', 'RandomForestClassifier / RandomForestRegressor', 'random_forest'),
+    ('XGBoost (con SHAP y LIME)', 'Clasificación y regresión', 'XGBClassifier / XGBRegressor (hist); SHAP y LIME en el capítulo 11', 'xgboost'),
+    ('SVM', 'Clasificación', 'LinearSVC (+ softmax; Platt en el capítulo 9)', 'svm'),
+    ('SVR', 'Regresión', 'LinearSVR', 'svr'),
+], columns=['Modelo de la guía', 'Tarea', 'Implementación', 'clave'])
+mc_all, mr_all = N.master_table('clf'), N.master_table('reg')
+req['combinaciones entrenadas'] = [int((mc_all.model == k).sum() + (mr_all.model == k).sum()) for k in req.clave]
+req.drop(columns='clave').set_index('Modelo de la guía')
+
+# %% [markdown]
+# **Regresión logística: L1 frente a L2.** La penalización es un hiperparámetro de la búsqueda; en las 80
+# búsquedas de la logística (4 balanceos × 4 optimizadores × 5 pliegues) se evaluaron configuraciones de
+# los dos tipos. Mejor puntaje interno alcanzado con cada penalización y cuántas veces ganó cada una:
+
+# %%
+rows = []
+for r in N.load_cells('clf'):
+    if r['model'] != 'logreg':
+        continue
+    for pen in ['l1', 'l2']:
+        s = [h['score'] for h in r['history'] if h['params']['penalty'] == pen]
+        rows.append({'balance': r['balance'], 'optimizer': r['optimizer'], 'fold': r['fold'], 'penalización': pen.upper(),
+                     'mejor balanced acc. interna': max(s) if s else np.nan, 'configuraciones evaluadas': len(s),
+                     'elegida': r['best_params']['penalty'] == pen})
+pen = pd.DataFrame(rows)
+pen.groupby('penalización').agg(**{'búsquedas que la evaluaron': ('configuraciones evaluadas', lambda x: int((x > 0).sum())),
+                                    'configuraciones evaluadas': ('configuraciones evaluadas', 'sum'),
+                                    'mejor balanced acc. interna (media)': ('mejor balanced acc. interna', 'mean'),
+                                    'veces elegida': ('elegida', 'sum')}).round(4)
+
+# %% [markdown]
+# **Interpretación.** Las dos penalizaciones se probaron en todas las búsquedas. L1 se eligió en 59 de las
+# 80 y L2 en 21, con una diferencia media de puntaje interno pequeña: con 210 columnas one-hot muchas
+# categorías aportan poco, y L1 las anula (selección de variables), lo que le da una ligera ventaja.
+#
+# **Tabla completa de los 140 modelos.** Métrica externa de la validación anidada (media ± desviación en
+# 5 pliegues) y métrica en la prueba, con los hiperparámetros finales. Clasificación: balanced accuracy y
+# AUC macro; regresión: RMSE y MAE (escala log1p de días).
+
+# %%
+tc, tr = F.test_table('clf').set_index('combo'), F.test_table('reg').set_index('combo')
+full_c = pd.DataFrame({
+    'Modelo': mc_all.model.map(M.PRETTY), 'Balanceo': mc_all.balance.map(M.PRETTY), 'Optimizador': mc_all.optimizer.map(M.PRETTY),
+    'Balanced acc. anidada': [f'{a:.3f} ± {b:.3f}' for a, b in zip(mc_all.outer_recall_mean, mc_all.outer_recall_std)],
+    'AUC anidada': [f'{a:.3f} ± {b:.3f}' for a, b in zip(mc_all.outer_auc_mean, mc_all.outer_auc_std)],
+    'Balanced acc. prueba': tc.loc[mc_all.combo, 'test_recall'].round(3).to_numpy(),
+    'AUC prueba': tc.loc[mc_all.combo, 'test_auc'].round(3).to_numpy(),
+    'Hiperparámetros finales': mc_all.final_params.to_numpy()})
+full_r = pd.DataFrame({
+    'Modelo': mr_all.model.map(M.PRETTY), 'Optimizador': mr_all.optimizer.map(M.PRETTY),
+    'RMSE anidado': [f'{a:.3f} ± {b:.3f}' for a, b in zip(mr_all.outer_rmse_mean, mr_all.outer_rmse_std)],
+    'MAE anidado': [f'{a:.3f} ± {b:.3f}' for a, b in zip(mr_all.outer_mae_mean, mr_all.outer_mae_std)],
+    'RMSE prueba': tr.loc[mr_all.combo, 'test_rmse'].round(3).to_numpy(),
+    'MAE prueba': tr.loc[mr_all.combo, 'test_mae'].round(3).to_numpy(),
+    'Hiperparámetros finales': mr_all.final_params.to_numpy()})
+full_c.index = range(1, len(full_c) + 1); full_r.index = range(len(full_c) + 1, len(full_c) + len(full_r) + 1)
+with pd.option_context('display.max_rows', 200, 'display.max_colwidth', 120):
+    display(full_c)
+
+# %%
+with pd.option_context('display.max_rows', 200, 'display.max_colwidth', 120):
+    display(full_r)

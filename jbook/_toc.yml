@@ -23,3 +23,6 @@ parts:
       - file: 14_conclusiones
       - file: 15_reproducibilidad
       - file: anexo_entregable1
+  - caption: Todo en un solo notebook
+    chapters:
+      - file: entregable3_completo
