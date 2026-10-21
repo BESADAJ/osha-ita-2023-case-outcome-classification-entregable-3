@@ -199,6 +199,27 @@
 <li class="toctree-l1"><a class="reference internal" href="15_reproducibilidad.html">15. Reproducibilidad</a></li>
 <li class="toctree-l1"><a class="reference internal" href="anexo_entregable1.html">OSHA ITA 2023: primer entregable del proyecto de Machine Learning</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Todo en un solo notebook</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="entregable3_completo.html">Entregable 3 — notebook único</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
 
     </div>
 </nav></div>
@@ -353,7 +374,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#balanceo-de-clases">6.5 Balanceo de clases</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#espacios-de-busqueda">6.6 Espacios de búsqueda</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#registro-de-experimentos-y-semillas">6.7 Registro de experimentos y semillas</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-codigo-de-entrenamiento-visible">6.9 El código de entrenamiento, visible</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-codigo-de-entrenamiento-visible">6.8 El código de entrenamiento, visible</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inventario-los-140-modelos-entrenados-y-los-modelos-base-de-la-guia">6.9 Inventario: los 140 modelos entrenados y los modelos base de la guía</a></li>
 </ul>
             </nav>
         </div>
@@ -773,7 +795,7 @@ en las 16 configuraciones (el mismo cálculo, sin repetirlo).</p>
                 (&#x27;sampler&#x27;, SafeSMOTE(random_state=42)),
                 (&#x27;dense&#x27;,
                  FunctionTransformer(accept_sparse=True,
-                                     func=&lt;function _to_dense at 0x0000025213480EE0&gt;)),
+                                     func=&lt;function _to_dense at 0x0000023A3CEAFEE0&gt;)),
                 (&#x27;model&#x27;,
                  RandomForestClassifier(max_depth=10, max_features=0.1,
                                         min_samples_leaf=2, n_jobs=1,
@@ -784,13 +806,13 @@ en las 16 configuraciones (el mismo cálculo, sin repetirlo).</p>
                 (&#x27;sampler&#x27;, SafeSMOTE(random_state=42)),
                 (&#x27;dense&#x27;,
                  FunctionTransformer(accept_sparse=True,
-                                     func=&lt;function _to_dense at 0x0000025213480EE0&gt;)),
+                                     func=&lt;function _to_dense at 0x0000023A3CEAFEE0&gt;)),
                 (&#x27;model&#x27;,
                  RandomForestClassifier(max_depth=10, max_features=0.1,
                                         min_samples_leaf=2, n_jobs=1,
                                         random_state=42))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">OneHotEncoder</label><div class="sk-toggleable__content"><pre>OneHotEncoder(dtype=&lt;class &#x27;numpy.float32&#x27;&gt;,
               handle_unknown=&#x27;infrequent_if_exist&#x27;, min_frequency=20)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label sk-toggleable__label-arrow">SafeSMOTE</label><div class="sk-toggleable__content"><pre>SafeSMOTE(random_state=42)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label sk-toggleable__label-arrow">FunctionTransformer</label><div class="sk-toggleable__content"><pre>FunctionTransformer(accept_sparse=True,
-                    func=&lt;function _to_dense at 0x0000025213480EE0&gt;)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" ><label for="sk-estimator-id-5" class="sk-toggleable__label sk-toggleable__label-arrow">RandomForestClassifier</label><div class="sk-toggleable__content"><pre>RandomForestClassifier(max_depth=10, max_features=0.1, min_samples_leaf=2,
+                    func=&lt;function _to_dense at 0x0000023A3CEAFEE0&gt;)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" ><label for="sk-estimator-id-5" class="sk-toggleable__label sk-toggleable__label-arrow">RandomForestClassifier</label><div class="sk-toggleable__content"><pre>RandomForestClassifier(max_depth=10, max_features=0.1, min_samples_leaf=2,
                        n_jobs=1, random_state=42)</pre></div></div></div></div></div></div></div></div></div>
 </div>
 </section>
@@ -1226,7 +1248,7 @@ scikit-learn, XGBoost, imblearn, Optuna y DEAP.</p>
 </div>
 </section>
 <section id="el-codigo-de-entrenamiento-visible">
-<h2>6.9 El código de entrenamiento, visible<a class="headerlink" href="#el-codigo-de-entrenamiento-visible" title="Link to this heading">#</a></h2>
+<h2>6.8 El código de entrenamiento, visible<a class="headerlink" href="#el-codigo-de-entrenamiento-visible" title="Link to this heading">#</a></h2>
 <p>Corrección del entregable 1: el profesor señaló que el código de entrenamiento no se veía en el
 notebook. Aquí se imprime el código fuente real (no una copia) de las funciones que entrenan y
 evalúan cada combinación. Lo que se ve es exactamente lo que ejecutó <code class="docutils literal notranslate"><span class="pre">scripts/run_nested.py</span></code>.</p>
@@ -1601,6 +1623,1894 @@ def genetic_search(ev, space, grid, rng):
 </div>
 </div>
 </section>
+<section id="inventario-los-140-modelos-entrenados-y-los-modelos-base-de-la-guia">
+<h2>6.9 Inventario: los 140 modelos entrenados y los modelos base de la guía<a class="headerlink" href="#inventario-los-140-modelos-entrenados-y-los-modelos-base-de-la-guia" title="Link to this heading">#</a></h2>
+<p>Esta sección comprueba con los archivos de resultados (no con el texto) que están todas las
+combinaciones exigidas: 112 de clasificación y 28 de regresión, cada una con sus 5 pliegues externos
+de validación anidada y su evaluación final en la prueba.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">osha_e3</span><span class="w"> </span><span class="kn">import</span> <span class="n">config</span> <span class="k">as</span> <span class="n">C</span>
+<span class="n">checks</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">task</span><span class="p">,</span> <span class="n">n_combos</span> <span class="ow">in</span> <span class="p">[(</span><span class="s1">'clf'</span><span class="p">,</span> <span class="mi">112</span><span class="p">),</span> <span class="p">(</span><span class="s1">'reg'</span><span class="p">,</span> <span class="mi">28</span><span class="p">)]:</span>
+    <span class="n">combos</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">combos</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+    <span class="n">cells</span> <span class="o">=</span> <span class="p">[</span><span class="n">N</span><span class="o">.</span><span class="n">cell_path</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="k">for</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span> <span class="ow">in</span> <span class="n">combos</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">OUTER_FOLDS</span><span class="p">)]</span>
+    <span class="n">finals</span> <span class="o">=</span> <span class="p">[</span><span class="n">F</span><span class="o">.</span><span class="n">out_path</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s1">|</span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s1">|</span><span class="si">{</span><span class="n">o</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="k">for</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span> <span class="ow">in</span> <span class="n">combos</span><span class="p">]</span>
+    <span class="n">checks</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">'tarea'</span><span class="p">:</span> <span class="s1">'Clasificación'</span> <span class="k">if</span> <span class="n">task</span> <span class="o">==</span> <span class="s1">'clf'</span> <span class="k">else</span> <span class="s1">'Regresión'</span><span class="p">,</span> <span class="s1">'combinaciones exigidas'</span><span class="p">:</span> <span class="n">n_combos</span><span class="p">,</span>
+                   <span class="s1">'combinaciones definidas'</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">combos</span><span class="p">),</span> <span class="s1">'celdas de validación anidada (× 5 pliegues)'</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">cells</span><span class="p">),</span>
+                   <span class="s1">'evaluaciones en la prueba'</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">finals</span><span class="p">)})</span>
+<span class="n">inv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">checks</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">'tarea'</span><span class="p">)</span>
+<span class="n">inv</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">'Total'</span><span class="p">]</span> <span class="o">=</span> <span class="n">inv</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">inv</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">'Total'</span><span class="p">,</span> <span class="s1">'combinaciones definidas'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">140</span> <span class="ow">and</span> <span class="n">inv</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">'Total'</span><span class="p">,</span> <span class="s1">'evaluaciones en la prueba'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">140</span>
+<span class="k">assert</span> <span class="n">inv</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">'Total'</span><span class="p">,</span> <span class="s1">'celdas de validación anidada (× 5 pliegues)'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">700</span>
+<span class="n">inv</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>combinaciones exigidas</th>
+      <th>combinaciones definidas</th>
+      <th>celdas de validación anidada (× 5 pliegues)</th>
+      <th>evaluaciones en la prueba</th>
+    </tr>
+    <tr>
+      <th>tarea</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Clasificación</th>
+      <td>112</td>
+      <td>112</td>
+      <td>560</td>
+      <td>112</td>
+    </tr>
+    <tr>
+      <th>Regresión</th>
+      <td>28</td>
+      <td>28</td>
+      <td>140</td>
+      <td>28</td>
+    </tr>
+    <tr>
+      <th>Total</th>
+      <td>140</td>
+      <td>140</td>
+      <td>700</td>
+      <td>140</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><strong>Modelos base exigidos en la sección 7.2 de la guía</strong> y su implementación:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">req</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span>
+    <span class="p">(</span><span class="s1">'K-Nearest Neighbors (KNN)'</span><span class="p">,</span> <span class="s1">'Clasificación y regresión'</span><span class="p">,</span> <span class="s1">'KNeighborsClassifier / KNeighborsRegressor'</span><span class="p">,</span> <span class="s1">'knn'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">'Naive Bayes'</span><span class="p">,</span> <span class="s1">'Clasificación'</span><span class="p">,</span> <span class="s1">'BernoulliNB (variables binarias)'</span><span class="p">,</span> <span class="s1">'naive_bayes'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">'Regresión logística L1 y L2'</span><span class="p">,</span> <span class="s1">'Clasificación'</span><span class="p">,</span> <span class="s1">'LogisticRegression (saga), penalización L1 o L2 como hiperparámetro'</span><span class="p">,</span> <span class="s1">'logreg'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">'Ridge'</span><span class="p">,</span> <span class="s1">'Regresión'</span><span class="p">,</span> <span class="s1">'Ridge'</span><span class="p">,</span> <span class="s1">'ridge'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">'Lasso'</span><span class="p">,</span> <span class="s1">'Regresión'</span><span class="p">,</span> <span class="s1">'Lasso'</span><span class="p">,</span> <span class="s1">'lasso'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">'Decision Tree'</span><span class="p">,</span> <span class="s1">'Clasificación y regresión'</span><span class="p">,</span> <span class="s1">'DecisionTreeClassifier / DecisionTreeRegressor'</span><span class="p">,</span> <span class="s1">'tree'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">'Random Forest'</span><span class="p">,</span> <span class="s1">'Clasificación y regresión'</span><span class="p">,</span> <span class="s1">'RandomForestClassifier / RandomForestRegressor'</span><span class="p">,</span> <span class="s1">'random_forest'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">'XGBoost (con SHAP y LIME)'</span><span class="p">,</span> <span class="s1">'Clasificación y regresión'</span><span class="p">,</span> <span class="s1">'XGBClassifier / XGBRegressor (hist); SHAP y LIME en el capítulo 11'</span><span class="p">,</span> <span class="s1">'xgboost'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">'SVM'</span><span class="p">,</span> <span class="s1">'Clasificación'</span><span class="p">,</span> <span class="s1">'LinearSVC (+ softmax; Platt en el capítulo 9)'</span><span class="p">,</span> <span class="s1">'svm'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">'SVR'</span><span class="p">,</span> <span class="s1">'Regresión'</span><span class="p">,</span> <span class="s1">'LinearSVR'</span><span class="p">,</span> <span class="s1">'svr'</span><span class="p">),</span>
+<span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'Modelo de la guía'</span><span class="p">,</span> <span class="s1">'Tarea'</span><span class="p">,</span> <span class="s1">'Implementación'</span><span class="p">,</span> <span class="s1">'clave'</span><span class="p">])</span>
+<span class="n">mc_all</span><span class="p">,</span> <span class="n">mr_all</span> <span class="o">=</span> <span class="n">N</span><span class="o">.</span><span class="n">master_table</span><span class="p">(</span><span class="s1">'clf'</span><span class="p">),</span> <span class="n">N</span><span class="o">.</span><span class="n">master_table</span><span class="p">(</span><span class="s1">'reg'</span><span class="p">)</span>
+<span class="n">req</span><span class="p">[</span><span class="s1">'combinaciones entrenadas'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">((</span><span class="n">mc_all</span><span class="o">.</span><span class="n">model</span> <span class="o">==</span> <span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">+</span> <span class="p">(</span><span class="n">mr_all</span><span class="o">.</span><span class="n">model</span> <span class="o">==</span> <span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">req</span><span class="o">.</span><span class="n">clave</span><span class="p">]</span>
+<span class="n">req</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">'clave'</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">'Modelo de la guía'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Tarea</th>
+      <th>Implementación</th>
+      <th>combinaciones entrenadas</th>
+    </tr>
+    <tr>
+      <th>Modelo de la guía</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>K-Nearest Neighbors (KNN)</th>
+      <td>Clasificación y regresión</td>
+      <td>KNeighborsClassifier / KNeighborsRegressor</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>Naive Bayes</th>
+      <td>Clasificación</td>
+      <td>BernoulliNB (variables binarias)</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>Regresión logística L1 y L2</th>
+      <td>Clasificación</td>
+      <td>LogisticRegression (saga), penalización L1 o L...</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>Ridge</th>
+      <td>Regresión</td>
+      <td>Ridge</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>Lasso</th>
+      <td>Regresión</td>
+      <td>Lasso</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>Decision Tree</th>
+      <td>Clasificación y regresión</td>
+      <td>DecisionTreeClassifier / DecisionTreeRegressor</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>Random Forest</th>
+      <td>Clasificación y regresión</td>
+      <td>RandomForestClassifier / RandomForestRegressor</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>XGBoost (con SHAP y LIME)</th>
+      <td>Clasificación y regresión</td>
+      <td>XGBClassifier / XGBRegressor (hist); SHAP y LI...</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>SVM</th>
+      <td>Clasificación</td>
+      <td>LinearSVC (+ softmax; Platt en el capítulo 9)</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>SVR</th>
+      <td>Regresión</td>
+      <td>LinearSVR</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><strong>Regresión logística: L1 frente a L2.</strong> La penalización es un hiperparámetro de la búsqueda; en las 80
+búsquedas de la logística (4 balanceos × 4 optimizadores × 5 pliegues) se evaluaron configuraciones de
+los dos tipos. Mejor puntaje interno alcanzado con cada penalización y cuántas veces ganó cada una:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">N</span><span class="o">.</span><span class="n">load_cells</span><span class="p">(</span><span class="s1">'clf'</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="s1">'model'</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">'logreg'</span><span class="p">:</span>
+        <span class="k">continue</span>
+    <span class="k">for</span> <span class="n">pen</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'l1'</span><span class="p">,</span> <span class="s1">'l2'</span><span class="p">]:</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span><span class="p">[</span><span class="s1">'score'</span><span class="p">]</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">r</span><span class="p">[</span><span class="s1">'history'</span><span class="p">]</span> <span class="k">if</span> <span class="n">h</span><span class="p">[</span><span class="s1">'params'</span><span class="p">][</span><span class="s1">'penalty'</span><span class="p">]</span> <span class="o">==</span> <span class="n">pen</span><span class="p">]</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">'balance'</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s1">'balance'</span><span class="p">],</span> <span class="s1">'optimizer'</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s1">'optimizer'</span><span class="p">],</span> <span class="s1">'fold'</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s1">'fold'</span><span class="p">],</span> <span class="s1">'penalización'</span><span class="p">:</span> <span class="n">pen</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span>
+                     <span class="s1">'mejor balanced acc. interna'</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">if</span> <span class="n">s</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s1">'configuraciones evaluadas'</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">),</span>
+                     <span class="s1">'elegida'</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s1">'best_params'</span><span class="p">][</span><span class="s1">'penalty'</span><span class="p">]</span> <span class="o">==</span> <span class="n">pen</span><span class="p">})</span>
+<span class="n">pen</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+<span class="n">pen</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'penalización'</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">'búsquedas que la evaluaron'</span><span class="p">:</span> <span class="p">(</span><span class="s1">'configuraciones evaluadas'</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">((</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())),</span>
+                                    <span class="s1">'configuraciones evaluadas'</span><span class="p">:</span> <span class="p">(</span><span class="s1">'configuraciones evaluadas'</span><span class="p">,</span> <span class="s1">'sum'</span><span class="p">),</span>
+                                    <span class="s1">'mejor balanced acc. interna (media)'</span><span class="p">:</span> <span class="p">(</span><span class="s1">'mejor balanced acc. interna'</span><span class="p">,</span> <span class="s1">'mean'</span><span class="p">),</span>
+                                    <span class="s1">'veces elegida'</span><span class="p">:</span> <span class="p">(</span><span class="s1">'elegida'</span><span class="p">,</span> <span class="s1">'sum'</span><span class="p">)})</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>búsquedas que la evaluaron</th>
+      <th>configuraciones evaluadas</th>
+      <th>mejor balanced acc. interna (media)</th>
+      <th>veces elegida</th>
+    </tr>
+    <tr>
+      <th>penalización</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>L1</th>
+      <td>80</td>
+      <td>694</td>
+      <td>0.4044</td>
+      <td>59</td>
+    </tr>
+    <tr>
+      <th>L2</th>
+      <td>80</td>
+      <td>586</td>
+      <td>0.3986</td>
+      <td>21</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><strong>Interpretación.</strong> Las dos penalizaciones se probaron en todas las búsquedas. L1 se eligió en 59 de las
+80 y L2 en 21, con una diferencia media de puntaje interno pequeña: con 210 columnas one-hot muchas
+categorías aportan poco, y L1 las anula (selección de variables), lo que le da una ligera ventaja.</p>
+<p><strong>Tabla completa de los 140 modelos.</strong> Métrica externa de la validación anidada (media ± desviación en
+5 pliegues) y métrica en la prueba, con los hiperparámetros finales. Clasificación: balanced accuracy y
+AUC macro; regresión: RMSE y MAE (escala log1p de días).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tc</span><span class="p">,</span> <span class="n">tr</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">test_table</span><span class="p">(</span><span class="s1">'clf'</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">'combo'</span><span class="p">),</span> <span class="n">F</span><span class="o">.</span><span class="n">test_table</span><span class="p">(</span><span class="s1">'reg'</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">'combo'</span><span class="p">)</span>
+<span class="n">full_c</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">'Modelo'</span><span class="p">:</span> <span class="n">mc_all</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">PRETTY</span><span class="p">),</span> <span class="s1">'Balanceo'</span><span class="p">:</span> <span class="n">mc_all</span><span class="o">.</span><span class="n">balance</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">PRETTY</span><span class="p">),</span> <span class="s1">'Optimizador'</span><span class="p">:</span> <span class="n">mc_all</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">PRETTY</span><span class="p">),</span>
+    <span class="s1">'Balanced acc. anidada'</span><span class="p">:</span> <span class="p">[</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> ± </span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">'</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">mc_all</span><span class="o">.</span><span class="n">outer_recall_mean</span><span class="p">,</span> <span class="n">mc_all</span><span class="o">.</span><span class="n">outer_recall_std</span><span class="p">)],</span>
+    <span class="s1">'AUC anidada'</span><span class="p">:</span> <span class="p">[</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> ± </span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">'</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">mc_all</span><span class="o">.</span><span class="n">outer_auc_mean</span><span class="p">,</span> <span class="n">mc_all</span><span class="o">.</span><span class="n">outer_auc_std</span><span class="p">)],</span>
+    <span class="s1">'Balanced acc. prueba'</span><span class="p">:</span> <span class="n">tc</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mc_all</span><span class="o">.</span><span class="n">combo</span><span class="p">,</span> <span class="s1">'test_recall'</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
+    <span class="s1">'AUC prueba'</span><span class="p">:</span> <span class="n">tc</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mc_all</span><span class="o">.</span><span class="n">combo</span><span class="p">,</span> <span class="s1">'test_auc'</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
+    <span class="s1">'Hiperparámetros finales'</span><span class="p">:</span> <span class="n">mc_all</span><span class="o">.</span><span class="n">final_params</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()})</span>
+<span class="n">full_r</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">'Modelo'</span><span class="p">:</span> <span class="n">mr_all</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">PRETTY</span><span class="p">),</span> <span class="s1">'Optimizador'</span><span class="p">:</span> <span class="n">mr_all</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">PRETTY</span><span class="p">),</span>
+    <span class="s1">'RMSE anidado'</span><span class="p">:</span> <span class="p">[</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> ± </span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">'</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">mr_all</span><span class="o">.</span><span class="n">outer_rmse_mean</span><span class="p">,</span> <span class="n">mr_all</span><span class="o">.</span><span class="n">outer_rmse_std</span><span class="p">)],</span>
+    <span class="s1">'MAE anidado'</span><span class="p">:</span> <span class="p">[</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> ± </span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">'</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">mr_all</span><span class="o">.</span><span class="n">outer_mae_mean</span><span class="p">,</span> <span class="n">mr_all</span><span class="o">.</span><span class="n">outer_mae_std</span><span class="p">)],</span>
+    <span class="s1">'RMSE prueba'</span><span class="p">:</span> <span class="n">tr</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mr_all</span><span class="o">.</span><span class="n">combo</span><span class="p">,</span> <span class="s1">'test_rmse'</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
+    <span class="s1">'MAE prueba'</span><span class="p">:</span> <span class="n">tr</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mr_all</span><span class="o">.</span><span class="n">combo</span><span class="p">,</span> <span class="s1">'test_mae'</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
+    <span class="s1">'Hiperparámetros finales'</span><span class="p">:</span> <span class="n">mr_all</span><span class="o">.</span><span class="n">final_params</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()})</span>
+<span class="n">full_c</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">full_c</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="n">full_r</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">full_c</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">full_c</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">full_r</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s1">'display.max_rows'</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s1">'display.max_colwidth'</span><span class="p">,</span> <span class="mi">120</span><span class="p">):</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">full_c</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Modelo</th>
+      <th>Balanceo</th>
+      <th>Optimizador</th>
+      <th>Balanced acc. anidada</th>
+      <th>AUC anidada</th>
+      <th>Balanced acc. prueba</th>
+      <th>AUC prueba</th>
+      <th>Hiperparámetros finales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>KNN</td>
+      <td>ADASYN</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.398 ± 0.095</td>
+      <td>0.638 ± 0.057</td>
+      <td>0.383</td>
+      <td>0.632</td>
+      <td>{"n_neighbors": 130, "weights": "distance"}</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>KNN</td>
+      <td>ADASYN</td>
+      <td>Genética</td>
+      <td>0.386 ± 0.105</td>
+      <td>0.631 ± 0.062</td>
+      <td>0.380</td>
+      <td>0.657</td>
+      <td>{"n_neighbors": 112, "weights": "distance"}</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>KNN</td>
+      <td>ADASYN</td>
+      <td>Grid</td>
+      <td>0.401 ± 0.081</td>
+      <td>0.628 ± 0.055</td>
+      <td>0.384</td>
+      <td>0.638</td>
+      <td>{"n_neighbors": 101, "weights": "uniform"}</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>KNN</td>
+      <td>ADASYN</td>
+      <td>Random</td>
+      <td>0.396 ± 0.095</td>
+      <td>0.621 ± 0.064</td>
+      <td>0.383</td>
+      <td>0.626</td>
+      <td>{"n_neighbors": 103, "weights": "uniform"}</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>KNN</td>
+      <td>class_weight</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.398 ± 0.091</td>
+      <td>0.625 ± 0.051</td>
+      <td>0.375</td>
+      <td>0.626</td>
+      <td>{"n_neighbors": 490, "weights": "distance"}</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>KNN</td>
+      <td>class_weight</td>
+      <td>Genética</td>
+      <td>0.348 ± 0.036</td>
+      <td>0.630 ± 0.032</td>
+      <td>0.371</td>
+      <td>0.629</td>
+      <td>{"n_neighbors": 537, "weights": "distance"}</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>KNN</td>
+      <td>class_weight</td>
+      <td>Grid</td>
+      <td>0.396 ± 0.093</td>
+      <td>0.641 ± 0.056</td>
+      <td>0.374</td>
+      <td>0.631</td>
+      <td>{"n_neighbors": 501, "weights": "distance"}</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>KNN</td>
+      <td>class_weight</td>
+      <td>Random</td>
+      <td>0.349 ± 0.043</td>
+      <td>0.618 ± 0.033</td>
+      <td>0.372</td>
+      <td>0.638</td>
+      <td>{"n_neighbors": 394, "weights": "distance"}</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>KNN</td>
+      <td>Sin balanceo</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.367 ± 0.051</td>
+      <td>0.625 ± 0.056</td>
+      <td>0.362</td>
+      <td>0.627</td>
+      <td>{"n_neighbors": 714, "weights": "uniform"}</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>KNN</td>
+      <td>Sin balanceo</td>
+      <td>Genética</td>
+      <td>0.360 ± 0.052</td>
+      <td>0.600 ± 0.055</td>
+      <td>0.357</td>
+      <td>0.648</td>
+      <td>{"n_neighbors": 57, "weights": "uniform"}</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>KNN</td>
+      <td>Sin balanceo</td>
+      <td>Grid</td>
+      <td>0.364 ± 0.054</td>
+      <td>0.630 ± 0.050</td>
+      <td>0.362</td>
+      <td>0.646</td>
+      <td>{"n_neighbors": 301, "weights": "uniform"}</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>KNN</td>
+      <td>Sin balanceo</td>
+      <td>Random</td>
+      <td>0.365 ± 0.053</td>
+      <td>0.618 ± 0.043</td>
+      <td>0.360</td>
+      <td>0.662</td>
+      <td>{"n_neighbors": 190, "weights": "distance"}</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>KNN</td>
+      <td>SMOTE</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.398 ± 0.095</td>
+      <td>0.623 ± 0.067</td>
+      <td>0.383</td>
+      <td>0.639</td>
+      <td>{"n_neighbors": 130, "weights": "distance"}</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>KNN</td>
+      <td>SMOTE</td>
+      <td>Genética</td>
+      <td>0.415 ± 0.107</td>
+      <td>0.626 ± 0.060</td>
+      <td>0.397</td>
+      <td>0.624</td>
+      <td>{"n_neighbors": 410, "weights": "uniform"}</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>KNN</td>
+      <td>SMOTE</td>
+      <td>Grid</td>
+      <td>0.389 ± 0.083</td>
+      <td>0.617 ± 0.056</td>
+      <td>0.379</td>
+      <td>0.618</td>
+      <td>{"n_neighbors": 801, "weights": "distance"}</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>KNN</td>
+      <td>SMOTE</td>
+      <td>Random</td>
+      <td>0.393 ± 0.092</td>
+      <td>0.631 ± 0.060</td>
+      <td>0.391</td>
+      <td>0.634</td>
+      <td>{"n_neighbors": 103, "weights": "uniform"}</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Reg. logística</td>
+      <td>ADASYN</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.427 ± 0.067</td>
+      <td>0.728 ± 0.041</td>
+      <td>0.400</td>
+      <td>0.699</td>
+      <td>{"C": 0.2583312700685668, "penalty": "l1"}</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Reg. logística</td>
+      <td>ADASYN</td>
+      <td>Genética</td>
+      <td>0.422 ± 0.056</td>
+      <td>0.732 ± 0.045</td>
+      <td>0.410</td>
+      <td>0.687</td>
+      <td>{"C": 0.0010000000000000002, "penalty": "l2"}</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Reg. logística</td>
+      <td>ADASYN</td>
+      <td>Grid</td>
+      <td>0.421 ± 0.057</td>
+      <td>0.726 ± 0.047</td>
+      <td>0.410</td>
+      <td>0.687</td>
+      <td>{"C": 0.001, "penalty": "l2"}</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Reg. logística</td>
+      <td>ADASYN</td>
+      <td>Random</td>
+      <td>0.402 ± 0.063</td>
+      <td>0.735 ± 0.039</td>
+      <td>0.400</td>
+      <td>0.700</td>
+      <td>{"C": 0.168326162519823, "penalty": "l1"}</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Reg. logística</td>
+      <td>class_weight</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.402 ± 0.053</td>
+      <td>0.658 ± 0.035</td>
+      <td>0.398</td>
+      <td>0.685</td>
+      <td>{"C": 0.16319314604169252, "penalty": "l1"}</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Reg. logística</td>
+      <td>class_weight</td>
+      <td>Genética</td>
+      <td>0.408 ± 0.072</td>
+      <td>0.643 ± 0.081</td>
+      <td>0.385</td>
+      <td>0.615</td>
+      <td>{"C": 1.7214668549251373, "penalty": "l2"}</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Reg. logística</td>
+      <td>class_weight</td>
+      <td>Grid</td>
+      <td>0.366 ± 0.053</td>
+      <td>0.608 ± 0.087</td>
+      <td>0.321</td>
+      <td>0.556</td>
+      <td>{"C": 0.3, "penalty": "l2"}</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Reg. logística</td>
+      <td>class_weight</td>
+      <td>Random</td>
+      <td>0.358 ± 0.041</td>
+      <td>0.608 ± 0.060</td>
+      <td>0.375</td>
+      <td>0.583</td>
+      <td>{"C": 0.9472623345172981, "penalty": "l2"}</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Reg. logística</td>
+      <td>Sin balanceo</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.404 ± 0.056</td>
+      <td>0.709 ± 0.049</td>
+      <td>0.386</td>
+      <td>0.677</td>
+      <td>{"C": 0.2463054024187719, "penalty": "l1"}</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Reg. logística</td>
+      <td>Sin balanceo</td>
+      <td>Genética</td>
+      <td>0.403 ± 0.058</td>
+      <td>0.700 ± 0.064</td>
+      <td>0.385</td>
+      <td>0.680</td>
+      <td>{"C": 0.13810626075551113, "penalty": "l1"}</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>Reg. logística</td>
+      <td>Sin balanceo</td>
+      <td>Grid</td>
+      <td>0.403 ± 0.059</td>
+      <td>0.692 ± 0.062</td>
+      <td>0.386</td>
+      <td>0.692</td>
+      <td>{"C": 10.0, "penalty": "l1"}</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>Reg. logística</td>
+      <td>Sin balanceo</td>
+      <td>Random</td>
+      <td>0.405 ± 0.057</td>
+      <td>0.702 ± 0.043</td>
+      <td>0.386</td>
+      <td>0.677</td>
+      <td>{"C": 0.2068019319477251, "penalty": "l1"}</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>Reg. logística</td>
+      <td>SMOTE</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.403 ± 0.061</td>
+      <td>0.732 ± 0.044</td>
+      <td>0.401</td>
+      <td>0.700</td>
+      <td>{"C": 0.24140307068624386, "penalty": "l1"}</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>Reg. logística</td>
+      <td>SMOTE</td>
+      <td>Genética</td>
+      <td>0.393 ± 0.047</td>
+      <td>0.728 ± 0.043</td>
+      <td>0.410</td>
+      <td>0.688</td>
+      <td>{"C": 0.0010241982717202349, "penalty": "l2"}</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>Reg. logística</td>
+      <td>SMOTE</td>
+      <td>Grid</td>
+      <td>0.422 ± 0.054</td>
+      <td>0.732 ± 0.046</td>
+      <td>0.409</td>
+      <td>0.688</td>
+      <td>{"C": 0.001, "penalty": "l2"}</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>Reg. logística</td>
+      <td>SMOTE</td>
+      <td>Random</td>
+      <td>0.404 ± 0.060</td>
+      <td>0.737 ± 0.040</td>
+      <td>0.400</td>
+      <td>0.701</td>
+      <td>{"C": 0.168326162519823, "penalty": "l1"}</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>Naive Bayes</td>
+      <td>ADASYN</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.389 ± 0.060</td>
+      <td>0.689 ± 0.031</td>
+      <td>0.386</td>
+      <td>0.675</td>
+      <td>{"alpha": 0.027836748250624196, "fit_prior": false}</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>Naive Bayes</td>
+      <td>ADASYN</td>
+      <td>Genética</td>
+      <td>0.389 ± 0.060</td>
+      <td>0.672 ± 0.064</td>
+      <td>0.379</td>
+      <td>0.685</td>
+      <td>{"alpha": 0.017098055877350124, "fit_prior": false}</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>Naive Bayes</td>
+      <td>ADASYN</td>
+      <td>Grid</td>
+      <td>0.389 ± 0.060</td>
+      <td>0.657 ± 0.051</td>
+      <td>0.379</td>
+      <td>0.669</td>
+      <td>{"alpha": 0.001, "fit_prior": true}</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>Naive Bayes</td>
+      <td>ADASYN</td>
+      <td>Random</td>
+      <td>0.389 ± 0.060</td>
+      <td>0.642 ± 0.094</td>
+      <td>0.379</td>
+      <td>0.670</td>
+      <td>{"alpha": 0.0024561390577463238, "fit_prior": true}</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>Naive Bayes</td>
+      <td>class_weight</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.387 ± 0.052</td>
+      <td>0.657 ± 0.056</td>
+      <td>0.396</td>
+      <td>0.700</td>
+      <td>{"alpha": 4.127447878062186, "fit_prior": false}</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>Naive Bayes</td>
+      <td>class_weight</td>
+      <td>Genética</td>
+      <td>0.388 ± 0.053</td>
+      <td>0.671 ± 0.038</td>
+      <td>0.384</td>
+      <td>0.699</td>
+      <td>{"alpha": 2.7933087854088794, "fit_prior": false}</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>Naive Bayes</td>
+      <td>class_weight</td>
+      <td>Grid</td>
+      <td>0.387 ± 0.053</td>
+      <td>0.663 ± 0.059</td>
+      <td>0.384</td>
+      <td>0.699</td>
+      <td>{"alpha": 3.0, "fit_prior": true}</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>Naive Bayes</td>
+      <td>class_weight</td>
+      <td>Random</td>
+      <td>0.388 ± 0.053</td>
+      <td>0.668 ± 0.040</td>
+      <td>0.384</td>
+      <td>0.699</td>
+      <td>{"alpha": 2.760103635825213, "fit_prior": false}</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>Naive Bayes</td>
+      <td>Sin balanceo</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.387 ± 0.051</td>
+      <td>0.668 ± 0.025</td>
+      <td>0.404</td>
+      <td>0.705</td>
+      <td>{"alpha": 0.03407301401687245, "fit_prior": false}</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>Naive Bayes</td>
+      <td>Sin balanceo</td>
+      <td>Genética</td>
+      <td>0.388 ± 0.053</td>
+      <td>0.679 ± 0.021</td>
+      <td>0.396</td>
+      <td>0.700</td>
+      <td>{"alpha": 0.0051341370303901335, "fit_prior": false}</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>Naive Bayes</td>
+      <td>Sin balanceo</td>
+      <td>Grid</td>
+      <td>0.386 ± 0.052</td>
+      <td>0.638 ± 0.049</td>
+      <td>0.405</td>
+      <td>0.704</td>
+      <td>{"alpha": 0.03, "fit_prior": false}</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>Naive Bayes</td>
+      <td>Sin balanceo</td>
+      <td>Random</td>
+      <td>0.386 ± 0.052</td>
+      <td>0.655 ± 0.047</td>
+      <td>0.404</td>
+      <td>0.705</td>
+      <td>{"alpha": 0.0359436539233199, "fit_prior": false}</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>Naive Bayes</td>
+      <td>SMOTE</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.388 ± 0.058</td>
+      <td>0.692 ± 0.025</td>
+      <td>0.380</td>
+      <td>0.683</td>
+      <td>{"alpha": 0.006836733588804808, "fit_prior": true}</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>Naive Bayes</td>
+      <td>SMOTE</td>
+      <td>Genética</td>
+      <td>0.388 ± 0.058</td>
+      <td>0.695 ± 0.023</td>
+      <td>0.387</td>
+      <td>0.694</td>
+      <td>{"alpha": 0.08221296124441461, "fit_prior": true}</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>Naive Bayes</td>
+      <td>SMOTE</td>
+      <td>Grid</td>
+      <td>0.388 ± 0.058</td>
+      <td>0.688 ± 0.040</td>
+      <td>0.387</td>
+      <td>0.700</td>
+      <td>{"alpha": 0.1, "fit_prior": true}</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>Naive Bayes</td>
+      <td>SMOTE</td>
+      <td>Random</td>
+      <td>0.388 ± 0.058</td>
+      <td>0.673 ± 0.043</td>
+      <td>0.387</td>
+      <td>0.694</td>
+      <td>{"alpha": 0.3424876930750845, "fit_prior": false}</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>Random Forest</td>
+      <td>ADASYN</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.400 ± 0.056</td>
+      <td>0.723 ± 0.043</td>
+      <td>0.394</td>
+      <td>0.699</td>
+      <td>{"n_estimators": 103, "max_depth": 29, "min_samples_leaf": 12, "max_features": 0.15196122389423722}</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>Random Forest</td>
+      <td>ADASYN</td>
+      <td>Genética</td>
+      <td>0.401 ± 0.052</td>
+      <td>0.711 ± 0.051</td>
+      <td>0.391</td>
+      <td>0.704</td>
+      <td>{"n_estimators": 86, "max_depth": 20, "min_samples_leaf": 15, "max_features": 0.13861210595901544}</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>Random Forest</td>
+      <td>ADASYN</td>
+      <td>Grid</td>
+      <td>0.402 ± 0.058</td>
+      <td>0.729 ± 0.039</td>
+      <td>0.393</td>
+      <td>0.702</td>
+      <td>{"n_estimators": 200, "max_depth": 25, "min_samples_leaf": 20, "max_features": 0.2}</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>Random Forest</td>
+      <td>ADASYN</td>
+      <td>Random</td>
+      <td>0.402 ± 0.063</td>
+      <td>0.712 ± 0.053</td>
+      <td>0.388</td>
+      <td>0.688</td>
+      <td>{"n_estimators": 184, "max_depth": 9, "min_samples_leaf": 34, "max_features": 0.07212497390247896}</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>Random Forest</td>
+      <td>class_weight</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.400 ± 0.055</td>
+      <td>0.717 ± 0.046</td>
+      <td>0.394</td>
+      <td>0.696</td>
+      <td>{"n_estimators": 238, "max_depth": 24, "min_samples_leaf": 5, "max_features": 0.20588097280511639}</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>Random Forest</td>
+      <td>class_weight</td>
+      <td>Genética</td>
+      <td>0.401 ± 0.054</td>
+      <td>0.711 ± 0.049</td>
+      <td>0.393</td>
+      <td>0.663</td>
+      <td>{"n_estimators": 163, "max_depth": 28, "min_samples_leaf": 4, "max_features": 0.23377292042876183}</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>Random Forest</td>
+      <td>class_weight</td>
+      <td>Grid</td>
+      <td>0.401 ± 0.061</td>
+      <td>0.710 ± 0.050</td>
+      <td>0.402</td>
+      <td>0.691</td>
+      <td>{"n_estimators": 100, "max_depth": 25, "min_samples_leaf": 20, "max_features": 0.05}</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>Random Forest</td>
+      <td>class_weight</td>
+      <td>Random</td>
+      <td>0.403 ± 0.062</td>
+      <td>0.700 ± 0.054</td>
+      <td>0.400</td>
+      <td>0.698</td>
+      <td>{"n_estimators": 128, "max_depth": 19, "min_samples_leaf": 15, "max_features": 0.058023619017635863}</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>Random Forest</td>
+      <td>Sin balanceo</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.402 ± 0.053</td>
+      <td>0.728 ± 0.040</td>
+      <td>0.392</td>
+      <td>0.718</td>
+      <td>{"n_estimators": 175, "max_depth": 26, "min_samples_leaf": 21, "max_features": 0.18219691674342578}</td>
+    </tr>
+    <tr>
+      <th>58</th>
+      <td>Random Forest</td>
+      <td>Sin balanceo</td>
+      <td>Genética</td>
+      <td>0.403 ± 0.050</td>
+      <td>0.731 ± 0.041</td>
+      <td>0.393</td>
+      <td>0.713</td>
+      <td>{"n_estimators": 87, "max_depth": 20, "min_samples_leaf": 16, "max_features": 0.149467701614935}</td>
+    </tr>
+    <tr>
+      <th>59</th>
+      <td>Random Forest</td>
+      <td>Sin balanceo</td>
+      <td>Grid</td>
+      <td>0.403 ± 0.057</td>
+      <td>0.729 ± 0.040</td>
+      <td>0.393</td>
+      <td>0.717</td>
+      <td>{"n_estimators": 200, "max_depth": 25, "min_samples_leaf": 20, "max_features": 0.2}</td>
+    </tr>
+    <tr>
+      <th>60</th>
+      <td>Random Forest</td>
+      <td>Sin balanceo</td>
+      <td>Random</td>
+      <td>0.399 ± 0.054</td>
+      <td>0.724 ± 0.045</td>
+      <td>0.393</td>
+      <td>0.716</td>
+      <td>{"n_estimators": 111, "max_depth": 23, "min_samples_leaf": 28, "max_features": 0.22627282633878465}</td>
+    </tr>
+    <tr>
+      <th>61</th>
+      <td>Random Forest</td>
+      <td>SMOTE</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.407 ± 0.060</td>
+      <td>0.709 ± 0.060</td>
+      <td>0.399</td>
+      <td>0.696</td>
+      <td>{"n_estimators": 212, "max_depth": 25, "min_samples_leaf": 7, "max_features": 0.030091125074234736}</td>
+    </tr>
+    <tr>
+      <th>62</th>
+      <td>Random Forest</td>
+      <td>SMOTE</td>
+      <td>Genética</td>
+      <td>0.403 ± 0.060</td>
+      <td>0.711 ± 0.061</td>
+      <td>0.398</td>
+      <td>0.703</td>
+      <td>{"n_estimators": 164, "max_depth": 30, "min_samples_leaf": 47, "max_features": 0.07399418780334618}</td>
+    </tr>
+    <tr>
+      <th>63</th>
+      <td>Random Forest</td>
+      <td>SMOTE</td>
+      <td>Grid</td>
+      <td>0.402 ± 0.059</td>
+      <td>0.709 ± 0.057</td>
+      <td>0.397</td>
+      <td>0.690</td>
+      <td>{"n_estimators": 100, "max_depth": 25, "min_samples_leaf": 20, "max_features": 0.05}</td>
+    </tr>
+    <tr>
+      <th>64</th>
+      <td>Random Forest</td>
+      <td>SMOTE</td>
+      <td>Random</td>
+      <td>0.398 ± 0.060</td>
+      <td>0.696 ± 0.068</td>
+      <td>0.389</td>
+      <td>0.692</td>
+      <td>{"n_estimators": 184, "max_depth": 9, "min_samples_leaf": 34, "max_features": 0.07212497390247896}</td>
+    </tr>
+    <tr>
+      <th>65</th>
+      <td>SVM</td>
+      <td>ADASYN</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.445 ± 0.108</td>
+      <td>0.693 ± 0.075</td>
+      <td>0.416</td>
+      <td>0.661</td>
+      <td>{"C": 0.0012213804675747712, "loss": "hinge"}</td>
+    </tr>
+    <tr>
+      <th>66</th>
+      <td>SVM</td>
+      <td>ADASYN</td>
+      <td>Genética</td>
+      <td>0.457 ± 0.104</td>
+      <td>0.698 ± 0.069</td>
+      <td>0.420</td>
+      <td>0.669</td>
+      <td>{"C": 0.0024492663421883344, "loss": "hinge"}</td>
+    </tr>
+    <tr>
+      <th>67</th>
+      <td>SVM</td>
+      <td>ADASYN</td>
+      <td>Grid</td>
+      <td>0.457 ± 0.099</td>
+      <td>0.695 ± 0.070</td>
+      <td>0.430</td>
+      <td>0.671</td>
+      <td>{"C": 0.003, "loss": "hinge"}</td>
+    </tr>
+    <tr>
+      <th>68</th>
+      <td>SVM</td>
+      <td>ADASYN</td>
+      <td>Random</td>
+      <td>0.463 ± 0.108</td>
+      <td>0.705 ± 0.055</td>
+      <td>0.418</td>
+      <td>0.671</td>
+      <td>{"C": 0.0029179665584690823, "loss": "hinge"}</td>
+    </tr>
+    <tr>
+      <th>69</th>
+      <td>SVM</td>
+      <td>class_weight</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.381 ± 0.042</td>
+      <td>0.672 ± 0.093</td>
+      <td>0.388</td>
+      <td>0.628</td>
+      <td>{"C": 0.0012213804675747712, "loss": "hinge"}</td>
+    </tr>
+    <tr>
+      <th>70</th>
+      <td>SVM</td>
+      <td>class_weight</td>
+      <td>Genética</td>
+      <td>0.386 ± 0.045</td>
+      <td>0.679 ± 0.086</td>
+      <td>0.385</td>
+      <td>0.645</td>
+      <td>{"C": 0.0031282519835556435, "loss": "hinge"}</td>
+    </tr>
+    <tr>
+      <th>71</th>
+      <td>SVM</td>
+      <td>class_weight</td>
+      <td>Grid</td>
+      <td>0.385 ± 0.048</td>
+      <td>0.674 ± 0.088</td>
+      <td>0.391</td>
+      <td>0.645</td>
+      <td>{"C": 0.003, "loss": "hinge"}</td>
+    </tr>
+    <tr>
+      <th>72</th>
+      <td>SVM</td>
+      <td>class_weight</td>
+      <td>Random</td>
+      <td>0.412 ± 0.064</td>
+      <td>0.678 ± 0.080</td>
+      <td>0.387</td>
+      <td>0.644</td>
+      <td>{"C": 0.0029179665584690823, "loss": "hinge"}</td>
+    </tr>
+    <tr>
+      <th>73</th>
+      <td>SVM</td>
+      <td>Sin balanceo</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.381 ± 0.034</td>
+      <td>0.674 ± 0.093</td>
+      <td>0.375</td>
+      <td>0.666</td>
+      <td>{"C": 0.07425476771030158, "loss": "hinge"}</td>
+    </tr>
+    <tr>
+      <th>74</th>
+      <td>SVM</td>
+      <td>Sin balanceo</td>
+      <td>Genética</td>
+      <td>0.391 ± 0.027</td>
+      <td>0.692 ± 0.089</td>
+      <td>0.367</td>
+      <td>0.661</td>
+      <td>{"C": 0.15227210896056684, "loss": "hinge"}</td>
+    </tr>
+    <tr>
+      <th>75</th>
+      <td>SVM</td>
+      <td>Sin balanceo</td>
+      <td>Grid</td>
+      <td>0.385 ± 0.041</td>
+      <td>0.680 ± 0.089</td>
+      <td>0.356</td>
+      <td>0.663</td>
+      <td>{"C": 0.1, "loss": "hinge"}</td>
+    </tr>
+    <tr>
+      <th>76</th>
+      <td>SVM</td>
+      <td>Sin balanceo</td>
+      <td>Random</td>
+      <td>0.391 ± 0.034</td>
+      <td>0.684 ± 0.094</td>
+      <td>0.378</td>
+      <td>0.666</td>
+      <td>{"C": 0.07636730453192267, "loss": "hinge"}</td>
+    </tr>
+    <tr>
+      <th>77</th>
+      <td>SVM</td>
+      <td>SMOTE</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.433 ± 0.057</td>
+      <td>0.703 ± 0.068</td>
+      <td>0.424</td>
+      <td>0.671</td>
+      <td>{"C": 0.0012213804675747712, "loss": "hinge"}</td>
+    </tr>
+    <tr>
+      <th>78</th>
+      <td>SVM</td>
+      <td>SMOTE</td>
+      <td>Genética</td>
+      <td>0.414 ± 0.054</td>
+      <td>0.706 ± 0.065</td>
+      <td>0.433</td>
+      <td>0.678</td>
+      <td>{"C": 0.0027250336339685556, "loss": "hinge"}</td>
+    </tr>
+    <tr>
+      <th>79</th>
+      <td>SVM</td>
+      <td>SMOTE</td>
+      <td>Grid</td>
+      <td>0.441 ± 0.060</td>
+      <td>0.706 ± 0.065</td>
+      <td>0.428</td>
+      <td>0.679</td>
+      <td>{"C": 0.003, "loss": "hinge"}</td>
+    </tr>
+    <tr>
+      <th>80</th>
+      <td>SVM</td>
+      <td>SMOTE</td>
+      <td>Random</td>
+      <td>0.469 ± 0.101</td>
+      <td>0.712 ± 0.051</td>
+      <td>0.435</td>
+      <td>0.678</td>
+      <td>{"C": 0.0029179665584690823, "loss": "hinge"}</td>
+    </tr>
+    <tr>
+      <th>81</th>
+      <td>Árbol</td>
+      <td>ADASYN</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.388 ± 0.059</td>
+      <td>0.622 ± 0.041</td>
+      <td>0.383</td>
+      <td>0.676</td>
+      <td>{"max_depth": 28, "min_samples_leaf": 100, "criterion": "gini"}</td>
+    </tr>
+    <tr>
+      <th>82</th>
+      <td>Árbol</td>
+      <td>ADASYN</td>
+      <td>Genética</td>
+      <td>0.394 ± 0.066</td>
+      <td>0.646 ± 0.059</td>
+      <td>0.381</td>
+      <td>0.659</td>
+      <td>{"max_depth": 28, "min_samples_leaf": 57, "criterion": "gini"}</td>
+    </tr>
+    <tr>
+      <th>83</th>
+      <td>Árbol</td>
+      <td>ADASYN</td>
+      <td>Grid</td>
+      <td>0.386 ± 0.059</td>
+      <td>0.640 ± 0.043</td>
+      <td>0.376</td>
+      <td>0.661</td>
+      <td>{"max_depth": 30, "min_samples_leaf": 100, "criterion": "entropy"}</td>
+    </tr>
+    <tr>
+      <th>84</th>
+      <td>Árbol</td>
+      <td>ADASYN</td>
+      <td>Random</td>
+      <td>0.381 ± 0.079</td>
+      <td>0.640 ± 0.084</td>
+      <td>0.376</td>
+      <td>0.645</td>
+      <td>{"max_depth": 27, "min_samples_leaf": 102, "criterion": "entropy"}</td>
+    </tr>
+    <tr>
+      <th>85</th>
+      <td>Árbol</td>
+      <td>class_weight</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.461 ± 0.084</td>
+      <td>0.660 ± 0.052</td>
+      <td>0.384</td>
+      <td>0.621</td>
+      <td>{"max_depth": 13, "min_samples_leaf": 158, "criterion": "entropy"}</td>
+    </tr>
+    <tr>
+      <th>86</th>
+      <td>Árbol</td>
+      <td>class_weight</td>
+      <td>Genética</td>
+      <td>0.395 ± 0.096</td>
+      <td>0.589 ± 0.096</td>
+      <td>0.383</td>
+      <td>0.628</td>
+      <td>{"max_depth": 10, "min_samples_leaf": 214, "criterion": "gini"}</td>
+    </tr>
+    <tr>
+      <th>87</th>
+      <td>Árbol</td>
+      <td>class_weight</td>
+      <td>Grid</td>
+      <td>0.422 ± 0.108</td>
+      <td>0.639 ± 0.058</td>
+      <td>0.378</td>
+      <td>0.611</td>
+      <td>{"max_depth": 30, "min_samples_leaf": 400, "criterion": "entropy"}</td>
+    </tr>
+    <tr>
+      <th>88</th>
+      <td>Árbol</td>
+      <td>class_weight</td>
+      <td>Random</td>
+      <td>0.424 ± 0.117</td>
+      <td>0.627 ± 0.064</td>
+      <td>0.402</td>
+      <td>0.617</td>
+      <td>{"max_depth": 8, "min_samples_leaf": 130, "criterion": "gini"}</td>
+    </tr>
+    <tr>
+      <th>89</th>
+      <td>Árbol</td>
+      <td>Sin balanceo</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.386 ± 0.049</td>
+      <td>0.678 ± 0.048</td>
+      <td>0.377</td>
+      <td>0.678</td>
+      <td>{"max_depth": 30, "min_samples_leaf": 107, "criterion": "gini"}</td>
+    </tr>
+    <tr>
+      <th>90</th>
+      <td>Árbol</td>
+      <td>Sin balanceo</td>
+      <td>Genética</td>
+      <td>0.372 ± 0.050</td>
+      <td>0.656 ± 0.036</td>
+      <td>0.366</td>
+      <td>0.674</td>
+      <td>{"max_depth": 23, "min_samples_leaf": 60, "criterion": "entropy"}</td>
+    </tr>
+    <tr>
+      <th>91</th>
+      <td>Árbol</td>
+      <td>Sin balanceo</td>
+      <td>Grid</td>
+      <td>0.379 ± 0.055</td>
+      <td>0.700 ± 0.032</td>
+      <td>0.375</td>
+      <td>0.685</td>
+      <td>{"max_depth": 30, "min_samples_leaf": 100, "criterion": "entropy"}</td>
+    </tr>
+    <tr>
+      <th>92</th>
+      <td>Árbol</td>
+      <td>Sin balanceo</td>
+      <td>Random</td>
+      <td>0.387 ± 0.044</td>
+      <td>0.658 ± 0.037</td>
+      <td>0.378</td>
+      <td>0.678</td>
+      <td>{"max_depth": 27, "min_samples_leaf": 102, "criterion": "entropy"}</td>
+    </tr>
+    <tr>
+      <th>93</th>
+      <td>Árbol</td>
+      <td>SMOTE</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.385 ± 0.076</td>
+      <td>0.651 ± 0.072</td>
+      <td>0.385</td>
+      <td>0.679</td>
+      <td>{"max_depth": 30, "min_samples_leaf": 107, "criterion": "gini"}</td>
+    </tr>
+    <tr>
+      <th>94</th>
+      <td>Árbol</td>
+      <td>SMOTE</td>
+      <td>Genética</td>
+      <td>0.389 ± 0.068</td>
+      <td>0.632 ± 0.052</td>
+      <td>0.385</td>
+      <td>0.681</td>
+      <td>{"max_depth": 30, "min_samples_leaf": 100, "criterion": "gini"}</td>
+    </tr>
+    <tr>
+      <th>95</th>
+      <td>Árbol</td>
+      <td>SMOTE</td>
+      <td>Grid</td>
+      <td>0.382 ± 0.048</td>
+      <td>0.654 ± 0.044</td>
+      <td>0.371</td>
+      <td>0.657</td>
+      <td>{"max_depth": 30, "min_samples_leaf": 100, "criterion": "entropy"}</td>
+    </tr>
+    <tr>
+      <th>96</th>
+      <td>Árbol</td>
+      <td>SMOTE</td>
+      <td>Random</td>
+      <td>0.374 ± 0.064</td>
+      <td>0.647 ± 0.057</td>
+      <td>0.378</td>
+      <td>0.686</td>
+      <td>{"max_depth": 29, "min_samples_leaf": 122, "criterion": "gini"}</td>
+    </tr>
+    <tr>
+      <th>97</th>
+      <td>XGBoost</td>
+      <td>ADASYN</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.407 ± 0.061</td>
+      <td>0.738 ± 0.041</td>
+      <td>0.389</td>
+      <td>0.688</td>
+      <td>{"n_estimators": 397, "max_depth": 8, "learning_rate": 0.015287532925811202, "subsample": 0.7874666761644047, "colsa...</td>
+    </tr>
+    <tr>
+      <th>98</th>
+      <td>XGBoost</td>
+      <td>ADASYN</td>
+      <td>Genética</td>
+      <td>0.402 ± 0.061</td>
+      <td>0.737 ± 0.040</td>
+      <td>0.387</td>
+      <td>0.682</td>
+      <td>{"n_estimators": 178, "max_depth": 10, "learning_rate": 0.011005913703414671, "subsample": 1.0, "colsample_bytree": ...</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>XGBoost</td>
+      <td>ADASYN</td>
+      <td>Grid</td>
+      <td>0.405 ± 0.056</td>
+      <td>0.726 ± 0.044</td>
+      <td>0.387</td>
+      <td>0.694</td>
+      <td>{"n_estimators": 400, "max_depth": 3, "learning_rate": 0.03, "subsample": 0.8, "colsample_bytree": 0.9, "min_child_w...</td>
+    </tr>
+    <tr>
+      <th>100</th>
+      <td>XGBoost</td>
+      <td>ADASYN</td>
+      <td>Random</td>
+      <td>0.405 ± 0.057</td>
+      <td>0.735 ± 0.034</td>
+      <td>0.387</td>
+      <td>0.687</td>
+      <td>{"n_estimators": 214, "max_depth": 4, "learning_rate": 0.050552413572953286, "subsample": 0.8754818128399537, "colsa...</td>
+    </tr>
+    <tr>
+      <th>101</th>
+      <td>XGBoost</td>
+      <td>class_weight</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.425 ± 0.069</td>
+      <td>0.723 ± 0.044</td>
+      <td>0.390</td>
+      <td>0.688</td>
+      <td>{"n_estimators": 132, "max_depth": 10, "learning_rate": 0.026450165012515042, "subsample": 0.7564179035028562, "cols...</td>
+    </tr>
+    <tr>
+      <th>102</th>
+      <td>XGBoost</td>
+      <td>class_weight</td>
+      <td>Genética</td>
+      <td>0.403 ± 0.058</td>
+      <td>0.732 ± 0.040</td>
+      <td>0.393</td>
+      <td>0.711</td>
+      <td>{"n_estimators": 376, "max_depth": 5, "learning_rate": 0.028869896874458845, "subsample": 0.8787245331854169, "colsa...</td>
+    </tr>
+    <tr>
+      <th>103</th>
+      <td>XGBoost</td>
+      <td>class_weight</td>
+      <td>Grid</td>
+      <td>0.401 ± 0.063</td>
+      <td>0.725 ± 0.043</td>
+      <td>0.393</td>
+      <td>0.704</td>
+      <td>{"n_estimators": 400, "max_depth": 3, "learning_rate": 0.03, "subsample": 0.8, "colsample_bytree": 0.5, "min_child_w...</td>
+    </tr>
+    <tr>
+      <th>104</th>
+      <td>XGBoost</td>
+      <td>class_weight</td>
+      <td>Random</td>
+      <td>0.394 ± 0.036</td>
+      <td>0.731 ± 0.053</td>
+      <td>0.421</td>
+      <td>0.691</td>
+      <td>{"n_estimators": 132, "max_depth": 3, "learning_rate": 0.010158555123378366, "subsample": 0.9983158042372287, "colsa...</td>
+    </tr>
+    <tr>
+      <th>105</th>
+      <td>XGBoost</td>
+      <td>Sin balanceo</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.406 ± 0.060</td>
+      <td>0.701 ± 0.048</td>
+      <td>0.390</td>
+      <td>0.681</td>
+      <td>{"n_estimators": 200, "max_depth": 4, "learning_rate": 0.06886631331555772, "subsample": 0.6597460959188148, "colsam...</td>
+    </tr>
+    <tr>
+      <th>106</th>
+      <td>XGBoost</td>
+      <td>Sin balanceo</td>
+      <td>Genética</td>
+      <td>0.406 ± 0.059</td>
+      <td>0.719 ± 0.037</td>
+      <td>0.389</td>
+      <td>0.692</td>
+      <td>{"n_estimators": 320, "max_depth": 3, "learning_rate": 0.06994477469788289, "subsample": 0.8507375379650768, "colsam...</td>
+    </tr>
+    <tr>
+      <th>107</th>
+      <td>XGBoost</td>
+      <td>Sin balanceo</td>
+      <td>Grid</td>
+      <td>0.404 ± 0.056</td>
+      <td>0.726 ± 0.039</td>
+      <td>0.392</td>
+      <td>0.679</td>
+      <td>{"n_estimators": 150, "max_depth": 8, "learning_rate": 0.03, "subsample": 0.8, "colsample_bytree": 0.5, "min_child_w...</td>
+    </tr>
+    <tr>
+      <th>108</th>
+      <td>XGBoost</td>
+      <td>Sin balanceo</td>
+      <td>Random</td>
+      <td>0.400 ± 0.062</td>
+      <td>0.724 ± 0.030</td>
+      <td>0.392</td>
+      <td>0.678</td>
+      <td>{"n_estimators": 356, "max_depth": 9, "learning_rate": 0.01745221952830974, "subsample": 0.6069399031240434, "colsam...</td>
+    </tr>
+    <tr>
+      <th>109</th>
+      <td>XGBoost</td>
+      <td>SMOTE</td>
+      <td>Bayesiana (TPE)</td>
+      <td>0.404 ± 0.060</td>
+      <td>0.736 ± 0.037</td>
+      <td>0.385</td>
+      <td>0.699</td>
+      <td>{"n_estimators": 152, "max_depth": 4, "learning_rate": 0.04641130267094285, "subsample": 0.8531271540983583, "colsam...</td>
+    </tr>
+    <tr>
+      <th>110</th>
+      <td>XGBoost</td>
+      <td>SMOTE</td>
+      <td>Genética</td>
+      <td>0.404 ± 0.060</td>
+      <td>0.729 ± 0.046</td>
+      <td>0.388</td>
+      <td>0.690</td>
+      <td>{"n_estimators": 192, "max_depth": 9, "learning_rate": 0.01676515423313704, "subsample": 0.9654862696773973, "colsam...</td>
+    </tr>
+    <tr>
+      <th>111</th>
+      <td>XGBoost</td>
+      <td>SMOTE</td>
+      <td>Grid</td>
+      <td>0.404 ± 0.060</td>
+      <td>0.731 ± 0.030</td>
+      <td>0.390</td>
+      <td>0.691</td>
+      <td>{"n_estimators": 150, "max_depth": 8, "learning_rate": 0.03, "subsample": 0.8, "colsample_bytree": 0.5, "min_child_w...</td>
+    </tr>
+    <tr>
+      <th>112</th>
+      <td>XGBoost</td>
+      <td>SMOTE</td>
+      <td>Random</td>
+      <td>0.405 ± 0.064</td>
+      <td>0.738 ± 0.036</td>
+      <td>0.384</td>
+      <td>0.701</td>
+      <td>{"n_estimators": 274, "max_depth": 3, "learning_rate": 0.027061228307261997, "subsample": 0.6595568724092654, "colsa...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s1">'display.max_rows'</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s1">'display.max_colwidth'</span><span class="p">,</span> <span class="mi">120</span><span class="p">):</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">full_r</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Modelo</th>
+      <th>Optimizador</th>
+      <th>RMSE anidado</th>
+      <th>MAE anidado</th>
+      <th>RMSE prueba</th>
+      <th>MAE prueba</th>
+      <th>Hiperparámetros finales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>113</th>
+      <td>KNN</td>
+      <td>Bayesiana (TPE)</td>
+      <td>1.381 ± 0.011</td>
+      <td>1.163 ± 0.010</td>
+      <td>1.167</td>
+      <td>0.958</td>
+      <td>{"n_neighbors": 273, "weights": "uniform"}</td>
+    </tr>
+    <tr>
+      <th>114</th>
+      <td>KNN</td>
+      <td>Genética</td>
+      <td>1.380 ± 0.010</td>
+      <td>1.162 ± 0.011</td>
+      <td>1.171</td>
+      <td>0.958</td>
+      <td>{"n_neighbors": 189, "weights": "uniform"}</td>
+    </tr>
+    <tr>
+      <th>115</th>
+      <td>KNN</td>
+      <td>Grid</td>
+      <td>1.380 ± 0.012</td>
+      <td>1.162 ± 0.012</td>
+      <td>1.166</td>
+      <td>0.957</td>
+      <td>{"n_neighbors": 301, "weights": "uniform"}</td>
+    </tr>
+    <tr>
+      <th>116</th>
+      <td>KNN</td>
+      <td>Random</td>
+      <td>1.380 ± 0.011</td>
+      <td>1.161 ± 0.011</td>
+      <td>1.167</td>
+      <td>0.958</td>
+      <td>{"n_neighbors": 268, "weights": "uniform"}</td>
+    </tr>
+    <tr>
+      <th>117</th>
+      <td>Lasso</td>
+      <td>Bayesiana (TPE)</td>
+      <td>1.367 ± 0.012</td>
+      <td>1.147 ± 0.011</td>
+      <td>1.149</td>
+      <td>0.942</td>
+      <td>{"alpha": 0.002603499541879877}</td>
+    </tr>
+    <tr>
+      <th>118</th>
+      <td>Lasso</td>
+      <td>Genética</td>
+      <td>1.368 ± 0.013</td>
+      <td>1.148 ± 0.011</td>
+      <td>1.148</td>
+      <td>0.942</td>
+      <td>{"alpha": 0.003245217908434473}</td>
+    </tr>
+    <tr>
+      <th>119</th>
+      <td>Lasso</td>
+      <td>Grid</td>
+      <td>1.367 ± 0.012</td>
+      <td>1.148 ± 0.011</td>
+      <td>1.149</td>
+      <td>0.942</td>
+      <td>{"alpha": 0.0025119}</td>
+    </tr>
+    <tr>
+      <th>120</th>
+      <td>Lasso</td>
+      <td>Random</td>
+      <td>1.367 ± 0.012</td>
+      <td>1.147 ± 0.010</td>
+      <td>1.149</td>
+      <td>0.942</td>
+      <td>{"alpha": 0.0019389736999396053}</td>
+    </tr>
+    <tr>
+      <th>121</th>
+      <td>Random Forest</td>
+      <td>Bayesiana (TPE)</td>
+      <td>1.365 ± 0.009</td>
+      <td>1.143 ± 0.009</td>
+      <td>1.142</td>
+      <td>0.930</td>
+      <td>{"n_estimators": 138, "max_depth": 18, "min_samples_leaf": 10, "max_features": 0.137769597154308}</td>
+    </tr>
+    <tr>
+      <th>122</th>
+      <td>Random Forest</td>
+      <td>Genética</td>
+      <td>1.365 ± 0.010</td>
+      <td>1.143 ± 0.009</td>
+      <td>1.145</td>
+      <td>0.932</td>
+      <td>{"n_estimators": 163, "max_depth": 13, "min_samples_leaf": 3, "max_features": 0.21915143615798396}</td>
+    </tr>
+    <tr>
+      <th>123</th>
+      <td>Random Forest</td>
+      <td>Grid</td>
+      <td>1.365 ± 0.010</td>
+      <td>1.144 ± 0.011</td>
+      <td>1.142</td>
+      <td>0.933</td>
+      <td>{"n_estimators": 200, "max_depth": 25, "min_samples_leaf": 2, "max_features": 0.05}</td>
+    </tr>
+    <tr>
+      <th>124</th>
+      <td>Random Forest</td>
+      <td>Random</td>
+      <td>1.364 ± 0.008</td>
+      <td>1.143 ± 0.008</td>
+      <td>1.143</td>
+      <td>0.931</td>
+      <td>{"n_estimators": 183, "max_depth": 24, "min_samples_leaf": 3, "max_features": 0.078924016621189}</td>
+    </tr>
+    <tr>
+      <th>125</th>
+      <td>Ridge</td>
+      <td>Bayesiana (TPE)</td>
+      <td>1.368 ± 0.011</td>
+      <td>1.146 ± 0.010</td>
+      <td>1.148</td>
+      <td>0.941</td>
+      <td>{"alpha": 134.01871717691358}</td>
+    </tr>
+    <tr>
+      <th>126</th>
+      <td>Ridge</td>
+      <td>Genética</td>
+      <td>1.367 ± 0.011</td>
+      <td>1.147 ± 0.009</td>
+      <td>1.151</td>
+      <td>0.943</td>
+      <td>{"alpha": 55.67140136503407}</td>
+    </tr>
+    <tr>
+      <th>127</th>
+      <td>Ridge</td>
+      <td>Grid</td>
+      <td>1.368 ± 0.011</td>
+      <td>1.147 ± 0.010</td>
+      <td>1.146</td>
+      <td>0.940</td>
+      <td>{"alpha": 215.44347}</td>
+    </tr>
+    <tr>
+      <th>128</th>
+      <td>Ridge</td>
+      <td>Random</td>
+      <td>1.369 ± 0.011</td>
+      <td>1.147 ± 0.010</td>
+      <td>1.146</td>
+      <td>0.940</td>
+      <td>{"alpha": 208.02490465875013}</td>
+    </tr>
+    <tr>
+      <th>129</th>
+      <td>SVR</td>
+      <td>Bayesiana (TPE)</td>
+      <td>1.371 ± 0.014</td>
+      <td>1.154 ± 0.011</td>
+      <td>1.148</td>
+      <td>0.943</td>
+      <td>{"C": 0.008494346789275712, "epsilon": 1.0180702609112777}</td>
+    </tr>
+    <tr>
+      <th>130</th>
+      <td>SVR</td>
+      <td>Genética</td>
+      <td>1.370 ± 0.013</td>
+      <td>1.153 ± 0.011</td>
+      <td>1.154</td>
+      <td>0.947</td>
+      <td>{"C": 0.016098255519879416, "epsilon": 1.3004218763021045}</td>
+    </tr>
+    <tr>
+      <th>131</th>
+      <td>SVR</td>
+      <td>Grid</td>
+      <td>1.370 ± 0.014</td>
+      <td>1.150 ± 0.012</td>
+      <td>1.151</td>
+      <td>0.945</td>
+      <td>{"C": 0.01, "epsilon": 1.2}</td>
+    </tr>
+    <tr>
+      <th>132</th>
+      <td>SVR</td>
+      <td>Random</td>
+      <td>1.372 ± 0.014</td>
+      <td>1.154 ± 0.012</td>
+      <td>1.149</td>
+      <td>0.944</td>
+      <td>{"C": 0.00516089252224836, "epsilon": 1.230637522677008}</td>
+    </tr>
+    <tr>
+      <th>133</th>
+      <td>Árbol</td>
+      <td>Bayesiana (TPE)</td>
+      <td>1.379 ± 0.013</td>
+      <td>1.153 ± 0.007</td>
+      <td>1.153</td>
+      <td>0.940</td>
+      <td>{"max_depth": 17, "min_samples_leaf": 176, "criterion": "friedman_mse"}</td>
+    </tr>
+    <tr>
+      <th>134</th>
+      <td>Árbol</td>
+      <td>Genética</td>
+      <td>1.378 ± 0.013</td>
+      <td>1.152 ± 0.011</td>
+      <td>1.153</td>
+      <td>0.941</td>
+      <td>{"max_depth": 13, "min_samples_leaf": 164, "criterion": "friedman_mse"}</td>
+    </tr>
+    <tr>
+      <th>135</th>
+      <td>Árbol</td>
+      <td>Grid</td>
+      <td>1.378 ± 0.012</td>
+      <td>1.154 ± 0.007</td>
+      <td>1.153</td>
+      <td>0.942</td>
+      <td>{"max_depth": 8, "min_samples_leaf": 100, "criterion": "friedman_mse"}</td>
+    </tr>
+    <tr>
+      <th>136</th>
+      <td>Árbol</td>
+      <td>Random</td>
+      <td>1.378 ± 0.013</td>
+      <td>1.155 ± 0.011</td>
+      <td>1.156</td>
+      <td>0.941</td>
+      <td>{"max_depth": 22, "min_samples_leaf": 168, "criterion": "squared_error"}</td>
+    </tr>
+    <tr>
+      <th>137</th>
+      <td>XGBoost</td>
+      <td>Bayesiana (TPE)</td>
+      <td>1.365 ± 0.011</td>
+      <td>1.143 ± 0.011</td>
+      <td>1.144</td>
+      <td>0.935</td>
+      <td>{"n_estimators": 174, "max_depth": 4, "learning_rate": 0.04248906056716876, "subsample": 0.8489751513996987, "colsam...</td>
+    </tr>
+    <tr>
+      <th>138</th>
+      <td>XGBoost</td>
+      <td>Genética</td>
+      <td>1.366 ± 0.010</td>
+      <td>1.145 ± 0.010</td>
+      <td>1.142</td>
+      <td>0.934</td>
+      <td>{"n_estimators": 165, "max_depth": 9, "learning_rate": 0.01676515423313704, "subsample": 0.9472794455922056, "colsam...</td>
+    </tr>
+    <tr>
+      <th>139</th>
+      <td>XGBoost</td>
+      <td>Grid</td>
+      <td>1.365 ± 0.011</td>
+      <td>1.144 ± 0.011</td>
+      <td>1.145</td>
+      <td>0.936</td>
+      <td>{"n_estimators": 400, "max_depth": 3, "learning_rate": 0.03, "subsample": 0.8, "colsample_bytree": 0.5, "min_child_w...</td>
+    </tr>
+    <tr>
+      <th>140</th>
+      <td>XGBoost</td>
+      <td>Random</td>
+      <td>1.366 ± 0.011</td>
+      <td>1.145 ± 0.013</td>
+      <td>1.144</td>
+      <td>0.937</td>
+      <td>{"n_estimators": 274, "max_depth": 3, "learning_rate": 0.027061228307261997, "subsample": 0.6595568724092654, "colsa...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1674,7 +3584,8 @@ def genetic_search(ev, space, grid, rng):
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#balanceo-de-clases">6.5 Balanceo de clases</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#espacios-de-busqueda">6.6 Espacios de búsqueda</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#registro-de-experimentos-y-semillas">6.7 Registro de experimentos y semillas</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-codigo-de-entrenamiento-visible">6.9 El código de entrenamiento, visible</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-codigo-de-entrenamiento-visible">6.8 El código de entrenamiento, visible</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inventario-los-140-modelos-entrenados-y-los-modelos-base-de-la-guia">6.9 Inventario: los 140 modelos entrenados y los modelos base de la guía</a></li>
 </ul>
   </nav></div>
 
