@@ -58,6 +58,8 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
     <link rel="index" title="Índice" href="genindex.html" />
     <link rel="search" title="Búsqueda" href="search.html" />
@@ -194,6 +196,10 @@
 <li class="toctree-l1"><a class="reference internal" href="12_robustez.html">12. Robustez y estabilidad de las métricas</a></li>
 <li class="toctree-l1"><a class="reference internal" href="13_comparacion_estadistica.html">13. Comparación estadística de los modelos</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelo propuesto</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="18_modelo_propuesto.html">18. Modelo propuesto: <em>stacking</em> multivista</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Cierre</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="14_conclusiones.html">14. Conclusiones y límites</a></li>
@@ -203,6 +209,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Todo en un solo notebook</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="entregable3_completo.html">Entregable 3 — notebook único</a></li>
+
 
 
 
@@ -413,10 +420,13 @@ trimestre de 2023, en establecimientos que no se usaron para construir el modelo
 <tr class="row-odd"><td><p>Modelos</p></td>
 <td><p>5. Modelo base del entregable 2 · <strong>6. Diseño del pipeline combinatorio</strong> · <strong>7. Optimización de hiperparámetros</strong> · <strong>8. Optimización computacional</strong> · <strong>9. Clasificación</strong> · <strong>10. Regresión</strong> · <strong>11. Interpretabilidad</strong> · <strong>12. Robustez</strong> · <strong>13. Comparación estadística</strong></p></td>
 </tr>
-<tr class="row-even"><td><p>Cierre</p></td>
+<tr class="row-even"><td><p>Modelo propuesto</p></td>
+<td><p><strong>18. Stacking multivista</strong>: une modelos especializados en distintas vistas del caso y supera a los 112 modelos de clasificación del curso</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cierre</p></td>
 <td><p>14. Conclusiones · 15. Reproducibilidad · Anexo: notebook del entregable 1</p></td>
 </tr>
-<tr class="row-odd"><td><p>Todo en uno</p></td>
+<tr class="row-even"><td><p>Todo en uno</p></td>
 <td><p><strong>Notebook único</strong> (<code class="docutils literal notranslate"><span class="pre">entregable3_completo.ipynb</span></code>): los 15 capítulos y el anexo en un solo archivo</p></td>
 </tr>
 </tbody>
@@ -459,6 +469,8 @@ y los capítulos leen sus resultados de <code class="docutils literal notranslat
 entregable. La sección 3.8 lista cada comentario del profesor y el lugar del informe donde se atiende.</p>
 </div>
 </section>
+<div class="toctree-wrapper compound">
+</div>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
@@ -540,7 +552,7 @@ entregable. La sección 3.8 lista cada comentario del profesor y el lugar del in
   <div class="footer-item">
     
 <p class="component-author">
-Por Jaime Andrés Besada e Iván Prada
+Por Jaime Andrés Besada e Iván Berrio
 </p>
 
   </div>

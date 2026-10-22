@@ -193,6 +193,10 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">12. Robustez y estabilidad de las métricas</a></li>
 <li class="toctree-l1"><a class="reference internal" href="13_comparacion_estadistica.html">13. Comparación estadística de los modelos</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelo propuesto</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="18_modelo_propuesto.html">18. Modelo propuesto: <em>stacking</em> multivista</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Cierre</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="14_conclusiones.html">14. Conclusiones y límites</a></li>
@@ -202,6 +206,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Todo en un solo notebook</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="entregable3_completo.html">Entregable 3 — notebook único</a></li>
+
 
 
 
@@ -372,7 +377,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#las-diferencias-entre-modelos-superan-la-variabilidad-de-cada-modelo">12.3 ¿Las diferencias entre modelos superan la variabilidad de cada modelo?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correccion-del-entregable-1-la-brecha-entre-entrenamiento-y-validacion">12.4 Corrección del entregable 1: la brecha entre entrenamiento y validación</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correccion-del-entregable-1-que-pasa-si-se-quita-time-unknown">12.5 Corrección del entregable 1: ¿qué pasa si se quita <code class="docutils literal notranslate"><span class="pre">time_unknown</span></code>?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diseno-alternativo-validacion-anidada-con-pliegues-temporales-corrida-de-ivan-prada">12.6 Diseño alternativo: validación anidada con pliegues temporales (corrida de Iván Prada)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diseno-alternativo-validacion-anidada-con-pliegues-temporales-corrida-de-ivan-berrio">12.6 Diseño alternativo: validación anidada con pliegues temporales (corrida de Iván Berrio)</a></li>
 </ul>
             </nav>
         </div>
@@ -1357,8 +1362,8 @@ información (hora desconocida) les perjudica. Coherente con el umbral de coline
 combinaciones sin ella (no cambiaría las conclusiones y costaría otra corrida completa); queda anotado
 como decisión para cualquier modelo que se use después.</p>
 </section>
-<section id="diseno-alternativo-validacion-anidada-con-pliegues-temporales-corrida-de-ivan-prada">
-<h2>12.6 Diseño alternativo: validación anidada con pliegues temporales (corrida de Iván Prada)<a class="headerlink" href="#diseno-alternativo-validacion-anidada-con-pliegues-temporales-corrida-de-ivan-prada" title="Link to this heading">#</a></h2>
+<section id="diseno-alternativo-validacion-anidada-con-pliegues-temporales-corrida-de-ivan-berrio">
+<h2>12.6 Diseño alternativo: validación anidada con pliegues temporales (corrida de Iván Berrio)<a class="headerlink" href="#diseno-alternativo-validacion-anidada-con-pliegues-temporales-corrida-de-ivan-berrio" title="Link to this heading">#</a></h2>
 <p>En paralelo, Iván corrió una validación anidada con otro diseño (tablas en
 <code class="docutils literal notranslate"><span class="pre">results/disenio_temporal/</span></code>): 3 pliegues externos <strong>hacia adelante en el tiempo</strong> (los del
 entregable 1), NAICS y SOC completos con el agrupamiento de categorías raras como hiperparámetro,
@@ -1585,7 +1590,7 @@ marcar Fallecimiento masivamente, no por clasificar mejor.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#las-diferencias-entre-modelos-superan-la-variabilidad-de-cada-modelo">12.3 ¿Las diferencias entre modelos superan la variabilidad de cada modelo?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correccion-del-entregable-1-la-brecha-entre-entrenamiento-y-validacion">12.4 Corrección del entregable 1: la brecha entre entrenamiento y validación</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correccion-del-entregable-1-que-pasa-si-se-quita-time-unknown">12.5 Corrección del entregable 1: ¿qué pasa si se quita <code class="docutils literal notranslate"><span class="pre">time_unknown</span></code>?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diseno-alternativo-validacion-anidada-con-pliegues-temporales-corrida-de-ivan-prada">12.6 Diseño alternativo: validación anidada con pliegues temporales (corrida de Iván Prada)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diseno-alternativo-validacion-anidada-con-pliegues-temporales-corrida-de-ivan-berrio">12.6 Diseño alternativo: validación anidada con pliegues temporales (corrida de Iván Berrio)</a></li>
 </ul>
   </nav></div>
 
@@ -1600,7 +1605,7 @@ marcar Fallecimiento masivamente, no por clasificar mejor.</p>
   <div class="footer-item">
     
 <p class="component-author">
-Por Jaime Andrés Besada e Iván Prada
+Por Jaime Andrés Besada e Iván Berrio
 </p>
 
   </div>
