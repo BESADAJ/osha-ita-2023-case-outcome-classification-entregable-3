@@ -1,4 +1,4 @@
-# Código del diseño temporal y del modelo original (Iván Prada)
+# Código del diseño temporal y del modelo original (Iván Berrio)
 
 Código con el que se calcularon las tablas de `results/disenio_temporal/` (corrida de 108 combinaciones,
 capítulo 12.6) y de `results/modelo_original/` (modelo original y sus iteraciones, capítulos 16 y 17).
