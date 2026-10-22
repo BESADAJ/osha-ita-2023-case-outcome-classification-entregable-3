@@ -263,7 +263,7 @@ pd.DataFrame(rows).set_index('modelo').round(4)
 # como decisión para cualquier modelo que se use después.
 
 # %% [markdown]
-# ## 12.6 Diseño alternativo: validación anidada con pliegues temporales (corrida de Iván Prada)
+# ## 12.6 Diseño alternativo: validación anidada con pliegues temporales (corrida de Iván Berrio)
 #
 # En paralelo, Iván corrió una validación anidada con otro diseño (tablas en
 # `results/disenio_temporal/`): 3 pliegues externos **hacia adelante en el tiempo** (los del

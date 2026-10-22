@@ -1,4 +1,4 @@
-# Corrida con diseño temporal (Iván Prada, 2026-10-18)
+# Corrida con diseño temporal (Iván Berrio, 2026-10-18)
 
 Copia de las tablas de resumen de la rama `entregable3-validacion-anidada` del repositorio
 <https://github.com/sak-buks/osha-ita-2023-case-outcome-classification> (carpeta `entregable3/results/`).
