@@ -1,6 +1,6 @@
 # Entregable 3 – OSHA ITA 2023 (Machine Learning, EST 1055-01)
 
-Autores: Jaime Andrés Besada e Iván Prada.
+Autores: Jaime Andrés Besada e Iván Berrio.
 
 Continuación del [entregable 2](https://github.com/sak-buks/osha-ita-2023-case-outcome-classification-segundo-entregable)
 (este repositorio parte de su historial). Sobre el archivo de casos de OSHA (ITA 2023) se entrenan, optimizan y
