@@ -41,6 +41,10 @@
    indistinguibles entre sí (Diebold-Mariano p = 0,60) y superan de forma real pero pequeña a una
    referencia que predice la media (SPA p ≈ 0) (capítulo 13).
 
+9. **El modelo original (PT-bagging) no supera a los modelos del curso**: con los pliegues temporales juntos su
+   balanced accuracy es 0,480 frente a 0,516 de la referencia, y cuatro iteraciones del diseño tampoco mejoran
+   (capítulos 16 y 17, versión preliminar).
+
 ## Respuesta a las correcciones del entregable 1
 
 | Comentario | Respuesta |
