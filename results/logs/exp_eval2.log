@@ -1,0 +1,6 @@
+[Parallel(n_jobs=6)]: Using backend LokyBackend with 6 concurrent workers.
+[Parallel(n_jobs=6)]: Done   4 out of  12 | elapsed:  1.8min remaining:  3.6min
+[Parallel(n_jobs=6)]: Done   7 out of  12 | elapsed:  6.0min remaining:  4.3min
+[Parallel(n_jobs=6)]: Done  10 out of  12 | elapsed:  6.5min remaining:  1.3min
+[Parallel(n_jobs=6)]: Done  12 out of  12 | elapsed:  9.6min finished
+listo ['unico_todo', 'stack_sin_empleador']

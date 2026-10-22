@@ -1,0 +1,26 @@
+referencia,métrica,ensamble,referencia_valor,diferencia,IC 95 % (bootstrap por establecimiento),p bootstrap,mejor el ensamble,p Holm
+mejor BA anidada,accuracy,0.600356383103987,0.47938237395106403,0.12097400915292295,"[0.1158, 0.1265]",0.001,True,0.02
+mejor BA anidada,balanced acc. (4 clases),0.44827465626248264,0.43485179783567185,0.013422858426810791,"[-0.0257, 0.0484]",0.464,True,0.464
+mejor BA anidada,balanced acc. (3 clases),0.5976995416833102,0.48578530309713513,0.11191423858617505,"[0.1068, 0.1171]",0.001,True,0.02
+mejor BA anidada,log-loss,0.8378070852268548,1.1332002754533241,-0.29539319022646937,"[-0.3028, -0.2866]",0.001,True,0.02
+mejor BA anidada,McNemar (aciertos solo ensamble / solo referencia),29147.0,13736.0,15411.0,,0.0,True,0.0
+mejor AUC anidada,accuracy,0.600356383103987,0.5134271651843537,0.08692921791963326,"[0.0823, 0.0918]",0.001,True,0.02
+mejor AUC anidada,balanced acc. (4 clases),0.44827465626248264,0.3892761562241679,0.05899850003831475,"[0.0556, 0.0628]",0.001,True,0.02
+mejor AUC anidada,balanced acc. (3 clases),0.5976995416833102,0.5190348749655572,0.07866466671775296,"[0.0741, 0.0838]",0.001,True,0.02
+mejor AUC anidada,log-loss,0.8378070852268548,0.9731265383008774,-0.1353194530740226,"[-0.1409, -0.1291]",0.001,True,0.02
+mejor AUC anidada,McNemar (aciertos solo ensamble / solo referencia),25066.0,13992.0,11074.0,,0.0,True,0.0
+mejor accuracy anidada,accuracy,0.600356383103987,0.517383488629495,0.08297289447449196,"[0.0781, 0.0876]",0.001,True,0.02
+mejor accuracy anidada,balanced acc. (4 clases),0.44827465626248264,0.3857226285572992,0.06255202770518342,"[0.0588, 0.0662]",0.001,True,0.02
+mejor accuracy anidada,balanced acc. (3 clases),0.5976995416833102,0.5142968380763989,0.08340270360691127,"[0.0784, 0.0883]",0.001,True,0.02
+mejor accuracy anidada,log-loss,0.8378070852268548,0.9722454329256384,-0.1344383476987836,"[-0.1400, -0.1285]",0.001,True,0.02
+mejor accuracy anidada,McNemar (aciertos solo ensamble / solo referencia),24558.0,13988.0,10570.0,,0.0,True,0.0
+mejor log-loss anidada,accuracy,0.600356383103987,0.5193616503520657,0.08099473275192126,"[0.0764, 0.0857]",0.001,True,0.02
+mejor log-loss anidada,balanced acc. (4 clases),0.44827465626248264,0.3886550494031489,0.05961960685933376,"[0.0560, 0.0634]",0.001,True,0.02
+mejor log-loss anidada,balanced acc. (3 clases),0.5976995416833102,0.5182067325375318,0.07949280914577839,"[0.0746, 0.0845]",0.001,True,0.02
+mejor log-loss anidada,log-loss,0.8378070852268548,0.9588253563755261,-0.12101827114867136,"[-0.1262, -0.1151]",0.001,True,0.02
+mejor log-loss anidada,McNemar (aciertos solo ensamble / solo referencia),24018.0,13700.0,10318.0,,0.0,True,0.0
+mejor base del ensamble (códigos finos),accuracy,0.600356383103987,0.591062162947147,0.009294220156840005,"[0.0067, 0.0117]",0.001,True,0.02
+mejor base del ensamble (códigos finos),balanced acc. (4 clases),0.44827465626248264,0.44243683244242427,0.005837823820058374,"[0.0039, 0.0077]",0.001,True,0.02
+mejor base del ensamble (códigos finos),balanced acc. (3 clases),0.5976995416833102,0.589915776589899,0.007783765093411166,"[0.0052, 0.0103]",0.001,True,0.02
+mejor base del ensamble (códigos finos),log-loss,0.8378070852268548,0.8471895887975994,-0.00938250357074466,"[-0.0116, -0.0070]",0.001,True,0.02
+mejor base del ensamble (códigos finos),McNemar (aciertos solo ensamble / solo referencia),7983.0,6799.0,1184.0,,2.24330670884772e-22,True,4.710944088580212e-21

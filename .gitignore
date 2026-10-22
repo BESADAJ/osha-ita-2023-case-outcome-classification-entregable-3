@@ -20,3 +20,4 @@ results/cache/*.parquet
 # Excepciones: predicciones de prueba (sin identificadores) y cálculos de los capítulos sí se versionan
 !results/final/**/*.npz
 !results/cache/*.joblib
+!results/ensemble/**/*.npz

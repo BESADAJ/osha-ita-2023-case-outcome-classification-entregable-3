@@ -23,7 +23,8 @@ from build_notebooks import parse  # noqa: E402
 ORDER = ['intro.md', '01_contexto.md', '02_eda_dashboard.md', '03_eda_adicional.md', '04_eda_mejorado',
          '05_modelo_base_e2.md', '06_diseno_pipeline', '07_optimizacion_hiperparametros',
          '08_optimizacion_computacional', '09_clasificacion', '10_regresion', '11_interpretabilidad',
-         '12_robustez', '13_comparacion_estadistica', '14_conclusiones.md', '15_reproducibilidad.md']
+         '12_robustez', '13_comparacion_estadistica', '18_modelo_propuesto', '14_conclusiones.md',
+         '15_reproducibilidad.md']
 
 
 def myst_to_markdown(text):
@@ -54,7 +55,8 @@ def build(execute=True):
         'Este notebook reúne **todo el entregable 3 en un solo archivo**, en el mismo orden que el Jupyter Book: '
         'contexto y EDA (capítulos 1 a 4), modelo base del entregable 2 (5), diseño del pipeline y los 140 modelos (6), '
         'optimización de hiperparámetros (7) y computacional (8), evaluación de clasificación (9) y regresión (10), '
-        'interpretabilidad (11), robustez (12), comparación estadística (13), conclusiones (14), reproducibilidad (15) '
+        'interpretabilidad (11), robustez (12), comparación estadística (13), el modelo propuesto (18: stacking '
+        'multivista), conclusiones (14), reproducibilidad (15) '
         'y, como anexo, el notebook del entregable 1.\n\n'
         'Cada capítulo con código empieza con su propia celda de preparación, así que puede ejecutarse desde ese punto. '
         'Las corridas largas (validación anidada de las 140 combinaciones y su evaluación en la prueba) se hacen con '
