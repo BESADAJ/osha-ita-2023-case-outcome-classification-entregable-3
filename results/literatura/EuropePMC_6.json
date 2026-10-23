@@ -1,0 +1,14 @@
+{
+ "fecha": "2026-10-23T00:03-05:00",
+ "cadena": "\"mixture of experts\" AND (\"occupational injury\" OR \"workplace injury\" OR \"injury severity\")",
+ "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=%22mixture+of+experts%22+AND+%28%22occupational+injury%22+OR+%22workplace+injury%22+OR+%22injury+severity%22%29&format=json&pageSize=25",
+ "total": 6,
+ "titulos": [
+  "MoMA: a mixture-of-multimodal-agents architecture for enhancing clinical prediction modelling.",
+  "Lightweight LiDAR-Based 3D Human Pose Estimation via 2D Depth Images for Autonomous Driving.",
+  "Nanomaterial-enhanced biosensors for traumatic brain injury biomarker detection: a review of analytical performance, machine learning integration, clinical validation, and point-of-care translation.",
+  "Mortality prediction for ICU patients with mental disorders using large language models ensemble and unstructured medical notes.",
+  "Pre-hospital prediction of adverse outcomes in patients with suspected COVID-19: Development, application and comparison of machine learning and deep learning methods.",
+  "Walking naturally after spinal cord injury using a brain-spine interface."
+ ]
+}

@@ -96,7 +96,7 @@ def frank_wolfe(T, a, n_steps=50, tol=1e-6, w0=None):
             gamma = 1.0
         else:  # φ'(0) = −gap < 0 < φ'(1): raíz única por convexidad
             lo, hi = 0.0, 1.0
-            for _ in range(40):
+            for _ in range(25):  # |γ − γ*| ≤ 2^-25
                 mid = 0.5 * (lo + hi)
                 lo, hi = (mid, hi) if dphi(mid) < 0 else (lo, mid)
             gamma = 0.5 * (lo + hi)

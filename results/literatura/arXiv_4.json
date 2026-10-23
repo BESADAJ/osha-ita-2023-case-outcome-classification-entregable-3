@@ -1,0 +1,10 @@
+{
+ "fecha": "2026-10-23T00:16-05:00",
+ "cadena": "\"Frank-Wolfe\" AND (ensemble OR \"classifier combination\" OR \"model averaging\")",
+ "url": "https://export.arxiv.org/api/query?search_query=all%3A%22Frank-Wolfe%22+AND+%28all%3Aensemble+OR+all%3A%22classifier+combination%22+OR+all%3A%22model+averaging%22%29&max_results=25",
+ "total": 2,
+ "titulos": [
+  "Lp-Norm Constrained One-Class Classifier Combination",
+  "Locally Adaptive One-Class Classifier Fusion with Dynamic $\\ell$p-Norm Constraints for Robust Anomaly Detection"
+ ]
+}

@@ -1,0 +1,33 @@
+{
+ "fecha": "2026-10-23T00:03-05:00",
+ "cadena": "(ensemble OR stacking) AND \"occupational injury\" AND (severity OR outcome)",
+ "url": "https://api.openalex.org/works?search=%28ensemble+OR+stacking%29+AND+%22occupational+injury%22+AND+%28severity+OR+outcome%29&per-page=25",
+ "total": 1532,
+ "titulos": [
+  "Occupational Injury Risk Mitigation: Machine Learning Approach and Feature Optimization for Smart Workplace Surveillance",
+  "Occupational Injuries in Musicians: A Literature Review",
+  "Occupational injuries among healthcare workers: a nationwide study in Turkey",
+  "Predicting occupational injury causal factors using text-based analytics: A systematic review",
+  "Assessment of occupational injury and illness risks for the position of mineral water warehouse forklift operator",
+  "Classifying construction accident reports with parameter-efficient fine-tuned LLMs and ensemble methods",
+  "Occupational Injuries on Thoroughbred Horse Farms: A Description of Latino and Non-Latino Workers’ Experiences",
+  "Common Patterns Of Occupational Injuries Dealt With By Saudi Red Crescent Paramedics",
+  "Effectiveness of Health and Safety Training in Reducing Occupational Injuries Among Harvesting Forestry Contractors in KwaZulu-Natal",
+  "Understanding Organist Occupational Injury: An Epidemiological Study of Canadian Organists",
+  "Wet Bulb Globe Temperature and Recorded Occupational Injury Rates among Sugarcane Harvesters in Southwest Guatemala",
+  "Association between temperature and occupational injuries in Spain: The role of contextual factors in workers’ adaptation",
+  "Occupational Injuries among Latino/a Immigrant Cattle Feedyard Workers in the Central States Region of the United States",
+  "Health Promotion in Schools of Music: Initial Recommendations for Schools of Music",
+  "Occupational Injuries and Their Determinants Among Healthcare Workers in Western Countries: A Scoping Review",
+  "Classification and Review of Factors Influencing Return-to-Work Timelines After Occupational Injuries",
+  "Mathematical models for occupational injuries analysis at the enterprises of the state forestry committee of Ukraine",
+  "Understanding the deindustrial body : the legacies of occupational injuries and disease in the former Kent coalfield",
+  "Effectiveness of health and safety training in reducing occupational injuries among harvesting forestry contractors in KZN",
+  "Global, regional, and national mortality due to unintentional carbon monoxide poisoning, 2000–2021: results from the Global Burden of Disease Study 2021",
+  "Occupational Injuries Presenting to an Emergency Department Adjacent to a Large Organized Industrial Zone: Epidemiological Characteristics and Fracture-Related Factors",
+  "Occupational Health Injuries and Safety Management among Internal Migrant Workers in Pakistan: Challenges and Prospects",
+  "Worker health chartbook, 2000.",
+  "A study to determine the occupational health and safety knowledge, practices and injury patterns of workers at a specific beverage manufacturing company",
+  "Ergonomic Risk Assessment of Warehouse Workers in the Courier Service Industry: A Case Study from Kuantan, Malaysia"
+ ]
+}

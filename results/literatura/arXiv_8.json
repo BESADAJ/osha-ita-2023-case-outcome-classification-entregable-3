@@ -1,0 +1,7 @@
+{
+ "fecha": "2026-10-23T00:03-05:00",
+ "cadena": "OSHA AND (\"machine learning\" OR classification) AND (severity OR outcome OR \"days away\")",
+ "url": "https://export.arxiv.org/api/query?search_query=all%3AOSHA+AND+%28all%3A%22machine+learning%22+OR+all%3Aclassification%29+AND+%28all%3Aseverity+OR+all%3Aoutcome+OR+all%3A%22days+away%22%29&max_results=25",
+ "total": null,
+ "titulos": []
+}

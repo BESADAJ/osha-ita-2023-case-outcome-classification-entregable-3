@@ -1,0 +1,7 @@
+{
+ "fecha": "2026-10-23T00:16-05:00",
+ "cadena": "(\"selección de ensambles\" OR \"ensamble de modelos\" OR \"combinación de clasificadores\") AND (\"lesiones laborales\" OR \"accidentes de trabajo\" OR \"accidente laboral\")",
+ "url": "https://export.arxiv.org/api/query?search_query=%28all%3A%22selecci%C3%B3n+de+ensambles%22+OR+all%3A%22ensamble+de+modelos%22+OR+all%3A%22combinaci%C3%B3n+de+clasificadores%22%29+AND+%28all%3A%22lesiones+laborales%22+OR+all%3A%22accidentes+de+trabajo%22+OR+all%3A%22accidente+laboral%22%29&max_results=25",
+ "total": 0,
+ "titulos": []
+}

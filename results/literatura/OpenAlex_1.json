@@ -1,0 +1,33 @@
+{
+ "fecha": "2026-10-23T00:03-05:00",
+ "cadena": "\"ensemble selection\" AND (injury OR injuries)",
+ "url": "https://api.openalex.org/works?search=%22ensemble+selection%22+AND+%28injury+OR+injuries%29&per-page=25",
+ "total": 371,
+ "titulos": [
+  "An interpretable dynamic ensemble selection multiclass imbalance approach with ensemble imbalance learning for predicting road crash injury severity",
+  "Knowledge-Augmented Patient Network Embedding-Based Dynamic Model Selection for Predictive Analysis of Pediatric Drug-Induced Liver Injury",
+  "Toward Interpretable Voice-Based Parkinson’s Disease Screening via Joint Transfer Function–Feature–Classifier–Ensemble Selection",
+  "Adaptive CNN Ensemble for Apple Detection: Enabling Sustainable Monitoring Orchard",
+  "Less is More: Building Selective Anomaly Ensembles with Application to Event Detection in Temporal Graphs",
+  "What is the diagnosis?",
+  "Interpretable Dynamic Ensemble Selection Approach for the Prediction of Road Traffic Injury Severity: A Case Study of Pakistan’s National Highway N-5",
+  "Diversity-oriented dynamic ensemble selection approach for multi-class road traffic injury severity predictions with interpretable insights",
+  "Prediction of posttraumatic functional recovery in middle-aged and older patients through dynamic ensemble selection modeling",
+  "A Dynamic Ensemble Selection of Deepfake Detectors Specialized for Individual Face Parts",
+  "Dynamic Ensemble Selection for EEG Signal Classification in Distributed Data Environments",
+  "Preventing inpatient falls with injuries using integrative machine learning prediction: a cohort study",
+  "Machine learning for dynamic and early prediction of acute kidney injury after cardiac surgery",
+  "Prediction of Aircraft Go-Around during Wind Shear Using the Dynamic Ensemble Selection Framework and Pilot Reports",
+  "A state-of-the-art review of injury severity analysis in traffic crashes: toward a generalized modeling framework",
+  "Comparative Analysis of Machine Learning Based Algorithms for Predicting Injury Severity in Road Accidents",
+  "Interpretable machine learning for risk analysis of truck driver injury severity in fatal collisions",
+  "Car-to-Car Injury Risk Functions for Real-Time Emergency Decision-Making in Highly Automated Vehicles",
+  "Machine learning for traffic crash injury severity modelling: a systematic review integrating text mining analysis",
+  "Modeling Farm Equipment Vehicle crash injury severity using random parameters logit and multi-class support vector machine in a developing country",
+  "Predicting Segment-Level Road Traffic Injury Counts Using Machine Learning Models: A Data-Driven Analysis of Geometric Design and Traffic Flow Factors",
+  "Machine learning approaches to traffic accident severity prediction: Addressing class imbalance",
+  "Cold operational readiness in the military: from science to practice",
+  "Adaptive Ensemble Weighting with Local Competence for Multi-Class Imbalanced Classification",
+  "Exploring Early Prediction of Chronic Kidney Disease Using Machine Learning Algorithms for Small and Imbalanced Datasets"
+ ]
+}

@@ -1,0 +1,33 @@
+{
+ "fecha": "2026-10-23T00:03-05:00",
+ "cadena": "(\"dynamic ensemble selection\" OR \"local weighting\" OR \"region-specific weights\") AND (injury OR accident)",
+ "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=%28%22dynamic+ensemble+selection%22+OR+%22local+weighting%22+OR+%22region-specific+weights%22%29+AND+%28injury+OR+accident%29&format=json&pageSize=25",
+ "total": 59,
+ "titulos": [
+  "An interpretable dynamic ensemble selection multiclass imbalance approach with ensemble imbalance learning for predicting road crash injury severity.",
+  "Knowledge-Augmented Patient Network Embedding-Based Dynamic Model Selection for Predictive Analysis of Pediatric Drug-Induced Liver Injury.",
+  "AI-based prediction of traffic crash severity for improving road safety and transportation efficiency.",
+  "Predicting Unplanned Readmission Risk in Patients With Cirrhosis: Complication-Aware Dynamic Classifier Selection Approach.",
+  "Prediction of posttraumatic functional recovery in middle-aged and older patients through dynamic ensemble selection modeling.",
+  "Approximating evidence via bounded harmonic means.",
+  "Editorial: Innovations in older adult care and health service management: a focus on the Asia-Pacific region.",
+  "Research on Denoising Methods for Laser Doppler Blood Flow Signals Based on Time-Domain Noise Perception and DWT.",
+  "Additive value of early-phase β-Amyloid-PET for the differential diagnosis of non-Alzheimer's disease dementia.",
+  "GeoSeqNet: A Geometry-Aware Sequential Network for Robust 3D Point Cloud Analysis.",
+  "Deep Learning Decoding of Steady-State Visual Evoked Potential (SSVEP) for Real-Time Mobile Brain-Computer Interfaces: A Narrative Review from Laboratory Settings to Lightweight Engineering Applications.",
+  "Sample-Specific Generalized Cross-Validation for Gene Network Analysis of Cytarabine Response in Cancer Cell Lines.",
+  "CogCBR: A Complete Case-Based Reasoning Framework for Wearable-Sensor-Based Gait Screening of Neurodegenerative Diseases.",
+  "Predictive modeling of pediatric drug-induced liver injury: Dynamic classifier selection with clustering analysis.",
+  "An Unsupervised Image Stitching Framework via Joint Iterative Optimization of Deformation Estimation, Feature Registration, and Seamless Blending.",
+  "Ensemble Machine Learning Predicts Platinum Resistance in Ovarian Cancer Using Laboratory Data.",
+  "Configurable Modular EEG Classification Framework with Multiscale Features and Ensemble Learning: A Reproducible Evaluation for Schizophrenia Detection.",
+  "Carbon Market Price Forecasting Using a Bidirectional Temporal Convolution Exogenous-Enhanced Time-Series Model.",
+  "GVMD-NLM: A Hybrid Denoising Method for GNSS Buoy Elevation Time Series Using Optimized VMD and Non-Local Means Filtering.",
+  "A Two-Level Ensemble Machine Learning Framework for OSA Classification Whilst Awake from Noisy Tracheal Breathing Sounds.",
+  "Developing a novel prediction model in opioid overdose using machine learning; a pilot analytical study.",
+  "Post-Transcriptional Gene Regulation by MicroRNAs During Barley Malting",
+  "A Terrain-Constrained TIN Approach for High-Precision DEM Reconstruction Using UAV Point Clouds.",
+  "Multimodal neuroimaging of &lt;i&gt;Col4a1&lt;/i&gt;-mutant mouse models of Gould syndrome.",
+  "Regulatory Landscapes of Non-Coding RNAs During Drought Stress in Plants."
+ ]
+}

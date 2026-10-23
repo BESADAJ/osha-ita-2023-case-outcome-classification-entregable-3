@@ -58,7 +58,7 @@ def tune(P_in, y, groups, X, n_trials=C.BUDGET, seed=C.SEED):
     def objective(trial):
         params = {'gate': trial.suggest_categorical('gate', GATE_CHOICES),
                   'lam': trial.suggest_float('lam', 1.0, 1e4, log=True),
-                  'n_steps': trial.suggest_int('n_steps', 5, 200, log=True),
+                  'n_steps': trial.suggest_int('n_steps', 5, 100, log=True),
                   'min_region': trial.suggest_int('min_region', 50, 3000, log=True),
                   'alpha': trial.suggest_float('alpha', 0.0, 1.0)}
         scores = []

@@ -1,0 +1,7 @@
+{
+ "fecha": "2026-10-23T00:16-05:00",
+ "cadena": "\"mixture of experts\" AND (\"occupational injury\" OR \"workplace injury\" OR \"injury severity\")",
+ "url": "https://export.arxiv.org/api/query?search_query=all%3A%22mixture+of+experts%22+AND+%28all%3A%22occupational+injury%22+OR+all%3A%22workplace+injury%22+OR+all%3A%22injury+severity%22%29&max_results=25",
+ "total": 0,
+ "titulos": []
+}

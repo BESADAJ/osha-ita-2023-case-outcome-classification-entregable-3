@@ -21,3 +21,6 @@ results/cache/*.parquet
 !results/final/**/*.npz
 !results/cache/*.joblib
 !results/ensemble/**/*.npz
+
+# Artefactos del dashboard final (livianos; Render los necesita)
+!dashboard_final/artifacts/*.joblib

@@ -1,0 +1,7 @@
+{
+ "fecha": "2026-10-23T00:03-05:00",
+ "cadena": "(\"selección de ensambles\" OR \"ensamble de modelos\" OR \"combinación de clasificadores\") AND (\"lesiones laborales\" OR \"accidentes de trabajo\" OR \"accidente laboral\")",
+ "url": "https://api.openalex.org/works?search=%28%22selecci%C3%B3n+de+ensambles%22+OR+%22ensamble+de+modelos%22+OR+%22combinaci%C3%B3n+de+clasificadores%22%29+AND+%28%22lesiones+laborales%22+OR+%22accidentes+de+trabajo%22+OR+%22accidente+laboral%22%29&per-page=25",
+ "total": 0,
+ "titulos": []
+}

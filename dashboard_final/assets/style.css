@@ -1,0 +1,7 @@
+/* Ajustes mínimos sobre el tema FLATLY: tarjetas, filtros fijos y tipografía legible en pantallas pequeñas. */
+body { background: #f5f7fa; }
+.card { border: none; border-radius: 10px; }
+.card-header { background: #ffffff; font-weight: 600; color: #1f3b73; }
+.sticky-filters { position: sticky; top: 64px; z-index: 900; }
+.navbar-brand { font-weight: 600; white-space: normal; }
+@media (max-width: 768px) { .sticky-filters { position: static; } h1.display-6 { font-size: 1.6rem; } }

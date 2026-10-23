@@ -1,0 +1,18 @@
+{
+ "fecha": "2026-10-23T00:03-05:00",
+ "cadena": "\"ensemble selection\" AND (occupational OR workplace OR \"work-related\")",
+ "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=%22ensemble+selection%22+AND+%28occupational+OR+workplace+OR+%22work-related%22%29&format=json&pageSize=25",
+ "total": 10,
+ "titulos": [
+  "Editorial: Innovations in older adult care and health service management: a focus on the Asia-Pacific region.",
+  "Machine Learning-Based Framework for Pre-Impact Same-Level Fall and Fall-from-Height Detection in Construction Sites Using a Single Wearable Inertial Measurement Unit.",
+  "A systematic risk-based strategy to select personal protective equipment for infectious diseases.",
+  "Dynamic Classifier Selection for Data with Skewed Class Distribution Using Imbalance Ratio and Euclidean Distance",
+  "Explainable Multi-Layer Dynamic Ensemble Framework Optimized for Depression Detection and Severity Assessment.",
+  "Ensemble of diverse deep neural networks with pseudo-labels for repayment prediction in social lending.",
+  "Improving the default data analysis workflow for large autoimmune biomarker discovery studies with ProtoArrays.",
+  "Investigating response time and accuracy in online classifier learning for multimedia publish-subscribe systems.",
+  "An empirical study of ensemble-based semi-supervised learning approaches for imbalanced splice site datasets.",
+  "Protein Ensembles: How Does Nature Harness Thermodynamic Fluctuations for Life? The Diverse Functional Roles of Conformational Ensembles in the Cell."
+ ]
+}

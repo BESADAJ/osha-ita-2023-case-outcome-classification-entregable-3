@@ -1,0 +1,33 @@
+{
+ "fecha": "2026-10-23T00:03-05:00",
+ "cadena": "\"mixture of experts\" AND (\"occupational injury\" OR \"workplace injury\" OR \"injury severity\")",
+ "url": "https://api.openalex.org/works?search=%22mixture+of+experts%22+AND+%28%22occupational+injury%22+OR+%22workplace+injury%22+OR+%22injury+severity%22%29&per-page=25",
+ "total": 41,
+ "titulos": [
+  "A Temporal Multi-Gate Mixture-of-Experts Approach for Vehicle Trajectory and Driving Intention Prediction",
+  "Forecasting the Emergence and Evolution of Crash Hotspots: A Unified Deep Learning Framework for Proactive Traffic Safety",
+  "Integrated Corridor Management Framework For Severe Freeway Incidents",
+  "CHOIR: heterogeneity-aware conformal prediction for crash injury severity across driver safety strata",
+  "ICH-DIANet: A Modality-Disentangled and Attention-Expert Interaction Network for Brain Injury Assessment in Intracerebral Hemorrhage",
+  "Generative LLM for adaptive taxonomy-informed multi-label classification in construction safety",
+  "Dealing with construction cost overruns using data mining",
+  "MoMA: a mixture-of-multimodal-agents architecture for enhancing clinical prediction modelling",
+  "Информационная технология оценки степени тяжести состояния пациентов",
+  "Pre-hospital prediction of adverse outcomes in patients with suspected COVID-19: Development, application and comparison of machine learning and deep learning methods",
+  "A Unified Framework for Deep Reconstruction Enhancement and Anomaly Detection",
+  "Forecast-to-warning for Injury Surveillance in Megacity based on Seasonal and Holiday Effects: A District-level Study",
+  "Identification and estimation of latent group-level-effects in infrastructure performance modeling",
+  "Transformer-Based Spatial-Temporal Models for Comprehensive Scene Understanding Object Tracking and Autonomous Decision Support",
+  "Visual Recognition and Robust Perception in Complex Open Environments",
+  "Spatiotemporal Representation Learning and Graph-Based Event Reasoning for Complex Video Understanding",
+  "Vision-Based People Detection System for Heavy Machine Applications",
+  "Cross-Modal Alignment-Based Joint Representation Learning for Vision-Language Tasks",
+  "CrossDomain-VisionBench: Benchmarking Data-Efficient Cross-Domain Visual Transfer",
+  "A Benchmark and Robust Evaluation Framework for Multimodal Perception under Real-World Distribution Shift",
+  "Research on Multimodal Scene Understanding via Fusion of Visual and Textual Information",
+  "Robust Object Detection and Recognition Algorithms for Complex Environments",
+  "Scene Parsing and Semantic Alignment with Multimodal Foundation Models",
+  "Unified Architectures for Detection Segmentation and Generative Vision in Real-World Scenarios",
+  "MMShift-Bench: Multimodal Perception under Real-World Distribution Shift"
+ ]
+}

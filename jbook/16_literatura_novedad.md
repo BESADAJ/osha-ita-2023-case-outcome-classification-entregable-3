@@ -1,11 +1,11 @@
 # 16. Revisión de literatura y novedad del modelo original
 
-:::{admonition} Versión preliminar (2026-10-21)
-:class: warning
-La revisión todavía **no cumple completa la sección 5.2 de la guía**. Faltan una tercera base formal
-(Google Scholar o arXiv) y la cadena exacta de la búsqueda 2 de Web of Science. La lista de pendientes está al
-final del capítulo. Las cifras de este capítulo salen de las exportaciones de las búsquedas o de lo que devolvió
-cada consulta; no se completó nada de memoria.
+:::{admonition} Dos modelos en este capítulo
+:class: note
+Las secciones 16.1 a 16.5 documentan la revisión del **primer candidato** (PT-bagging, capítulo 17), que no superó a los
+benchmarks y quedó como modelo explorado. Las secciones 16.6 a 16.9 documentan la revisión del **modelo original final**
+(SECR, capítulos 19 y 20) y su declaración de novedad. Las cifras salen de las exportaciones de las búsquedas o de las
+respuestas guardadas de cada consulta; no se completó nada de memoria.
 :::
 
 El modelo original es **PT-bagging** (*probability thresholding bagging*). Fue propuesto por Collell, Prelec y Patil
@@ -114,3 +114,94 @@ ya se aplicaron con datos de OSHA (Wang, 2026).
 - [ ] **Contar los relevantes** de las búsquedas 1 y 2 de WoS, revisando título y resumen de los registros que
   coincidan.
 - [ ] **Pasar las referencias a `references.bib`** y citarlas con `{cite}`.
+
+
+---
+
+## 16.6 Revisión de literatura del modelo original final (SECR)
+
+PT-bagging (secciones 16.1 a 16.5) fue el primer candidato a modelo original y **no superó** a los modelos del curso
+(capítulo 17). El modelo original final es el **ensamble multivista con selección condicionada por región (SECR)**, del
+capítulo 19. Esta sección documenta su revisión de literatura según la guía §5.2: al menos tres bases, al menos cinco
+cadenas que combinen la familia del modelo, el problema y sinónimos en inglés y en español, la fecha de cada consulta,
+una matriz de novedad y una declaración de novedad.
+
+**Bases y procedimiento.** Las consultas son reproducibles: `scripts/literatura/buscar.py` las lanza contra las API
+públicas de **OpenAlex** (índice bibliográfico abierto que reemplazó a Microsoft Academic), **Europe PMC** (incluye
+PubMed/MEDLINE) y **arXiv**. Guarda la URL exacta, el total de resultados y los 25 primeros títulos por relevancia en
+`results/literatura/`. Las tres admiten operadores booleanos. Semantic Scholar respondió «429 Too Many Requests» sin
+clave y Crossref no admite operadores booleanos, por eso no se usaron. A estas tres se suman las búsquedas en Web of
+Science, Scopus y Consensus de la sección 16.1, que cubren la aplicación y las familias de ensambles (stacking y
+votación). Fecha de las consultas: **2026-10-23** (hora de Colombia).
+
+**Revisión.** De cada consulta se leyeron los títulos de los 25 primeros resultados por relevancia. Se abrió el resumen
+de los que trataban ensambles o combinación de modelos para gravedad de lesiones o accidentes, o la combinación
+ponderada local de clasificadores. «Relevantes» cuenta esos trabajos.
+
+| # | Cadena (booleana) | OpenAlex | Europe PMC | arXiv | Revisados | Relevantes | Observación |
+|---|---|---|---|---|---|---|---|
+| 1 | `"ensemble selection" AND (injury OR injuries)` | 371 | 74 | ver nota | 25 + 25 | 6 | Selección **dinámica** de ensambles para gravedad de choques de tránsito (Aziz et al. 2025 y 2026) y para recuperación postraumática; un método de pesos con competencia local. Ninguno es laboral ni usa pesos convexos por región |
+| 2 | `"ensemble selection" AND (occupational OR workplace OR "work-related")` | 161 | 10 | ver nota | 25 + 10 | 2 | Selección dinámica de clasificadores con clases desbalanceadas; ensamble adaptativo con regularización. Ninguno es de lesiones laborales |
+| 3 | `(ensemble OR stacking) AND "occupational injury" AND (severity OR outcome)` | 1 532 | 43 | ver nota | 25 + 25 | 8 | Aplicación: Khairuddin et al. (2022), J. Wang et al. (2025, informes de OSHA con ensambles y LLM), gravedad desde informes con aprendizaje profundo, días de ausencia en minería. Todos usan stacking, votación o modelos únicos |
+| 4 | `"Frank-Wolfe" AND (ensemble OR "classifier combination" OR "model averaging")` | 599 | 16 | ver nota | 25 + 16 | 5 | Familia del algoritmo: combinación de clasificadores de una clase con restricción ℓp, fusión local con ℓp dinámica, *boosting* con Frank-Wolfe. Ninguna aplicación a lesiones |
+| 5 | `("dynamic ensemble selection" OR "local weighting" OR "region-specific weights") AND (injury OR accident)` | 364 | 59 | ver nota | 25 + 25 | 7 | Selección dinámica para gravedad de tránsito (Aziz 2025, 2026; una versión con optimización bayesiana guiada por la dificultad de las instancias); DES con kernels |
+| 6 | `"mixture of experts" AND ("occupational injury" OR "workplace injury" OR "injury severity")` | 41 | 6 | ver nota | 25 + 6 | 0 | Mezclas de expertos neuronales para trayectorias de vehículos y visión; ninguna para lesiones laborales |
+| 7 | `("selección de ensambles" OR "ensamble de modelos" OR "combinación de clasificadores") AND ("lesiones laborales" OR "accidentes de trabajo" OR "accidente laboral")` (español) | 0 | 0 | ver nota | — | 0 | Sin resultados en español |
+| 8 | `OSHA AND ("machine learning" OR classification) AND (severity OR outcome OR "days away")` | 9 611 | 1 025 | ver nota | 25 + 25 | 5 | Ensambles interpretables para gravedad en construcción, agroindustria, emparejamiento de registros de lesiones y una revisión sistemática de aprendizaje automático en seguridad y salud en el trabajo. Ninguno usa los registros ITA *Case Detail* |
+
+**Nota sobre arXiv.** La API de arXiv respondió «Rate exceeded» en la primera pasada. `scripts/literatura/buscar_arxiv.py`
+repite las 8 cadenas con 30 segundos entre consultas y guarda los totales en `results/literatura/arXiv_<n>.json`. La
+tabla 16.6b los resume.
+
+ARXIV_TABLE
+
+## 16.7 Matriz de novedad: trabajos más cercanos a SECR
+
+| Trabajo | Problema | Mecanismo de combinación | ¿Pesos convexos por región? | ¿Contracción hacia lo global? | ¿Garantía de optimización? |
+|---|---|---|---|---|---|
+| {cite:t}`caruana2004ensemble` | General | Selección codiciosa con reemplazo, pesos globales | No | — | No (paso fijo) |
+| {cite:t}`hassan2025workplace` | Gravedad de incidentes laborales (OSHA) | Stacking con meta-modelo | No | No | No aplica |
+| {cite:t}`wang2025classifying` | Tipo de accidente en informes de OSHA (construcción) | Votación suave y stacking | No | No | No aplica |
+| {cite:t}`mermer2026explainable` | Accidentes agrícolas fatales | Bagging, boosting, stacking y votación | No | No | No aplica |
+| {cite:t}`aziz2025interpretable` | Gravedad de choques de tránsito | Selección **dinámica** por vecindario (DES-MI, KNORA) | Pesos locales por k-NN al predecir | No | No |
+| {cite:t}`garcia2018dynamic` | Multiclase desbalanceado (general) | DES-MI: competencia local ponderada por el desbalance | Local por vecinos | No | No |
+| {cite:t}`wolpert1992stacked` | General | Stacking: meta-modelo sobre predicciones fuera de pliegue | No | No | Depende del meta-modelo |
+| Combinación con restricción ℓp (consulta 4) | Detección de anomalías | Pesos con norma ℓp, a veces locales | Parcial (fusión local) | No | Sí (optimización convexa) |
+| **SECR (este trabajo)** | **Desenlace de casos ITA de OSHA (4 clases)** | **Combinación convexa por región con Frank-Wolfe exacto** | **Sí** | **Sí (λ pseudo-observaciones)** | **Sí: convexidad, monotonía, brecha y O(1/t)** |
+
+## 16.8 Diferenciación por familia algorítmica
+
+| Familia | Qué conserva SECR | Qué cambia SECR | Por qué la familia no resuelve la limitación abordada |
+|---|---|---|---|
+| Promedio simple y votación suave | Mezcla de probabilidades | Pesos aprendidos y por región | Da el mismo peso a vistas buenas y malas en todas partes |
+| Pesos por error global ($w_m\propto1/\text{log-loss}_m$) | Pesos ≥ 0 que suman 1 | Minimiza la pérdida **de la mezcla**, no la de cada modelo, y por región | No tiene en cuenta la redundancia entre modelos ni la heterogeneidad del espacio de entrada |
+| Stacking lineal {cite}`wolpert1992stacked` | Aprende la combinación con predicciones fuera de pliegue | Pesos convexos e interpretables por vista, con estructura por región | El meta-modelo multinomial no se lee como pesos de vistas y adaptarlo por región multiplica los parámetros |
+| Selección de Caruana {cite}`caruana2004ensemble` | Biblioteca de modelos y log-loss fuera de pliegue | Búsqueda lineal exacta, certificado de optimalidad y pesos por región | Pesos globales y paso fijo que puede empeorar la pérdida (proposición 6 del capítulo 19) |
+| Selección dinámica (KNORA, DES-MI) {cite}`garcia2018dynamic` | Pesos que dependen de la entrada | Regiones interpretables y fijas en lugar de vecinos; pérdida convexa; contracción | Cada predicción busca k vecinos (inferencia costosa) y en regiones escasas no hay contracción |
+| Mezcla de expertos {cite}`jacobs1991adaptive` | La compuerta decide qué experto pesa más | Expertos fijos ya entrenados; compuerta como partición con contracción; sin entrenamiento conjunto | El entrenamiento conjunto es no convexo y suele ser neuronal (excluido por la guía) |
+| Aprendizaje multivista por partición de variables {cite}`kumar2016multiview` | Un modelo por vista | La combinación de vistas cambia por región | Combina las vistas con votación o pesos globales |
+| Contracción empírica-bayesiana {cite}`efron1973stein` | Mezcla local–global ponderada por $n_g$ | Se aplica a los **pesos de combinación** de un ensamble | En la literatura revisada se aplica a medias o coeficientes, no a pesos de un ensamble de clasificadores |
+
+## 16.9 Declaración de novedad del modelo original (SECR)
+
+> Al mejor de nuestro conocimiento y según la búsqueda descrita (OpenAlex, Europe PMC y arXiv, 8 cadenas en inglés y
+> español, 2026-10-23; más Web of Science, Scopus y Consensus, 2026-10-20 a 2026-10-23), **no se encontraron estudios
+> que apliquen una combinación convexa de modelos base con pesos condicionados por región y contraídos hacia los pesos
+> globales, resuelta con Frank-Wolfe (SECR), a la clasificación del desenlace de casos registrables de lesiones y
+> enfermedades laborales.** Tampoco se encontró la regla SECR aplicada a otros problemas en los resultados revisados.
+>
+> Los trabajos más cercanos se diferencian así:
+> - **Hassan y Khalifa (2025)** y **J. Wang et al. (2025):** stacking o votación con datos de OSHA, con un meta-modelo o
+>   pesos globales.
+> - **Aziz et al. (2025)** y **García et al. (2018):** pesos locales por vecindario al predecir, sin pérdida convexa, sin
+>   contracción y en otro fenómeno (tránsito).
+> - **Caruana et al. (2004):** pesos globales con paso fijo; SECR lo generaliza (proposición 6 del capítulo 19).
+
+**Alcance de la novedad.** La novedad es **de mecanismo y de aplicación**. Es de mecanismo porque la regla de combinación
+(ec. 19.2), su algoritmo y sus propiedades demostradas son nuevos frente a los métodos afines de la tabla 16.8. Es de
+aplicación porque no se halló ningún uso de esa regla, ni de la selección de ensambles en general, para el desenlace de
+casos ITA. Frank-Wolfe, la selección de Caruana y la contracción empírica-bayesiana existen por separado y se citan como
+fuentes. La contribución es su combinación en una regla de ponderación por región con garantías, que es lo que pide el
+Cuadro 1 de la guía («pesos según la región del espacio de entrada… con regla de actualización derivada y contrastada
+contra reglas estándar»). La búsqueda tiene límites: se revisaron títulos y resúmenes, no textos completos, y solo los
+25 primeros resultados de cada consulta.

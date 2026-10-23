@@ -1,7 +1,19 @@
 # %% [markdown]
 # # 18. Modelo propuesto: *stacking* multivista
 #
-# :::{admonition} Veredicto adelantado
+# :::{admonition} Declaración sobre el uso de la prueba (corrección B1, 23-oct-2026)
+# :class: warning
+# Las cifras de prueba (octubre–diciembre) de este capítulo son **exploratorias**. La elección entre las variantes A a G se
+# hizo **viendo los pliegues externos y la prueba**: se evaluaron 7 variantes, no «una sola». Con solo los pliegues externos
+# se llega a la misma elección (G supera a D en 5 de 5 pliegues). Después de esa elección la prueba no se volvió a usar y
+# quedó bloqueada por código (`LockedTest`).
+#
+# Además, la comparación de este capítulo **no es pareada**: G usa variables que los 112 modelos del curso no tienen. Unos 8
+# de los 9 puntos de ventaja vienen de esas variables. **La evidencia válida para R3 está en el capítulo 20**, con los
+# benchmarks reentrenados con las mismas variables y particiones, y con el modelo original final (SECR, capítulo 19).
+# :::
+#
+# :::{admonition} Veredicto adelantado (exploratorio, no pareado)
 # - **Supera a los 112 modelos de clasificación del curso**, con el mismo diseño de evaluación. En la
 #   prueba (oct–dic), frente al *mejor valor de cada métrica* entre los 112: accuracy 0,611 frente a 0,524,
 #   F1 macro 0,457 frente a 0,392, AUC macro 0,836 frente a 0,718 y log-loss 0,821 frente a 0,959. Todas
@@ -268,7 +280,8 @@ fold_tab.round(4)
 # %% [markdown]
 # ## 18.7 Resultados en la prueba y ablaciones
 #
-# Una sola evaluación en la prueba, con el modelo entrenado en la misma submuestra de 30.030 casos que los
+# Evaluación **exploratoria** en la prueba: se evaluaron 7 variantes (A a G) y la elección se hizo viendo los pliegues y la
+# prueba (ver la declaración al inicio del capítulo). Todas se entrenan en la misma submuestra de 30.030 casos que los
 # modelos del curso. La primera fila es el **mejor valor de cada métrica entre los 112 modelos del
 # curso** (cada columna puede venir de un modelo distinto).
 

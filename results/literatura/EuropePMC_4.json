@@ -1,0 +1,24 @@
+{
+ "fecha": "2026-10-23T00:03-05:00",
+ "cadena": "\"Frank-Wolfe\" AND (ensemble OR \"classifier combination\" OR \"model averaging\")",
+ "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=%22Frank-Wolfe%22+AND+%28ensemble+OR+%22classifier+combination%22+OR+%22model+averaging%22%29&format=json&pageSize=25",
+ "total": 16,
+ "titulos": [
+  "Discovering algorithms with computational language processing.",
+  "The Inaugural Flatiron Institute Cryo-EM Conformational Heterogeneity Challenge",
+  "Category-Native Solomonoff Approximation: From Algorithmic Geometry to Kernels, Operators, and Induction.",
+  "A review of machine learning and deep learning algorithms for Parkinson's disease detection using handwriting and voice datasets.",
+  "Identification of Pattern Completion Neurons in Neuronal Ensembles Using Probabilistic Graphical Models.",
+  "A review of machine learning and deep learning for Parkinson's disease detection.",
+  "Condensation of Data and Knowledge for Network Traffic Classification: Techniques, Applications, and Open Issues.",
+  "Laplacian mixture modeling for network analysis and unsupervised learning on graphs.",
+  "Classification using ensemble learning under weighted misclassification loss.",
+  "Machine Learning for Early Parkinson's Disease Identification within SWEDD Group Using Clinical and DaTSCAN SPECT Imaging Features.",
+  "Model-Protected Multi-Task Learning.",
+  "Monocular Camera Viewpoint-Invariant Vehicular Traffic Segmentation and Classification Utilizing Small Datasets.",
+  "A Broader Survey on 6G Radio Resource Management.",
+  "Combination of minimum enclosing balls classifier with SVM in coal-rock recognition.",
+  "A sustainable and efficient home health care network design model under uncertainty.",
+  "A Comparative Analysis on Blockchain versus Centralized Authentication Architectures for IoT-Enabled Smart Devices in Smart Cities: A Comprehensive Review, Recent Advances, and Future Research Directions."
+ ]
+}

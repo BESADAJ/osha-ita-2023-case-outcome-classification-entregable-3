@@ -1,0 +1,33 @@
+{
+ "fecha": "2026-10-23T00:03-05:00",
+ "cadena": "\"Frank-Wolfe\" AND (ensemble OR \"classifier combination\" OR \"model averaging\")",
+ "url": "https://api.openalex.org/works?search=%22Frank-Wolfe%22+AND+%28ensemble+OR+%22classifier+combination%22+OR+%22model+averaging%22%29&per-page=25",
+ "total": 599,
+ "titulos": [
+  "ℓ p -norm constrained one-class classifier combination",
+  "Lp-Norm Constrained One-Class Classifier Combination",
+  "Model averaging with privacy-preserving",
+  "Model Averaging for Stochastic Frontier Models with Differential Privacy",
+  "Adaptive Ensemble Weight Optimization for Natural Gas Consumption Forecasting: A Hybrid Stochastic–Deep Learning Framework Applied to the Czech Market",
+  "Sparse Model Soups: A Recipe for Improved Pruning via Model Averaging",
+  "Locally Adaptive One-Class Classifier Fusion with Dynamic $\\ell$p-Norm Constraints for Robust Anomaly Detection",
+  "Block-Coordinate Frank-Wolfe Optimization for Structural SVMs",
+  "Federated Frank-Wolfe Algorithm",
+  "Boosting Frank-Wolfe by Chasing Gradients",
+  "Riemannian Optimization via Frank-Wolfe Methods",
+  "Sinkhorn Barycenters with Free Support via Frank-Wolfe Algorithm",
+  "Compression-aware training of neural networks using Frank–Wolfe",
+  "Frank--Wolfe Methods with an Unbounded Feasible Region and Applications to Structured Learning",
+  "An Occupation-Measure and Frank-Wolfe Framework for Heterogeneous Mean-Field Control",
+  "Restarting Frank-Wolfe: Faster Rates Under Hölderian Error Bounds",
+  "OPTIMISATION NON LINEAIRE DES FLUX DANS LES RESEAUX. ENSEMBLE DE PROGRAMMES REPOSANT SUR LA METHODE DE FRANK-WOLFE",
+  "Q-FW: A Hybrid Classical-Quantum Frank-Wolfe for Quadratic Binary Optimization",
+  "Regularized K-Means Clustering via Fully Corrective Frank-Wolfe Optimization",
+  "Occupation-Measure Mean-Field Control: Optimization over Measures and Frank-Wolfe Methods",
+  "Leaning Sparse Nonlinear Dynamical Systems via Frank-Wolfe Algorithm with Integral Strategy",
+  "Fast Frank--Wolfe Algorithms with Adaptive Bregman Step-Size for Weakly Convex Functions",
+  "Une méthode de Gradient Boosting d'Arbre de Décision explicative basée sur l'algorithme de Frank-Wolfe",
+  "Une version polyatomique de l'algorithme Frank-Wolfe pour résoudre le problème LASSO en grandes dimensions",
+  "Algorithmes de Frank-Wolfe et dualité en optimisation convexe non lisse avec applications au contrôle à champ moyen"
+ ]
+}

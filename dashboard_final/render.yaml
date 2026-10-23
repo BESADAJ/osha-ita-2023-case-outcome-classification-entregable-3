@@ -1,0 +1,11 @@
+services:
+  - type: web                                   # aplicación web
+    name: osha-ita-2023-dashboard-final         # nombre del servicio en Render
+    runtime: python
+    plan: free
+    rootDir: dashboard_final                    # el dashboard vive en esta carpeta del repositorio
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:server --workers 1 --threads 2 --timeout 120
+    envVars:
+      - key: PYTHON_VERSION                     # fija la versión de Python
+        value: 3.11.9

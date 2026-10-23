@@ -1,0 +1,25 @@
+n,fecha,base,cadena,resultados,titulos_guardados
+1,2026-10-23T00:03-05:00,OpenAlex,"""ensemble selection"" AND (injury OR injuries)",371,25
+1,2026-10-23T00:03-05:00,Europe PMC,"""ensemble selection"" AND (injury OR injuries)",74,25
+1,2026-10-23T00:03-05:00,arXiv,"""ensemble selection"" AND (injury OR injuries)",,0
+2,2026-10-23T00:03-05:00,OpenAlex,"""ensemble selection"" AND (occupational OR workplace OR ""work-related"")",161,25
+2,2026-10-23T00:03-05:00,Europe PMC,"""ensemble selection"" AND (occupational OR workplace OR ""work-related"")",10,10
+2,2026-10-23T00:03-05:00,arXiv,"""ensemble selection"" AND (occupational OR workplace OR ""work-related"")",,0
+3,2026-10-23T00:03-05:00,OpenAlex,"(ensemble OR stacking) AND ""occupational injury"" AND (severity OR outcome)",1532,25
+3,2026-10-23T00:03-05:00,Europe PMC,"(ensemble OR stacking) AND ""occupational injury"" AND (severity OR outcome)",43,25
+3,2026-10-23T00:03-05:00,arXiv,"(ensemble OR stacking) AND ""occupational injury"" AND (severity OR outcome)",,0
+4,2026-10-23T00:03-05:00,OpenAlex,"""Frank-Wolfe"" AND (ensemble OR ""classifier combination"" OR ""model averaging"")",599,25
+4,2026-10-23T00:03-05:00,Europe PMC,"""Frank-Wolfe"" AND (ensemble OR ""classifier combination"" OR ""model averaging"")",16,16
+4,2026-10-23T00:03-05:00,arXiv,"""Frank-Wolfe"" AND (ensemble OR ""classifier combination"" OR ""model averaging"")",,0
+5,2026-10-23T00:03-05:00,OpenAlex,"(""dynamic ensemble selection"" OR ""local weighting"" OR ""region-specific weights"") AND (injury OR accident)",364,25
+5,2026-10-23T00:03-05:00,Europe PMC,"(""dynamic ensemble selection"" OR ""local weighting"" OR ""region-specific weights"") AND (injury OR accident)",59,25
+5,2026-10-23T00:03-05:00,arXiv,"(""dynamic ensemble selection"" OR ""local weighting"" OR ""region-specific weights"") AND (injury OR accident)",,0
+6,2026-10-23T00:03-05:00,OpenAlex,"""mixture of experts"" AND (""occupational injury"" OR ""workplace injury"" OR ""injury severity"")",41,25
+6,2026-10-23T00:03-05:00,Europe PMC,"""mixture of experts"" AND (""occupational injury"" OR ""workplace injury"" OR ""injury severity"")",6,6
+6,2026-10-23T00:03-05:00,arXiv,"""mixture of experts"" AND (""occupational injury"" OR ""workplace injury"" OR ""injury severity"")",,0
+7,2026-10-23T00:03-05:00,OpenAlex,"(""selección de ensambles"" OR ""ensamble de modelos"" OR ""combinación de clasificadores"") AND (""lesiones laborales"" OR ""accidentes de trabajo"" OR ""accidente laboral"")",0,0
+7,2026-10-23T00:03-05:00,Europe PMC,"(""selección de ensambles"" OR ""ensamble de modelos"" OR ""combinación de clasificadores"") AND (""lesiones laborales"" OR ""accidentes de trabajo"" OR ""accidente laboral"")",0,0
+7,2026-10-23T00:03-05:00,arXiv,"(""selección de ensambles"" OR ""ensamble de modelos"" OR ""combinación de clasificadores"") AND (""lesiones laborales"" OR ""accidentes de trabajo"" OR ""accidente laboral"")",,0
+8,2026-10-23T00:03-05:00,OpenAlex,"OSHA AND (""machine learning"" OR classification) AND (severity OR outcome OR ""days away"")",9611,25
+8,2026-10-23T00:03-05:00,Europe PMC,"OSHA AND (""machine learning"" OR classification) AND (severity OR outcome OR ""days away"")",1025,25
+8,2026-10-23T00:03-05:00,arXiv,"OSHA AND (""machine learning"" OR classification) AND (severity OR outcome OR ""days away"")",,0

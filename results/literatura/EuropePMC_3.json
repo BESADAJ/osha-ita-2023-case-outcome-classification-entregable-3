@@ -1,0 +1,33 @@
+{
+ "fecha": "2026-10-23T00:03-05:00",
+ "cadena": "(ensemble OR stacking) AND \"occupational injury\" AND (severity OR outcome)",
+ "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=%28ensemble+OR+stacking%29+AND+%22occupational+injury%22+AND+%28severity+OR+outcome%29&format=json&pageSize=25",
+ "total": 43,
+ "titulos": [
+  "Machine learning applications for predicting safety incidents in construction industry.",
+  "Workforce Safety Vulnerabilities in Pakistan's Construction Sector.",
+  "Integrating Artificial Intelligence with Wearable Sensors for Advanced Health Monitoring and Diagnosis.",
+  "Contextualizing injury severity from occupational accident reports using an optimized deep learning prediction model.",
+  "2026 10&lt;sup&gt;th&lt;/sup&gt; International Conference on Medical and Health Informatics (ICMHI 2026)Japan, : 15 - 17&lt;sup&gt;TH&lt;/sup&gt; May 2026.",
+  "Predicting occupational injury causal factors using text-based analytics: A systematic review.",
+  "Occupational Injury Risk Mitigation: Machine Learning Approach and Feature Optimization for Smart Workplace Surveillance.",
+  "Occupational injuries among healthcare workers: a nationwide study in Turkey.",
+  "Design and verification of an interlocked centrifugal exhaust system for hatch-type boiling disinfectors",
+  "Characteristics of fatal occupational injuries in migrant workers in South Korea: A machine learning study.",
+  "Analyzing factors affecting risk aversion: Case of life insurance data in Korea.",
+  "Importance ranking and predictive model construction of WMSDs risk factors among shift-working nurses based on multiple machine-learning algorithms.",
+  "Analysis of carbon fiber dust exposure status and related occupational health risk factors among workers during the molding process of carbon fiber products.",
+  "Investigation of the usage of machine learning to explore the impacts of climate change on occupational health: a systematic review and research agenda.",
+  "Burdens and risk factors for mortality in adolescents and young adults aged 10-24 years in Australia and comparison with OECD countries between 2000 and 2021: Global Burden of Disease Study 2021.",
+  "Wet Bulb Globe Temperature and Recorded Occupational Injury Rates among Sugarcane Harvesters in Southwest Guatemala.",
+  "A Review of Data Mining Strategies by Data Type, with a Focus on Construction Processes and Health and Safety Management.",
+  "E-Posters",
+  "Predictive Modeling for Occupational Safety Outcomes and Days Away from Work Analysis in Mining Operations.",
+  "Medical insurance integration improves migrant workers' employment quality: Evidence from China's URRMI reform.",
+  "Physical frailty identification using machine learning to explore the 5-item FRAIL scale, Cardiovascular Health Study index, and Study of Osteoporotic Fractures index.",
+  "Occupational traumatic injuries among offshore seafood processors in Alaska, 2010-2015.",
+  "Global, regional, and national mortality due to unintentional carbon monoxide poisoning, 2000-2021: results from the Global Burden of Disease Study 2021.",
+  "Intelligent Platform Based on Smart PPE for Safety in Workplaces.",
+  "2024 European Heart Rhythm Association/Heart Rhythm Society/Asia Pacific Heart Rhythm Society/Latin American Heart Rhythm Society expert consensus statement on catheter and surgical ablation of atrial fibrillation."
+ ]
+}

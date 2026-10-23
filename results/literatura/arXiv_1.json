@@ -1,0 +1,7 @@
+{
+ "fecha": "2026-10-23T00:16-05:00",
+ "cadena": "\"ensemble selection\" AND (injury OR injuries)",
+ "url": "https://export.arxiv.org/api/query?search_query=all%3A%22ensemble+selection%22+AND+%28all%3Ainjury+OR+all%3Ainjuries%29&max_results=25",
+ "total": 0,
+ "titulos": []
+}

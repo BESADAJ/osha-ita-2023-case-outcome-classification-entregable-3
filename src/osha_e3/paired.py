@@ -149,7 +149,7 @@ def load(model):
     for r in range(REPEATS):
         for f in range(C.OUTER_FOLDS):
             p = cell_path(model, r, f)
-            if p.exists():
+            if p.exists() and p.stat().st_size > 0:  # un archivo vacío marca una celda recortada por tiempo
                 d = dict(np.load(p, allow_pickle=False))
                 d['rep'], d['fold'] = r, f
                 out.append(d)

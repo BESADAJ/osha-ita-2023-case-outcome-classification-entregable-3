@@ -1,0 +1,33 @@
+{
+ "fecha": "2026-10-23T00:03-05:00",
+ "cadena": "\"ensemble selection\" AND (occupational OR workplace OR \"work-related\")",
+ "url": "https://api.openalex.org/works?search=%22ensemble+selection%22+AND+%28occupational+OR+workplace+OR+%22work-related%22%29&per-page=25",
+ "total": 161,
+ "titulos": [
+  "Reliability-Aware Hybrid-K Ensemble Selection for Cervical Cytology Classification: Integrating Discrimination, Calibration, and Selective Prediction",
+  "Ensemble pruning-based anomaly detection for improving data quality in ladle furnace temperature prediction",
+  "A systematic risk-based strategy to select personal protective equipment for infectious diseases",
+  "Prediction of Musculoskeletal Disorders Based on People's Demographic Information Using Artificial Intelligence Methods and the Cornell Musculoskeletal Discomfort Questionnaire",
+  "Developing a Continuous, Rather Than Binary, Classification for Measuring STEM Jobs",
+  "A Soft-Voting Ensemble Based Co-Training Scheme Using Static Selection for Binary Classification Problems",
+  "Adaptive ensemble of classifiers with regularization for imbalanced data classification",
+  "Superior Performance of Extreme Gradient Boosting Model Combined with Affinity Propagation Clustering for Reliable Prediction of Permissible Exposure Limits of Hydrocarbons and Their Oxygen-Containing Derivatives",
+  "AutoMedTS: Automated modeling of physiological time series for surgical suturing action recognition",
+  "A framework for cardiac arrhythmia detection from IoT-based ECGs",
+  "Synergizing CNN, DBN-Net, Transfer Learning, and DES: An Efficient Hybrid Framework Over Cardiovascular Disease Prediction",
+  "Explainable Multi-Layer Dynamic Ensemble Framework Optimized for Depression Detection and Severity Assessment",
+  "Force Sensitive Resistors-Based Real-Time Posture Detection System Using Machine Learning Algorithms",
+  "Ensemble Feature Selection and Harris Hawks Optimization for Explainable Mental Health Risk Prediction in Female Sex Workers",
+  "Hybrid Deep Learning Approach for Stress Detection Using Decomposed EEG Signals",
+  "Predicting surgical outcomes for chronic exertional compartment syndrome using a machine learning framework with embedded trust by interrogation strategies",
+  "Federated Learning of Artificial Neural Networks",
+  "Research on User Demand Determination Method and Marketing Strategy for Home Broadband Business Based on Data Mining",
+  "Penerapan Stacking Ensemble Learning untuk Klasifikasi Efek Kesehatan Akibat Pencemaran Udara",
+  "Editorial: Innovations in older adult care and health service management: a focus on the Asia-Pacific region",
+  "Monitoring stress with a wrist device using context",
+  "Investigating the Effect of Class Balancing Methods on the Performance of Machine Learning Techniques: Credit Risk Application",
+  "Identifying hazardousness of sewer pipeline gas mixture using classification methods: a comparative study",
+  "Thermal and Moisture Management Properties of Knitted Fabrics for Skin-Contact Workwear",
+  "Improving measurement and prediction in personnel selection through the application of machine learning"
+ ]
+}

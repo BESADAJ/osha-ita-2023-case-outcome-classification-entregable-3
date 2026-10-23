@@ -1,13 +1,16 @@
 format: jb-book
 root: intro
 parts:
-  - caption: Datos (entregables 1 y 2, con mejoras)
+  - caption: Correcciones
+    chapters:
+      - file: 00_trazabilidad
+  - caption: Datos (ETL y EDA)
     chapters:
       - file: 01_contexto
       - file: 02_eda_dashboard
       - file: 03_eda_adicional
       - file: 04_eda_mejorado
-  - caption: Modelos del entregable 3
+  - caption: Modelos benchmark (140 combinaciones)
     chapters:
       - file: 05_modelo_base_e2
       - file: 06_diseno_pipeline
@@ -18,13 +21,17 @@ parts:
       - file: 11_interpretabilidad
       - file: 12_robustez
       - file: 13_comparacion_estadistica
+      - file: 13b_mejores_combinaciones
   - caption: Modelo original
     chapters:
       - file: 16_literatura_novedad
       - file: 17_modelo_original
       - file: 18_modelo_propuesto
-  - caption: Cierre
+      - file: 19_modelo_original_secr
+      - file: 20_validacion_estadistica
+  - caption: Producto y cierre
     chapters:
+      - file: 21_dashboard
       - file: 14_conclusiones
       - file: 15_reproducibilidad
       - file: anexo_entregable1

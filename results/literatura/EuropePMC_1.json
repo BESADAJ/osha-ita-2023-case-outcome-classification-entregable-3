@@ -1,0 +1,33 @@
+{
+ "fecha": "2026-10-23T00:03-05:00",
+ "cadena": "\"ensemble selection\" AND (injury OR injuries)",
+ "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=%22ensemble+selection%22+AND+%28injury+OR+injuries%29&format=json&pageSize=25",
+ "total": 74,
+ "titulos": [
+  "An interpretable dynamic ensemble selection multiclass imbalance approach with ensemble imbalance learning for predicting road crash injury severity.",
+  "DHA-eGCN: Differential Hyperedge Attention-Enhanced Graph Convolution Network for Skeleton-Based Human Action Recognition.",
+  "Knowledge-Augmented Patient Network Embedding-Based Dynamic Model Selection for Predictive Analysis of Pediatric Drug-Induced Liver Injury.",
+  "Cold operational readiness in the military: from science to practice.",
+  "Toward Interpretable Voice-Based Parkinson's Disease Screening via Joint Transfer Function-Feature-Classifier-Ensemble Selection.",
+  "DeepSense: An Adaptive Scalable Ensemble Framework for Industrial IoT Anomaly Detection.",
+  "Machine learning improves online self-referral for inflammatory rheumatic diseases: a registry-based validation study.",
+  "AI-based prediction of traffic crash severity for improving road safety and transportation efficiency.",
+  "Prediction of posttraumatic functional recovery in middle-aged and older patients through dynamic ensemble selection modeling.",
+  "Saliency-Curated Deep Learning for Predicting Receptor Status in Breast Cancer Brain Metastases.",
+  "Predicting Unplanned Readmission Risk in Patients With Cirrhosis: Complication-Aware Dynamic Classifier Selection Approach.",
+  "Machine Learning-Based Framework for Pre-Impact Same-Level Fall and Fall-from-Height Detection in Construction Sites Using a Single Wearable Inertial Measurement Unit.",
+  "Editorial: Innovations in older adult care and health service management: a focus on the Asia-Pacific region.",
+  "Knowledge-Guided Deep Learning with Clinical EEG Biomarkers for Automated Dementia Detection and Staging.",
+  "A Space-Based Autonomous Timekeeping Method Based on Onboard Atomic Clocks and Inter-Satellite Measurements.",
+  "Bubble Nucleation and Growth in a Force-Driven Flowing Liquid Film Under Controlled Pressure by Molecular Dynamics Simulation.",
+  "Structure-Based Identification of JAK1-Selective Candidates Using Ensemble Docking and Interaction Analysis.",
+  "Contrast Agent-Free 3D Renal Ultrafast Doppler Imaging Reveals Vascular Dysfunction in Acute and Diabetic Kidney Diseases.",
+  "Exploiting NMR Ensemble Heterogeneity Enables Small Molecule Discovery against Dynamic Protein-Protein Interfaces.",
+  "Molecular Dynamics of PPAR Nuclear Receptors: From Ligand Binding to Transcriptional Regulation.",
+  "An Adaptive Deep Learning Framework for Multi-Label Chest X-Ray Diagnosis Using a Hybrid CNN-Transformer Architecture and Class-Wise Ensemble Fusion.",
+  "Assessing Habitat Suitability and Climate-Change Responses of Raptors in Hunan Province, China, Using Ensemble Species Distribution Models.",
+  "Hepatotoxicity Evaluation of Levornidazole and Its Three Main Impurities: Based on Structure-Toxicity Classification Prediction Combined with Zebrafish Toxicity Assessment.",
+  "Predictive modeling of pediatric drug-induced liver injury: Dynamic classifier selection with clustering analysis.",
+  "Anatomically Guided Cascaded U-Net Ensemble for Coronary Artery Calcification Segmentation in Cardiac CT."
+ ]
+}

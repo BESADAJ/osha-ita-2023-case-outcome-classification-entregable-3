@@ -1,0 +1,33 @@
+{
+ "fecha": "2026-10-23T00:03-05:00",
+ "cadena": "OSHA AND (\"machine learning\" OR classification) AND (severity OR outcome OR \"days away\")",
+ "url": "https://api.openalex.org/works?search=OSHA+AND+%28%22machine+learning%22+OR+classification%29+AND+%28severity+OR+outcome+OR+%22days+away%22%29&per-page=25",
+ "total": 9611,
+ "titulos": [
+  "Improving Regulatory Effectiveness Through Better Targeting: Evidence from OSHA",
+  "Multimodal machine learning for construction accident severity prediction: An interpretable ensemble framework",
+  "ENHANCING OCCUPATIONAL SAFETY IN CONSTRUCTION THROUGH INTEGRATED RISK MODELLING, REAL-TIME EVENT SOURCING, AND AI-ASSISTED DECISION SUPPORT: A MULTIDISCIPLINARY FRAMEWORK",
+  "A hybrid structured deep neural network with Word2Vec for construction accident causes classification",
+  "OSHA Bloodborne Hazard Standard",
+  "Characterizing accident narratives with word embeddings: Improving accuracy, richness, and generalizability",
+  "OSHA Loses Respirator Case",
+  "WLDG 184.01: OSHA Rules and Compliance",
+  "Applications of machine learning methods for engineering risk assessment – A review",
+  "OSHA Turns Up the Heat: Enforcing Indoor and Outdoor Safety",
+  "OSHA and the Sixth Amendment: When is a Civil Penalty Criminal in Effect",
+  "Effects of Unionization on Workplace-Safety Enforcement: Regression-Discontinuity Evidence",
+  "Sex-Based Considerations of Differentiation in the Workplace: Exploring the Biomedical Interface between OSHA and Title VII",
+  "The Impact of Information Frictions Within Regulators: Evidence from Workplace Safety Violations",
+  "OSHA’s Comprehensive Failure to Protect Workers During the COVID-19 Pandemic",
+  "Against Feasibility Analysis",
+  "Benzene toxicity and risk assessment, 1972-1992: implications for future regulation.",
+  "OSHA’s Failure to Protect America’s Essential Workers: The Need for Mandatory Rules in the COVID-19 Pandemic",
+  "Evaluating machine learning performance in predicting injury severity in agribusiness industries",
+  "Caractérisation des mesures d’exposition recueillies par l’agence fédérale américaine OSHA pour l’estimation des expositions professionnelles en Amérique du Nord",
+  "A Systematic Review of Machine Learning Applications in Cybersecurity Threat Detection and Classification (2018–2026)",
+  "Developing a Model Departmental Safety Program",
+  "Machine learning in Occupational Safety and Health - a systematic review",
+  "From Reactive to Proactive: Artificial Intelligence and Predictive Safety Systems in OSHA-Regulated Environments",
+  "Health and Safety Regulations for COVID-19: A Policy Analysis"
+ ]
+}

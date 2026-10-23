@@ -1,0 +1,33 @@
+{
+ "fecha": "2026-10-23T00:03-05:00",
+ "cadena": "(\"dynamic ensemble selection\" OR \"local weighting\" OR \"region-specific weights\") AND (injury OR accident)",
+ "url": "https://api.openalex.org/works?search=%28%22dynamic+ensemble+selection%22+OR+%22local+weighting%22+OR+%22region-specific+weights%22%29+AND+%28injury+OR+accident%29&per-page=25",
+ "total": 364,
+ "titulos": [
+  "Interpretable Dynamic Ensemble Selection Approach for the Prediction of Road Traffic Injury Severity: A Case Study of Pakistan’s National Highway N-5",
+  "Dynamic ensemble selection forecasting system based on trend classification",
+  "Diversity-oriented dynamic ensemble selection approach for multi-class road traffic injury severity predictions with interpretable insights",
+  "Dynamic Ensemble Selection for EEG Signal Classification in Distributed Data Environments",
+  "Prediction of Aircraft Go-Around during Wind Shear Using the Dynamic Ensemble Selection Framework and Pilot Reports",
+  "Road Traffic Crash Severity Analysis: A Bayesian-Optimized Dynamic Ensemble Selection Guided by Instance Hardness and Region of Competence Strategy",
+  "Prediction of posttraumatic functional recovery in middle-aged and older patients through dynamic ensemble selection modeling",
+  "Exploring Early Prediction of Chronic Kidney Disease Using Machine Learning Algorithms for Small and Imbalanced Datasets",
+  "Comprehensive analysis of Classical Machine Learning models and Ensemble methods for predicting Crime in urban society",
+  "A SVR-based ensemble approach for drifting data streams with recurring patterns",
+  "Explainable Multi-Layer Dynamic Ensemble Framework Optimized for Depression Detection and Severity Assessment",
+  "Adaptive Ensemble Weighting with Local Competence for Multi-Class Imbalanced Classification",
+  "Kernel-based dynamic ensemble approach for classifying imbalanced data with overlapping classes",
+  "DLF: A Deep Active Ensemble Learning Framework for Test Case Generation",
+  "An interpretable dynamic ensemble selection multiclass imbalance approach with ensemble imbalance learning for predicting road crash injury severity",
+  "A Dynamic Ensemble Selection of Deepfake Detectors Specialized for Individual Face Parts",
+  "Comparative Analysis of Machine Learning Based Algorithms for Predicting Injury Severity in Road Accidents",
+  "Machine learning approaches to traffic accident severity prediction: Addressing class imbalance",
+  "Knowledge-Augmented Patient Network Embedding-Based Dynamic Model Selection for Predictive Analysis of Pediatric Drug-Induced Liver Injury",
+  "Machine Learning for Road Traffic Accident Improvement and Environmental Resource Management in the Transportation Sector",
+  "ASSESSMENT OF MAGNITUDE AND UNCERTAINTIES OF HYPOTHETICAL ACCIDENTS FOR FFTF.",
+  "Ordinal Random Tree with Rank-Oriented Feature Selection (ORT-ROFS): A Novel Approach for the Prediction of Road Traffic Accident Severity",
+  "Car-to-Car Injury Risk Functions for Real-Time Emergency Decision-Making in Highly Automated Vehicles",
+  "Leveraging Positive-Unlabeled Learning for Enhanced Black Spot Accident Identification on Greek Road Networks",
+  "Modeling Farm Equipment Vehicle crash injury severity using random parameters logit and multi-class support vector machine in a developing country"
+ ]
+}
