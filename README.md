@@ -28,6 +28,36 @@ de los entregables anteriores (octubre–diciembre, establecimientos no vistos).
 | Guía del entregable (PDF) | `docs/guia_entregable_3.pdf` |
 | Dashboard del entregable 2 | `dashboard/` y <https://osha-ita-2023-case-outcome.onrender.com/> |
 
+## Proyecto final (rama `entregable3-final`)
+
+| Componente obligatorio | Dónde |
+|---|---|
+| 1. Correcciones del entregable 2 (tabla de trazabilidad) | `jbook/00_trazabilidad.md` |
+| 2. Dashboard Dash multipágina (Contexto, EDA, Modelos) para Render | `dashboard_final/` (`app.py`, `pages/`, `src/`, `artifacts/`, `render.yaml`) |
+| 3. Modelo original: ensamble multivista + **SECR** (selección de ensambles condicionada por región, Frank-Wolfe) | `src/osha_e3/combinador.py`, `src/osha_e3/original_final.py`, `dashboard_final/src/original_model.py`; pruebas en `tests/test_combinador.py` |
+| 4. Informe en Jupyter Book | `jbook/` (capítulos 00, 13b, 16, 19, 20 y 21 nuevos; `jupyter-book build jbook`) |
+| Tabla maestra de experimentos (140 + pareado + original) | `results/tabla_maestra_experimentos.csv` |
+| Experimento pareado (mismas variables y particiones, 3×5) | `results/pareado/` (`resumen.json`, `pliegues.csv`, `ablacion_resumen.csv`) |
+
+**Semilla global:** 42 (`src/osha_e3/config.py`); las derivadas están en el capítulo 15. **La prueba de octubre a diciembre
+está bloqueada por código** (`OSHA_ALLOW_TEST=1` solo para reproducir cifras ya publicadas).
+
+**Veredicto:** R1 sí, R2 sí, **R3 no**. El original tiene la mayor BA media (0,591 frente a 0,569 de KNN pareado) y el
+mejor rango de Friedman, pero frente a KNN la diferencia no es significativa (capítulo 20).
+
+### Dashboard: correr y desplegar
+
+```
+cd dashboard_final
+pip install -r requirements.txt      # Python 3.11.9; versiones exactas
+python app.py                        # http://127.0.0.1:8050
+pytest tests                         # pruebas de humo
+```
+
+En Render: *New → Blueprint* con este repositorio y la rama `entregable3-final` (lee `dashboard_final/render.yaml`), o un
+*Web Service* con `Root Directory = dashboard_final`, `Build = pip install -r requirements.txt` y
+`Start = gunicorn app:server --workers 1 --threads 2 --timeout 120`.
+
 ## Estructura del código
 
 ```
