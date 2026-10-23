@@ -134,11 +134,48 @@ def subsample_groups(df, n_rows, seed):
     return df.loc[df.establishment_id.isin(keep)].reset_index(drop=True)
 
 
+TEST_ENV = 'OSHA_ALLOW_TEST'
+
+
+class LockedTest:
+    """Marcador que ocupa el lugar del conjunto de prueba mientras el candado está activo.
+
+    Desde el cierre del entregable 3 la prueba (octubre-diciembre) no se vuelve a usar: ni para predecir,
+    ni para calcular métricas, ni para elegir nada (capítulo 19). Cualquier acceso a este objeto lanza
+    ``PermissionError``. Solo se abre fijando la variable de entorno ``OSHA_ALLOW_TEST=1``, que se usa
+    únicamente para reproducir las cifras ya publicadas de los capítulos 9 a 13 y 18.
+    """
+
+    def __getattr__(self, name):
+        raise PermissionError(f'El conjunto de prueba está bloqueado (fijar {TEST_ENV}=1 solo para reproducir '
+                              'cifras ya publicadas).')
+
+    def __getitem__(self, key):
+        return self.__getattr__('__getitem__')
+
+    def __len__(self):
+        return self.__getattr__('__len__')
+
+
+def test_unlocked():
+    import os
+    return os.environ.get(TEST_ENV) == '1'
+
+
+def _test_part(df):
+    if not test_unlocked():
+        return LockedTest()
+    return df.loc[df.split.eq('test')].sort_values('date', kind='stable').reset_index(drop=True)
+
+
 def classification_sets(df=None):
-    """(desarrollo submuestreado, desarrollo completo, prueba) para clasificación."""
+    """(desarrollo submuestreado, desarrollo completo, prueba) para clasificación.
+
+    La prueba se devuelve como ``LockedTest`` salvo que ``OSHA_ALLOW_TEST=1``.
+    """
     df = load_prepared() if df is None else df
     dev = df.loc[df.split.eq('development')].reset_index(drop=True)
-    test = df.loc[df.split.eq('test')].sort_values('date', kind='stable').reset_index(drop=True)
+    test = _test_part(df)
     sub = subsample_groups(dev, C.N_SUB_CLF, C.seed_for('subsample'))
     return sub, dev, test
 
@@ -148,6 +185,6 @@ def regression_sets(df=None):
     df = load_prepared() if df is None else df
     df = df.loc[df.y_reg.notna()]
     dev = df.loc[df.split.eq('development')].reset_index(drop=True)
-    test = df.loc[df.split.eq('test')].sort_values('date', kind='stable').reset_index(drop=True)
+    test = _test_part(df)
     sub = subsample_groups(dev, C.N_SUB_REG, C.seed_for('subsample', 1))
     return sub, dev, test

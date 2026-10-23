@@ -271,3 +271,68 @@ def group_bca_ci(values, weights, groups, reps=2000, seed=0, alpha=0.05):
         q.append(stats.norm.cdf(z0 + (z0 + z) / (1 - a * (z0 + z))))
     lo, hi = np.quantile(boot, q)
     return float(lo), float(hi)
+
+
+# ------------------------------------------------- Pruebas sobre pliegues de validación repetida
+def nadeau_bengio(diff, n_train, n_test):
+    """Prueba t corregida de Nadeau y Bengio (2003) sobre las diferencias de ``r·k`` pliegues.
+
+    La varianza de la media se infla por ``(1/J + n_test/n_train)`` porque los pliegues comparten
+    entrenamiento y no son independientes. Unilateral (H1: media > 0) y bilateral.
+    """
+    d = np.asarray(diff, dtype=float)
+    J = len(d)
+    var = d.var(ddof=1)
+    se = np.sqrt((1.0 / J + n_test / n_train) * var)
+    t = d.mean() / se if se > 0 else np.inf * np.sign(d.mean())
+    return {'t': float(t), 'df': J - 1, 'p_one_sided': float(stats.t.sf(t, J - 1)),
+            'p_two_sided': float(2 * stats.t.sf(abs(t), J - 1)), 'mean_diff': float(d.mean()), 'se': float(se)}
+
+
+def wilcoxon_signed_rank(diff):
+    """Wilcoxon de rangos con signo (H1: mediana de la diferencia > 0), con su p bilateral."""
+    d = np.asarray(diff, dtype=float)
+    one = stats.wilcoxon(d, alternative='greater', zero_method='wilcox')
+    two = stats.wilcoxon(d, alternative='two-sided', zero_method='wilcox')
+    return {'W': float(one.statistic), 'p_one_sided': float(one.pvalue), 'p_two_sided': float(two.pvalue),
+            'n': int((d != 0).sum())}
+
+
+def bayesian_signed_rank(diff, rope=0.01, samples=50_000, seed=0):
+    """Prueba bayesiana de rangos con signo (Benavoli et al., 2017) con región de equivalencia práctica.
+
+    Proceso de Dirichlet con una pseudo-observación en 0: se muestrean pesos ``w ~ Dir(1, …, 1)`` sobre
+    {0, d_1, …, d_n} y se calcula la probabilidad posterior de que la diferencia esté a la izquierda de la
+    ROPE, dentro o a la derecha, con el estadístico de Walsh (promedios de pares).
+    """
+    d = np.concatenate([[0.0], np.asarray(diff, dtype=float)])
+    n = len(d)
+    rng = np.random.default_rng(seed)
+    pair = d[:, None] + d[None, :]
+    left, inside, right = (pair < -2 * rope), (np.abs(pair) <= 2 * rope), (pair > 2 * rope)
+    out = np.zeros(3)
+    batch = 2000
+    for s in range(0, samples, batch):
+        w = rng.dirichlet(np.ones(n), size=min(batch, samples - s))
+        ww = np.einsum('si,sj->sij', w, w)
+        probs = np.stack([(ww * left).sum((1, 2)), (ww * inside).sum((1, 2)), (ww * right).sum((1, 2))], 1)
+        out += np.bincount(probs.argmax(1), minlength=3)
+    out /= samples
+    return {'p_left': float(out[0]), 'p_rope': float(out[1]), 'p_right': float(out[2]), 'rope': rope}
+
+
+def bca_mean_ci(diff, reps=10_000, seed=0, alpha=0.05):
+    """Intervalo bootstrap BCa de la media de las diferencias pareadas."""
+    d = np.asarray(diff, dtype=float)
+    res = stats.bootstrap((d,), np.mean, n_resamples=reps, method='BCa', confidence_level=1 - alpha,
+                          random_state=np.random.default_rng(seed))
+    return float(res.confidence_interval.low), float(res.confidence_interval.high)
+
+
+def cliffs_delta_ci(a, b, reps=5000, seed=0, alpha=0.05):
+    """δ de Cliff con intervalo bootstrap percentil (remuestreo pareado de pliegues)."""
+    a, b = np.asarray(a, dtype=float), np.asarray(b, dtype=float)
+    rng = np.random.default_rng(seed)
+    n = len(a)
+    boot = [cliffs_delta(a[i], b[i]) for i in (rng.integers(0, n, n) for _ in range(reps))]
+    return cliffs_delta(a, b), float(np.quantile(boot, alpha / 2)), float(np.quantile(boot, 1 - alpha / 2))
