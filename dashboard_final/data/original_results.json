@@ -1,0 +1,304 @@
+{
+ "superior": false,
+ "verdict": "Veredicto R3: NO SUPERIOR. BA media del original 0.591 frente a 0.556 del mejor benchmark pareado (KNN); 0 de 4 pruebas frecuentistas rechazan H0 con p ajustado por Holm < 0,05 (la global de Friedman no); δ de Cliff = 0.440 (mediano). Media mayor que la de los 7 benchmarks: sí.",
+ "summary": [
+  {
+   "Modelo": "Original (SECR)",
+   "Balanceo": "interno (α)",
+   "Optimizador": "bayes (TPE) del combinador",
+   "Pliegues": 5,
+   "BA (media ± d.e.)": "0.591 ± 0.117",
+   "IC BCa 95 % de la media": "[0.483, 0.664]",
+   "F1 macro": 0.448,
+   "AUC": 0.816,
+   "Entrenamiento (s/pliegue)": 4784.7,
+   "Inferencia (ms/caso)": 2.548
+  },
+  {
+   "Modelo": "KNN",
+   "Balanceo": "smote",
+   "Optimizador": "genetic",
+   "Pliegues": 5,
+   "BA (media ± d.e.)": "0.556 ± 0.059",
+   "IC BCa 95 % de la media": "[0.515, 0.604]",
+   "F1 macro": 0.372,
+   "AUC": 0.758,
+   "Entrenamiento (s/pliegue)": 4920.0,
+   "Inferencia (ms/caso)": 14.867
+  },
+  {
+   "Modelo": "SVM",
+   "Balanceo": "smote",
+   "Optimizador": "random",
+   "Pliegues": 5,
+   "BA (media ± d.e.)": "0.532 ± 0.074",
+   "IC BCa 95 % de la media": "[0.460, 0.571]",
+   "F1 macro": 0.439,
+   "AUC": 0.798,
+   "Entrenamiento (s/pliegue)": 412.3,
+   "Inferencia (ms/caso)": 0.01
+  },
+  {
+   "Modelo": "Reg. logística",
+   "Balanceo": "adasyn",
+   "Optimizador": "bayes",
+   "Pliegues": 5,
+   "BA (media ± d.e.)": "0.491 ± 0.116",
+   "IC BCa 95 % de la media": "[0.393, 0.576]",
+   "F1 macro": 0.425,
+   "AUC": 0.761,
+   "Entrenamiento (s/pliegue)": 609.1,
+   "Inferencia (ms/caso)": 0.01
+  },
+  {
+   "Modelo": "XGBoost",
+   "Balanceo": "class_weight",
+   "Optimizador": "bayes",
+   "Pliegues": 5,
+   "BA (media ± d.e.)": "0.474 ± 0.070",
+   "IC BCa 95 % de la media": "[0.438, 0.564]",
+   "F1 macro": 0.437,
+   "AUC": 0.805,
+   "Entrenamiento (s/pliegue)": 332.8,
+   "Inferencia (ms/caso)": 0.208
+  },
+  {
+   "Modelo": "Árbol",
+   "Balanceo": "class_weight",
+   "Optimizador": "bayes",
+   "Pliegues": 5,
+   "BA (media ± d.e.)": "0.464 ± 0.083",
+   "IC BCa 95 % de la media": "[0.357, 0.507]",
+   "F1 macro": 0.356,
+   "AUC": 0.675,
+   "Entrenamiento (s/pliegue)": 21.7,
+   "Inferencia (ms/caso)": 0.009
+  },
+  {
+   "Modelo": "Naive Bayes",
+   "Balanceo": "adasyn",
+   "Optimizador": "genetic",
+   "Pliegues": 5,
+   "BA (media ± d.e.)": "0.435 ± 0.061",
+   "IC BCa 95 % de la media": "[0.400, 0.497]",
+   "F1 macro": 0.399,
+   "AUC": 0.776,
+   "Entrenamiento (s/pliegue)": 498.0,
+   "Inferencia (ms/caso)": 0.024
+  },
+  {
+   "Modelo": "Random Forest",
+   "Balanceo": "smote",
+   "Optimizador": "bayes",
+   "Pliegues": 2,
+   "BA (media ± d.e.)": "0.421 ± 0.011",
+   "IC BCa 95 % de la media": "[nan, nan]",
+   "F1 macro": 0.415,
+   "AUC": 0.773,
+   "Entrenamiento (s/pliegue)": 1952.9,
+   "Inferencia (ms/caso)": 0.103
+  }
+ ],
+ "tests": [
+  {
+   "Prueba": "Friedman (Iman-Davenport), universo de 25 pliegues",
+   "H0": "Todos los modelos tienen el mismo rango medio",
+   "Supuestos": "bloques = pares (rep., pliegue) independientes entre sí en la asignación; k = 7, N = 5",
+   "Estadístico": "F = 2.635",
+   "p crudo": "4.16e-02",
+   "p ajustado (Holm, 4)": "1.67e-01",
+   "Efecto": "δ de Cliff = 0.440 [-0.440, 1.000] (mediano)",
+   "Conclusión": "No se rechaza H0"
+  },
+  {
+   "Prueba": "Nemenyi post hoc: original vs KNN",
+   "H0": "Igual rango medio",
+   "Supuestos": "tras Friedman; CD = 4.028",
+   "Estadístico": "ΔR = 1.600",
+   "p crudo": "9.05e-01",
+   "p ajustado (Holm, 4)": "9.38e-01",
+   "Efecto": "δ de Cliff = 0.440 [-0.440, 1.000] (mediano)",
+   "Conclusión": "No se rechaza H0"
+  },
+  {
+   "Prueba": "t corregida de Nadeau-Bengio: original vs KNN",
+   "H0": "Diferencia media de BA ≤ 0",
+   "Supuestos": "normalidad de diferencias (Shapiro p = 0.076); corrección n_test/n_train = 0.25",
+   "Estadístico": "t(4) = 0.350",
+   "p crudo": "3.72e-01",
+   "p ajustado (Holm, 4)": "9.38e-01",
+   "Efecto": "δ de Cliff = 0.440 [-0.440, 1.000] (mediano)",
+   "Conclusión": "No se rechaza H0"
+  },
+  {
+   "Prueba": "Wilcoxon de rangos con signo: original vs KNN",
+   "H0": "Mediana de la diferencia ≤ 0",
+   "Supuestos": "diferencias simétricas, pareadas por pliegue",
+   "Estadístico": "W = 10.0",
+   "p crudo": "3.12e-01",
+   "p ajustado (Holm, 4)": "9.38e-01",
+   "Efecto": "δ de Cliff = 0.440 [-0.440, 1.000] (mediano)",
+   "Conclusión": "No se rechaza H0"
+  },
+  {
+   "Prueba": "Bayesiana de rangos con signo (ROPE ±0,01 BA): original vs KNN",
+   "H0": "— (probabilidades posteriores)",
+   "Supuestos": "proceso de Dirichlet, pseudo-observación en 0",
+   "Estadístico": "P(original mejor) = 0.803; P(ROPE) = 0.005; P(peor) = 0.192",
+   "p crudo": "—",
+   "p ajustado (Holm, 4)": "—",
+   "Efecto": "Δ BA media = 0.0347, IC BCa 95 % [-0.1443, 0.1125]",
+   "Conclusión": "No concluyente"
+  }
+ ],
+ "cd": {
+  "names": [
+   "Original (SECR)",
+   "SVM",
+   "Árbol",
+   "Reg. logística",
+   "XGBoost",
+   "KNN",
+   "Naive Bayes"
+  ],
+  "ranks": [
+   2.0,
+   3.0,
+   5.4,
+   4.0,
+   4.0,
+   3.6,
+   6.0
+  ],
+  "cd": 4.0281720082559564,
+  "insight": "Con N = 5 pliegues y k = 7 modelos, la diferencia crítica de Nemenyi es 4.03. Rango medio del original: 2.00; del mejor benchmark (KNN): 3.60. Friedman p = 4.16e-02."
+ },
+ "convergence": {
+  "loss": [
+   0.8478304503826194,
+   0.8405378311517422,
+   0.8395478907565415,
+   0.839486811895887,
+   0.8394157508833033,
+   0.8393770294590567,
+   0.8393430406756223,
+   0.8393261295457903,
+   0.8393060172947845,
+   0.8392981203842929,
+   0.8392912608326802,
+   0.8392889311183052,
+   0.8392881508035585,
+   0.8392871466222541,
+   0.8392870164333124,
+   0.8392867885872547,
+   0.8392867283671048,
+   0.8392866463671819,
+   0.8392865545257887,
+   0.8392865431688021,
+   0.8392865300362127,
+   0.8392865035806105,
+   0.8392864968398932,
+   0.8392864859637393
+  ],
+  "gap": [
+   0.039136571749222915,
+   0.009658266506379132,
+   0.003192945931245972,
+   0.002677907214756692,
+   0.0032258512058831457,
+   0.002352436199004382,
+   0.0010859285342682545,
+   0.0013876648922899193,
+   0.0006501003716981035,
+   0.0006846994318632227,
+   0.0003535415902474748,
+   0.00020063880000109613,
+   0.0002584689514755212,
+   0.0001808448772231408,
+   0.00010797633905901272,
+   5.605574300227012e-05,
+   7.341006456407229e-05,
+   9.128716582273988e-05,
+   5.3329620429698466e-05,
+   2.933822215078763e-05,
+   3.711812867468467e-05,
+   2.4693299454203732e-05,
+   2.6696461930209026e-05,
+   2.4880577247143876e-05
+  ]
+ },
+ "ablation": [
+  {
+   "variante": "SECR completo (original)",
+   "ba_mean": 0.5909957292456591,
+   "ba_sd": 0.11678538278526797,
+   "log_loss": 0.8404967271065249,
+   "diff_vs_original": -0.0,
+   "p_wilcoxon": NaN,
+   "p_holm": NaN
+  },
+  {
+   "variante": "SECR sin regiones (solo pesos globales)",
+   "ba_mean": 0.5930396712278162,
+   "ba_sd": 0.11659187475416959,
+   "log_loss": 0.8403903206785988,
+   "diff_vs_original": 0.0020439419821570936,
+   "p_wilcoxon": 0.863339160853851,
+   "p_holm": 1.0
+  },
+  {
+   "variante": "SECR sin corrección por prior (α = 0)",
+   "ba_mean": 0.4783301776913961,
+   "ba_sd": 0.06651614353231584,
+   "log_loss": 0.8404967271065249,
+   "diff_vs_original": -0.1126655515542631,
+   "p_wilcoxon": 0.15625,
+   "p_holm": 0.78125
+  },
+  {
+   "variante": "Caruana global (modelo G)",
+   "ba_mean": 0.5949575467891396,
+   "ba_sd": 0.11801774656059137,
+   "log_loss": 0.8402506254089532,
+   "diff_vs_original": 0.003961817543480517,
+   "p_wilcoxon": 0.90625,
+   "p_holm": 1.0
+  },
+  {
+   "variante": "Stacking lineal (logística multinomial)",
+   "ba_mean": 0.5170829486669828,
+   "ba_sd": 0.09814474541293838,
+   "log_loss": 0.8459553435008799,
+   "diff_vs_original": -0.07391278057867631,
+   "p_wilcoxon": 0.15625,
+   "p_holm": 0.78125
+  },
+  {
+   "variante": "Pesos por error global",
+   "ba_mean": 0.5821922497247937,
+   "ba_sd": 0.1178639217227351,
+   "log_loss": 0.8692540424802111,
+   "diff_vs_original": -0.00880347952086542,
+   "p_wilcoxon": 0.0625,
+   "p_holm": 0.4375
+  },
+  {
+   "variante": "Promedio simple",
+   "ba_mean": 0.5804135903992278,
+   "ba_sd": 0.11765110014299614,
+   "log_loss": 0.8734780994713043,
+   "diff_vs_original": -0.010582138846431244,
+   "p_wilcoxon": 0.0625,
+   "p_holm": 0.4375
+  },
+  {
+   "variante": "Mejor modelo base individual",
+   "ba_mean": 0.5907496862527423,
+   "ba_sd": 0.11168045021241825,
+   "log_loss": 0.8440796343205813,
+   "diff_vs_original": -0.0002460429929168395,
+   "p_wilcoxon": 0.5,
+   "p_holm": 1.0
+  }
+ ]
+}

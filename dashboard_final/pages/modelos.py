@@ -288,7 +288,7 @@ def predict(n, m, *vals):
         if m == 'original':
             pred = int(est.combiner_.decide(p[None])[0])
             groups = GROUPS_ORIGINAL
-            bg = background_rows().head(6)
+            bg = background_rows().head(4)
         else:
             pred = int(p.argmax())
             groups = {c: [c] for c in data.FEATURES}

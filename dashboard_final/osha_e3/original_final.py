@@ -45,7 +45,18 @@ class OriginalModel(BaseEstimator, ClassifierMixin):
                                                          alpha=p['alpha'], gate=p['gate'] != 'none')
         self.combiner_.fit(CB.meta_matrix(P, r), y)
         self.stack_.oof_ = None  # no se necesitan para predecir (ahorra memoria en el artefacto)
+        self.make_deterministic()
         self.classes_ = np.arange(CB.ConditionalEnsembleSelection().n_classes)
+        return self
+
+    def make_deterministic(self):
+        """Predicción con un hilo en los bosques internos: con varios hilos el orden de la suma de los árboles cambia y
+        las probabilidades difieren en ~1e-16 entre llamadas (rompe la prueba de ida y vuelta exacta)."""
+        for m in self.stack_.models_.values():
+            est = getattr(m, 'est_', None)
+            for e in ([est] + [s for _, s in getattr(est, 'steps', [])]):
+                if hasattr(e, 'n_jobs'):
+                    e.n_jobs = 1
         return self
 
     def base_proba(self, X):
