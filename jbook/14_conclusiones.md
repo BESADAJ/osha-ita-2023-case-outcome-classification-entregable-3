@@ -1,4 +1,4 @@
-# 14. Conclusiones y límites
+# 14. Conclusiones, limitaciones y declaración de uso de IA
 
 ## Qué se encontró
 
@@ -84,3 +84,27 @@
 - Usar la parada temprana y Successive Halving para ampliar el presupuesto de búsqueda sin más costo.
 - Añadir variables con más información sobre la lesión (naturaleza, parte del cuerpo), que el archivo trae
   codificadas, verificando antes que no revelen el resultado.
+
+
+## Declaración de autoría y uso de herramientas (incluida IA)
+
+Este trabajo es de **Jaime Andrés Besada e Iván Berrio**. Siguiendo la guía (§10.7 y §13), declaramos las herramientas
+usadas y para qué:
+
+| Herramienta | Para qué se usó | Qué revisó el equipo |
+|---|---|---|
+| Python, numpy, scipy, pandas, scikit-learn, imbalanced-learn, XGBoost, Optuna, DEAP, Dash, Plotly | Implementación, experimentos y dashboard | Todo el código |
+| **Claude Code (Anthropic; modelo Claude Opus 5.5)** | Asistente de programación y redacción en el proyecto final: implementó, bajo instrucciones del equipo, el experimento pareado 5×5, el combinador SECR y sus pruebas unitarias, las pruebas de hipótesis sobre pliegues, el candado de la prueba, el dashboard multipágina y los artefactos. También redactó borradores de los capítulos 00, 13b, 16.6–16.9, 19, 20 y 21 y escribió los scripts de consulta a las bases bibliográficas | El diseño, las demostraciones, el código y las cifras se revisan contra los resultados guardados en `results/`. El equipo responde por cada línea y puede explicarla y modificarla en la sustentación |
+| Consensus | Búsquedas exploratorias de literatura (capítulo 16.1) | Se verificaron los trabajos citados |
+| API públicas de OpenAlex, Europe PMC y arXiv | Búsquedas reproducibles de literatura (capítulo 16.6) | Lectura de títulos y resúmenes |
+
+Ninguna cifra del informe se escribió de memoria. Todas salen de un script versionado y de un resultado guardado en el
+repositorio. Las referencias se verificaron contra su fuente; las que no se pudieron verificar se citan solo con los
+datos confirmados.
+
+Firmas:
+
+| Integrante | Firma | Fecha |
+|---|---|---|
+| Jaime Andrés Besada | ______________________ | 2026-10-__ |
+| Iván Berrio | ______________________ | 2026-10-__ |

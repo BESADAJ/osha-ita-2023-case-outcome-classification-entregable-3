@@ -204,8 +204,10 @@ layout = html.Div([
         dbc.Button([html.I(className='bi bi-play-fill me-1', **{'aria-hidden': 'true'}), 'Predecir y explicar'],
                    id='btn-pred', color='primary', className='mt-2'),
         html.Div(id='pred-alert', className='mt-2'),
-        dbc.Row([dbc.Col(dcc.Loading(dcc.Graph(id='g-proba', config={'displaylogo': False})), lg=5),
-                 dbc.Col(dcc.Loading(dcc.Graph(id='g-shap', config={'displaylogo': False})), lg=7)])]),
+        dbc.Row([dbc.Col(dcc.Loading(dcc.Graph(id='g-proba', config={'displaylogo': False},
+                                               figure=plots.empty('Pulse «Predecir y explicar» para ver la probabilidad.'))), lg=5),
+                 dbc.Col(dcc.Loading(dcc.Graph(id='g-shap', config={'displaylogo': False},
+                                               figure=plots.empty('Aquí aparecerá la explicación SHAP local.'))), lg=7)])]),
         className='mb-3 shadow-sm'),
     dbc.Card(dbc.CardBody([
         html.H3('Diagnóstico del modelo seleccionado', className='h5'),

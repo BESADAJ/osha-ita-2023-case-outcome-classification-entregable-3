@@ -160,7 +160,7 @@ def confusion(y, pred):
                                hovertemplate='Real %{y}<br>Predicho %{x}<br>%{z:.1f} % de la fila<extra></extra>',
                                colorbar=dict(title='% fila')))
     fig.update_layout(title='Matriz de confusión (conteos; color = % de la fila)', xaxis_title='Predicho',
-                      yaxis=dict(title='Real', autorange='reversed'), height=400)
+                      yaxis=dict(title='Real', autorange='reversed'), height=420, margin=dict(l=150))
     return fig
 
 
