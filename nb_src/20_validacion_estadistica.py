@@ -125,3 +125,29 @@ display(Image('figures/e3_convergencia_fw.png'))
 
 # %%
 display(Markdown('> **' + res['verdict'] + '**'))
+
+# %% [markdown]
+# ## 20.7 Sensibilidad y robustez (descriptivo)
+#
+# Para ver cómo responde SECR a sus hiperparámetros y a tener menos datos, se fija una configuración base (compuerta =
+# sector NAICS-2, λ = 100, 30 pasos, región mínima = 200, α = 1) y se cambia **un** valor cada vez. Para robustez a menor
+# tamaño de muestra, los pesos se ajustan con el 10 %, 25 %, 50 % o 100 % de las predicciones internas. Todo se mide en
+# los mismos pliegues externos. **Es un análisis descriptivo**: no se usa para elegir nada (eso lo hizo la TPE interna) y
+# mirar estas cifras para escoger la configuración sería usar los pliegues externos para ajustar.
+
+# %%
+sens = pd.read_csv(R / 'sensibilidad_secr.csv')
+sens.groupby(['param', 'value'])[['ba', 'log_loss']].agg(['mean', 'std']).round(4)
+
+# %% [markdown]
+# ## 20.8 Interpretabilidad: SHAP del original frente al mejor benchmark
+#
+# Valores de Shapley exactos por **grupos de variables** (`dashboard_final/src/explain.py`), calculados sobre los mismos
+# casos del desarrollo para el modelo original y para la mejor combinación del curso (SVM + SMOTE, 9 variables). Se
+# reporta el |SHAP| medio de la probabilidad de la clase predicha. Un grupo que un modelo no usa tiene aporte 0.
+
+# %%
+shp = R / 'shap_original_vs_benchmark.csv'
+if shp.exists():
+    display(pd.read_csv(shp, index_col=0).round(4))
+    display(Image('figures/e3_shap_original_vs_benchmark.png'))

@@ -4,7 +4,7 @@
 * ``leaderboard.csv``: las 112 combinaciones (media ± d.e. del bucle externo) y la marca de la mejor por modelo.
 * ``oof_<modelo>.csv.gz``: probabilidades fuera de pliegue externo de la mejor combinación de cada modelo; cada
   pliegue se reajusta con los hiperparámetros que ese pliegue eligió en la validación anidada.
-* ``shap_global.csv``: |SHAP| medio (exacto) por variable y modelo sobre 150 casos del desarrollo.
+* ``shap_global.csv``: |SHAP| medio (exacto) por variable y modelo sobre 60 casos del desarrollo.
 
 Uso: python scripts/build_dashboard_data.py [eda] [leaderboard] [oof] [shap_global]
 """
@@ -89,11 +89,13 @@ def oof():
         print('oof', m, flush=True)
 
 
-def shap_global():
+def shap_global(n_cases=60, n_bg=10):
+    from threadpoolctl import threadpool_limits
+    threadpool_limits(1)  # un hilo: corre junto a experimentos largos sin acaparar la CPU
     X, y, g, _ = N.task_data('clf')
     rng = np.random.default_rng(C.SEED)
-    idx = rng.choice(len(X), 150, replace=False)
-    bg = X.iloc[rng.choice(len(X), 20, replace=False)]
+    idx = rng.choice(len(X), n_cases, replace=False)
+    bg = X.iloc[rng.choice(len(X), n_bg, replace=False)]
     groups = {c: [c] for c in D.FEATURES}
     rows = []
     for path in sorted((C.ROOT / 'dashboard_final' / 'artifacts').glob('*.joblib')):
