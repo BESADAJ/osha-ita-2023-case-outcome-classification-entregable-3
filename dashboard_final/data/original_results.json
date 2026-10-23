@@ -51,18 +51,6 @@
    "Inferencia (ms/caso)": 0.008
   },
   {
-   "Modelo": "Random Forest",
-   "Balanceo": "smote",
-   "Optimizador": "bayes",
-   "Pliegues": 5,
-   "BA (media ± d.e.)": "0.467 ± 0.062",
-   "IC BCa 95 % de la media": "[0.432, 0.533]",
-   "F1 macro": 0.433,
-   "AUC": 0.8,
-   "Entrenamiento (s/pliegue)": 2511.8,
-   "Inferencia (ms/caso)": 0.094
-  },
-  {
    "Modelo": "XGBoost",
    "Balanceo": "class_weight",
    "Optimizador": "bayes",
@@ -75,16 +63,28 @@
    "Inferencia (ms/caso)": 0.109
   },
   {
+   "Modelo": "Random Forest",
+   "Balanceo": "smote",
+   "Optimizador": "bayes",
+   "Pliegues": 15,
+   "BA (media ± d.e.)": "0.454 ± 0.047",
+   "IC BCa 95 % de la media": "[0.436, 0.486]",
+   "F1 macro": 0.429,
+   "AUC": 0.804,
+   "Entrenamiento (s/pliegue)": 3012.6,
+   "Inferencia (ms/caso)": 0.089
+  },
+  {
    "Modelo": "Naive Bayes",
    "Balanceo": "adasyn",
    "Optimizador": "genetic",
-   "Pliegues": 5,
-   "BA (media ± d.e.)": "0.435 ± 0.061",
-   "IC BCa 95 % de la media": "[0.400, 0.497]",
-   "F1 macro": 0.399,
+   "Pliegues": 15,
+   "BA (media ± d.e.)": "0.426 ± 0.045",
+   "IC BCa 95 % de la media": "[0.409, 0.456]",
+   "F1 macro": 0.398,
    "AUC": 0.776,
-   "Entrenamiento (s/pliegue)": 498.0,
-   "Inferencia (ms/caso)": 0.024
+   "Entrenamiento (s/pliegue)": 386.5,
+   "Inferencia (ms/caso)": 0.015
   },
   {
    "Modelo": "Árbol",
@@ -103,20 +103,20 @@
   {
    "Prueba": "Friedman (Iman-Davenport), universo de 15 pliegues (3 × 5)",
    "H0": "Todos los modelos tienen el mismo rango medio",
-   "Supuestos": "bloques = pares (rep., pliegue) independientes entre sí en la asignación; k = 6, N = 15",
-   "Estadístico": "F = 8.156",
-   "p crudo": "4.14e-06",
-   "p ajustado (Holm, 4)": "1.66e-05",
+   "Supuestos": "bloques = pares (rep., pliegue) independientes entre sí en la asignación; k = 8, N = 15",
+   "Estadístico": "F = 11.992",
+   "p crudo": "5.76e-11",
+   "p ajustado (Holm, 4)": "2.30e-10",
    "Efecto": "δ de Cliff = 0.191 [-0.138, 0.538] (pequeño)",
    "Conclusión": "Se rechaza H0"
   },
   {
    "Prueba": "Nemenyi post hoc: original vs KNN",
    "H0": "Igual rango medio",
-   "Supuestos": "tras Friedman; CD = 1.947",
-   "Estadístico": "ΔR = 1.200",
-   "p crudo": "4.94e-01",
-   "p ajustado (Holm, 4)": "6.58e-01",
+   "Supuestos": "tras Friedman; CD = 2.711",
+   "Estadístico": "ΔR = 1.333",
+   "p crudo": "8.13e-01",
+   "p ajustado (Holm, 4)": "8.13e-01",
    "Efecto": "δ de Cliff = 0.191 [-0.138, 0.538] (pequeño)",
    "Conclusión": "No se rechaza H0"
   },
@@ -158,18 +158,22 @@
    "Árbol",
    "Reg. logística",
    "XGBoost",
-   "KNN"
+   "KNN",
+   "Random Forest",
+   "Naive Bayes"
   ],
   "ranks": [
-   2.066666666666667,
-   2.933333333333333,
-   5.466666666666667,
-   3.4,
-   3.8666666666666667,
-   3.2666666666666666
+   2.3333333333333335,
+   3.1333333333333333,
+   6.8,
+   3.933333333333333,
+   4.066666666666666,
+   3.6666666666666665,
+   5.133333333333334,
+   6.933333333333334
   ],
-  "cd": 1.9467194088154625,
-  "insight": "Con N = 15 pliegues y k = 6 modelos, la diferencia crítica de Nemenyi es 1.95. Rango medio del original: 2.07; del mejor benchmark (KNN): 3.27. Friedman p = 4.14e-06."
+  "cd": 2.7109000979507996,
+  "insight": "Con N = 15 pliegues y k = 8 modelos, la diferencia crítica de Nemenyi es 2.71. Rango medio del original: 2.33; del mejor benchmark (KNN): 3.67. Friedman p = 5.76e-11."
  },
  "convergence": {
   "loss": [

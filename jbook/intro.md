@@ -35,7 +35,7 @@ por código.
 
 **Veredicto.** R1 sí (no se halló la regla ni su aplicación en la literatura) y R2 sí (implementación propia con
 garantías demostradas). **R3 no**: el original tiene la mayor BA media (0,591 frente a 0,569 del mejor benchmark pareado,
-KNN) y el mejor rango de Friedman (p = 4·10⁻⁶), pero frente a KNN ninguna prueba pareada es significativa tras Holm.
+KNN) y el mejor rango de Friedman (p = 6·10⁻¹¹), pero frente a KNN ninguna prueba pareada es significativa tras Holm.
 Tope de calificación: 4,0 (capítulos 20 y 14).
 
 ## Objetivos

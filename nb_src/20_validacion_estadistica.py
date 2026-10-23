@@ -20,7 +20,8 @@
 #   **Se planeó 5×5 y se recortó a 3×5 (15 pliegues) por tiempo de cómputo**, con el orden de recorte fijado
 #   antes de ver resultados: las repeticiones 3 y 4 se cortaron para todos los modelos, y Random Forest y Naive
 #   Bayes (lentos con SMOTE/ADASYN sobre las variables ampliadas) quedaron solo con la repetición 0. KNN, que
-#   resultó el benchmark más fuerte en la repetición 0, se completó en las 3 repeticiones.
+#   resultó el benchmark más fuerte en la repetición 0, se completó en las 3 repeticiones. Al final de la noche sobró
+#   tiempo y Random Forest y Naive Bayes también se completaron, así que los 8 modelos tienen las 15 celdas.
 # - **Mismo presupuesto.** Búsqueda interna de 16 configuraciones con 3 pliegues internos para todos. Los benchmarks
 #   buscan con su optimizador ganador; el original busca sus hiperparámetros del combinador con TPE.
 # - **La prueba de octubre a diciembre no se usa** (está bloqueada por código): todas las pruebas son sobre pliegues
@@ -66,7 +67,7 @@ tab
 # %% [markdown]
 # **Interpretación.** Con las mismas variables y particiones, el modelo original tiene la **BA media más alta**
 # (0,591 ± 0,087 en 15 pliegues), seguido de KNN (0,569), SVM (0,537) y la logística (0,523). También tiene la mejor
-# log-loss (0,843 frente a 0,951 a 1,57 de los benchmarks), el mejor AUC macro (0,817) y el mejor F1 macro (0,444).
+# log-loss (0,843 frente a 0,868 a 1,57 de los benchmarks), el mejor AUC macro (0,817) y el mejor F1 macro (0,444).
 # El ranking cambió respecto al entregable 2: con las variables ampliadas, **KNN pasa a ser el mejor benchmark** (con 9
 # variables era el quinto) y el árbol cae al último lugar. Los intervalos BCa de la BA del original y de KNN se solapan
 # ampliamente ([0,541; 0,628] y [0,526; 0,602]). El costo del original es de unos 50 minutos de entrenamiento por pliegue
@@ -89,10 +90,11 @@ display(Image('figures/e3_cd_pareado_25.png'))
 display(Image('figures/e3_cd_pareado_rep0.png'))
 
 # %% [markdown]
-# **Interpretación.** Con 15 pliegues, Friedman **rechaza** que los 6 modelos tengan el mismo rango medio
-# (F de Iman-Davenport = 8,16; p = 4·10⁻⁶). El original tiene el mejor rango medio (2,07), seguido de SVM (2,93), KNN
-# (3,27), la logística (3,40), XGBoost (3,87) y el árbol (5,47). La diferencia crítica de Nemenyi es 1,95: **el original se
-# separa del árbol y de XGBoost, pero no de KNN, SVM ni la logística**. Con los 8 modelos y solo los 5 pliegues de la
+# **Interpretación.** Con 15 pliegues y los 8 modelos, Friedman **rechaza** que todos tengan el mismo rango medio
+# (F de Iman-Davenport = 11,99; p = 6·10⁻¹¹). El original tiene el mejor rango medio (2,33), seguido de SVM (3,13), KNN
+# (3,67), la logística (3,93), XGBoost (4,07), Random Forest (5,13), el árbol (6,80) y Naive Bayes (6,93). La diferencia
+# crítica de Nemenyi es 2,71: **el original se separa de Random Forest, el árbol y Naive Bayes, pero no de SVM, KNN, la
+# logística ni XGBoost**. Con solo los 5 pliegues de la
 # repetición 0, Friedman no rechaza (p = 0,068): 5 bloques dan muy poca potencia, como ya pasó en el capítulo 13.
 
 # %% [markdown]
@@ -123,7 +125,7 @@ print('δ de Cliff [IC 95 %]:', np.round(res['cliff'], 3))
 # **Interpretación.**
 #
 # - **Frente al mejor benchmark (KNN) ninguna prueba pareada rechaza la igualdad** después de Holm: Nemenyi
-#   (p ajustado 0,66), Nadeau–Bengio (t(14) = 0,45; p ajustado 0,66) y Wilcoxon (p ajustado 0,28). La diferencia media
+#   (p ajustado 0,81), Nadeau–Bengio (t(14) = 0,45; p ajustado 0,66) y Wilcoxon (p ajustado 0,28). La diferencia media
 #   de BA es +0,022 con IC BCa 95 % [−0,032; 0,056], que incluye el 0. El δ de Cliff es 0,19 (pequeño), con IC
 #   [−0,14; 0,54]. La prueba bayesiana da 0,947 de probabilidad posterior de que el original sea mejor por más de 0,01
 #   de BA: cerca de 0,95, pero sin alcanzarlo.
@@ -132,8 +134,9 @@ print('δ de Cliff [IC 95 %]:', np.round(res['cliff'], 3))
 #   pliegues de repeticiones distintas comparten casos, y eso es justo lo que corrige Nadeau–Bengio
 #   ($1/J + n_{test}/n_{train}$).
 # - **Frente a cada benchmark** (Wilcoxon con Holm sobre 7 comparaciones), el original es significativamente mejor que
-#   el árbol (p = 0,0002; δ = 0,87, grande) y que XGBoost (p = 0,013; δ = 0,72, grande). No lo es frente a SVM,
-#   la logística ni KNN, y con 5 pliegues tampoco frente a Random Forest ni Naive Bayes.
+#   el árbol (p = 0,0002; δ = 0,87), Naive Bayes (p = 0,0004; δ = 0,88), Random Forest (p = 0,003; δ = 0,77) y XGBoost
+#   (p = 0,009; δ = 0,72), todos con efecto grande. No lo es frente a SVM (p = 0,072), la logística (p = 0,072) ni KNN
+#   (p = 0,094).
 # - **Por qué no alcanza.** La BA de 4 clases depende de acertar a los fallecimientos: hay 0 a 4 por pliegue, y acertar
 #   uno solo mueve la BA ±0,25 (pliegue 1 de la repetición 0: KNN 0,625 frente a 0,407 del original, con un solo
 #   fallecimiento). Esa varianza entre pliegues (d.e. 0,08–0,09) es cuatro veces la ventaja media (0,022). Con este

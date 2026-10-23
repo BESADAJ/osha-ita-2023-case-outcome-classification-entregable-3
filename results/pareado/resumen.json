@@ -5,9 +5,9 @@
  "n_cells": {
   "knn": 15,
   "logreg": 15,
-  "naive_bayes": 5,
+  "naive_bayes": 15,
   "original": 15,
-  "random_forest": 5,
+  "random_forest": 15,
   "svm": 15,
   "tree": 15,
   "xgboost": 15
@@ -18,7 +18,9 @@
   "tree",
   "logreg",
   "xgboost",
-  "knn"
+  "knn",
+  "random_forest",
+  "naive_bayes"
  ],
  "universe_rep0": [
   "original",
@@ -31,23 +33,25 @@
   "naive_bayes"
  ],
  "friedman25": {
-  "chi2": 27.609523809523864,
-  "df": 5,
-  "p_value": 4.338717502110158e-05,
-  "iman_davenport_F": 8.156350482315139,
-  "p_value_F": 4.139970355754308e-06,
+  "chi2": 48.44444444444446,
+  "df": 7,
+  "p_value": 2.91473693614695e-08,
+  "iman_davenport_F": 11.992141453831048,
+  "p_value_F": 5.761557897443481e-11,
   "avg_ranks": [
-   2.066666666666667,
-   2.933333333333333,
-   5.466666666666667,
-   3.4,
-   3.8666666666666667,
-   3.2666666666666666
+   2.3333333333333335,
+   3.1333333333333333,
+   6.8,
+   3.933333333333333,
+   4.066666666666666,
+   3.6666666666666665,
+   5.133333333333334,
+   6.933333333333334
   ],
   "n_blocks": 15,
-  "k": 6
+  "k": 8
  },
- "cd25": 1.9467194088154625,
+ "cd25": 2.7109000979507996,
  "friedman_rep0": {
   "chi2": 12.333333333333343,
   "df": 7,
@@ -99,14 +103,14 @@
  ],
  "shapiro_p": 0.04883241653442383,
  "holm_adjusted": [
-  1.655988142301723e-05,
-  0.6577054509958187,
+  2.3046231589773924e-10,
+  0.8127653748767653,
   0.6577054509958187,
   0.28143310546875
  ],
  "raw": [
-  4.139970355754308e-06,
-  0.4941196544606732,
+  5.761557897443481e-11,
+  0.8127653748767653,
   0.32885272549790934,
   0.09381103515625
  ],
@@ -115,20 +119,20 @@
   {
    "Prueba": "Friedman (Iman-Davenport), universo de 15 pliegues (3 × 5)",
    "H0": "Todos los modelos tienen el mismo rango medio",
-   "Supuestos": "bloques = pares (rep., pliegue) independientes entre sí en la asignación; k = 6, N = 15",
-   "Estadístico": "F = 8.156",
-   "p crudo": "4.14e-06",
-   "p ajustado (Holm, 4)": "1.66e-05",
+   "Supuestos": "bloques = pares (rep., pliegue) independientes entre sí en la asignación; k = 8, N = 15",
+   "Estadístico": "F = 11.992",
+   "p crudo": "5.76e-11",
+   "p ajustado (Holm, 4)": "2.30e-10",
    "Efecto": "δ de Cliff = 0.191 [-0.138, 0.538] (pequeño)",
    "Conclusión": "Se rechaza H0"
   },
   {
    "Prueba": "Nemenyi post hoc: original vs KNN",
    "H0": "Igual rango medio",
-   "Supuestos": "tras Friedman; CD = 1.947",
-   "Estadístico": "ΔR = 1.200",
-   "p crudo": "4.94e-01",
-   "p ajustado (Holm, 4)": "6.58e-01",
+   "Supuestos": "tras Friedman; CD = 2.711",
+   "Estadístico": "ΔR = 1.333",
+   "p crudo": "8.13e-01",
+   "p ajustado (Holm, 4)": "8.13e-01",
    "Efecto": "δ de Cliff = 0.191 [-0.138, 0.538] (pequeño)",
    "Conclusión": "No se rechaza H0"
   },
@@ -175,7 +179,7 @@
    "p_crudo": 0.027679443359375,
    "cliff": 0.40444444444444444,
    "cliff_label": "mediano",
-   "p_holm": 0.119781494140625
+   "p_holm": 0.071868896484375
   },
   {
    "benchmark": "tree",
@@ -201,7 +205,7 @@
    "p_crudo": 0.023956298828125,
    "cliff": 0.35111111111111115,
    "cliff_label": "mediano",
-   "p_holm": 0.119781494140625
+   "p_holm": 0.071868896484375
   },
   {
    "benchmark": "xgboost",
@@ -214,7 +218,7 @@
    "p_crudo": 0.00213623046875,
    "cliff": 0.7244444444444444,
    "cliff_label": "grande",
-   "p_holm": 0.0128173828125
+   "p_holm": 0.008544921875
   },
   {
    "benchmark": "knn",
@@ -227,33 +231,33 @@
    "p_crudo": 0.09381103515625,
    "cliff": 0.19111111111111106,
    "cliff_label": "pequeño",
-   "p_holm": 0.1876220703125
+   "p_holm": 0.09381103515625
   },
   {
    "benchmark": "random_forest",
-   "n_pliegues": 5,
-   "ba_original": 0.5909957292456591,
-   "ba_benchmark": 0.4669190550275797,
-   "diff_mean": 0.1240766742180794,
-   "gana_en": 3,
-   "W": 12.0,
-   "p_crudo": 0.15625,
-   "cliff": 0.52,
+   "n_pliegues": 15,
+   "ba_original": 0.5911911694370271,
+   "ba_benchmark": 0.45369839142135504,
+   "diff_mean": 0.13749277801567208,
+   "gana_en": 12,
+   "W": 113.0,
+   "p_crudo": 0.000579833984375,
+   "cliff": 0.768888888888889,
    "cliff_label": "grande",
-   "p_holm": 0.1876220703125
+   "p_holm": 0.002899169921875
   },
   {
    "benchmark": "naive_bayes",
-   "n_pliegues": 5,
-   "ba_original": 0.5909957292456591,
-   "ba_benchmark": 0.43490167671621843,
-   "diff_mean": 0.1560940525294406,
-   "gana_en": 5,
-   "W": 15.0,
-   "p_crudo": 0.03125,
-   "cliff": 0.76,
+   "n_pliegues": 15,
+   "ba_original": 0.5911911694370271,
+   "ba_benchmark": 0.4259857020178491,
+   "diff_mean": 0.16520546741917802,
+   "gana_en": 14,
+   "W": 119.0,
+   "p_crudo": 6.103515625e-05,
+   "cliff": 0.8755555555555556,
    "cliff_label": "grande",
-   "p_holm": 0.119781494140625
+   "p_holm": 0.0003662109375
   }
  ],
  "ablation": [
@@ -396,22 +400,6 @@
    "optimizer": "bayes"
   },
   {
-   "model": "random_forest",
-   "n_pliegues": 5,
-   "ba_mean": 0.4669190550275797,
-   "ba_sd": 0.06248810509331903,
-   "ba_ci_lo": 0.43181998629538293,
-   "ba_ci_hi": 0.5327897576993269,
-   "ba_rep0_mean": 0.4669190550275797,
-   "f1_mean": 0.4331657223103725,
-   "auc_mean": 0.800343830907333,
-   "log_loss_mean": 0.8700807293797951,
-   "train_s_mean": 2511.7784856400003,
-   "ms_case_mean": 0.09436965431626276,
-   "balance": "smote",
-   "optimizer": "bayes"
-  },
-  {
    "model": "xgboost",
    "n_pliegues": 15,
    "ba_mean": 0.4659927419874768,
@@ -428,18 +416,34 @@
    "optimizer": "bayes"
   },
   {
+   "model": "random_forest",
+   "n_pliegues": 15,
+   "ba_mean": 0.45369839142135504,
+   "ba_sd": 0.047045565618237965,
+   "ba_ci_lo": 0.43614450883355643,
+   "ba_ci_hi": 0.48575948922603823,
+   "ba_rep0_mean": 0.4669190550275797,
+   "f1_mean": 0.4291470837485194,
+   "auc_mean": 0.8043774338079343,
+   "log_loss_mean": 0.8741740415229718,
+   "train_s_mean": 3012.638047226667,
+   "ms_case_mean": 0.08888026871079664,
+   "balance": "smote",
+   "optimizer": "bayes"
+  },
+  {
    "model": "naive_bayes",
-   "n_pliegues": 5,
-   "ba_mean": 0.43490167671621843,
-   "ba_sd": 0.0605181047657342,
-   "ba_ci_lo": 0.39997018881178925,
-   "ba_ci_hi": 0.49737143241738646,
+   "n_pliegues": 15,
+   "ba_mean": 0.4259857020178491,
+   "ba_sd": 0.045042760910995294,
+   "ba_ci_lo": 0.4087489327457119,
+   "ba_ci_hi": 0.4563396736082451,
    "ba_rep0_mean": 0.43490167671621843,
-   "f1_mean": 0.3985336888744785,
-   "auc_mean": 0.7755191204976468,
-   "log_loss_mean": 1.5092402309213413,
-   "train_s_mean": 497.9747518999998,
-   "ms_case_mean": 0.023908686364211323,
+   "f1_mean": 0.3984100337727413,
+   "auc_mean": 0.7758118576198193,
+   "log_loss_mean": 1.5071499932639876,
+   "train_s_mean": 386.49246152666655,
+   "ms_case_mean": 0.014517981178896347,
    "balance": "adasyn",
    "optimizer": "genetic"
   },
