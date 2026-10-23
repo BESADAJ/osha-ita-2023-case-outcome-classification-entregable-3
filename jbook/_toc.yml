@@ -18,8 +18,10 @@ parts:
       - file: 11_interpretabilidad
       - file: 12_robustez
       - file: 13_comparacion_estadistica
-  - caption: Modelo propuesto
+  - caption: Modelo original
     chapters:
+      - file: 16_literatura_novedad
+      - file: 17_modelo_original
       - file: 18_modelo_propuesto
   - caption: Cierre
     chapters:

@@ -23,8 +23,8 @@ from build_notebooks import parse  # noqa: E402
 ORDER = ['intro.md', '01_contexto.md', '02_eda_dashboard.md', '03_eda_adicional.md', '04_eda_mejorado',
          '05_modelo_base_e2.md', '06_diseno_pipeline', '07_optimizacion_hiperparametros',
          '08_optimizacion_computacional', '09_clasificacion', '10_regresion', '11_interpretabilidad',
-         '12_robustez', '13_comparacion_estadistica', '18_modelo_propuesto', '14_conclusiones.md',
-         '15_reproducibilidad.md']
+         '12_robustez', '13_comparacion_estadistica', '16_literatura_novedad.md', '17_modelo_original',
+         '18_modelo_propuesto', '14_conclusiones.md', '15_reproducibilidad.md']
 
 
 def myst_to_markdown(text):

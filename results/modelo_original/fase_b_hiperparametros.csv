@@ -1,0 +1,13 @@
+optimizador,pliegue,n_estimators,max_depth,min_samples_leaf,ccp_alpha,max_features,min_frequency,threshold
+grid,1,100,10.0,1,0.0,,,prior
+grid,2,200,,50,0.0,,,prior
+grid,3,200,,10,0.0,,,prior
+random,1,138,12.0,9,4.794331361918267e-06,,0.0005,prior
+random,2,295,47.0,37,2.4229301715750384e-06,,0.0001,prior
+random,3,256,30.0,14,2.6265821854959323e-06,,,prior
+bayes,1,117,15.0,1,9.462175356461487e-06,,0.0005,prior
+bayes,2,101,50.0,21,0.00015382308040278996,,,prior
+bayes,3,175,58.0,24,6.251373574521755e-05,,0.002,prior
+genetic,1,147,11.0,4,8.073341674571265e-05,,0.0001,prior
+genetic,2,210,51.0,17,0.00038469868425087004,,0.0005,prior
+genetic,3,209,17.0,15,0.0002680966393455426,,,prior

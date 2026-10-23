@@ -312,3 +312,6 @@ top_iv[['model', 'balance', 'optimizer', 'deaths', 'hits', 'pred_death', 'prec_d
 # a los dos diseños:** (1) el desempeño en las clases frecuentes es moderado (AUC ~0,70); (2) ningún modelo
 # detecta Fallecimiento de forma útil; (3) las combinaciones «ganadoras» por balanced accuracy lo son por
 # marcar Fallecimiento masivamente, no por clasificar mejor.
+#
+# El modelo original (PT-bagging) y sus iteraciones se evaluaron en este mismo diseño temporal: ver el
+# [capítulo 17](17_modelo_original.ipynb).
