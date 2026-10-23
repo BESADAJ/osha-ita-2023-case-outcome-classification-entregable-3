@@ -1,5 +1,5 @@
 """Tabla maestra de experimentos (guía §10.5): las 140 combinaciones del entregable 2 (bucle externo, 5 pliegues), los
-7 benchmarks del experimento pareado y el modelo original (bucle externo repetido 5×5), con métricas, tiempos y semillas.
+7 benchmarks del experimento pareado y el modelo original (bucle externo repetido 3×5), con métricas, tiempos y semillas.
 
 Uso: python scripts/build_master_table.py  ->  results/tabla_maestra_experimentos.csv
 """
@@ -20,7 +20,7 @@ for task, path in [('clasificación', 'master_clf.csv'), ('regresión', 'master_
 
 f = pd.read_csv(C.RESULTS / 'pareado' / 'pliegues.csv')
 for (model, bal, opt), g in f.groupby(['model', 'balance', 'optimizer']):
-    rows.append({'experimento': 'pareado (mismas variables VPLUS, 5×5)', 'tarea': 'clasificación',
+    rows.append({'experimento': 'pareado (mismas variables VPLUS, validación externa repetida 3×5)', 'tarea': 'clasificación',
                  'modelo': 'original (multivista + SECR)' if model == 'original' else model, 'balanceo': bal,
                  'optimizador': opt, 'n_pliegues_externos': len(g), 'semilla': C.SEED,
                  'tiempo_busqueda_total_s': g.train_s.sum(), 'hiperparametros_finales': 'por pliegue (ver results/pareado)',

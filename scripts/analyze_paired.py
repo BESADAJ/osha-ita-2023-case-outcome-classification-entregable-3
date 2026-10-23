@@ -4,7 +4,7 @@
 2. Arma la tabla por pliegue (modelo × repetición × pliegue) con BA, F1, AUC, log-loss y tiempos.
 3. Pruebas (todas sobre el bucle externo; la prueba oct-dic está bloqueada):
    * Friedman (Iman-Davenport) + Nemenyi con el original en el universo: (a) los 8 modelos en los 5 pliegues de la
-     repetición 0; (b) los modelos con las 25 celdas.
+     repetición 0; (b) los modelos con todas las celdas (15).
    * t corregida de Nadeau-Bengio, Wilcoxon de rangos con signo y prueba bayesiana con ROPE: original frente al mejor
      benchmark, con las celdas comunes.
    * Wilcoxon original frente a cada uno de los 7 benchmarks, con Holm.
@@ -145,7 +145,7 @@ def main(n_jobs):
     mlo, mhi = T.bca_mean_ci(diff, reps=5000)
     nem_p = nemenyi_p(ranks25['original'], ranks25[best], len(full), len(piv25))
     shapiro = stats.shapiro(diff)
-    tests = [('Friedman (Iman-Davenport), universo de 25 pliegues', 'Todos los modelos tienen el mismo rango medio',
+    tests = [('Friedman (Iman-Davenport), universo de 15 pliegues (3 × 5)', 'Todos los modelos tienen el mismo rango medio',
               f'bloques = pares (rep., pliegue) independientes entre sí en la asignación; k = {len(full)}, N = {len(piv25)}',
               f"F = {fr25['iman_davenport_F']:.3f}", fr25['p_value_F'], 'global'),
              (f'Nemenyi post hoc: original vs {PRETTY[best]}', 'Igual rango medio',

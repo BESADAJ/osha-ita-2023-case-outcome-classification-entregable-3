@@ -24,3 +24,6 @@ results/cache/*.parquet
 
 # Artefactos del dashboard final (livianos; Render los necesita)
 !dashboard_final/artifacts/*.joblib
+# Experimento pareado (proyecto final): predicciones por celda, sin identificadores
+!results/pareado/**/*.npz
+results/pareado/**/*.skip

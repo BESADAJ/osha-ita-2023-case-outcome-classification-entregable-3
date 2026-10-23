@@ -1,4 +1,4 @@
-"""Corre (o reanuda) el experimento pareado 5×5 del modelo original y los 7 benchmarks.
+"""Corre (o reanuda) el experimento pareado (hasta 5×5; las celdas recortadas se marcan con un archivo vacío) del modelo original y los 7 benchmarks.
 
 Uso: python scripts/run_paired.py [n_procesos] [repeticiones, p. ej. 0,1,2]
 Cada celda se guarda en results/pareado/<modelo>/r<rep>_f<pliegue>.npz.

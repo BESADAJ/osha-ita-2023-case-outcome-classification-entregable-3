@@ -29,9 +29,14 @@ exacta. Tiene propiedades demostradas: convexidad, pérdida no creciente, certif
 $O(1/t)$.
 
 **Validación.** Comparación **pareada**: mismas variables, mismas particiones, misma semilla y mismo presupuesto de
-búsqueda para el original y los 7 benchmarks. Validación externa repetida 5×5 y pruebas sobre pliegues: Friedman–Nemenyi,
+búsqueda para el original y los 7 benchmarks. Validación externa repetida 3×5 (15 pliegues) y pruebas sobre pliegues: Friedman–Nemenyi,
 Nadeau–Bengio, Wilcoxon–Holm, prueba bayesiana con ROPE y δ de Cliff. La prueba de octubre a diciembre está bloqueada
-por código. El veredicto sobre R1, R2 y R3 está en el capítulo 20 y en las conclusiones.
+por código.
+
+**Veredicto.** R1 sí (no se halló la regla ni su aplicación en la literatura) y R2 sí (implementación propia con
+garantías demostradas). **R3 no**: el original tiene la mayor BA media (0,591 frente a 0,569 del mejor benchmark pareado,
+KNN) y el mejor rango de Friedman (p = 4·10⁻⁶), pero frente a KNN ninguna prueba pareada es significativa tras Holm.
+Tope de calificación: 4,0 (capítulos 20 y 14).
 
 ## Objetivos
 

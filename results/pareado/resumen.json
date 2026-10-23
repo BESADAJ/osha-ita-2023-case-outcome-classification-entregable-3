@@ -1,0 +1,463 @@
+{
+ "superior": false,
+ "verdict": "Veredicto R3: NO SUPERIOR. BA media del original 0.591 frente a 0.569 del mejor benchmark pareado (KNN); 1 de 4 pruebas frecuentistas rechazan H0 con p ajustado por Holm < 0,05 (la global de Friedman sí); δ de Cliff = 0.191 (pequeño). Media mayor que la de los 7 benchmarks: sí.",
+ "best_benchmark": "knn",
+ "n_cells": {
+  "knn": 15,
+  "logreg": 15,
+  "naive_bayes": 5,
+  "original": 15,
+  "random_forest": 5,
+  "svm": 15,
+  "tree": 15,
+  "xgboost": 15
+ },
+ "universe_25": [
+  "original",
+  "svm",
+  "tree",
+  "logreg",
+  "xgboost",
+  "knn"
+ ],
+ "universe_rep0": [
+  "original",
+  "svm",
+  "tree",
+  "logreg",
+  "xgboost",
+  "knn",
+  "random_forest",
+  "naive_bayes"
+ ],
+ "friedman25": {
+  "chi2": 27.609523809523864,
+  "df": 5,
+  "p_value": 4.338717502110158e-05,
+  "iman_davenport_F": 8.156350482315139,
+  "p_value_F": 4.139970355754308e-06,
+  "avg_ranks": [
+   2.066666666666667,
+   2.933333333333333,
+   5.466666666666667,
+   3.4,
+   3.8666666666666667,
+   3.2666666666666666
+  ],
+  "n_blocks": 15,
+  "k": 6
+ },
+ "cd25": 1.9467194088154625,
+ "friedman_rep0": {
+  "chi2": 12.333333333333343,
+  "df": 7,
+  "p_value": 0.09011626250414813,
+  "iman_davenport_F": 2.1764705882352966,
+  "p_value_F": 0.06773102979946877,
+  "avg_ranks": [
+   2.4,
+   3.2,
+   5.8,
+   4.4,
+   4.4,
+   3.8,
+   5.0,
+   7.0
+  ],
+  "n_blocks": 5,
+  "k": 8
+ },
+ "cd_rep0": 4.695416703894232,
+ "nadeau_bengio": {
+  "t": 0.45269334201289374,
+  "df": 14,
+  "p_one_sided": 0.32885272549790934,
+  "p_two_sided": 0.6577054509958187,
+  "mean_diff": 0.022543202274568273,
+  "se": 0.049797954116864815
+ },
+ "wilcoxon_best": {
+  "W": 84.0,
+  "p_one_sided": 0.09381103515625,
+  "p_two_sided": 0.1876220703125,
+  "n": 15
+ },
+ "bayes": {
+  "p_left": 0.05305,
+  "p_rope": 0.00015,
+  "p_right": 0.9468,
+  "rope": 0.01
+ },
+ "cliff": [
+  0.19111111111111106,
+  -0.13777777777777778,
+  0.5377777777777777
+ ],
+ "diff_ci_bca": [
+  -0.03167005734004988,
+  0.05634761208121844
+ ],
+ "shapiro_p": 0.04883241653442383,
+ "holm_adjusted": [
+  1.655988142301723e-05,
+  0.6577054509958187,
+  0.6577054509958187,
+  0.28143310546875
+ ],
+ "raw": [
+  4.139970355754308e-06,
+  0.4941196544606732,
+  0.32885272549790934,
+  0.09381103515625
+ ],
+ "n_tests_holm": 4,
+ "tests": [
+  {
+   "Prueba": "Friedman (Iman-Davenport), universo de 15 pliegues (3 × 5)",
+   "H0": "Todos los modelos tienen el mismo rango medio",
+   "Supuestos": "bloques = pares (rep., pliegue) independientes entre sí en la asignación; k = 6, N = 15",
+   "Estadístico": "F = 8.156",
+   "p crudo": "4.14e-06",
+   "p ajustado (Holm, 4)": "1.66e-05",
+   "Efecto": "δ de Cliff = 0.191 [-0.138, 0.538] (pequeño)",
+   "Conclusión": "Se rechaza H0"
+  },
+  {
+   "Prueba": "Nemenyi post hoc: original vs KNN",
+   "H0": "Igual rango medio",
+   "Supuestos": "tras Friedman; CD = 1.947",
+   "Estadístico": "ΔR = 1.200",
+   "p crudo": "4.94e-01",
+   "p ajustado (Holm, 4)": "6.58e-01",
+   "Efecto": "δ de Cliff = 0.191 [-0.138, 0.538] (pequeño)",
+   "Conclusión": "No se rechaza H0"
+  },
+  {
+   "Prueba": "t corregida de Nadeau-Bengio: original vs KNN",
+   "H0": "Diferencia media de BA ≤ 0",
+   "Supuestos": "normalidad de diferencias (Shapiro p = 0.049); corrección n_test/n_train = 0.25",
+   "Estadístico": "t(14) = 0.453",
+   "p crudo": "3.29e-01",
+   "p ajustado (Holm, 4)": "6.58e-01",
+   "Efecto": "δ de Cliff = 0.191 [-0.138, 0.538] (pequeño)",
+   "Conclusión": "No se rechaza H0"
+  },
+  {
+   "Prueba": "Wilcoxon de rangos con signo: original vs KNN",
+   "H0": "Mediana de la diferencia ≤ 0",
+   "Supuestos": "diferencias simétricas, pareadas por pliegue",
+   "Estadístico": "W = 84.0",
+   "p crudo": "9.38e-02",
+   "p ajustado (Holm, 4)": "2.81e-01",
+   "Efecto": "δ de Cliff = 0.191 [-0.138, 0.538] (pequeño)",
+   "Conclusión": "No se rechaza H0"
+  },
+  {
+   "Prueba": "Bayesiana de rangos con signo (ROPE ±0,01 BA): original vs KNN",
+   "H0": "— (probabilidades posteriores)",
+   "Supuestos": "proceso de Dirichlet, pseudo-observación en 0",
+   "Estadístico": "P(original mejor) = 0.947; P(ROPE) = 0.000; P(peor) = 0.053",
+   "p crudo": "—",
+   "p ajustado (Holm, 4)": "—",
+   "Efecto": "Δ BA media = 0.0225, IC BCa 95 % [-0.0317, 0.0563]",
+   "Conclusión": "No concluyente"
+  }
+ ],
+ "vs_each": [
+  {
+   "benchmark": "svm",
+   "n_pliegues": 15,
+   "ba_original": 0.5911911694370271,
+   "ba_benchmark": 0.5373873108522527,
+   "diff_mean": 0.05380385858477442,
+   "gana_en": 11,
+   "W": 94.0,
+   "p_crudo": 0.027679443359375,
+   "cliff": 0.40444444444444444,
+   "cliff_label": "mediano",
+   "p_holm": 0.119781494140625
+  },
+  {
+   "benchmark": "tree",
+   "n_pliegues": 15,
+   "ba_original": 0.5911911694370271,
+   "ba_benchmark": 0.41611698556113985,
+   "diff_mean": 0.17507418387588716,
+   "gana_en": 15,
+   "W": 120.0,
+   "p_crudo": 3.0517578125e-05,
+   "cliff": 0.8666666666666667,
+   "cliff_label": "grande",
+   "p_holm": 0.000213623046875
+  },
+  {
+   "benchmark": "logreg",
+   "n_pliegues": 15,
+   "ba_original": 0.5911911694370271,
+   "ba_benchmark": 0.5227887182558795,
+   "diff_mean": 0.06840245118114754,
+   "gana_en": 11,
+   "W": 95.0,
+   "p_crudo": 0.023956298828125,
+   "cliff": 0.35111111111111115,
+   "cliff_label": "mediano",
+   "p_holm": 0.119781494140625
+  },
+  {
+   "benchmark": "xgboost",
+   "n_pliegues": 15,
+   "ba_original": 0.5911911694370271,
+   "ba_benchmark": 0.4659927419874768,
+   "diff_mean": 0.12519842744955037,
+   "gana_en": 11,
+   "W": 108.0,
+   "p_crudo": 0.00213623046875,
+   "cliff": 0.7244444444444444,
+   "cliff_label": "grande",
+   "p_holm": 0.0128173828125
+  },
+  {
+   "benchmark": "knn",
+   "n_pliegues": 15,
+   "ba_original": 0.5911911694370271,
+   "ba_benchmark": 0.5686479671624589,
+   "diff_mean": 0.022543202274568273,
+   "gana_en": 11,
+   "W": 84.0,
+   "p_crudo": 0.09381103515625,
+   "cliff": 0.19111111111111106,
+   "cliff_label": "pequeño",
+   "p_holm": 0.1876220703125
+  },
+  {
+   "benchmark": "random_forest",
+   "n_pliegues": 5,
+   "ba_original": 0.5909957292456591,
+   "ba_benchmark": 0.4669190550275797,
+   "diff_mean": 0.1240766742180794,
+   "gana_en": 3,
+   "W": 12.0,
+   "p_crudo": 0.15625,
+   "cliff": 0.52,
+   "cliff_label": "grande",
+   "p_holm": 0.1876220703125
+  },
+  {
+   "benchmark": "naive_bayes",
+   "n_pliegues": 5,
+   "ba_original": 0.5909957292456591,
+   "ba_benchmark": 0.43490167671621843,
+   "diff_mean": 0.1560940525294406,
+   "gana_en": 5,
+   "W": 15.0,
+   "p_crudo": 0.03125,
+   "cliff": 0.76,
+   "cliff_label": "grande",
+   "p_holm": 0.119781494140625
+  }
+ ],
+ "ablation": [
+  {
+   "variante": "SECR completo (original)",
+   "ba_mean": 0.5911911694370271,
+   "ba_sd": 0.08688605665755952,
+   "log_loss": 0.8427833831002558,
+   "diff_vs_original": -0.0,
+   "p_wilcoxon": NaN,
+   "p_holm": NaN
+  },
+  {
+   "variante": "SECR sin regiones (solo pesos globales)",
+   "ba_mean": 0.5803045894582314,
+   "ba_sd": 0.09653531074752122,
+   "log_loss": 0.842819908070909,
+   "diff_vs_original": -0.010886579978795644,
+   "p_wilcoxon": 0.7031908796027085,
+   "p_holm": 1.0
+  },
+  {
+   "variante": "SECR sin corrección por prior (α = 0)",
+   "ba_mean": 0.4641100568536058,
+   "ba_sd": 0.04991604330766835,
+   "log_loss": 0.8427833831002558,
+   "diff_vs_original": -0.12708111258342125,
+   "p_wilcoxon": 0.001312255859375,
+   "p_holm": 0.009185791015625
+  },
+  {
+   "variante": "Caruana global (modelo G)",
+   "ba_mean": 0.5982572627402907,
+   "ba_sd": 0.08690011869860562,
+   "log_loss": 0.8425908014355264,
+   "diff_vs_original": 0.0070660933032636545,
+   "p_wilcoxon": 0.976043701171875,
+   "p_holm": 1.0
+  },
+  {
+   "variante": "Stacking lineal (logística multinomial)",
+   "ba_mean": 0.5232066232902035,
+   "ba_sd": 0.09826436127751798,
+   "log_loss": 0.8485278785151801,
+   "diff_vs_original": -0.06798454614682352,
+   "p_wilcoxon": 0.060272216796875,
+   "p_holm": 0.2410888671875
+  },
+  {
+   "variante": "Pesos por error global",
+   "ba_mean": 0.578414117277098,
+   "ba_sd": 0.10552295241713952,
+   "log_loss": 0.8715660846460765,
+   "diff_vs_original": -0.012777052159929062,
+   "p_wilcoxon": 0.04730224609375,
+   "p_holm": 0.23651123046875
+  },
+  {
+   "variante": "Promedio simple",
+   "ba_mean": 0.568436577541809,
+   "ba_sd": 0.10025596384788839,
+   "log_loss": 0.8757245988323924,
+   "diff_vs_original": -0.02275459189521802,
+   "p_wilcoxon": 0.0062255859375,
+   "p_holm": 0.037353515625
+  },
+  {
+   "variante": "Mejor modelo base individual",
+   "ba_mean": 0.5916860037391882,
+   "ba_sd": 0.10100502931281423,
+   "log_loss": 0.8482695289591834,
+   "diff_vs_original": 0.0004948343021611475,
+   "p_wilcoxon": 0.755645751953125,
+   "p_holm": 1.0
+  }
+ ],
+ "summary_raw": [
+  {
+   "model": "original",
+   "n_pliegues": 15,
+   "ba_mean": 0.5911911694370271,
+   "ba_sd": 0.08688605665755952,
+   "ba_ci_lo": 0.5413381678013561,
+   "ba_ci_hi": 0.6281093812239322,
+   "ba_rep0_mean": 0.5909957292456591,
+   "f1_mean": 0.4436818542986333,
+   "auc_mean": 0.8171095086965863,
+   "log_loss_mean": 0.8427833831002558,
+   "train_s_mean": 3084.8194797866668,
+   "ms_case_mean": 2.4679702904632843,
+   "balance": "interno (α)",
+   "optimizer": "bayes (TPE) del combinador"
+  },
+  {
+   "model": "knn",
+   "n_pliegues": 15,
+   "ba_mean": 0.5686479671624589,
+   "ba_sd": 0.07758696064468779,
+   "ba_ci_lo": 0.5260558571307354,
+   "ba_ci_hi": 0.6020346469141317,
+   "ba_rep0_mean": 0.5563246822063155,
+   "f1_mean": 0.3782914142058685,
+   "auc_mean": 0.7635196278295857,
+   "log_loss_mean": 1.572338993092021,
+   "train_s_mean": 3854.2304834533334,
+   "ms_case_mean": 12.28191194032518,
+   "balance": "smote",
+   "optimizer": "genetic"
+  },
+  {
+   "model": "svm",
+   "n_pliegues": 15,
+   "ba_mean": 0.5373873108522527,
+   "ba_sd": 0.08462090655276076,
+   "ba_ci_lo": 0.49543767952317985,
+   "ba_ci_hi": 0.5780718081351272,
+   "ba_rep0_mean": 0.5320840310391105,
+   "f1_mean": 0.4395694460738325,
+   "auc_mean": 0.8002070361174513,
+   "log_loss_mean": 1.0067407237423653,
+   "train_s_mean": 334.7514114866669,
+   "ms_case_mean": 0.009642452212025145,
+   "balance": "smote",
+   "optimizer": "random"
+  },
+  {
+   "model": "logreg",
+   "n_pliegues": 15,
+   "ba_mean": 0.5227887182558795,
+   "ba_sd": 0.11560952906024555,
+   "ba_ci_lo": 0.4648080024564812,
+   "ba_ci_hi": 0.5782023970023953,
+   "ba_rep0_mean": 0.49119732628260354,
+   "f1_mean": 0.4244748360735348,
+   "auc_mean": 0.7756700404295196,
+   "log_loss_mean": 0.9511885225353874,
+   "train_s_mean": 573.9425849066666,
+   "ms_case_mean": 0.008469407475831314,
+   "balance": "adasyn",
+   "optimizer": "bayes"
+  },
+  {
+   "model": "random_forest",
+   "n_pliegues": 5,
+   "ba_mean": 0.4669190550275797,
+   "ba_sd": 0.06248810509331903,
+   "ba_ci_lo": 0.43181998629538293,
+   "ba_ci_hi": 0.5327897576993269,
+   "ba_rep0_mean": 0.4669190550275797,
+   "f1_mean": 0.4331657223103725,
+   "auc_mean": 0.800343830907333,
+   "log_loss_mean": 0.8700807293797951,
+   "train_s_mean": 2511.7784856400003,
+   "ms_case_mean": 0.09436965431626276,
+   "balance": "smote",
+   "optimizer": "bayes"
+  },
+  {
+   "model": "xgboost",
+   "n_pliegues": 15,
+   "ba_mean": 0.4659927419874768,
+   "ba_sd": 0.052196106468413744,
+   "ba_ci_lo": 0.4463576910595317,
+   "ba_ci_hi": 0.49903323099098,
+   "ba_rep0_mean": 0.4740970701467161,
+   "f1_mean": 0.43312078305651486,
+   "auc_mean": 0.800191108227023,
+   "log_loss_mean": 0.8677682307924829,
+   "train_s_mean": 259.8438582666667,
+   "ms_case_mean": 0.10932564525818739,
+   "balance": "class_weight",
+   "optimizer": "bayes"
+  },
+  {
+   "model": "naive_bayes",
+   "n_pliegues": 5,
+   "ba_mean": 0.43490167671621843,
+   "ba_sd": 0.0605181047657342,
+   "ba_ci_lo": 0.39997018881178925,
+   "ba_ci_hi": 0.49737143241738646,
+   "ba_rep0_mean": 0.43490167671621843,
+   "f1_mean": 0.3985336888744785,
+   "auc_mean": 0.7755191204976468,
+   "log_loss_mean": 1.5092402309213413,
+   "train_s_mean": 497.9747518999998,
+   "ms_case_mean": 0.023908686364211323,
+   "balance": "adasyn",
+   "optimizer": "genetic"
+  },
+  {
+   "model": "tree",
+   "n_pliegues": 15,
+   "ba_mean": 0.41611698556113985,
+   "ba_sd": 0.08303013827921671,
+   "ba_ci_lo": 0.3730949262541727,
+   "ba_ci_hi": 0.45341524072234357,
+   "ba_rep0_mean": 0.4635940845784191,
+   "f1_mean": 0.35071872363177653,
+   "auc_mean": 0.6506794435250792,
+   "log_loss_mean": 1.105039563121561,
+   "train_s_mean": 20.401133213333015,
+   "ms_case_mean": 0.00843066479998483,
+   "balance": "class_weight",
+   "optimizer": "bayes"
+  }
+ ]
+}

@@ -15,8 +15,12 @@
 # - **Mismas variables.** Los 7 benchmarks (la mejor combinación de balanceo y optimizador de cada modelo, capítulo 13b)
 #   se reentrenan con las mismas variables crudas que usa el original: las 9 del curso, los códigos OIICS de la lesión,
 #   NAICS-6, SOC-6 y el empleador. Cada uno con su propio preprocesamiento aprendido dentro del pliegue.
-# - **Mismas particiones.** Validación externa repetida 5×5 por establecimiento. La repetición 0 es la partición de los
-#   capítulos 6 a 13; las repeticiones 1 a 4 usan semillas `seed_for('outer', r)` fijadas antes de correr.
+# - **Mismas particiones.** Validación externa repetida por establecimiento. La repetición 0 es la partición de los
+#   capítulos 6 a 13; las repeticiones 1 y 2 usan semillas `seed_for('outer', r)` fijadas antes de correr.
+#   **Se planeó 5×5 y se recortó a 3×5 (15 pliegues) por tiempo de cómputo**, con el orden de recorte fijado
+#   antes de ver resultados: las repeticiones 3 y 4 se cortaron para todos los modelos, y Random Forest y Naive
+#   Bayes (lentos con SMOTE/ADASYN sobre las variables ampliadas) quedaron solo con la repetición 0. KNN, que
+#   resultó el benchmark más fuerte en la repetición 0, se completó en las 3 repeticiones.
 # - **Mismo presupuesto.** Búsqueda interna de 16 configuraciones con 3 pliegues internos para todos. Los benchmarks
 #   buscan con su optimizador ganador; el original busca sus hiperparámetros del combinador con TPE.
 # - **La prueba de octubre a diciembre no se usa** (está bloqueada por código): todas las pruebas son sobre pliegues
@@ -39,7 +43,7 @@ f = pd.read_csv(R / 'pliegues.csv')
 PRETTY = {'original': 'Original (SECR)', 'knn': 'KNN', 'naive_bayes': 'Naive Bayes', 'logreg': 'Reg. logística',
           'tree': 'Árbol', 'random_forest': 'Random Forest', 'xgboost': 'XGBoost', 'svm': 'SVM'}
 print('Celdas (repetición × pliegue) por modelo:', res['n_cells'])
-print('Universo con las 25 celdas:', [PRETTY[m] for m in res['universe_25']])
+print('Universo con las 15 celdas:', [PRETTY[m] for m in res['universe_25']])
 
 # %% [markdown]
 # ## 20.1 Tabla resumen
@@ -60,20 +64,36 @@ tab = pd.DataFrame({
 tab
 
 # %% [markdown]
+# **Interpretación.** Con las mismas variables y particiones, el modelo original tiene la **BA media más alta**
+# (0,591 ± 0,087 en 15 pliegues), seguido de KNN (0,569), SVM (0,537) y la logística (0,523). También tiene la mejor
+# log-loss (0,843 frente a 0,951 a 1,57 de los benchmarks), el mejor AUC macro (0,817) y el mejor F1 macro (0,444).
+# El ranking cambió respecto al entregable 2: con las variables ampliadas, **KNN pasa a ser el mejor benchmark** (con 9
+# variables era el quinto) y el árbol cae al último lugar. Los intervalos BCa de la BA del original y de KNN se solapan
+# ampliamente ([0,541; 0,628] y [0,526; 0,602]). El costo del original es de unos 50 minutos de entrenamiento por pliegue
+# (16 modelos base) y 2,5 ms por caso para predecir.
+
+# %% [markdown]
 # ## 20.2 Prueba global: Friedman y diagrama de diferencia crítica
 #
 # Friedman (con la corrección F de Iman y Davenport) compara todos los modelos a la vez, con los pliegues como bloques
 # y **el modelo original incluido en el universo**. Si rechaza, Nemenyi indica qué pares difieren: dos modelos cuya
 # distancia de rangos medios es menor que la diferencia crítica (CD) no se distinguen. Se hace con (a) los modelos que
-# tienen las 25 celdas y (b) los 8 modelos en los 5 pliegues de la repetición 0.
+# tienen las 15 celdas (3 repeticiones × 5 pliegues) y (b) los 8 modelos en los 5 pliegues de la repetición 0.
 
 # %%
-for tag, key, cd in [('25 pliegues', 'friedman25', 'cd25'), ('repetición 0 (5 pliegues)', 'friedman_rep0', 'cd_rep0')]:
+for tag, key, cd in [('15 pliegues', 'friedman25', 'cd25'), ('repetición 0 (5 pliegues)', 'friedman_rep0', 'cd_rep0')]:
     fr = res[key]
     print(f"{tag}: k = {fr['k']}, N = {fr['n_blocks']}, χ² = {fr['chi2']:.2f}, p = {fr['p_value']:.2e}; "
           f"F de Iman-Davenport = {fr['iman_davenport_F']:.2f}, p = {fr['p_value_F']:.2e}; CD = {res[cd]:.3f}")
 display(Image('figures/e3_cd_pareado_25.png'))
 display(Image('figures/e3_cd_pareado_rep0.png'))
+
+# %% [markdown]
+# **Interpretación.** Con 15 pliegues, Friedman **rechaza** que los 6 modelos tengan el mismo rango medio
+# (F de Iman-Davenport = 8,16; p = 4·10⁻⁶). El original tiene el mejor rango medio (2,07), seguido de SVM (2,93), KNN
+# (3,27), la logística (3,40), XGBoost (3,87) y el árbol (5,47). La diferencia crítica de Nemenyi es 1,95: **el original se
+# separa del árbol y de XGBoost, pero no de KNN, SVM ni la logística**. Con los 8 modelos y solo los 5 pliegues de la
+# repetición 0, Friedman no rechaza (p = 0,068): 5 bloques dan muy poca potencia, como ya pasó en el capítulo 13.
 
 # %% [markdown]
 # ## 20.3 Pruebas pareadas frente al mejor benchmark y a cada benchmark
@@ -100,15 +120,50 @@ print('IC BCa 95 % de la diferencia media de BA (original − mejor):', np.round
 print('δ de Cliff [IC 95 %]:', np.round(res['cliff'], 3))
 
 # %% [markdown]
+# **Interpretación.**
+#
+# - **Frente al mejor benchmark (KNN) ninguna prueba pareada rechaza la igualdad** después de Holm: Nemenyi
+#   (p ajustado 0,66), Nadeau–Bengio (t(14) = 0,45; p ajustado 0,66) y Wilcoxon (p ajustado 0,28). La diferencia media
+#   de BA es +0,022 con IC BCa 95 % [−0,032; 0,056], que incluye el 0. El δ de Cliff es 0,19 (pequeño), con IC
+#   [−0,14; 0,54]. La prueba bayesiana da 0,947 de probabilidad posterior de que el original sea mejor por más de 0,01
+#   de BA: cerca de 0,95, pero sin alcanzarlo.
+# - **Supuestos.** Las diferencias por pliegue se apartan algo de la normalidad (Shapiro p = 0,049). Por eso la
+#   conclusión no descansa solo en Nadeau–Bengio: Wilcoxon (sin normalidad) y la prueba bayesiana dicen lo mismo. Los
+#   pliegues de repeticiones distintas comparten casos, y eso es justo lo que corrige Nadeau–Bengio
+#   ($1/J + n_{test}/n_{train}$).
+# - **Frente a cada benchmark** (Wilcoxon con Holm sobre 7 comparaciones), el original es significativamente mejor que
+#   el árbol (p = 0,0002; δ = 0,87, grande) y que XGBoost (p = 0,013; δ = 0,72, grande). No lo es frente a SVM,
+#   la logística ni KNN, y con 5 pliegues tampoco frente a Random Forest ni Naive Bayes.
+# - **Por qué no alcanza.** La BA de 4 clases depende de acertar a los fallecimientos: hay 0 a 4 por pliegue, y acertar
+#   uno solo mueve la BA ±0,25 (pliegue 1 de la repetición 0: KNN 0,625 frente a 0,407 del original, con un solo
+#   fallecimiento). Esa varianza entre pliegues (d.e. 0,08–0,09) es cuatro veces la ventaja media (0,022). Con este
+#   tamaño de efecto harían falta muchos más pliegues para detectarla (del orden de 60 a 100 según la potencia de
+#   Wilcoxon), y el presupuesto de cómputo de esta corrida no lo permitió.
+
+# %% [markdown]
 # ## 20.4 Ablación: ¿qué aporta cada componente?
 #
-# Mismos modelos base, mismas predicciones y mismos 25 pliegues. Se retira un componente cada vez, o la regla de
+# Mismos modelos base, mismas predicciones y mismos 15 pliegues. Se retira un componente cada vez, o la regla de
 # combinación se reemplaza por una regla estándar (Cuadro 1 de la guía: promedio simple, pesos por error global,
 # stacking lineal). La columna «p (Holm)» es el Wilcoxon unilateral de «SECR completo es mejor que la variante».
 
 # %%
 a = pd.DataFrame(res['ablation'])
 a.round(4)
+
+# %% [markdown]
+# **Interpretación (honesta) de la ablación.**
+#
+# - **La corrección por prior es el componente que más aporta**: quitarla baja la BA de 0,591 a 0,464 (Wilcoxon con
+#   Holm p = 0,009). La log-loss no cambia, porque la decisión no altera las probabilidades.
+# - **Las regiones no aportan en BA**: SECR sin regiones da 0,580 (p = 1,0) y Caruana global 0,598, sin diferencia
+#   significativa con SECR completo. La búsqueda TPE eligió una compuerta en 14 de 15 pliegues, pero cambia de un pliegue a
+#   otro (sector, tipo de establecimiento, tipo de incidente, naturaleza o evento) y λ va de 1 a 8 311: no hay una
+#   estructura regional estable que aprovechar. **El mecanismo nuevo de SECR no mejoró la métrica
+#   principal en este problema**: con estas vistas, la calidad relativa de los modelos base es parecida entre regiones.
+# - **Frente a las reglas estándar**: SECR supera de forma significativa al promedio simple (p = 0,037 con Holm). Frente
+#   a los pesos por error global (p = 0,24) y al stacking lineal (p = 0,24) gana en media (+0,013 y +0,068) sin
+#   significancia tras Holm. El stacking lineal tiene peor log-loss (0,849) y peor BA (0,523).
 
 # %% [markdown]
 # ## 20.5 Convergencia de Frank-Wolfe
@@ -121,10 +176,29 @@ a.round(4)
 display(Image('figures/e3_convergencia_fw.png'))
 
 # %% [markdown]
+# La pérdida baja de forma monótona en todas las iteraciones (proposición 2). La brecha de Frank-Wolfe cae varios
+# órdenes de magnitud y, por la proposición 3, certifica que la solución está a menos de esa brecha del óptimo.
+
+# %% [markdown]
 # ## 20.6 Veredicto
 
 # %%
 display(Markdown('> **' + res['verdict'] + '**'))
+
+# %% [markdown]
+# **Lectura del veredicto según la guía (§6.1 y §12.1).**
+#
+# | Condición de superioridad | ¿Se cumple? | Evidencia |
+# |---|---|---|
+# | 1. BA media mayor que la del mejor benchmark y que la de cada uno de los 7 | **Sí** | 0,591 frente a 0,569 (KNN); mayor que los 7 en las celdas comunes y en la repetición 0 |
+# | 2. Al menos 3 pruebas con p ajustado < 0,05, una de ellas global | **No** | Solo Friedman (global) rechaza; Nemenyi, Nadeau–Bengio y Wilcoxon frente a KNN no |
+# | 3. Tamaño del efecto no despreciable (|δ| ≥ 0,147) | **Sí** (pequeño) | δ = 0,19, pero su IC incluye el 0 |
+#
+# Como la condición 2 falla, **R3 no se cumple**: el modelo original es el mejor en media y en rango, pero no es
+# superior de forma estadísticamente significativa al mejor benchmark pareado. Con R1 y R2 cumplidos (capítulos 16 y
+# 19), el tope que corresponde es **4,0** (guía §12.1). Se reporta así aunque sea desfavorable. Lo que no se hizo:
+# repetir la corrida con más repeticiones, otra semilla u otra métrica después de ver estos resultados, porque eso sería
+# buscar la significancia (guía §13).
 
 # %% [markdown]
 # ## 20.7 Sensibilidad y robustez (descriptivo)
@@ -138,6 +212,20 @@ display(Markdown('> **' + res['verdict'] + '**'))
 # %%
 sens = pd.read_csv(R / 'sensibilidad_secr.csv')
 sens.groupby(['param', 'value'])[['ba', 'log_loss']].agg(['mean', 'std']).round(4)
+
+# %% [markdown]
+# **Interpretación.**
+#
+# - **α es el hiperparámetro decisivo.** Con α ≤ 0,5 la BA queda en ~0,46; con α = 1 sube a ~0,59. La log-loss no cambia,
+#   porque α solo mueve la decisión.
+# - **λ, los pasos y la compuerta casi no cambian la log-loss** (0,842–0,843). En BA, las configuraciones que se acercan a
+#   pesos globales (sin compuerta, o con λ ≥ 1000) dan ~0,62. Es **más** que el 0,591 del modelo con TPE: la búsqueda
+#   interna, con 3 pliegues y una BA tan ruidosa, elige compuertas y λ que no generalizan (costo de la selección). Este
+#   hallazgo es descriptivo y **no se usa para cambiar el modelo**, porque elegir con los pliegues externos invalidaría
+#   la comparación. Queda como lección para el trabajo futuro: la versión global, más simple, habría sido una mejor
+#   apuesta *a priori* en este problema.
+# - **Robustez a menos datos.** Con el 50 % de las predicciones internas la BA baja poco (0,574); con el 25 % baja a 0,527.
+#   Con el 10 % el método se vuelve inestable (0,309 ± 0,200): las regiones y α se estiman con muy pocos fallecimientos.
 
 # %% [markdown]
 # ## 20.8 Interpretabilidad: SHAP del original frente al mejor benchmark

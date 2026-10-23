@@ -82,7 +82,7 @@ fija `OSHA_ALLOW_TEST=1`; ningún resultado del proyecto final la usa.
 **Corridas del proyecto final** (todas reanudables):
 
 ```
-python scripts/run_paired.py 10                 # experimento pareado 5×5 (original + 7 benchmarks), results/pareado/
+python scripts/run_paired.py 10                 # experimento pareado (original + 7 benchmarks; se usó 3×5), results/pareado/
 python scripts/analyze_paired.py 4              # TPE anidado del combinador, ablación, pruebas y figuras (cap. 20)
 python scripts/build_artifacts.py todo          # artefactos + metadata.json + prueba de ida y vuelta
 python scripts/build_dashboard_data.py          # tablas del dashboard (EDA, líderes, fuera de pliegue, SHAP global)

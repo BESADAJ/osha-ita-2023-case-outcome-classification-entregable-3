@@ -8,7 +8,7 @@ modelos se evalúan con:
   preprocesamiento aprendido dentro del pliegue: el pipeline del curso (one-hot que agrupa categorías raras
   → balanceo → modelo) para los benchmarks y las vistas con codificación por objetivo fuera de pliegue para el
   modelo original;
-* las **mismas particiones**: validación cruzada externa repetida 5×5 por establecimiento. La repetición 0
+* las **mismas particiones**: validación cruzada externa repetida por establecimiento (se planeó 5×5; se corrió 3×5). La repetición 0
   es exactamente la partición externa de los entregables anteriores; las repeticiones 1-4 usan las semillas
   ``seed_for('outer', r)``, fijadas antes de correr;
 * la **misma búsqueda interna** para los benchmarks (3 pliegues internos, presupuesto de 16

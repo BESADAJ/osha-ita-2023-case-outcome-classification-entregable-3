@@ -86,6 +86,56 @@
   codificadas, verificando antes que no revelen el resultado.
 
 
+## Proyecto final: veredicto sobre el modelo original (R1, R2 y R3)
+
+| Condición | Veredicto | Evidencia |
+|---|---|---|
+| **R1. Novedad en la aplicación** | **Sí** | Revisión en 3 bases con API (OpenAlex, Europe PMC y arXiv), 8 cadenas en inglés y español con fecha, más WoS, Scopus y Consensus. No se encontró la regla SECR ni la selección de ensambles aplicada al desenlace de casos de lesiones laborales. Matriz de novedad y diferenciación por familia (capítulo 16.6–16.9). Riesgo residual: el profesor puede leer la novedad como de aplicación, porque la parte regional no mejoró la métrica |
+| **R2. Implementación algorítmica propia** | **Sí** | Clase propia compatible con scikit-learn (`ConditionalEnsembleSelection`, `OriginalModel`) con regla de combinación nueva, Frank-Wolfe con búsqueda lineal exacta programado con numpy, 6 proposiciones demostradas, complejidad contrastada con tiempos y 8 pruebas unitarias. El codificador por objetivo y la selección de Caruana del nivel 0 también son código propio. Los modelos base son de librería, como permite el Cuadro 1 para ensambles con regla de combinación propia |
+| **R3. Superioridad estadísticamente verificada** | **No** | Comparación pareada en 15 pliegues: el original tiene la mayor BA media (0,591 frente a 0,569 de KNN) y el mejor rango de Friedman (p = 4·10⁻⁶). Pero frente al mejor benchmark ninguna prueba pareada rechaza la igualdad tras Holm: Nemenyi p = 0,66, Nadeau–Bengio p = 0,66, Wilcoxon p = 0,28; bayesiana P(mejor) = 0,947; δ = 0,19 con IC que incluye 0 (capítulo 20) |
+
+**Tope de calificación que corresponde: 4,0** (R1 sí, R2 sí, R3 no; guía §12.1). Lo reportamos así porque es lo que
+muestran los datos. La comparación del capítulo 18, con ~9 puntos de ventaja sobre los 112 modelos del curso, no era
+válida: no era pareada y miraba la prueba. Corregirla cambió el resultado (capítulo 00, B1–B3).
+
+## Hallazgos del proyecto final
+
+1. **La información de la lesión es lo que más mejora el modelo, no el algoritmo.** Con los códigos OIICS, NAICS-6,
+   SOC-6 y el empleador, casi todos los benchmarks mejoran: KNN pasa de 0,415 a 0,569 de BA (del quinto al primer lugar),
+   la logística de 0,427 a 0,523 y Naive Bayes de 0,389 a 0,435. El árbol baja, de 0,461 a 0,416.
+2. **El ensamble multivista con SECR es el mejor modelo en media** (BA, log-loss, AUC y F1), pero su ventaja sobre KNN
+   (+0,022 de BA) es pequeña frente a la variabilidad entre pliegues.
+3. **La corrección por prior ($\alpha$) aporta la mayor parte de la BA** (+0,13). Las regiones de SECR no aportan: los
+   pesos óptimos son casi iguales en todas las regiones, la TPE elige compuertas distintas en cada pliegue y la
+   sensibilidad muestra que con contracción fuerte (pesos globales) la BA es igual o mayor.
+4. **La BA de 4 clases es muy ruidosa por los fallecimientos** (0 a 4 por pliegue): un solo caso mueve la métrica
+   ±0,25. Eso limita la potencia de cualquier comparación entre modelos con esta métrica.
+5. **El producto funciona sin tocar la prueba.** El dashboard predice con los 8 artefactos, explica cada predicción con
+   SHAP exacto y muestra diagnósticos calculados fuera de pliegue.
+
+## Limitaciones del proyecto final
+
+- **Menos repeticiones de las planeadas.** Se planeó una validación repetida 5×5 y se corrió 3×5 por tiempo de cómputo
+  (unas 4 h con 10 procesos). Random Forest y Naive Bayes solo tienen 5 pliegues. El recorte se decidió antes de ver
+  los resultados y por el costo, no por el desempeño.
+- **Hiperparámetros fijos en el nivel 0.** Los 16 modelos base del original usan hiperparámetros fijos (los del
+  curso o valores por defecto razonables); solo el combinador se optimiza dentro de la validación anidada.
+- **Un solo conjunto de datos.** El Cuadro 1 pide además 3 conjuntos de datos adicionales de la misma tarea (por
+  ejemplo, los conjuntos armonizados de Bauder et al., 2026). No se hizo por tiempo, y la generalidad de SECR queda sin
+  demostrar.
+- **Fuga indirecta en fallecimientos.** Los códigos OIICS se derivan del relato del caso, que menciona la muerte en el
+  54 % de los fallecimientos.
+- **Las regiones no ayudaron aquí.** Es posible que SECR sí aporte en problemas donde la calidad relativa de los modelos
+  cambie más entre subpoblaciones. Esa hipótesis queda sin probar.
+
+## Trabajo futuro
+
+- Correr las repeticiones que faltan (hasta 5×5 o 10×5) para medir con más potencia la diferencia frente a KNN, y
+  reportarla como un análisis aparte, no como reemplazo de este.
+- Usar una métrica principal menos dominada por una clase de 3 por 10 000 (por ejemplo, la BA de 3 clases o la
+  log-loss), declarada **antes** de correr.
+- Probar SECR en los conjuntos de datos adicionales y con regiones aprendidas (un árbol poco profundo como compuerta).
+
 ## Declaración de autoría y uso de herramientas (incluida IA)
 
 Este trabajo es de **Jaime Andrés Besada e Iván Berrio**. Siguiendo la guía (§10.7 y §13), declaramos las herramientas

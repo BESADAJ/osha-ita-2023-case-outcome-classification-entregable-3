@@ -140,20 +140,31 @@ ponderada local de clasificadores. «Relevantes» cuenta esos trabajos.
 
 | # | Cadena (booleana) | OpenAlex | Europe PMC | arXiv | Revisados | Relevantes | Observación |
 |---|---|---|---|---|---|---|---|
-| 1 | `"ensemble selection" AND (injury OR injuries)` | 371 | 74 | ver nota | 25 + 25 | 6 | Selección **dinámica** de ensambles para gravedad de choques de tránsito (Aziz et al. 2025 y 2026) y para recuperación postraumática; un método de pesos con competencia local. Ninguno es laboral ni usa pesos convexos por región |
-| 2 | `"ensemble selection" AND (occupational OR workplace OR "work-related")` | 161 | 10 | ver nota | 25 + 10 | 2 | Selección dinámica de clasificadores con clases desbalanceadas; ensamble adaptativo con regularización. Ninguno es de lesiones laborales |
-| 3 | `(ensemble OR stacking) AND "occupational injury" AND (severity OR outcome)` | 1 532 | 43 | ver nota | 25 + 25 | 8 | Aplicación: Khairuddin et al. (2022), J. Wang et al. (2025, informes de OSHA con ensambles y LLM), gravedad desde informes con aprendizaje profundo, días de ausencia en minería. Todos usan stacking, votación o modelos únicos |
-| 4 | `"Frank-Wolfe" AND (ensemble OR "classifier combination" OR "model averaging")` | 599 | 16 | ver nota | 25 + 16 | 5 | Familia del algoritmo: combinación de clasificadores de una clase con restricción ℓp, fusión local con ℓp dinámica, *boosting* con Frank-Wolfe. Ninguna aplicación a lesiones |
-| 5 | `("dynamic ensemble selection" OR "local weighting" OR "region-specific weights") AND (injury OR accident)` | 364 | 59 | ver nota | 25 + 25 | 7 | Selección dinámica para gravedad de tránsito (Aziz 2025, 2026; una versión con optimización bayesiana guiada por la dificultad de las instancias); DES con kernels |
-| 6 | `"mixture of experts" AND ("occupational injury" OR "workplace injury" OR "injury severity")` | 41 | 6 | ver nota | 25 + 6 | 0 | Mezclas de expertos neuronales para trayectorias de vehículos y visión; ninguna para lesiones laborales |
-| 7 | `("selección de ensambles" OR "ensamble de modelos" OR "combinación de clasificadores") AND ("lesiones laborales" OR "accidentes de trabajo" OR "accidente laboral")` (español) | 0 | 0 | ver nota | — | 0 | Sin resultados en español |
-| 8 | `OSHA AND ("machine learning" OR classification) AND (severity OR outcome OR "days away")` | 9 611 | 1 025 | ver nota | 25 + 25 | 5 | Ensambles interpretables para gravedad en construcción, agroindustria, emparejamiento de registros de lesiones y una revisión sistemática de aprendizaje automático en seguridad y salud en el trabajo. Ninguno usa los registros ITA *Case Detail* |
+| 1 | `"ensemble selection" AND (injury OR injuries)` | 371 | 74 | 0 | 25 + 25 | 6 | Selección **dinámica** de ensambles para gravedad de choques de tránsito (Aziz et al. 2025 y 2026) y para recuperación postraumática; un método de pesos con competencia local. Ninguno es laboral ni usa pesos convexos por región |
+| 2 | `"ensemble selection" AND (occupational OR workplace OR "work-related")` | 161 | 10 | 0 | 25 + 10 | 2 | Selección dinámica de clasificadores con clases desbalanceadas; ensamble adaptativo con regularización. Ninguno es de lesiones laborales |
+| 3 | `(ensemble OR stacking) AND "occupational injury" AND (severity OR outcome)` | 1 532 | 43 | 0 | 25 + 25 | 8 | Aplicación: Khairuddin et al. (2022), J. Wang et al. (2025, informes de OSHA con ensambles y LLM), gravedad desde informes con aprendizaje profundo, días de ausencia en minería. Todos usan stacking, votación o modelos únicos |
+| 4 | `"Frank-Wolfe" AND (ensemble OR "classifier combination" OR "model averaging")` | 599 | 16 | 2 | 25 + 16 | 5 | Familia del algoritmo: combinación de clasificadores de una clase con restricción ℓp, fusión local con ℓp dinámica, *boosting* con Frank-Wolfe. Ninguna aplicación a lesiones |
+| 5 | `("dynamic ensemble selection" OR "local weighting" OR "region-specific weights") AND (injury OR accident)` | 364 | 59 | 1 | 25 + 25 | 7 | Selección dinámica para gravedad de tránsito (Aziz 2025, 2026; una versión con optimización bayesiana guiada por la dificultad de las instancias); DES con kernels |
+| 6 | `"mixture of experts" AND ("occupational injury" OR "workplace injury" OR "injury severity")` | 41 | 6 | 0 | 25 + 6 | 0 | Mezclas de expertos neuronales para trayectorias de vehículos y visión; ninguna para lesiones laborales |
+| 7 | `("selección de ensambles" OR "ensamble de modelos" OR "combinación de clasificadores") AND ("lesiones laborales" OR "accidentes de trabajo" OR "accidente laboral")` (español) | 0 | 0 | 0 | — | 0 | Sin resultados en español |
+| 8 | `OSHA AND ("machine learning" OR classification) AND (severity OR outcome OR "days away")` | 9 611 | 1 025 | 1 | 25 + 25 | 5 | Ensambles interpretables para gravedad en construcción, agroindustria, emparejamiento de registros de lesiones y una revisión sistemática de aprendizaje automático en seguridad y salud en el trabajo. Ninguno usa los registros ITA *Case Detail* |
 
 **Nota sobre arXiv.** La API de arXiv respondió «Rate exceeded» en la primera pasada. `scripts/literatura/buscar_arxiv.py`
 repite las 8 cadenas con 30 segundos entre consultas y guarda los totales en `results/literatura/arXiv_<n>.json`. La
 tabla 16.6b los resume.
 
-ARXIV_TABLE
+| # | arXiv: resultados | Títulos | Relevantes |
+|---|---|---|---|
+| 1 | 0 | — | 0 |
+| 2 | 0 | — | 0 |
+| 3 | 0 | — | 0 |
+| 4 | 2 | *Lp-Norm Constrained One-Class Classifier Combination*; *Locally Adaptive One-Class Classifier Fusion with Dynamic ℓp-Norm Constraints…* | 2 (familia: combinación ponderada, detección de anomalías; ninguna con lesiones) |
+| 5 | 1 | *Distribution-free inference for LightGBM and GLM with Tweedie loss* | 0 |
+| 6 | 0 | — | 0 |
+| 7 | 0 | — | 0 |
+| 8 | 1 | *Abex-rat: … Classification of Occupational Accident Reports* | 1 (aplicación: clasifica informes de accidentes laborales con aumento de datos y entrenamiento adversario; no combina modelos con pesos) |
+
+Tabla 16.6b. Resultados de arXiv (consultas del 2026-10-23, segunda pasada con 30 s entre consultas).
 
 ## 16.7 Matriz de novedad: trabajos más cercanos a SECR
 

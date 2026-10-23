@@ -173,7 +173,7 @@ original_section = dbc.Card([dbc.CardHeader(html.H3('Modelo original: ensamble m
                                 [html.Tbody([html.Tr([html.Td(a), html.Td(b)]) for a, b in DIFFS])],
                                 size='sm', bordered=False, striped=True, className='small'),
                       dcc.Graph(id='g-conv', config={'displaylogo': False})], lg=6)]),
-    html.H4('Comparación pareada (mismas variables, mismas particiones 5×5)', className='h6 mt-3'),
+    html.H4('Comparación pareada (mismas variables, mismas particiones, 3 × 5 pliegues)', className='h6 mt-3'),
     paired_table(),
     html.H4('Pruebas de hipótesis', className='h6 mt-3'), tests_table(),
     dbc.Alert(RES['verdict'] if RES else 'Veredicto pendiente.', color=('success' if RES and RES.get('superior') else 'warning'),
@@ -219,7 +219,7 @@ layout = html.Div([
         dcc.Graph(id='g-shapglob'), html.P(id='i-shapglob', className='small text-muted')]), className='mb-3 shadow-sm'),
     dbc.Card(dbc.CardBody([
         html.H3('Comparación estadística', className='h5'),
-        html.P('Friedman con post hoc de Nemenyi sobre los 25 pliegues del experimento pareado, con el modelo original '
+        html.P('Friedman con post hoc de Nemenyi sobre los 15 pliegues del experimento pareado, con el modelo original '
                'incluido en el universo (métrica: balanced accuracy).', className='small text-muted'),
         dcc.Graph(id='g-cd', figure=(plots.cd_diagram(RES['cd']['names'], np.array(RES['cd']['ranks']), RES['cd']['cd'],
                                                        highlight='Original (SECR)')
@@ -260,7 +260,13 @@ def update_model(m):
            f'. BA = {np.mean(rec):.3f}. ' + ('«Traslado/restricción» es la clase que más se confunde con «Otro registrable»; '
                                              'las curvas de calibración muestran si las probabilidades pueden leerse como riesgos.'))
     sg = data.shap_global()
-    if m in getattr(sg, 'index', []):
+    og = data.DATA / 'shap_original_groups.csv'
+    if m == 'original' and og.exists():
+        s = pd.read_csv(og, index_col=0)['Original (SECR)']
+        g_fig = plots.shap_global_bar(s, m)
+        g_txt = (f'Insight: por grupos de variables, lo que más mueve la probabilidad del original es «{s.idxmax()}»; el '
+                 'mejor benchmark del curso (SVM) no ve los códigos de la lesión (capítulo 20.8 del informe).')
+    elif m in getattr(sg, 'index', []):
         s = sg.loc[m]
         g_fig = plots.shap_global_bar(s, m)
         g_txt = f'Insight: la variable que más mueve la probabilidad de la clase predicha es «{data.LABELS[s.idxmax()]}».'
