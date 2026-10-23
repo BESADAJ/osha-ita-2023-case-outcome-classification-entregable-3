@@ -113,5 +113,4 @@ octubre a diciembre.
 Las referencias del proyecto final están en `jbook/references.bib` (BibTeX) y se citan con `{cite}`.
 
 ```{bibliography}
-:filter: docname in docnames
 ```
