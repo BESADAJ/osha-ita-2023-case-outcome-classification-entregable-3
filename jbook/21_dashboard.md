@@ -89,8 +89,9 @@ Sección Modelos: tabla de líderes, predicción en vivo con explicación SHAP l
 1. **Probar localmente.** Desde `dashboard_final/`: `pip install -r requirements.txt` y `python app.py` (abre
    <http://127.0.0.1:8050>). `pytest tests` corre las pruebas de humo. El entorno local de prueba (`dash_e3`, Python
    3.11.9) usa las mismas versiones que Render.
-2. **Versiones exactas.** `requirements.txt` fija todas las librerías, incluido `gunicorn`. En Linux instala
-   `xgboost-cpu` (sin las dependencias de GPU, mucho más liviano). `render.yaml` fija `PYTHON_VERSION=3.11.9`.
+2. **Versiones exactas.** `requirements.txt` fija todas las librerías, incluido `gunicorn`. XGBoost queda en 2.1.3,
+   la versión que entrenó los artefactos (el paquete liviano `xgboost-cpu` solo existe desde la 3.0). En Linux instala
+   además NCCL, que ocupa disco pero no se carga en memoria. `render.yaml` fija `PYTHON_VERSION=3.11.9`.
 3. **Subir a GitHub.** La carpeta `dashboard_final/` vive en la rama del entregable del repositorio.
 4. **Crear el servicio.** En Render: *New → Blueprint*, elegir el repositorio y la rama; Render lee
    `dashboard_final/render.yaml` (`rootDir: dashboard_final`, `buildCommand: pip install -r requirements.txt`,
