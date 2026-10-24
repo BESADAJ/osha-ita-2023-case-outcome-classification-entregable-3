@@ -48,13 +48,16 @@ DICT = pd.DataFrame([
     ('incident_outcome', 'Objetivo: Fallecimiento · Días de ausencia · Traslado o restricción · Otro registrable',
      '4 clases', '—'),
 ], columns=['Variable', 'Descripción', 'Tipo', 'Modelos que la usan'])
+DICT_NOTE = ('«Benchmarks» se refiere a la búsqueda de las 112 combinaciones, con 9 variables. En la comparación final '
+             'con el original, los 7 benchmarks se reentrenan con las mismas 18 variables que usa el original.')
 
 
 def dict_table():
     head = html.Thead(html.Tr([html.Th(c) for c in DICT.columns]))
     body = html.Tbody([html.Tr([html.Td(html.Span(r.Variable, className='mono')), html.Td(r.Descripción), html.Td(r.Tipo),
                                 html.Td(r._4)]) for r in DICT.itertuples()])
-    return html.Div(html.Table([head, body], className='table-clean'), style={'overflowX': 'auto'})
+    return html.Div([html.Div(html.Table([head, body], className='table-clean'), style={'overflowX': 'auto'}),
+                     html.P(DICT_NOTE, className='note mt-2 mb-0')])
 
 
 orig, knn = SUMMARY.get('Original (SECR)'), SUMMARY.get('KNN')

@@ -381,8 +381,11 @@ def update_model(m):
     pred = (P / prior ** (meta['hyperparameters']['alpha'] if m == 'original' else 0)).argmax(1)
     rec = [((pred == k) & (y == k)).sum() / max((y == k).sum(), 1) for k in range(4)]
     txt = ('Recall por clase: ' + ', '.join(f'{c}: {r * 100:.0f} %' for c, r in zip(data.CLASSES, rec)) +
-           f'. BA = {np.mean(rec):.3f}. ' + ('«Traslado/restricción» es la clase que más se confunde con «Otro registrable»; '
-                                             'las curvas de calibración muestran si las probabilidades pueden leerse como riesgos.'))
+           f'. BA con los 30 030 casos juntos = {num(np.mean(rec))}' +
+           (' (con el α del modelo final; la cifra de la comparación, 0,591, es la media de 15 pliegues). '
+            if m == 'original' else ' (la tabla de líderes da la media por pliegue). ') +
+           '«Traslado/restricción» es la clase que más se confunde con «Otro registrable»; las curvas de calibración '
+           'muestran si las probabilidades pueden leerse como riesgos.')
     sg = data.shap_global()
     og = data.DATA / 'shap_original_groups.csv'
     if m == 'original' and og.exists():
