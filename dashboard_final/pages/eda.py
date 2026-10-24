@@ -140,7 +140,7 @@ def update_all(states, sectors, est, start, end, emp):
     top = sorted(v, key=v.get, reverse=True)[:3]
     i_corr = ('Las variables más asociadas al desenlace son ' +
               ', '.join(f'{data.LABELS.get(c, c)} (V = {v[c]:.2f})'.replace('.', ',') for c in top) +
-              '. Los códigos de la lesión (OIICS) aportan información que las 9 variables del curso no tienen.')
+              '. Los códigos de la lesión (OIICS) aportan información que las 9 variables del lugar de trabajo no tienen.')
     miss_cols = ['soc_minor', 'start_hour', 'incident_hour', 'hours_since_start', 'nature', 'part', 'event', 'source',
                  'naics3', 'state']
     mrate = {c: float(d[c].astype(str).eq('Unknown').mean()) for c in miss_cols}

@@ -258,41 +258,41 @@
   {
    "cap": "17",
    "diseno": "PT-bagging",
-   "datos": "Pliegues temporales (3; diseño del cap. 17)",
+   "datos": "Pliegues temporales (3)",
    "resultado": "BA 0,386 vs 0,516 de la referencia; 1 de 12 muertes",
    "fuente": "cribado.csv"
   },
   {
    "cap": "17",
    "diseno": "MultiRandBal",
-   "datos": "Pliegues temporales (3; diseño del cap. 17)",
+   "datos": "Pliegues temporales (3)",
    "resultado": "BA 0,361; 0 de 12 muertes",
    "fuente": "cribado.csv"
   },
   {
    "cap": "17",
    "diseno": "Metaclasificación jerárquica",
-   "datos": "Pliegues temporales (3; diseño del cap. 17)",
+   "datos": "Pliegues temporales (3)",
    "resultado": "BA 0,371; 0 de 12 muertes",
    "fuente": "cribado.csv"
   },
   {
    "cap": "17",
    "diseno": "HAFL-XGBoost",
-   "datos": "Pliegues temporales (3; diseño del cap. 17)",
+   "datos": "Pliegues temporales (3)",
    "resultado": "BA 0,522, igual que sin pérdida focal (0,523): el mecanismo no aporta",
    "fuente": "cribado_r2.csv"
   },
   {
    "cap": "17",
    "diseno": "Frank–Hall ordinal (clases 2–4)",
-   "datos": "Pliegues temporales (3; diseño del cap. 17)",
+   "datos": "Pliegues temporales (3)",
    "resultado": "BA 2–4 0,525 vs 0,527 del mejor base",
    "fuente": "tabla_r4.csv"
   },
   {
    "cap": "18",
-   "diseno": "A. Stacking con los 5 modelos del curso (9 variables)",
+   "diseno": "A. Stacking de 5 benchmarks (9 variables)",
    "datos": "Pliegues externos (rep. 0) y prueba",
    "resultado": "BA 0,397; accuracy 0,501",
    "fuente": "results/ensemble/"

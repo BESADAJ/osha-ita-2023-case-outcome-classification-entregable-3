@@ -36,10 +36,10 @@ STEPS = [('ETL', 'CSV de OSHA (890 372 casos) → 9 variables del lugar de traba
          ('Modelo original', 'Ensamble multivista + SECR, comparado en 3 × 5 pliegues pareados con los 7 benchmarks')]
 
 DICT = pd.DataFrame([
-    ('state', 'Estado de EE. UU. del establecimiento', 'Categórica', 'Curso y original'),
-    ('naics3 / naics6', 'Actividad económica (NAICS de 3 y 6 dígitos)', 'Categórica', 'Curso (3) · original (6)'),
+    ('state', 'Estado de EE. UU. del establecimiento', 'Categórica', 'Benchmarks y original'),
+    ('naics3 / naics6', 'Actividad económica (NAICS de 3 y 6 dígitos)', 'Categórica', 'Benchmarks (3) · original (6)'),
     ('establishment_type', 'Tipo de establecimiento (privado, gobierno estatal o local)', 'Categórica', 'Ambos'),
-    ('soc_minor / soc6', 'Ocupación del trabajador (SOC)', 'Categórica', 'Curso (menor) · original (6)'),
+    ('soc_minor / soc6', 'Ocupación del trabajador (SOC)', 'Categórica', 'Benchmarks (menor) · original (6)'),
     ('type_of_incident', 'Lesión, piel, respiratoria, envenenamiento, auditiva u otra enfermedad', 'Categórica', 'Ambos'),
     ('start_hour, incident_hour, hours_since_start, time_unknown', 'Horario del incidente', 'Categórica', 'Ambos'),
     ('nature, part, event, source, sec_source', 'Códigos OIICS de la lesión (asignados por OSHA al relato)', 'Categórica',
@@ -79,7 +79,7 @@ layout = html.Div([
             stat(f'{len(d):,}'.replace(',', '.'), 'casos de desarrollo con los que se entrena (enero–septiembre de 2023)'),
             stat(num(counts['Días de ausencia'] / len(d) * 100), 'de los casos terminan con días de ausencia', unit='%'),
             stat(f"{int(counts['Fallecimiento'])}", 'fallecimientos en la submuestra: la clase más rara (0,03 %)'),
-            stat('7 + 1', 'modelos comparados: 7 benchmarks del curso y 1 modelo original', accent=True),
+            stat('7 + 1', 'modelos comparados: 7 benchmarks y 1 modelo original', accent=True),
         ], className='stats'),
         headline,
     ], className='page-head'),
@@ -104,7 +104,7 @@ layout = html.Div([
                     html.Div('Pregunta de investigación', className='block-title'),
                     html.P('¿Con qué balanced accuracy se puede predecir el desenlace de un caso registrable de OSHA a partir '
                            'del lugar de trabajo, la ocupación, el horario y la lesión, y supera un modelo original a los '
-                           'modelos del curso?', className='mb-3', style={'fontSize': '16px'}),
+                           'modelos de referencia?', className='mb-3', style={'fontSize': '16px'}),
                     html.Div('Objetivos', className='block-title'),
                     html.Ol([html.Li('Comparar 7 modelos × 4 balanceos × 4 optimizadores con validación anidada.'),
                              html.Li('Diseñar e implementar un modelo original (SECR) y validarlo con al menos 3 pruebas '
@@ -116,7 +116,7 @@ layout = html.Div([
     section('Datos', 'Fuente, partición y variables',
             ['Fuente: ', html.A('OSHA, ITA Case Detail Data 2023 (CSV con códigos OIICS)',
                                 href='https://www.osha.gov/Establishment-Specific-Injury-and-Illness-Data', target='_blank'),
-             '. 890 372 casos de 2023. Partición del entregable 1: el 60 % de los establecimientos se reserva para la prueba '
+             '. 890 372 casos de 2023. Partición: el 60 % de los establecimientos se reserva para la prueba '
              '(octubre–diciembre, bloqueada) y el resto, hasta el 23 de septiembre, es el desarrollo. Los modelos se '
              'entrenan con una submuestra de 30 030 casos tomada por establecimientos completos.'],
             dict_table()),

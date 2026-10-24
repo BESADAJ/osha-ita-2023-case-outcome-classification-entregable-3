@@ -202,9 +202,9 @@ def simple_table(head, rows, num_cols=()):
 def candidates_table():
     if not PF:
         return html.Div()
-    groups = {'17': 'Capítulo 17 · primer candidato (PT-bagging) y sus iteraciones · diseño temporal de 3 pliegues',
-              '18': 'Capítulo 18 · variantes del stacking multivista · 5 pliegues externos y prueba (exploratorio)',
-              '19–20': 'Capítulos 19 y 20 · modelo original final'}
+    groups = {'17': 'Primer candidato (PT-bagging) y sus iteraciones · diseño temporal de 3 pliegues',
+              '18': 'Variantes del stacking multivista · 5 pliegues externos y prueba (exploratorio)',
+              '19–20': 'Modelo final'}
     rows, cur = [], None
     for c in PF['candidates']:
         if c['cap'] != cur:
@@ -257,9 +257,9 @@ layout = html.Div([
     ], className='page-head'),
     subnav,
 
-    section('benchmarks', 'Benchmarks', 'Mejores combinaciones del Entregable 2',
-            'Una fila por modelo: la combinación de balanceo y optimizador con mayor BA media en los 5 pliegues externos, '
-            'con las 9 variables del lugar de trabajo. Estos mismos 7 modelos se reentrenan con las variables ampliadas '
+    section('benchmarks', 'Benchmarks', 'Mejor combinación de cada modelo',
+            'Validación anidada de 7 modelos × 4 balanceos × 4 optimizadores con las 9 variables del lugar de trabajo. '
+            'Cada fila es la combinación con mayor BA media en los 5 pliegues externos. Estos mismos 7 modelos se reentrenan con las variables ampliadas '
             'para compararlos con el original.',
             dbc.Switch(id='show-all', label='Mostrar las 112 combinaciones', value=False, className='mb-2'),
             leaderboard),
@@ -389,7 +389,7 @@ def update_model(m):
         s = pd.read_csv(og, index_col=0)['Original (SECR)']
         g_fig = plots.shap_global_bar(s, m)
         g_txt = (f'Por grupos de variables, lo que más mueve la probabilidad del original es «{s.idxmax()}»; el '
-                 'mejor benchmark del curso (SVM) no ve los códigos de la lesión (capítulo 20.8 del informe).')
+                 'mejor benchmark con 9 variables (SVM) no ve los códigos de la lesión.')
     elif m in getattr(sg, 'index', []):
         s = sg.loc[m]
         g_fig = plots.shap_global_bar(s, m)

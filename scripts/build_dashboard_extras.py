@@ -24,7 +24,7 @@ R = C.RESULTS
 OUT = C.ROOT / 'dashboard_final' / 'data' / 'proyecto_final.json'
 PRETTY = {'original': 'Original (SECR)', 'knn': 'KNN', 'svm': 'SVM', 'logreg': 'Reg. logística', 'xgboost': 'XGBoost',
           'random_forest': 'Random Forest', 'naive_bayes': 'Naive Bayes', 'tree': 'Árbol'}
-VARIANTS = [('stack_curso', 'A', 'Stacking con los 5 modelos del curso (9 variables)'),
+VARIANTS = [('stack_curso', 'A', 'Stacking de 5 benchmarks (9 variables)'),
             ('stack_sin_empleador', 'B', 'Stacking multivista sin la vista del empleador'),
             ('stack_full', 'C', 'Stacking multivista (4 vistas), meta-modelo logístico'),
             ('unico_todo', 'D', 'Un solo XGBoost con todas las variables'),
@@ -69,7 +69,7 @@ def candidates():
     r2 = r2[(r2.pliegue.astype(str) == 'todos') & (r2.decision == 'argmax')].set_index('modelo')
     r4 = pd.read_csv(mo / 'tabla_r4.csv').set_index('modelo')
     ref = cr.loc['xgboost__class_weight__bayes']
-    temporal = 'Pliegues temporales (3; diseño del cap. 17)'
+    temporal = 'Pliegues temporales (3)'
     rows = [
         ('17', 'PT-bagging', temporal, f"BA {cr.loc['pt_bagging'].balanced_accuracy:.3f} vs {ref.balanced_accuracy:.3f} "
          f"de la referencia; {int(cr.loc['pt_bagging'].muertes_acertadas)} de 12 muertes", 'cribado.csv'),
