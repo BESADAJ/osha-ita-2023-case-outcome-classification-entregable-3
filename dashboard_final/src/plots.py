@@ -4,18 +4,25 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.io as pio
 
-from .data import CLASSES, LABELS, PRETTY
+from .data import CLASSES, LABELS, PRETTY, TYPE_OF_INCIDENT
 
-# Paleta limitada a cinco colores (guía §7.4).
-NAVY, TEAL, AMBER, CORAL, GRAY = '#1f3b73', '#2a9d8f', '#e9a23b', '#d1495b', '#7a8394'
-CLASS_COLORS = dict(zip(CLASSES, [CORAL, NAVY, TEAL, AMBER]))
+# Paleta limitada (guía §7.4): cuatro colores semánticos, uno por clase del desenlace, más tinta, gris y un acento
+# reservado al modelo original. «Otro registrable», la clase residual, va en gris.
+INK, TEAL, AMBER, CORAL, GRAY = '#0f172a', '#0e7490', '#d97706', '#b91c1c', '#94a3b8'
+ACCENT, SLATE = '#1d4ed8', '#64748b'
+NAVY = INK  # alias conservado por compatibilidad
+CLASS_COLORS = dict(zip(CLASSES, [CORAL, TEAL, AMBER, SLATE]))
+SEQ = [[0, '#ffffff'], [0.5, '#93c5fd'], [1, '#1e3a8a']]
 
+_axis = dict(gridcolor='#eef2f6', zeroline=False, linecolor='#cbd5e1', ticks='outside', tickcolor='#cbd5e1', ticklen=4,
+             title=dict(font=dict(size=12, color='#475569')), tickfont=dict(size=11.5, color='#475569'), automargin=True)
 pio.templates['osha'] = go.layout.Template(layout=go.Layout(
-    font=dict(family='Inter, Segoe UI, sans-serif', size=13, color='#222'),
-    colorway=[NAVY, TEAL, AMBER, CORAL, GRAY], paper_bgcolor='white', plot_bgcolor='white',
-    margin=dict(l=60, r=20, t=60, b=50), title=dict(x=0.01, font=dict(size=15)),
-    xaxis=dict(gridcolor='#eceff3', zeroline=False), yaxis=dict(gridcolor='#eceff3', zeroline=False),
-    hoverlabel=dict(bgcolor='white'), legend=dict(orientation='h', y=-0.2)))
+    font=dict(family='Inter, Segoe UI, system-ui, sans-serif', size=12.5, color='#0f172a'),
+    colorway=[INK, TEAL, AMBER, CORAL, GRAY], paper_bgcolor='white', plot_bgcolor='white',
+    margin=dict(l=56, r=16, t=56, b=48), title=dict(x=0, xref='paper', y=0.98, yanchor='top',
+                                                    font=dict(size=14, color='#0f172a')),
+    xaxis=_axis, yaxis=_axis, hoverlabel=dict(bgcolor='white', bordercolor='#cbd5e1', font=dict(size=12)),
+    legend=dict(orientation='h', y=-0.18, x=0, font=dict(size=11.5, color='#475569'))))
 pio.templates.default = 'osha'
 
 
@@ -24,6 +31,7 @@ def empty(msg='Sin datos para los filtros elegidos.'):
     fig.add_annotation(text=msg, showarrow=False, font=dict(size=14, color=GRAY), x=0.5, y=0.5, xref='paper', yref='paper')
     fig.update_xaxes(visible=False)
     fig.update_yaxes(visible=False)
+    fig.update_layout(height=280)
     return fig
 
 
@@ -48,6 +56,8 @@ def hist_feature(d, col, top=15):
         return fig
     ct = pd.crosstab(d[col], d.outcome).reindex(columns=CLASSES).fillna(0)
     ct = ct.loc[ct.sum(axis=1).sort_values(ascending=False).index[:top]]
+    if col == 'type_of_incident':
+        ct.index = [f'{TYPE_OF_INCIDENT.get(str(i), i)} ({i})' for i in ct.index]
     fig = go.Figure([go.Bar(y=ct.index.astype(str), x=ct[c], name=c, orientation='h', marker_color=CLASS_COLORS[c],
                             hovertemplate='%{y}: %{x:,} casos<extra>' + c + '</extra>') for c in CLASSES])
     fig.update_layout(barmode='stack', title=f'{LABELS.get(col, col)}: {top} categorías más frecuentes por desenlace',
@@ -68,7 +78,7 @@ def cramers_v(a, b):
 def cramer_heatmap(d, cols):
     M = np.array([[1.0 if a == b else cramers_v(d[a], d[b]) for b in cols] for a in cols])
     names = [LABELS.get(c, c) for c in cols]
-    fig = go.Figure(go.Heatmap(z=M, x=names, y=names, colorscale=[[0, '#ffffff'], [1, NAVY]], zmin=0, zmax=1,
+    fig = go.Figure(go.Heatmap(z=M, x=names, y=names, colorscale=SEQ, zmin=0, zmax=1,
                                text=np.round(M, 2), texttemplate='%{text}', colorbar=dict(title='V'),
                                hovertemplate='%{y} × %{x}<br>V de Cramér = %{z:.2f}<extra></extra>'))
     fig.update_layout(title='Asociación entre variables (V de Cramér; categóricas)', height=560,
@@ -79,16 +89,17 @@ def cramer_heatmap(d, cols):
 def missing_bar(d, cols):
     miss = pd.Series({LABELS.get(c, c): float((d[c].isna() | d[c].astype(str).eq('Unknown')).mean() * 100) for c in cols})
     miss = miss.sort_values()
-    fig = go.Figure(go.Bar(x=miss.values, y=miss.index, orientation='h', marker_color=AMBER,
-                           text=[f'{v:.1f} %'.replace('.', ',') for v in miss.values], textposition='outside',
+    fig = go.Figure(go.Bar(x=miss.values, y=miss.index, orientation='h', marker_color=SLATE,
+                           text=[f'{v:.1f} %'.replace('.', ',') for v in miss.values], textposition='outside', cliponaxis=False,
                            hovertemplate='%{y}: %{x:.1f} % faltante<extra></extra>'))
-    fig.update_layout(title='Valores faltantes o «Unknown» por variable', xaxis_title='Casos sin dato (%)', height=460)
+    fig.update_layout(title='Valores faltantes o «Unknown» por variable', xaxis_title='Casos sin dato (%)', height=460,
+                      margin=dict(r=48))
     return fig
 
 
 def outlier_box(d):
     fig = go.Figure()
-    for col, color in [('days_away', NAVY), ('days_restricted', TEAL)]:
+    for col, color in [('days_away', TEAL), ('days_restricted', AMBER)]:
         v = d[col].dropna()
         v = v[v > 0]
         fig.add_trace(go.Box(y=v, name=LABELS[col], marker_color=color, boxpoints='outliers',
@@ -145,7 +156,7 @@ def proba_bar(p, pred):
 def shap_bar(phi, cls_name, title='Explicación local (SHAP exacto)'):
     s = phi.sort_values()
     fig = go.Figure(go.Bar(x=s.values * 100, y=[LABELS.get(i, i) for i in s.index], orientation='h',
-                           marker_color=[TEAL if v > 0 else CORAL for v in s.values],
+                           marker_color=[ACCENT if v > 0 else '#e11d48' for v in s.values],
                            hovertemplate='%{y}: %{x:+.2f} puntos porcentuales<extra></extra>'))
     fig.update_layout(title=f'{title}: aporte a P({cls_name})', xaxis_title='Aporte a la probabilidad (puntos porcentuales)',
                       height=380, margin=dict(l=200))
@@ -155,7 +166,7 @@ def shap_bar(phi, cls_name, title='Explicación local (SHAP exacto)'):
 def confusion(y, pred):
     cm = pd.crosstab(pd.Series(y, name='real'), pd.Series(pred, name='pred')).reindex(index=range(4), columns=range(4)).fillna(0)
     rec = cm.div(cm.sum(axis=1).replace(0, np.nan), axis=0) * 100
-    fig = go.Figure(go.Heatmap(z=rec.values, x=CLASSES, y=CLASSES, colorscale=[[0, '#ffffff'], [1, NAVY]],
+    fig = go.Figure(go.Heatmap(z=rec.values, x=CLASSES, y=CLASSES, colorscale=SEQ,
                                zmin=0, zmax=100, text=cm.values.astype(int), texttemplate='%{text}',
                                hovertemplate='Real %{y}<br>Predicho %{x}<br>%{z:.1f} % de la fila<extra></extra>',
                                colorbar=dict(title='% fila')))
@@ -221,14 +232,14 @@ def cd_diagram(names, ranks, cd, highlight=None):
     k = len(ranks)
     for pos, i in enumerate(order):
         y = -(pos + 1)
-        color = CORAL if names[i] == highlight else NAVY
+        color = ACCENT if names[i] == highlight else INK
         fig.add_trace(go.Scatter(x=[ranks[i]], y=[y], mode='markers+text', marker=dict(size=12, color=color),
                                  text=[f'  {names[i]} ({ranks[i]:.2f})'.replace('.', ',')], textposition='middle right',
                                  hovertemplate=f'{names[i]}<br>rango medio %{{x:.2f}}<extra></extra>', showlegend=False))
     best = ranks[order[0]]
-    fig.add_shape(type='rect', x0=best, x1=best + cd, y0=-k - 0.6, y1=-0.4, fillcolor='rgba(42,157,143,0.12)', line_width=0)
+    fig.add_shape(type='rect', x0=best, x1=best + cd, y0=-k - 0.6, y1=-0.4, fillcolor='rgba(29,78,216,0.08)', line_width=0)
     fig.add_annotation(x=best + cd / 2, y=-0.2, text=f'CD de Nemenyi = {cd:.2f}'.replace('.', ','), showarrow=False,
-                       font=dict(color=TEAL))
+                       font=dict(color=ACCENT))
     fig.update_layout(title='Diagrama de diferencia crítica (rango 1 = mejor; la franja marca la CD desde el mejor)',
                       xaxis=dict(title='Rango medio en los pliegues (menor es mejor)', range=[0.5, k + 2.5]),
                       yaxis=dict(visible=False), height=60 + 45 * k)
@@ -238,8 +249,67 @@ def cd_diagram(names, ranks, cd, highlight=None):
 def convergence(loss, gap):
     fig = go.Figure()
     fig.add_trace(go.Scatter(y=loss, mode='lines+markers', name='Log-loss F(wᵗ)', line_color=NAVY))
-    fig.add_trace(go.Scatter(y=gap, mode='lines+markers', name='Brecha de Frank-Wolfe Gᵗ', line_color=CORAL, yaxis='y2'))
+    fig.add_trace(go.Scatter(y=gap, mode='lines+markers', name='Brecha de Frank-Wolfe Gᵗ', line_color=ACCENT, yaxis='y2'))
     fig.update_layout(title='Convergencia de Frank-Wolfe (pesos globales, un pliegue)', xaxis_title='Iteración t',
                       yaxis_title='Log-loss fuera de pliegue', yaxis2=dict(title='Brecha (escala log)', overlaying='y',
                                                                             side='right', type='log'), height=380)
+    return fig
+
+
+def paired_folds(rows):
+    """BA por pliegue del original y de KNN (15 pliegues; la repetición 0 son los pliegues ya vistos al elegir G)."""
+    fig = go.Figure()
+    x = [f'R{r["rep"]}·P{r["fold"]}' for r in rows]
+    for i, r in enumerate(rows):
+        fig.add_trace(go.Scatter(x=[x[i], x[i]], y=[r['knn'], r['original']], mode='lines', showlegend=False,
+                                 line=dict(color='#cbd5e1', width=2), hoverinfo='skip'))
+    fig.add_trace(go.Scatter(x=x, y=[r['knn'] for r in rows], mode='markers', name='KNN (mejor benchmark)',
+                             marker=dict(size=9, color=INK, symbol='circle-open', line=dict(width=2)),
+                             hovertemplate='%{x}<br>KNN: BA %{y:.3f}<extra></extra>'))
+    fig.add_trace(go.Scatter(x=x, y=[r['original'] for r in rows], mode='markers', name='Original (SECR)',
+                             marker=dict(size=9, color=ACCENT), hovertemplate='%{x}<br>Original: BA %{y:.3f}<extra></extra>'))
+    fig.add_vrect(x0=-0.5, x1=4.5, fillcolor='rgba(217,119,6,0.08)', line_width=0)
+    fig.add_annotation(x=2, y=1.06, yref='paper', showarrow=False, text='Repetición 0: pliegues vistos al elegir G',
+                       font=dict(size=11, color=AMBER))
+    fig.update_layout(title='Balanced accuracy por pliegue: original frente a KNN (3 repeticiones × 5 pliegues)',
+                      yaxis_title='Balanced accuracy', xaxis_title='Repetición · pliegue', height=380,
+                      margin=dict(t=72), legend=dict(y=-0.28))
+    return fig
+
+
+def ablation_bar(rows):
+    """BA media ± d.e. de SECR completo y de cada variante (mismos modelos base, mismos 15 pliegues)."""
+    rows = sorted(rows, key=lambda r: r['ba_mean'])
+    names = [r['variante'] for r in rows]
+    colors = [ACCENT if 'original' in r['variante'] else ('#cbd5e1' if (r.get('p_holm') is None or r['p_holm'] != r['p_holm']
+              or r['p_holm'] >= 0.05) else GRAY) for r in rows]
+    txt = []
+    for r in rows:
+        p = r.get('p_holm')
+        txt.append('' if p is None or p != p else (f'p Holm = {p:.3f}'.replace('.', ',') + (' *' if p < 0.05 else '')))
+    fig = go.Figure(go.Bar(x=[r['ba_mean'] for r in rows], y=names, orientation='h', marker_color=colors,
+                           error_x=dict(type='data', array=[r['ba_sd'] for r in rows], color='#94a3b8', thickness=1),
+                           hovertemplate='%{y}<br>BA media %{x:.3f}<extra></extra>'))
+    for n, s in zip(names, txt):  # p de Holm en una columna fija a la derecha, sin tapar las barras de error
+        fig.add_annotation(x=1.0, xref='paper', xanchor='left', y=n, text=s or 'referencia', showarrow=False,
+                           font=dict(size=11.5, color='#475569'))
+    fig.update_layout(title='Ablación: BA media (± d.e.) al quitar o reemplazar cada componente',
+                      xaxis=dict(title='Balanced accuracy (15 pliegues)', range=[0, 0.75]), height=380,
+                      margin=dict(l=10, r=130))
+    return fig
+
+
+SENS_LABELS = {'alpha': 'α (corrección por prior)', 'lam': 'λ (contracción)', 'n_steps': 'Pasos de Frank-Wolfe',
+               'gate': 'Variable de compuerta', 'frac_datos': 'Fracción de datos internos'}
+
+
+def sensitivity(rows, param):
+    r = [x for x in rows if x['param'] == param]
+    fig = go.Figure(go.Scatter(x=[x['value'] for x in r], y=[x['ba_mean'] for x in r], mode='lines+markers',
+                               line=dict(color=ACCENT), marker=dict(size=8),
+                               error_y=dict(type='data', array=[x['ba_sd'] for x in r], color='#cbd5e1', thickness=1),
+                               hovertemplate='%{x}: BA %{y:.3f}<extra></extra>'))
+    fig.update_layout(title=SENS_LABELS.get(param, param),
+                      xaxis=dict(title='', type='category', tickangle=-40 if param == 'gate' else 0),
+                      yaxis=dict(title='BA media', range=[0, 0.8]), height=320, margin=dict(l=48, r=8))
     return fig

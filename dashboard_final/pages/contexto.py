@@ -1,6 +1,7 @@
 """Sección 1: Contexto del problema, datos, metodología, limitaciones y autores."""
 import dash
 import dash_bootstrap_components as dbc
+import pandas as pd
 from dash import dcc, html
 
 from src import data
@@ -9,99 +10,140 @@ dash.register_page(__name__, path='/', name='Contexto', title='Contexto · OSHA 
 
 d = data.eda()
 counts = d.outcome.value_counts().reindex(data.CLASSES)
+RES = data.original_results()
+SUMMARY = {r['Modelo']: r for r in RES['summary']} if RES else {}
 
 
-def kpi(value, label, icon):
-    return dbc.Col(dbc.Card(dbc.CardBody([
-        html.Div([html.I(className=f'bi {icon} me-2 text-primary', **{'aria-hidden': 'true'}),
-                  html.Span(value, className='h3 mb-0')]),
-        html.Div(label, className='text-muted small')]), className='h-100 shadow-sm'), xs=12, sm=6, lg=3, className='mb-3')
+def num(x, nd=1):
+    return f'{x:.{nd}f}'.replace('.', ',')
 
 
-steps = [('ETL', 'CSV de OSHA (890 mil casos) → 9 variables + códigos; partición por establecimiento y fecha'),
-         ('EDA', 'Desbalance (fallecimiento 0,03 %), asociaciones, faltantes'),
-         ('140 modelos', '7 modelos × 4 balanceos × 4 optimizadores (y 28 de regresión)'),
-         ('Validación anidada', '5 pliegues externos × 3 internos por establecimiento; presupuesto 16'),
-         ('Comparación estadística', 'Friedman–Nemenyi, Wilcoxon–Holm, Nadeau–Bengio, bayesiana'),
-         ('Modelo original', 'Ensamble multivista + SECR (Frank-Wolfe por región)')]
+def stat(value, label, accent=False, unit=None):
+    return html.Div([html.Div([value, html.Small(unit) if unit else None], className='v'), html.Div(label, className='l')],
+                    className='stat accent' if accent else 'stat')
 
-pipeline = dbc.Row([dbc.Col(dbc.Card(dbc.CardBody([html.Div(f'{i + 1}. {t}', className='fw-bold text-primary'),
-                                                   html.Small(s)]), className='h-100'), xs=12, sm=6, lg=2, className='mb-2')
-                    for i, (t, s) in enumerate(steps)], className='g-2')
 
-dictionary = dbc.Table.from_dataframe(
-    __import__('pandas').DataFrame([
-        ('state', 'Estado de EE. UU. del establecimiento', 'categórica', 'curso y original'),
-        ('naics3 / naics6', 'Actividad económica (NAICS 3 y 6 dígitos)', 'categórica', 'curso (3) / original (6)'),
-        ('establishment_type', 'Tipo de establecimiento (privado, gobierno estatal/local)', 'categórica', 'ambos'),
-        ('soc_minor / soc6', 'Ocupación del trabajador (SOC)', 'categórica', 'curso / original'),
-        ('type_of_incident', 'Lesión, enfermedad de la piel, respiratoria, envenenamiento, auditiva, otra', 'categórica', 'ambos'),
-        ('start_hour, incident_hour, hours_since_start, time_unknown', 'Horario del incidente', 'categórica', 'ambos'),
-        ('nature, part, event, source, sec_source', 'Códigos OIICS de la lesión (asignados por OSHA al relato)', 'categórica', 'original'),
-        ('ein, company', 'Empleador (codificación por objetivo fuera de pliegue)', 'categórica', 'original'),
-        ('incident_outcome (objetivo)', 'Fallecimiento / Días de ausencia / Traslado o restricción / Otro registrable',
-         '4 clases', 'clasificación'),
-    ], columns=['Variable', 'Descripción', 'Tipo', 'Modelos que la usan']), striped=True, bordered=False, hover=True,
-    size='sm', responsive=True)
+def section(eyebrow, title, desc, body):
+    return html.Section([html.Div(eyebrow, className='eyebrow'), html.H2(title, className='section-title'),
+                         html.P(desc, className='section-desc') if desc else None, body], className='section')
+
+
+STEPS = [('ETL', 'CSV de OSHA (890 372 casos) → 9 variables del lugar de trabajo + códigos; partición por establecimiento y fecha'),
+         ('EDA', 'Desbalance extremo (fallecimiento 0,03 %), asociaciones con V de Cramér, faltantes y atípicos'),
+         ('140 modelos', '7 modelos × 4 balanceos × 4 optimizadores para clasificación, y 28 de regresión'),
+         ('Validación anidada', '5 pliegues externos × 3 internos por establecimiento; presupuesto de 16 configuraciones'),
+         ('Comparación estadística', 'Friedman–Nemenyi, Wilcoxon–Holm, Nadeau–Bengio y prueba bayesiana con ROPE'),
+         ('Modelo original', 'Ensamble multivista + SECR, comparado en 3 × 5 pliegues pareados con los 7 benchmarks')]
+
+DICT = pd.DataFrame([
+    ('state', 'Estado de EE. UU. del establecimiento', 'Categórica', 'Curso y original'),
+    ('naics3 / naics6', 'Actividad económica (NAICS de 3 y 6 dígitos)', 'Categórica', 'Curso (3) · original (6)'),
+    ('establishment_type', 'Tipo de establecimiento (privado, gobierno estatal o local)', 'Categórica', 'Ambos'),
+    ('soc_minor / soc6', 'Ocupación del trabajador (SOC)', 'Categórica', 'Curso (menor) · original (6)'),
+    ('type_of_incident', 'Lesión, piel, respiratoria, envenenamiento, auditiva u otra enfermedad', 'Categórica', 'Ambos'),
+    ('start_hour, incident_hour, hours_since_start, time_unknown', 'Horario del incidente', 'Categórica', 'Ambos'),
+    ('nature, part, event, source, sec_source', 'Códigos OIICS de la lesión (asignados por OSHA al relato)', 'Categórica',
+     'Original'),
+    ('ein, company', 'Empleador (codificación por objetivo fuera de pliegue)', 'Categórica', 'Original'),
+    ('incident_outcome', 'Objetivo: Fallecimiento · Días de ausencia · Traslado o restricción · Otro registrable',
+     '4 clases', '—'),
+], columns=['Variable', 'Descripción', 'Tipo', 'Modelos que la usan'])
+
+
+def dict_table():
+    head = html.Thead(html.Tr([html.Th(c) for c in DICT.columns]))
+    body = html.Tbody([html.Tr([html.Td(html.Span(r.Variable, className='mono')), html.Td(r.Descripción), html.Td(r.Tipo),
+                                html.Td(r._4)]) for r in DICT.itertuples()])
+    return html.Div(html.Table([head, body], className='table-clean'), style={'overflowX': 'auto'})
+
+
+orig, knn = SUMMARY.get('Original (SECR)'), SUMMARY.get('KNN')
+headline = None
+if orig and knn:
+    headline = html.Div([
+        html.B('Resultado. '),
+        f'El modelo original (SECR) tiene la mayor balanced accuracy media en la comparación pareada '
+        f'({orig["BA (media ± d.e.)"].split(" ")[0].replace(".", ",")} frente a '
+        f'{knn["BA (media ± d.e.)"].split(" ")[0].replace(".", ",")} de KNN, 15 pliegues), pero la ventaja '
+        'no es estadísticamente significativa: R1 sí, R2 sí, R3 no. ',
+        dcc.Link('Ver la evaluación →', href='/modelos#original')], className='callout mt-4')
 
 layout = html.Div([
-    dbc.Row(dbc.Col(html.Div([
-        html.H1('¿Cómo termina un caso de lesión laboral?', className='display-6 fw-bold'),
-        html.P(['Con los registros que los empleadores de EE. UU. reportan a OSHA (formulario 300/301, ',
-                html.Em('Injury Tracking Application'), ' 2023), predecimos el desenlace de cada caso: ',
-                html.B('fallecimiento, días de ausencia, traslado/restricción u otro caso registrable'), '.'],
-               className='lead'),
-        dbc.Alert([html.I(className='bi bi-info-circle me-2', **{'aria-hidden': 'true'}),
-                   'En 2023 se registraron 2,6 millones de lesiones y enfermedades no fatales en el sector privado de '
-                   'EE. UU.; 946 500 causaron días de ausencia (',
-                   html.A('Bureau of Labor Statistics, Employer-Reported Workplace Injuries and Illnesses – 2023',
-                          href='https://www.bls.gov/news.release/archives/osh_11082024.htm', target='_blank'),
-                   ', 8 de noviembre de 2024). ',
-                   'Saber temprano qué casos terminarán en ausencia o restricción ayuda a priorizar la atención y el '
-                   'retorno al trabajo.'], color='light', className='border'),
-    ], className='p-4 bg-white rounded shadow-sm'))),
-    dbc.Row([kpi(f'{len(d):,}'.replace(',', '.'), 'casos de desarrollo usados para entrenar (ene–sep 2023)', 'bi-people'),
-              kpi(f"{counts['Días de ausencia'] / len(d) * 100:.1f} %".replace('.', ','), 'terminan con días de ausencia', 'bi-calendar-x'),
-              kpi(f"{int(counts['Fallecimiento'])}", 'fallecimientos en la submuestra (clase muy rara)', 'bi-exclamation-octagon'),
-              kpi('8 modelos', '7 benchmarks del curso + 1 modelo original', 'bi-diagram-3')], className='mt-3'),
-    dbc.Row([
-        dbc.Col(dbc.Card([dbc.CardHeader('Por qué importa'), dbc.CardBody([
-            html.P('Los casos con días de ausencia y con restricción cuestan más a trabajadores y empresas, y su '
-                   'identificación temprana orienta la prevención y la gestión del retorno al trabajo. OSHA publica los '
-                   'registros de forma abierta, pero no clasifica automáticamente el desenlace probable de un caso.'),
-            html.P('El problema es de clasificación multiclase con desbalance extremo: los fallecimientos son 3 de cada '
-                   '10 000 casos, así que la métrica principal es la exactitud balanceada (balanced accuracy).')])],
-            className='h-100'), lg=6, className='mb-3'),
-        dbc.Col(dbc.Card([dbc.CardHeader('Pregunta de investigación y objetivos'), dbc.CardBody([
-            html.P(html.B('¿Con qué exactitud balanceada se puede predecir el desenlace de un caso registrable de OSHA a '
-                          'partir del lugar de trabajo, la ocupación, el horario y la lesión, y supera un modelo original '
-                          'a los modelos del curso?')),
-            html.Ul([html.Li('Comparar 7 modelos × 4 balanceos × 4 optimizadores con validación anidada.'),
-                     html.Li('Diseñar e implementar un modelo original (SECR) y validarlo con 3+ pruebas de hipótesis.'),
-                     html.Li('Llevar los mejores modelos a un producto interactivo y reproducible.')])])],
-            className='h-100'), lg=6, className='mb-3'),
-    ], className='mt-2'),
-    dbc.Card([dbc.CardHeader('Datos'), dbc.CardBody([
-        html.P(['Fuente: ', html.A('OSHA, ITA Case Detail Data 2023 (CSV con códigos OIICS)',
-                                   href='https://www.osha.gov/Establishment-Specific-Injury-and-Illness-Data', target='_blank'),
-                '. 890 372 casos de 2023; partición del entregable 1: 60 % de los establecimientos reservados para la prueba '
-                '(octubre–diciembre) y el resto, hasta el 23 de septiembre, para el desarrollo. Los modelos se entrenan con '
-                'una submuestra de 30 030 casos por establecimientos completos. Tarea: clasificación de 4 clases.']),
-        dictionary])], className='mb-3'),
-    dbc.Card([dbc.CardHeader('Metodología'), dbc.CardBody(pipeline)], className='mb-3'),
-    dbc.Card([dbc.CardHeader('Limitaciones, ética y autores'), dbc.CardBody([
-        html.Ul([
+    html.Div([
+        html.Div('Proyecto final · Machine Learning', className='eyebrow'),
+        html.H1('¿Cómo termina un caso de lesión laboral?', className='page-title'),
+        html.P(['Con los registros que los empleadores de EE. UU. reportan a OSHA (formularios 300/301, ',
+                html.Em('Injury Tracking Application'), ' 2023) clasificamos el desenlace de cada caso en cuatro clases: '
+                'fallecimiento, días de ausencia, traslado o restricción, u otro caso registrable.'], className='page-lead'),
+        html.Div([
+            stat(f'{len(d):,}'.replace(',', '.'), 'casos de desarrollo con los que se entrena (enero–septiembre de 2023)'),
+            stat(num(counts['Días de ausencia'] / len(d) * 100), 'de los casos terminan con días de ausencia', unit='%'),
+            stat(f"{int(counts['Fallecimiento'])}", 'fallecimientos en la submuestra: la clase más rara (0,03 %)'),
+            stat('7 + 1', 'modelos comparados: 7 benchmarks del curso y 1 modelo original', accent=True),
+        ], className='stats'),
+        headline,
+    ], className='page-head'),
+
+    section('1 · Problema', 'Por qué importa',
+            None,
+            dbc.Row([
+                dbc.Col([
+                    html.P(['En 2023 se registraron ', html.B('2,6 millones'), ' de lesiones y enfermedades no fatales en el '
+                            'sector privado de EE. UU., y ', html.B('946 500'), ' causaron días de ausencia (',
+                            html.A('Bureau of Labor Statistics, Employer-Reported Workplace Injuries and Illnesses – 2023',
+                                   href='https://www.bls.gov/news.release/archives/osh_11082024.htm', target='_blank'),
+                            ', 8 de noviembre de 2024).']),
+                    html.P('Los casos con días de ausencia o con restricción cuestan más a trabajadores y empresas. Saber qué '
+                           'casos terminarán así orienta la prevención y la gestión del retorno al trabajo. OSHA publica los '
+                           'registros de forma abierta, pero no clasifica el desenlace probable de un caso.'),
+                    html.P(['Es una clasificación multiclase con desbalance extremo: los fallecimientos son 3 de cada 10 000 '
+                            'casos. Por eso la métrica principal es la ', html.B('balanced accuracy'),
+                            ' (BA, el promedio del recall de las cuatro clases).'], className='mb-0'),
+                ], lg=6, className='mb-4 mb-lg-0'),
+                dbc.Col(html.Div([
+                    html.Div('Pregunta de investigación', className='block-title'),
+                    html.P('¿Con qué balanced accuracy se puede predecir el desenlace de un caso registrable de OSHA a partir '
+                           'del lugar de trabajo, la ocupación, el horario y la lesión, y supera un modelo original a los '
+                           'modelos del curso?', className='mb-3', style={'fontSize': '16px'}),
+                    html.Div('Objetivos', className='block-title'),
+                    html.Ol([html.Li('Comparar 7 modelos × 4 balanceos × 4 optimizadores con validación anidada.'),
+                             html.Li('Diseñar e implementar un modelo original (SECR) y validarlo con al menos 3 pruebas '
+                                     'de hipótesis.'),
+                             html.Li('Llevar los mejores modelos a un producto interactivo y reproducible.')],
+                            className='mb-0 ps-3')], className='panel panel-soft'), lg=6),
+            ])),
+
+    section('2 · Datos', 'Fuente, partición y variables',
+            ['Fuente: ', html.A('OSHA, ITA Case Detail Data 2023 (CSV con códigos OIICS)',
+                                href='https://www.osha.gov/Establishment-Specific-Injury-and-Illness-Data', target='_blank'),
+             '. 890 372 casos de 2023. Partición del entregable 1: el 60 % de los establecimientos se reserva para la prueba '
+             '(octubre–diciembre, bloqueada) y el resto, hasta el 23 de septiembre, es el desarrollo. Los modelos se '
+             'entrenan con una submuestra de 30 030 casos tomada por establecimientos completos.'],
+            dict_table()),
+
+    section('3 · Método', 'Del dato crudo al veredicto', None,
+            html.Div([html.Div([html.Div(f'0{i + 1}', className='n'), html.Div(t, className='t'),
+                                html.Div(s, className='s')], className='st') for i, (t, s) in enumerate(STEPS)],
+                     className='steps')),
+
+    section('4 · Alcance', 'Limitaciones, ética y autoría', None, dbc.Row([
+        dbc.Col(html.Ul([
             html.Li('Los datos los reportan los empleadores: hay subregistro y diferencias entre sectores y estados.'),
-            html.Li('Los códigos OIICS se asignan a partir del relato del caso; están disponibles cuando el caso se '
-                    'clasifica, pero el relato de los fallecimientos suele mencionar la muerte (riesgo de fuga indirecta, '
-                    'discutido en el libro).'),
-            html.Li('Los fallecimientos son tan pocos que su recall por pliegue es muy variable; las cifras se reportan '
-                    'con media ± desviación estándar.'),
-            html.Li('El modelo no debe usarse para decisiones sobre personas concretas (seguros, despidos): es una '
+            html.Li('Los códigos OIICS se asignan a partir del relato del caso. Existen cuando el caso se clasifica, pero el '
+                    'relato de los fallecimientos suele mencionar la muerte: hay riesgo de fuga indirecta en esa clase.'),
+            html.Li('Los fallecimientos son tan pocos (0 a 4 por pliegue) que un solo caso mueve la BA de un pliegue en '
+                    '±0,25. Por eso las cifras se reportan con media ± desviación estándar.'),
+            html.Li('El modelo no debe usarse para decisiones sobre personas concretas (seguros, despidos). Es una '
                     'herramienta de análisis agregado y de priorización.'),
-            html.Li('El conjunto de prueba (octubre–diciembre) está bloqueado: todos los diagnósticos de esta app salen '
-                    'de los pliegues externos de la validación anidada.')]),
-        html.P(['Autores: Jaime Andrés Besada e Iván Berrio. Informe completo: ',
-                html.A('Jupyter Book', href='https://besadaj.github.io/osha-ita-2023-case-outcome-classification-entregable-3/',
-                       target='_blank'), '. Versión 3.0 (23 de octubre de 2026).'], className='mb-0')])], className='mb-3'),
+            html.Li('La prueba de octubre a diciembre está bloqueada: todos los diagnósticos de esta aplicación salen de '
+                    'los pliegues externos de la validación anidada.')], className='ps-3 mb-0'), lg=8),
+        dbc.Col(html.Div([
+            html.Div('Autores', className='block-title'),
+            html.P('Jaime Andrés Besada e Iván Berrio', className='mb-2'),
+            html.Div('Versión', className='block-title'),
+            html.P('3.1 · 23 de octubre de 2026', className='mb-2'),
+            html.Div('Informe completo', className='block-title'),
+            html.A('Jupyter Book del proyecto',
+                   href='https://besadaj.github.io/osha-ita-2023-case-outcome-classification-entregable-3/', target='_blank'),
+        ], className='panel panel-soft'), lg=4, className='mt-3 mt-lg-0')])),
 ])
