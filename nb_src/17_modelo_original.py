@@ -489,22 +489,13 @@ pd.read_csv(J / 'empleador_agregado.csv').set_index('cuantil').round(3)
 # - Esto pone un techo a cualquier método, original o del curso, con estas 8 variables.
 
 # %% [markdown]
-# ## 17.9 Veredicto (histórico)
+# ## 17.9 Resultado del primer candidato
 #
-# > **Superado.** Este veredicto es el del primer candidato. El veredicto del modelo original final (SECR) está en los
-# > capítulos 19 y 20 y en las conclusiones (R1 sí, R2 sí, R3 no).
-#
-# | Requisito | Veredicto | Evidencia |
-# |---|---|---|
-# | R1, novedad | **Sí, provisional** | Capítulo 16: no se halló PT-bagging aplicado a la gravedad de lesiones laborales. Faltan una tercera base formal y la cadena de la búsqueda 2 de WoS. |
-# | R2, implementación propia | **En riesgo** | La regla de decisión, el bootstrap, el promedio y las pruebas son propios. El árbol interno es `DecisionTreeClassifier` sin modificar, que el Cuadro 1 de la guía no acepta. Plan: programar el árbol con numpy. |
-# | R3, superioridad | **No** | Fase A: 1 de 12 muertes frente a 8 de 12. Fase B: más muertes solo marcando de 14.000 a 29.000 casos. BA con los pliegues juntos: 0,480 frente a 0,516. Rondas 2–4: ninguna iteración pasa su regla. |
-#
-# **Sobre la BA media por pliegue.** El bayesiano tiene 0,511 frente a 0,505 de la referencia. Se reporta, pero no
-# se reclama como superioridad: la diferencia la produce la única muerte del pliegue 1, y con los pliegues juntos el
-# orden se invierte.
-#
-# Según la guía, con R1 y R2 en «sí» y R3 en «no», la nota máxima de esta componente es 4,0.
+# PT-bagging no supera a la referencia: en la Fase A acierta 1 de 12 muertes frente a 8 de 12; en la Fase B acierta más
+# solo marcando de 14.000 a 29.000 casos, y con los pliegues juntos su BA es 0,480 frente a 0,516. Ninguna de las
+# iteraciones de las Rondas 2 a 4 pasa su regla. La BA media por pliegue del bayesiano (0,511 frente a 0,505) no se
+# reclama como mejora: la produce la única muerte del pliegue 1, y con los pliegues juntos el orden se invierte. El
+# modelo original final es SECR (capítulos 19 y 20).
 
 # %% [markdown]
 # ## 17.10 Limitaciones
