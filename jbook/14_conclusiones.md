@@ -82,8 +82,6 @@
   o reportar el clasificador de 3 clases como modelo principal.
 - Quitar `time_unknown` del conjunto de variables.
 - Usar la parada temprana y Successive Halving para ampliar el presupuesto de búsqueda sin más costo.
-- Añadir variables con más información sobre la lesión (naturaleza, parte del cuerpo), que el archivo trae
-  codificadas, verificando antes que no revelen el resultado.
 
 
 ## Proyecto final: veredicto sobre el modelo original (R1, R2 y R3)
