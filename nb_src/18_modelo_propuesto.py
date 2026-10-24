@@ -1,5 +1,5 @@
 # %% [markdown]
-# # 18. Modelo propuesto: *stacking* multivista
+# # 18. Ensamble multivista G (exploratorio)
 #
 # :::{admonition} Declaración sobre el uso de la prueba (corrección B1, 23-oct-2026)
 # :class: warning
@@ -13,12 +13,13 @@
 # benchmarks reentrenados con las mismas variables y particiones, y con el modelo original final (SECR, capítulo 19).
 # :::
 #
-# :::{admonition} Veredicto adelantado (exploratorio, no pareado)
-# - **Supera a los 112 modelos de clasificación del curso**, con el mismo diseño de evaluación. En la
-#   prueba (oct–dic), frente al *mejor valor de cada métrica* entre los 112: accuracy 0,611 frente a 0,524,
-#   F1 macro 0,457 frente a 0,392, AUC macro 0,836 frente a 0,718 y log-loss 0,821 frente a 0,959. Todas
-#   las diferencias son significativas (bootstrap por establecimiento, McNemar y DeLong con Holm) y con
-#   tamaño de efecto grande: el ensamble es el mejor en accuracy las 14 semanas de la prueba (δ de Cliff = 1).
+# :::{admonition} Resultado exploratorio (no pareado)
+# - **Mejora sobre los 112 modelos de 9 variables, sobre todo por la información nueva.** En la prueba
+#   (oct–dic), frente al *mejor valor de cada métrica* entre los 112: accuracy 0,611 frente a 0,524, F1 macro
+#   0,457 frente a 0,392, AUC macro 0,836 frente a 0,718 y log-loss 0,821 frente a 0,959. Esta comparación no
+#   es pareada (G usa variables que los 112 no tienen) y la prueba se miró para elegir entre A y G, así que **no
+#   prueba superioridad**. Con las mismas variables y particiones (capítulo 20), la ventaja del modelo final sobre
+#   el mejor benchmark es pequeña y no significativa.
 # - **Unir modelos aporta por sí mismo**, aunque la mayor parte de la ganancia viene de la información
 #   nueva (las vistas de la lesión y de los códigos finos). El ensamble final supera a un solo XGBoost con
 #   todas las variables (accuracy +0,005; log-loss −0,008; AUC mayor en las 4 clases), con diferencias
