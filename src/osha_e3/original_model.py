@@ -33,7 +33,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import StratifiedGroupKFold, StratifiedKFold
 from sklearn.naive_bayes import BernoulliNB
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.utils.validation import check_is_fitted
+from sklearn.utils.validation import check_array, check_is_fitted
 
 
 def _rows(X, idx):
@@ -218,7 +218,8 @@ class PTBagging(_TreeEnsemble):
 
     def fit(self, X, y):
         y = np.asarray(y)
-        X = X.tocsr() if sp.issparse(X) else np.asarray(X)
+        # Validación explícita: desde scikit-learn 1.3 el árbol acepta NaN y ya no los rechaza por su cuenta.
+        X = check_array(X, accept_sparse='csr', force_all_finite=True)
         rng = np.random.default_rng(self.random_state)
         self.classes_ = np.unique(y)
         self.prior_ = np.array([np.mean(y == c) for c in self.classes_])
