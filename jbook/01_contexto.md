@@ -10,8 +10,8 @@ termina en uno de cuatro resultados:
 3. Traslado o restricción laboral
 4. Otro caso registrable
 
-La tarea es **clasificar** el resultado de un caso a partir de ocho datos que se conocen del establecimiento y
-del incidente. Es una clasificación retrospectiva sobre casos ya reportados. No predice quién se lesionará y no
+La tarea es **clasificar** el resultado de un caso a partir de datos que se conocen del establecimiento y del
+incidente: 8 predictores en los entregables 1 y 2, y 9 en el entregable 3 (ver abajo). Es una clasificación retrospectiva sobre casos ya reportados. No predice quién se lesionará y no
 atribuye causas.
 
 **Tarea de regresión (nueva en el entregable 3).** La guía del tercer entregable exige también modelos de

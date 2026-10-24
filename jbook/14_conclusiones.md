@@ -2,7 +2,7 @@
 
 ## Qué se encontró
 
-1. **Con estas 8 variables el problema tiene un techo bajo y ningún modelo lo rompe.** Las 112
+1. **Con estas 9 variables el problema tiene un techo bajo y ningún modelo lo rompe.** Las 112
    combinaciones de clasificación quedan en la prueba entre 0,38 y 0,44 de balanced accuracy y entre 0,62
    y 0,70 de AUC macro. Los mejores en ordenar las clases (Random Forest, XGBoost, la logística: AUC
    0,69–0,70, accuracy 0,51–0,52) igualan, pero no superan, a la logística sin búsqueda del entregable 2

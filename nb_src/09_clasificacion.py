@@ -105,7 +105,7 @@ res.round(3)
 # El mejor balanced accuracy en la prueba es el de SVM (0,435), pero con F1 macro bajo (0,366). Random Forest,
 # XGBoost y la logística dan el mejor equilibrio: accuracy de 0,51 a 0,52, F1 macro de 0,38 a 0,39 y AUC de
 # 0,69 a 0,70. Frente al entregable 2 (logística con C = 1 y 1.433 columnas: balanced accuracy 0,40, F1 0,40,
-# AUC 0,69), **ningún modelo mejora de forma clara**: con estas 8 variables el techo parece estar en torno a
+# AUC 0,69), **ningún modelo mejora de forma clara**: con estas 9 variables el techo parece estar en torno a
 # 0,40 de balanced accuracy y 0,70 de AUC, y el capítulo 13 contrasta si alguna diferencia es significativa.
 # KNN y el árbol son los peores en AUC (0,62 a 0,63).
 
