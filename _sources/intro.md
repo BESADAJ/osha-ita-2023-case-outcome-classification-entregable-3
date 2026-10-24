@@ -1,47 +1,69 @@
-# Informe del entregable 3
+# Informe del proyecto final (entregable 3)
 
-Este Jupyter Book es el entregable 3 del proyecto de Machine Learning (EST 1055-01) sobre el archivo de
-casos de lesiones y enfermedades laborales de OSHA (ITA 2023). Parte del informe del entregable 2 (que
-explicaba el dashboard y la regresión logística de base) y añade lo que pide la guía del tercer entregable:
-**140 modelos** entrenados, optimizados y evaluados con validación cruzada anidada, cuatro métodos de
-optimización de hiperparámetros, balanceo de clases, optimización computacional, calibración,
-interpretabilidad y comparación estadística jerárquica.
+Este Jupyter Book es el informe técnico del proyecto final de Machine Learning (EST 1055-01) sobre el archivo de casos de
+lesiones y enfermedades laborales de OSHA (*Injury Tracking Application*, ITA 2023). Cubre los cuatro componentes
+obligatorios de la guía:
 
-**Preguntas de investigación.**
+1. **Correcciones** del entregable 2, con su tabla de trazabilidad (capítulo 00).
+2. **Dashboard predictivo** en Dash Plotly, desplegado en Render, con las secciones Contexto, EDA y Modelos
+   (capítulo 21): **<https://osha-ita-2023-case-outcome-classification.onrender.com>**.
+3. **Modelo original**: un ensamble multivista con **selección de ensambles condicionada por región (SECR)**, implementado
+   desde cero y comparado estadísticamente con los benchmarks (capítulos 16, 19 y 20).
+4. Este **informe** reproducible.
 
-1. *Clasificación.* ¿En qué medida las características estructuradas del lugar de trabajo, la ocupación y
-   el incidente permiten clasificar los cuatro resultados registrados por OSHA en incidentes del último
-   trimestre de 2023, en establecimientos que no se usaron para construir el modelo?
-2. *Regresión.* Entre los casos que terminaron en días de ausencia, ¿cuánto de la duración de la ausencia
-   (en escala logarítmica) explican esas mismas características?
+## Resumen ejecutivo
 
-**Dashboard del entregable 2:** <https://osha-ita-2023-case-outcome.onrender.com/>
+**Problema.** Con los registros que los empleadores de EE. UU. reportan a OSHA se predice el desenlace de cada caso
+registrable: fallecimiento, días de ausencia, traslado o restricción, u otro caso registrable. Es una clasificación de 4
+clases con desbalance extremo (los fallecimientos son 3 de cada 10 000 casos). La métrica principal es la balanced
+accuracy (BA).
 
-## Cómo está organizado
+**Benchmarks.** 7 modelos × 4 balanceos × 4 optimizadores = 112 combinaciones de clasificación (y 28 de regresión), con
+validación cruzada anidada por establecimiento. La mejor combinación de cada modelo se elige por la BA media del bucle
+externo, se reentrena y se serializa con su `metadata.json` (capítulo 13b). La mejor global es SVM lineal + SMOTE +
+búsqueda aleatoria (BA 0,469 ± 0,101).
+
+**Modelo original.** 16 modelos base, cada uno especializado en una vista del caso, se combinan con SECR. SECR aprende
+pesos convexos por región, los contrae hacia los pesos globales y los resuelve con Frank-Wolfe con búsqueda lineal
+exacta. Tiene propiedades demostradas: convexidad, pérdida no creciente, certificado de optimalidad y convergencia
+$O(1/t)$.
+
+**Validación.** Comparación **pareada**: mismas variables, mismas particiones, misma semilla y mismo presupuesto de
+búsqueda para el original y los 7 benchmarks. Validación externa repetida 3×5 (15 pliegues) y pruebas sobre pliegues: Friedman–Nemenyi,
+Nadeau–Bengio, Wilcoxon–Holm, prueba bayesiana con ROPE y δ de Cliff. La prueba de octubre a diciembre está bloqueada
+por código.
+
+**Veredicto.** R1 sí (no se halló la regla ni su aplicación en la literatura) y R2 sí (implementación propia con
+garantías demostradas). **R3 no**: el original tiene la mayor BA media (0,591 frente a 0,569 del mejor benchmark pareado,
+KNN) y el mejor rango de Friedman (p = 6·10⁻¹¹), pero frente a KNN ninguna prueba pareada es significativa tras Holm.
+Tope de calificación: 4,0 (capítulos 20 y 14).
+
+## Objetivos
+
+1. Corregir y documentar las fallas de método del entregable 2.
+2. Seleccionar con criterio estadístico la mejor combinación de cada modelo y llevarla a producción.
+3. Diseñar, implementar y validar un modelo original que cumpla R1 (novedad), R2 (implementación propia) y R3
+   (superioridad estadística), y reportar el resultado con honestidad.
+4. Publicar un dashboard que permita a una persona no experta entender el problema, explorar los datos y predecir.
+
+## Mapa del libro
 
 | Parte | Capítulos |
 |---|---|
-| Datos | 1. Contexto · 2–3. EDA de los entregables 1 y 2 · **4. EDA mejorado** (variables agrupadas, horas desde el inicio de la jornada, objetivo de regresión) |
-| Modelos | 5. Modelo base del entregable 2 · **6. Diseño del pipeline combinatorio** · **7. Optimización de hiperparámetros** · **8. Optimización computacional** · **9. Clasificación** · **10. Regresión** · **11. Interpretabilidad** · **12. Robustez** · **13. Comparación estadística** |
-| Modelo propuesto | **18. Stacking multivista**: une modelos especializados en distintas vistas del caso y supera a los 112 modelos de clasificación del curso |
-| Cierre | 14. Conclusiones · 15. Reproducibilidad · Anexo: notebook del entregable 1 |
-| Todo en uno | **Notebook único** (`entregable3_completo.ipynb`): los 15 capítulos y el anexo en un solo archivo |
+| Correcciones | **00. Trazabilidad de correcciones** |
+| Datos | 1. Contexto · 2–3. EDA de los entregables 1 y 2 · 4. EDA mejorado |
+| Benchmarks | 5. Modelo base · 6. Diseño del pipeline · 7. Optimización de hiperparámetros · 8. Optimización computacional · 9. Clasificación · 10. Regresión · 11. Interpretabilidad · 12. Robustez · 13. Comparación estadística · **13b. Mejores combinaciones y artefactos** |
+| Modelo original | **16. Literatura y novedad** · 17. PT-bagging (primer candidato, no superior) · 18. Ensamble multivista G (exploratorio) · **19. SECR: formulación, algoritmo, demostraciones y código** · **20. Validación estadística (R3)** |
+| Producto y cierre | **21. Dashboard y despliegue** · 14. Conclusiones (veredicto R1–R3 y declaración de uso de IA) · 15. Reproducibilidad y bibliografía · Anexo del entregable 1 |
+| Todo en uno | Notebook único con todo el entregable |
 
-Los capítulos en negrita son nuevos y son notebooks con el código que produce cada tabla y figura. Las
-corridas largas (validación anidada de las 140 combinaciones) se ejecutan con los scripts de `scripts/`
-y los capítulos leen sus resultados de `results/`; el capítulo 15 explica cómo reproducir todo.
-
-## Del entregable 2 al 3
-
-| Entregable 2 | Entregable 3 |
-|---|---|
-| Regresión logística sin búsqueda de hiperparámetros frente a un Dummy | 7 modelos de clasificación × 4 balanceos × 4 optimizadores = 112, y 7 de regresión × 4 optimizadores = 28 |
-| NAICS y SOC completos (1.433 columnas) | Subsector NAICS-3 y grupo menor SOC (~210 columnas) |
-| Validación por establecimiento y tiempo, 3 pliegues | Validación anidada por establecimiento (5 externos × 3 internos); misma prueba de octubre a diciembre |
-| Solo clasificación | Además, regresión de los días de ausencia |
-| Intervalos bootstrap | Además, Friedman–Nemenyi, DeLong, MCS, Giacomini-White, Clark-West, Diebold-Mariano (HLN), SPA |
+Los capítulos 6 a 13, 17, 18 y 20 son notebooks con el código que produce cada tabla y figura. Las corridas largas se
+ejecutan con los scripts de `scripts/` y los capítulos leen sus resultados versionados en `results/`. El capítulo 15
+explica cómo reproducir todo.
 
 :::{note}
-**Correcciones del entregable 1.** La guía pide incorporar las correcciones que se hicieron al primer
-entregable. La sección 3.8 lista cada comentario del profesor y el lugar del informe donde se atiende.
+**Correspondencia con la estructura de la guía (Cuadro 4).** 0 Introducción → esta página · 1 Trazabilidad → cap. 00 ·
+2 Datos → caps. 1–4 · 3 Benchmarks → caps. 5–13b · 4 Literatura → cap. 16 · 5 Modelo original → caps. 17–19 ·
+6 Validación → cap. 20 · 7 Dashboard → cap. 21 · 8 Conclusiones → cap. 14 · 9 Reproducibilidad y bibliografía →
+cap. 15.
 :::

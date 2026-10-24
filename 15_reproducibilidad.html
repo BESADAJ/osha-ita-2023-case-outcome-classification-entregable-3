@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>15. Reproducibilidad &#8212; OSHA ITA 2023: resultado y días de ausencia de los casos reportados (entregable 3)</title>
+    <title>15. Reproducibilidad y bibliografía &#8212; OSHA ITA 2023: resultado y días de ausencia de los casos reportados (entregable 3)</title>
   
   
   
@@ -30,9 +30,9 @@
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -47,10 +47,10 @@
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=f281be69"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleHintShow = 'Haz clic para mostrar';</script>
+    <script>let toggleHintHide = 'Haz clic para ocultar';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
     <script src="_static/translations.js?v=d190bf04"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
@@ -62,7 +62,7 @@
     <link rel="index" title="Índice" href="genindex.html" />
     <link rel="search" title="Búsqueda" href="search.html" />
     <link rel="next" title="OSHA ITA 2023: primer entregable del proyecto de Machine Learning" href="anexo_entregable1.html" />
-    <link rel="prev" title="14. Conclusiones y límites" href="14_conclusiones.html" />
+    <link rel="prev" title="14. Conclusiones, limitaciones y declaración de uso de IA" href="14_conclusiones.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="es"/>
   </head>
@@ -170,18 +170,22 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Informe del entregable 3
+                    Informe del proyecto final (entregable 3)
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Datos (entregables 1 y 2, con mejoras)</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Correcciones</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_trazabilidad.html">Trazabilidad de correcciones</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datos (ETL y EDA)</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="01_contexto.html">1. Contexto y datos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02_eda_dashboard.html">2. EDA: lo que muestra el dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03_eda_adicional.html">3. EDA: detalles que no están en el dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04_eda_mejorado.html">4. EDA mejorado para el entregable 3</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos del entregable 3</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos benchmark (140 combinaciones)</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="05_modelo_base_e2.html">5. Modelo base del entregable 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06_diseno_pipeline.html">6. Diseño del pipeline combinatorio</a></li>
@@ -192,20 +196,33 @@
 <li class="toctree-l1"><a class="reference internal" href="11_interpretabilidad.html">11. Interpretabilidad global y local (SHAP y LIME)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="12_robustez.html">12. Robustez y estabilidad de las métricas</a></li>
 <li class="toctree-l1"><a class="reference internal" href="13_comparacion_estadistica.html">13. Comparación estadística de los modelos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13b_mejores_combinaciones.html">13b. Mejores combinaciones, reentrenamiento final y artefactos</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelo propuesto</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelo original</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="16_literatura_novedad.html">16. Revisión de literatura y novedad del modelo original</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_modelo_original.html">17. Primer candidato a modelo original: PT-bagging (histórico)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="18_modelo_propuesto.html">18. Modelo propuesto: <em>stacking</em> multivista</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19_modelo_original_secr.html">19. Modelo original: ensamble multivista con selección condicionada por región (SECR)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20_validacion_estadistica.html">20. Validación estadística del modelo original (R3)</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Cierre</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Producto y cierre</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="14_conclusiones.html">14. Conclusiones y límites</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">15. Reproducibilidad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="21_dashboard.html">21. Dashboard y despliegue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_conclusiones.html">14. Conclusiones, limitaciones y declaración de uso de IA</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">15. Reproducibilidad y bibliografía</a></li>
 <li class="toctree-l1"><a class="reference internal" href="anexo_entregable1.html">OSHA ITA 2023: primer entregable del proyecto de Machine Learning</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Todo en un solo notebook</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="entregable3_completo.html">Entregable 3 — notebook único</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entregable3_completo.html">Proyecto final (entregable 3): notebook único</a></li>
+
+
+
+
+
+
+
 
 
 
@@ -362,7 +379,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>15. Reproducibilidad</h1>
+    <h1>15. Reproducibilidad y bibliografía</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -377,6 +394,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#registro-de-experimentos">Registro de experimentos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-correr-todo">Cómo correr todo</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dashboard-del-entregable-2">Dashboard del entregable 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proyecto-final-modelo-original-artefactos-y-dashboard">Proyecto final: modelo original, artefactos y dashboard</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bibliografia">Bibliografía</a></li>
 </ul>
             </nav>
         </div>
@@ -388,8 +407,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="reproducibilidad">
-<h1>15. Reproducibilidad<a class="headerlink" href="#reproducibilidad" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="reproducibilidad-y-bibliografia">
+<h1>15. Reproducibilidad y bibliografía<a class="headerlink" href="#reproducibilidad-y-bibliografia" title="Link to this heading">#</a></h1>
 <section id="entorno">
 <h2>Entorno<a class="headerlink" href="#entorno" title="Link to this heading">#</a></h2>
 <p>Todos los resultados del entregable 3 se calcularon en el entorno conda <code class="docutils literal notranslate"><span class="pre">ml_venv</span></code> (Python 3.9.25, Windows 11,
@@ -484,6 +503,120 @@ costo) en <code class="docutils literal notranslate"><span class="pre">results/c
 <p>La carpeta <code class="docutils literal notranslate"><span class="pre">dashboard/</span></code> es la del entregable 2 sin cambios (Dash/Plotly, desplegado en Render desde un
 repositorio aparte). El entregable 3 no lo modifica.</p>
 </section>
+<section id="proyecto-final-modelo-original-artefactos-y-dashboard">
+<h2>Proyecto final: modelo original, artefactos y dashboard<a class="headerlink" href="#proyecto-final-modelo-original-artefactos-y-dashboard" title="Link to this heading">#</a></h2>
+<p><strong>Semillas adicionales</strong> (fijadas antes de correr el experimento pareado):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Uso</p></th>
+<th class="head"><p>Semilla</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Pliegues externos de la repetición r del experimento pareado (r = 0 es la partición de los capítulos 6 a 13)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">seed_for('outer',</span> <span class="pre">r)</span></code> = 2042 + r</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pliegues internos de la repetición r ≥ 1, pliegue f</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">seed_for('inner',</span> <span class="pre">10·r</span> <span class="pre">+</span> <span class="pre">f)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Búsqueda de los benchmarks y TPE del combinador en (r, f)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">seed_for('search',</span> <span class="pre">f)</span> <span class="pre">+</span> <span class="pre">100·r</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Pliegues de las predicciones fuera de pliegue del nivel 0 del original</p></td>
+<td><p>42 + 7 = 49</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Candado de la prueba.</strong> <code class="docutils literal notranslate"><span class="pre">data.classification_sets()</span></code> y <code class="docutils literal notranslate"><span class="pre">data.regression_sets()</span></code> devuelven la prueba como <code class="docutils literal notranslate"><span class="pre">LockedTest</span></code>
+(cualquier acceso lanza <code class="docutils literal notranslate"><span class="pre">PermissionError</span></code>). Para reproducir las cifras ya publicadas de los capítulos 9 a 13 y 18 se
+fija <code class="docutils literal notranslate"><span class="pre">OSHA_ALLOW_TEST=1</span></code>; ningún resultado del proyecto final la usa.</p>
+<p><strong>Corridas del proyecto final</strong> (todas reanudables):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">scripts</span><span class="o">/</span><span class="n">run_paired</span><span class="o">.</span><span class="n">py</span> <span class="mi">10</span>                 <span class="c1"># experimento pareado (original + 7 benchmarks; se usó 3×5), results/pareado/</span>
+<span class="n">python</span> <span class="n">scripts</span><span class="o">/</span><span class="n">analyze_paired</span><span class="o">.</span><span class="n">py</span> <span class="mi">4</span>              <span class="c1"># TPE anidado del combinador, ablación, pruebas y figuras (cap. 20)</span>
+<span class="n">python</span> <span class="n">scripts</span><span class="o">/</span><span class="n">build_artifacts</span><span class="o">.</span><span class="n">py</span> <span class="n">todo</span>          <span class="c1"># artefactos + metadata.json + prueba de ida y vuelta</span>
+<span class="n">python</span> <span class="n">scripts</span><span class="o">/</span><span class="n">build_dashboard_data</span><span class="o">.</span><span class="n">py</span>          <span class="c1"># tablas del dashboard (EDA, líderes, fuera de pliegue, SHAP global)</span>
+<span class="n">python</span> <span class="n">scripts</span><span class="o">/</span><span class="n">complejidad_secr</span><span class="o">.</span><span class="n">py</span>              <span class="c1"># complejidad empírica de SECR (cap. 19)</span>
+<span class="n">python</span> <span class="n">scripts</span><span class="o">/</span><span class="n">build_master_table</span><span class="o">.</span><span class="n">py</span>            <span class="c1"># tabla maestra de experimentos (140 + pareado + original)</span>
+<span class="n">python</span> <span class="n">scripts</span><span class="o">/</span><span class="n">literatura</span><span class="o">/</span><span class="n">buscar</span><span class="o">.</span><span class="n">py</span>             <span class="c1"># consultas de la revisión de literatura (cap. 16.6)</span>
+<span class="n">python</span> <span class="n">scripts</span><span class="o">/</span><span class="n">build_notebooks</span><span class="o">.</span><span class="n">py</span> <span class="mi">20</span><span class="n">_validacion_estadistica</span>
+<span class="n">pytest</span> <span class="n">tests</span>                                     <span class="c1"># pruebas del ensamble, de SECR, del candado y de PT-bagging</span>
+<span class="n">cd</span> <span class="n">dashboard_final</span> <span class="o">&amp;&amp;</span> <span class="n">pytest</span> <span class="n">tests</span> <span class="o">&amp;&amp;</span> <span class="n">python</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p><strong>Entornos.</strong> Las corridas usan <code class="docutils literal notranslate"><span class="pre">ml_venv</span></code> (arriba). El dashboard usa Python 3.11.9 con las versiones de
+<code class="docutils literal notranslate"><span class="pre">dashboard_final/requirements.txt</span></code>: las mismas librerías numéricas que entrenaron los artefactos, más <code class="docutils literal notranslate"><span class="pre">dash</span></code> 2.18.2,
+<code class="docutils literal notranslate"><span class="pre">dash-bootstrap-components</span></code> 1.6.0, <code class="docutils literal notranslate"><span class="pre">plotly</span></code> 5.24.1 y <code class="docutils literal notranslate"><span class="pre">gunicorn</span></code> 23.0.0. Se probó localmente en el entorno conda
+<code class="docutils literal notranslate"><span class="pre">dash_e3</span></code>, con esas versiones.</p>
+<p><strong>Tabla maestra de experimentos.</strong> <code class="docutils literal notranslate"><span class="pre">results/tabla_maestra_experimentos.csv</span></code> tiene una fila por experimento:</p>
+<ul class="simple">
+<li><p>las 140 combinaciones del entregable 2, con las métricas del bucle externo (5 pliegues), los tiempos, la semilla y
+los hiperparámetros;</p></li>
+<li><p>los 7 benchmarks del experimento pareado y el modelo original, con media y d.e. de sus pliegues, tiempos y semillas.</p></li>
+</ul>
+<p><strong>Uso de la prueba.</strong> Ningún resultado de los capítulos 13b, 19, 20 y 21 ni del dashboard usa la prueba de
+octubre a diciembre.</p>
+</section>
+<section id="bibliografia">
+<h2>Bibliografía<a class="headerlink" href="#bibliografia" title="Link to this heading">#</a></h2>
+<p>Las referencias del proyecto final están en <code class="docutils literal notranslate"><span class="pre">jbook/references.bib</span></code> (BibTeX) y se citan con <code class="docutils literal notranslate"><span class="pre">{cite}</span></code>.</p>
+<div class="docutils container" id="id1">
+<div role="list" class="citation-list">
+<div class="citation" id="id7" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>ASY+19<span class="fn-bracket">]</span></span>
+<p>Takuya Akiba, Shotaro Sano, Toshihiko Yanase, Takeru Ohta, and Masanori Koyama. Optuna: a next-generation hyperparameter optimization framework. In <em>Proceedings of the 25th ACM SIGKDD</em>, 2623–2631. 2019.</p>
+</div>
+<div class="citation" id="id18" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>A+25<span class="fn-bracket">]</span></span>
+<p>Kashif Aziz and others. An interpretable dynamic ensemble selection multiclass imbalance approach with ensemble imbalance learning for predicting road traffic injury severity. <em>Scientific Reports</em>, 2025.</p>
+</div>
+<div class="citation" id="id2" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>CNMCK04<span class="fn-bracket">]</span></span>
+<p>Rich Caruana, Alexandru Niculescu-Mizil, Geoff Crew, and Alex Ksikes. Ensemble selection from libraries of models. In <em>Proceedings of the 21st International Conference on Machine Learning (ICML)</em>. 2004. <a class="reference external" href="https://doi.org/10.1145/1015330.1015432">doi:10.1145/1015330.1015432</a>.</p>
+</div>
+<div class="citation" id="id6" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>CPP18<span class="fn-bracket">]</span></span>
+<p>Guillem Collell, Drazen Prelec, and Kaustubh R. Patil. A simple plug-in bagging ensemble based on threshold-moving for classifying binary and multiclass imbalanced data. <em>Neurocomputing</em>, 275:330–340, 2018. <a class="reference external" href="https://doi.org/10.1016/j.neucom.2017.08.035">doi:10.1016/j.neucom.2017.08.035</a>.</p>
+</div>
+<div class="citation" id="id14" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>EM73<span class="fn-bracket">]</span></span>
+<p>Bradley Efron and Carl Morris. Stein's estimation rule and its competitors: an empirical Bayes approach. <em>Journal of the American Statistical Association</em>, 68(341):117–130, 1973.</p>
+</div>
+<div class="citation" id="id17" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>GarciaZA+18<span class="fn-bracket">]</span></span>
+<p>Salvador García, Zhong-Liang Zhang, Abdulrahman Altalhi, Saleh Alshomrani, and Francisco Herrera. Dynamic ensemble selection for multi-class imbalanced datasets. <em>Information Sciences</em>, 445–446:22–37, 2018.</p>
+</div>
+<div class="citation" id="id19" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>HK25<span class="fn-bracket">]</span></span>
+<p>M. H. K. Hassan and W. M. S. Khalifa. Work place safety: machine learning techniques for assessing workplace incident severity. <em>IEEE Access</em>, 13:34211–34226, 2025. <a class="reference external" href="https://doi.org/10.1109/ACCESS.2025.3543136">doi:10.1109/ACCESS.2025.3543136</a>.</p>
+</div>
+<div class="citation" id="id15" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>JJNH91<span class="fn-bracket">]</span></span>
+<p>Robert A. Jacobs, Michael I. Jordan, Steven J. Nowlan, and Geoffrey E. Hinton. Adaptive mixtures of local experts. <em>Neural Computation</em>, 3(1):79–87, 1991.</p>
+</div>
+<div class="citation" id="id5" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Jag13<span class="fn-bracket">]</span></span>
+<p>Martin Jaggi. Revisiting Frank-Wolfe: projection-free sparse convex optimization. In <em>Proceedings of the 30th International Conference on Machine Learning (ICML)</em>, 427–435. 2013.</p>
+</div>
+<div class="citation" id="id16" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>KM16<span class="fn-bracket">]</span></span>
+<p>Vipin Kumar and Sonajharia Minz. Multi-view ensemble learning: an optimal feature set partitioning for high-dimensional data classification. <em>Knowledge and Information Systems</em>, 2016.</p>
+</div>
+<div class="citation" id="id21" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>MZD26<span class="fn-bracket">]</span></span>
+<p>Omer Mermer, Erwin Zhang, and Ibrahim Demir. Explainable ensemble machine learning for predicting injury severity in agricultural accidents. <em>Journal of Agromedicine</em>, 2026.</p>
+</div>
+<div class="citation" id="id20" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>W+25<span class="fn-bracket">]</span></span>
+<p>J. Wang and others. Classifying OSHA construction accident reports: ensemble learning and lightweight LLMs. <em>Engineering, Construction and Architectural Management</em>, 2025.</p>
+</div>
+<div class="citation" id="id3" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Wol92<span class="fn-bracket">]</span></span>
+<p>David H. Wolpert. Stacked generalization. <em>Neural Networks</em>, 5(2):241–259, 1992. <a class="reference external" href="https://doi.org/10.1016/S0893-6080(05)80023-1">doi:10.1016/S0893-6080(05)80023-1</a>.</p>
+</div>
+</div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -522,7 +655,7 @@ repositorio aparte). El entregable 3 no lo modifica.</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">anterior</p>
-        <p class="prev-next-title">14. Conclusiones y límites</p>
+        <p class="prev-next-title">14. Conclusiones, limitaciones y declaración de uso de IA</p>
       </div>
     </a>
     <a class="right-next"
@@ -555,6 +688,8 @@ repositorio aparte). El entregable 3 no lo modifica.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#registro-de-experimentos">Registro de experimentos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-correr-todo">Cómo correr todo</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dashboard-del-entregable-2">Dashboard del entregable 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proyecto-final-modelo-original-artefactos-y-dashboard">Proyecto final: modelo original, artefactos y dashboard</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bibliografia">Bibliografía</a></li>
 </ul>
   </nav></div>
 

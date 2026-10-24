@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Informe del entregable 3 &#8212; OSHA ITA 2023: resultado y días de ausencia de los casos reportados (entregable 3)</title>
+    <title>Informe del proyecto final (entregable 3) &#8212; OSHA ITA 2023: resultado y días de ausencia de los casos reportados (entregable 3)</title>
   
   
   
@@ -30,9 +30,9 @@
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -47,10 +47,10 @@
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=f281be69"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleHintShow = 'Haz clic para mostrar';</script>
+    <script>let toggleHintHide = 'Haz clic para ocultar';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
     <script src="_static/translations.js?v=d190bf04"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
@@ -63,7 +63,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
     <link rel="index" title="Índice" href="genindex.html" />
     <link rel="search" title="Búsqueda" href="search.html" />
-    <link rel="next" title="1. Contexto y datos" href="01_contexto.html" />
+    <link rel="next" title="Trazabilidad de correcciones" href="00_trazabilidad.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="es"/>
   </head>
@@ -173,18 +173,22 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1 current active">
                 <a class="reference internal" href="#">
-                    Informe del entregable 3
+                    Informe del proyecto final (entregable 3)
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Datos (entregables 1 y 2, con mejoras)</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Correcciones</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_trazabilidad.html">Trazabilidad de correcciones</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datos (ETL y EDA)</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="01_contexto.html">1. Contexto y datos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02_eda_dashboard.html">2. EDA: lo que muestra el dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03_eda_adicional.html">3. EDA: detalles que no están en el dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04_eda_mejorado.html">4. EDA mejorado para el entregable 3</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos del entregable 3</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos benchmark (140 combinaciones)</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="05_modelo_base_e2.html">5. Modelo base del entregable 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06_diseno_pipeline.html">6. Diseño del pipeline combinatorio</a></li>
@@ -195,20 +199,33 @@
 <li class="toctree-l1"><a class="reference internal" href="11_interpretabilidad.html">11. Interpretabilidad global y local (SHAP y LIME)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="12_robustez.html">12. Robustez y estabilidad de las métricas</a></li>
 <li class="toctree-l1"><a class="reference internal" href="13_comparacion_estadistica.html">13. Comparación estadística de los modelos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13b_mejores_combinaciones.html">13b. Mejores combinaciones, reentrenamiento final y artefactos</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelo propuesto</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelo original</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="16_literatura_novedad.html">16. Revisión de literatura y novedad del modelo original</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_modelo_original.html">17. Primer candidato a modelo original: PT-bagging (histórico)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="18_modelo_propuesto.html">18. Modelo propuesto: <em>stacking</em> multivista</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19_modelo_original_secr.html">19. Modelo original: ensamble multivista con selección condicionada por región (SECR)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20_validacion_estadistica.html">20. Validación estadística del modelo original (R3)</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Cierre</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Producto y cierre</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="14_conclusiones.html">14. Conclusiones y límites</a></li>
-<li class="toctree-l1"><a class="reference internal" href="15_reproducibilidad.html">15. Reproducibilidad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="21_dashboard.html">21. Dashboard y despliegue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_conclusiones.html">14. Conclusiones, limitaciones y declaración de uso de IA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_reproducibilidad.html">15. Reproducibilidad y bibliografía</a></li>
 <li class="toctree-l1"><a class="reference internal" href="anexo_entregable1.html">OSHA ITA 2023: primer entregable del proyecto de Machine Learning</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Todo en un solo notebook</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="entregable3_completo.html">Entregable 3 — notebook único</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entregable3_completo.html">Proyecto final (entregable 3): notebook único</a></li>
+
+
+
+
+
+
+
 
 
 
@@ -365,7 +382,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Informe del entregable 3</h1>
+    <h1>Informe del proyecto final (entregable 3)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -375,8 +392,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-esta-organizado">Cómo está organizado</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#del-entregable-2-al-3">Del entregable 2 al 3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-ejecutivo">Resumen ejecutivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos">Objetivos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapa-del-libro">Mapa del libro</a></li>
 </ul>
             </nav>
         </div>
@@ -388,25 +406,54 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="informe-del-entregable-3">
-<h1>Informe del entregable 3<a class="headerlink" href="#informe-del-entregable-3" title="Link to this heading">#</a></h1>
-<p>Este Jupyter Book es el entregable 3 del proyecto de Machine Learning (EST 1055-01) sobre el archivo de
-casos de lesiones y enfermedades laborales de OSHA (ITA 2023). Parte del informe del entregable 2 (que
-explicaba el dashboard y la regresión logística de base) y añade lo que pide la guía del tercer entregable:
-<strong>140 modelos</strong> entrenados, optimizados y evaluados con validación cruzada anidada, cuatro métodos de
-optimización de hiperparámetros, balanceo de clases, optimización computacional, calibración,
-interpretabilidad y comparación estadística jerárquica.</p>
-<p><strong>Preguntas de investigación.</strong></p>
+  <section class="tex2jax_ignore mathjax_ignore" id="informe-del-proyecto-final-entregable-3">
+<h1>Informe del proyecto final (entregable 3)<a class="headerlink" href="#informe-del-proyecto-final-entregable-3" title="Link to this heading">#</a></h1>
+<p>Este Jupyter Book es el informe técnico del proyecto final de Machine Learning (EST 1055-01) sobre el archivo de casos de
+lesiones y enfermedades laborales de OSHA (<em>Injury Tracking Application</em>, ITA 2023). Cubre los cuatro componentes
+obligatorios de la guía:</p>
 <ol class="arabic simple">
-<li><p><em>Clasificación.</em> ¿En qué medida las características estructuradas del lugar de trabajo, la ocupación y
-el incidente permiten clasificar los cuatro resultados registrados por OSHA en incidentes del último
-trimestre de 2023, en establecimientos que no se usaron para construir el modelo?</p></li>
-<li><p><em>Regresión.</em> Entre los casos que terminaron en días de ausencia, ¿cuánto de la duración de la ausencia
-(en escala logarítmica) explican esas mismas características?</p></li>
+<li><p><strong>Correcciones</strong> del entregable 2, con su tabla de trazabilidad (capítulo 00).</p></li>
+<li><p><strong>Dashboard predictivo</strong> en Dash Plotly, desplegado en Render, con las secciones Contexto, EDA y Modelos
+(capítulo 21): <strong><a class="reference external" href="https://osha-ita-2023-case-outcome-classification.onrender.com">https://osha-ita-2023-case-outcome-classification.onrender.com</a></strong>.</p></li>
+<li><p><strong>Modelo original</strong>: un ensamble multivista con <strong>selección de ensambles condicionada por región (SECR)</strong>, implementado
+desde cero y comparado estadísticamente con los benchmarks (capítulos 16, 19 y 20).</p></li>
+<li><p>Este <strong>informe</strong> reproducible.</p></li>
 </ol>
-<p><strong>Dashboard del entregable 2:</strong> <a class="reference external" href="https://osha-ita-2023-case-outcome.onrender.com/">https://osha-ita-2023-case-outcome.onrender.com/</a></p>
-<section id="como-esta-organizado">
-<h2>Cómo está organizado<a class="headerlink" href="#como-esta-organizado" title="Link to this heading">#</a></h2>
+<section id="resumen-ejecutivo">
+<h2>Resumen ejecutivo<a class="headerlink" href="#resumen-ejecutivo" title="Link to this heading">#</a></h2>
+<p><strong>Problema.</strong> Con los registros que los empleadores de EE. UU. reportan a OSHA se predice el desenlace de cada caso
+registrable: fallecimiento, días de ausencia, traslado o restricción, u otro caso registrable. Es una clasificación de 4
+clases con desbalance extremo (los fallecimientos son 3 de cada 10 000 casos). La métrica principal es la balanced
+accuracy (BA).</p>
+<p><strong>Benchmarks.</strong> 7 modelos × 4 balanceos × 4 optimizadores = 112 combinaciones de clasificación (y 28 de regresión), con
+validación cruzada anidada por establecimiento. La mejor combinación de cada modelo se elige por la BA media del bucle
+externo, se reentrena y se serializa con su <code class="docutils literal notranslate"><span class="pre">metadata.json</span></code> (capítulo 13b). La mejor global es SVM lineal + SMOTE +
+búsqueda aleatoria (BA 0,469 ± 0,101).</p>
+<p><strong>Modelo original.</strong> 16 modelos base, cada uno especializado en una vista del caso, se combinan con SECR. SECR aprende
+pesos convexos por región, los contrae hacia los pesos globales y los resuelve con Frank-Wolfe con búsqueda lineal
+exacta. Tiene propiedades demostradas: convexidad, pérdida no creciente, certificado de optimalidad y convergencia
+<span class="math notranslate nohighlight">\(O(1/t)\)</span>.</p>
+<p><strong>Validación.</strong> Comparación <strong>pareada</strong>: mismas variables, mismas particiones, misma semilla y mismo presupuesto de
+búsqueda para el original y los 7 benchmarks. Validación externa repetida 3×5 (15 pliegues) y pruebas sobre pliegues: Friedman–Nemenyi,
+Nadeau–Bengio, Wilcoxon–Holm, prueba bayesiana con ROPE y δ de Cliff. La prueba de octubre a diciembre está bloqueada
+por código.</p>
+<p><strong>Veredicto.</strong> R1 sí (no se halló la regla ni su aplicación en la literatura) y R2 sí (implementación propia con
+garantías demostradas). <strong>R3 no</strong>: el original tiene la mayor BA media (0,591 frente a 0,569 del mejor benchmark pareado,
+KNN) y el mejor rango de Friedman (p = 6·10⁻¹¹), pero frente a KNN ninguna prueba pareada es significativa tras Holm.
+Tope de calificación: 4,0 (capítulos 20 y 14).</p>
+</section>
+<section id="objetivos">
+<h2>Objetivos<a class="headerlink" href="#objetivos" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Corregir y documentar las fallas de método del entregable 2.</p></li>
+<li><p>Seleccionar con criterio estadístico la mejor combinación de cada modelo y llevarla a producción.</p></li>
+<li><p>Diseñar, implementar y validar un modelo original que cumpla R1 (novedad), R2 (implementación propia) y R3
+(superioridad estadística), y reportar el resultado con honestidad.</p></li>
+<li><p>Publicar un dashboard que permita a una persona no experta entender el problema, explorar los datos y predecir.</p></li>
+</ol>
+</section>
+<section id="mapa-del-libro">
+<h2>Mapa del libro<a class="headerlink" href="#mapa-del-libro" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Parte</p></th>
@@ -414,61 +461,40 @@ trimestre de 2023, en establecimientos que no se usaron para construir el modelo
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Datos</p></td>
-<td><p>1. Contexto · 2–3. EDA de los entregables 1 y 2 · <strong>4. EDA mejorado</strong> (variables agrupadas, horas desde el inicio de la jornada, objetivo de regresión)</p></td>
+<tr class="row-even"><td><p>Correcciones</p></td>
+<td><p><strong>00. Trazabilidad de correcciones</strong></p></td>
 </tr>
-<tr class="row-odd"><td><p>Modelos</p></td>
-<td><p>5. Modelo base del entregable 2 · <strong>6. Diseño del pipeline combinatorio</strong> · <strong>7. Optimización de hiperparámetros</strong> · <strong>8. Optimización computacional</strong> · <strong>9. Clasificación</strong> · <strong>10. Regresión</strong> · <strong>11. Interpretabilidad</strong> · <strong>12. Robustez</strong> · <strong>13. Comparación estadística</strong></p></td>
+<tr class="row-odd"><td><p>Datos</p></td>
+<td><p>1. Contexto · 2–3. EDA de los entregables 1 y 2 · 4. EDA mejorado</p></td>
 </tr>
-<tr class="row-even"><td><p>Modelo propuesto</p></td>
-<td><p><strong>18. Stacking multivista</strong>: une modelos especializados en distintas vistas del caso y supera a los 112 modelos de clasificación del curso</p></td>
+<tr class="row-even"><td><p>Benchmarks</p></td>
+<td><p>5. Modelo base · 6. Diseño del pipeline · 7. Optimización de hiperparámetros · 8. Optimización computacional · 9. Clasificación · 10. Regresión · 11. Interpretabilidad · 12. Robustez · 13. Comparación estadística · <strong>13b. Mejores combinaciones y artefactos</strong></p></td>
 </tr>
-<tr class="row-odd"><td><p>Cierre</p></td>
-<td><p>14. Conclusiones · 15. Reproducibilidad · Anexo: notebook del entregable 1</p></td>
+<tr class="row-odd"><td><p>Modelo original</p></td>
+<td><p><strong>16. Literatura y novedad</strong> · 17. PT-bagging (primer candidato, no superior) · 18. Ensamble multivista G (exploratorio) · <strong>19. SECR: formulación, algoritmo, demostraciones y código</strong> · <strong>20. Validación estadística (R3)</strong></p></td>
 </tr>
-<tr class="row-even"><td><p>Todo en uno</p></td>
-<td><p><strong>Notebook único</strong> (<code class="docutils literal notranslate"><span class="pre">entregable3_completo.ipynb</span></code>): los 15 capítulos y el anexo en un solo archivo</p></td>
+<tr class="row-even"><td><p>Producto y cierre</p></td>
+<td><p><strong>21. Dashboard y despliegue</strong> · 14. Conclusiones (veredicto R1–R3 y declaración de uso de IA) · 15. Reproducibilidad y bibliografía · Anexo del entregable 1</p></td>
 </tr>
-</tbody>
-</table>
-</div>
-<p>Los capítulos en negrita son nuevos y son notebooks con el código que produce cada tabla y figura. Las
-corridas largas (validación anidada de las 140 combinaciones) se ejecutan con los scripts de <code class="docutils literal notranslate"><span class="pre">scripts/</span></code>
-y los capítulos leen sus resultados de <code class="docutils literal notranslate"><span class="pre">results/</span></code>; el capítulo 15 explica cómo reproducir todo.</p>
-</section>
-<section id="del-entregable-2-al-3">
-<h2>Del entregable 2 al 3<a class="headerlink" href="#del-entregable-2-al-3" title="Link to this heading">#</a></h2>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Entregable 2</p></th>
-<th class="head"><p>Entregable 3</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Regresión logística sin búsqueda de hiperparámetros frente a un Dummy</p></td>
-<td><p>7 modelos de clasificación × 4 balanceos × 4 optimizadores = 112, y 7 de regresión × 4 optimizadores = 28</p></td>
-</tr>
-<tr class="row-odd"><td><p>NAICS y SOC completos (1.433 columnas)</p></td>
-<td><p>Subsector NAICS-3 y grupo menor SOC (~210 columnas)</p></td>
-</tr>
-<tr class="row-even"><td><p>Validación por establecimiento y tiempo, 3 pliegues</p></td>
-<td><p>Validación anidada por establecimiento (5 externos × 3 internos); misma prueba de octubre a diciembre</p></td>
-</tr>
-<tr class="row-odd"><td><p>Solo clasificación</p></td>
-<td><p>Además, regresión de los días de ausencia</p></td>
-</tr>
-<tr class="row-even"><td><p>Intervalos bootstrap</p></td>
-<td><p>Además, Friedman–Nemenyi, DeLong, MCS, Giacomini-White, Clark-West, Diebold-Mariano (HLN), SPA</p></td>
+<tr class="row-odd"><td><p>Todo en uno</p></td>
+<td><p>Notebook único con todo el entregable</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+<p>Los capítulos 6 a 13, 17, 18 y 20 son notebooks con el código que produce cada tabla y figura. Las corridas largas se
+ejecutan con los scripts de <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> y los capítulos leen sus resultados versionados en <code class="docutils literal notranslate"><span class="pre">results/</span></code>. El capítulo 15
+explica cómo reproducir todo.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p><strong>Correcciones del entregable 1.</strong> La guía pide incorporar las correcciones que se hicieron al primer
-entregable. La sección 3.8 lista cada comentario del profesor y el lugar del informe donde se atiende.</p>
+<p><strong>Correspondencia con la estructura de la guía (Cuadro 4).</strong> 0 Introducción → esta página · 1 Trazabilidad → cap. 00 ·
+2 Datos → caps. 1–4 · 3 Benchmarks → caps. 5–13b · 4 Literatura → cap. 16 · 5 Modelo original → caps. 17–19 ·
+6 Validación → cap. 20 · 7 Dashboard → cap. 21 · 8 Conclusiones → cap. 14 · 9 Reproducibilidad y bibliografía →
+cap. 15.</p>
 </div>
 </section>
+<div class="toctree-wrapper compound">
+</div>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
@@ -512,11 +538,11 @@ entregable. La sección 3.8 lista cada comentario del profesor y el lugar del in
                   
 <div class="prev-next-area">
     <a class="right-next"
-       href="01_contexto.html"
+       href="00_trazabilidad.html"
        title="siguiente página">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">siguiente</p>
-        <p class="prev-next-title">1. Contexto y datos</p>
+        <p class="prev-next-title">Trazabilidad de correcciones</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -536,8 +562,9 @@ entregable. La sección 3.8 lista cada comentario del profesor y el lugar del in
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-esta-organizado">Cómo está organizado</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#del-entregable-2-al-3">Del entregable 2 al 3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-ejecutivo">Resumen ejecutivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos">Objetivos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapa-del-libro">Mapa del libro</a></li>
 </ul>
   </nav></div>
 

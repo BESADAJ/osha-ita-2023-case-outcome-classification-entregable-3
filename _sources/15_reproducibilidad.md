@@ -1,4 +1,4 @@
-# 15. Reproducibilidad
+# 15. Reproducibilidad y bibliografía
 
 ## Entorno
 
@@ -62,3 +62,55 @@ costo) en `results/cache/`, que no se versiona; la primera ejecución los calcul
 
 La carpeta `dashboard/` es la del entregable 2 sin cambios (Dash/Plotly, desplegado en Render desde un
 repositorio aparte). El entregable 3 no lo modifica.
+
+
+## Proyecto final: modelo original, artefactos y dashboard
+
+**Semillas adicionales** (fijadas antes de correr el experimento pareado):
+
+| Uso | Semilla |
+|---|---|
+| Pliegues externos de la repetición r del experimento pareado (r = 0 es la partición de los capítulos 6 a 13) | `seed_for('outer', r)` = 2042 + r |
+| Pliegues internos de la repetición r ≥ 1, pliegue f | `seed_for('inner', 10·r + f)` |
+| Búsqueda de los benchmarks y TPE del combinador en (r, f) | `seed_for('search', f) + 100·r` |
+| Pliegues de las predicciones fuera de pliegue del nivel 0 del original | 42 + 7 = 49 |
+
+**Candado de la prueba.** `data.classification_sets()` y `data.regression_sets()` devuelven la prueba como `LockedTest`
+(cualquier acceso lanza `PermissionError`). Para reproducir las cifras ya publicadas de los capítulos 9 a 13 y 18 se
+fija `OSHA_ALLOW_TEST=1`; ningún resultado del proyecto final la usa.
+
+**Corridas del proyecto final** (todas reanudables):
+
+```
+python scripts/run_paired.py 10                 # experimento pareado (original + 7 benchmarks; se usó 3×5), results/pareado/
+python scripts/analyze_paired.py 4              # TPE anidado del combinador, ablación, pruebas y figuras (cap. 20)
+python scripts/build_artifacts.py todo          # artefactos + metadata.json + prueba de ida y vuelta
+python scripts/build_dashboard_data.py          # tablas del dashboard (EDA, líderes, fuera de pliegue, SHAP global)
+python scripts/complejidad_secr.py              # complejidad empírica de SECR (cap. 19)
+python scripts/build_master_table.py            # tabla maestra de experimentos (140 + pareado + original)
+python scripts/literatura/buscar.py             # consultas de la revisión de literatura (cap. 16.6)
+python scripts/build_notebooks.py 20_validacion_estadistica
+pytest tests                                     # pruebas del ensamble, de SECR, del candado y de PT-bagging
+cd dashboard_final && pytest tests && python app.py
+```
+
+**Entornos.** Las corridas usan `ml_venv` (arriba). El dashboard usa Python 3.11.9 con las versiones de
+`dashboard_final/requirements.txt`: las mismas librerías numéricas que entrenaron los artefactos, más `dash` 2.18.2,
+`dash-bootstrap-components` 1.6.0, `plotly` 5.24.1 y `gunicorn` 23.0.0. Se probó localmente en el entorno conda
+`dash_e3`, con esas versiones.
+
+**Tabla maestra de experimentos.** `results/tabla_maestra_experimentos.csv` tiene una fila por experimento:
+
+- las 140 combinaciones del entregable 2, con las métricas del bucle externo (5 pliegues), los tiempos, la semilla y
+  los hiperparámetros;
+- los 7 benchmarks del experimento pareado y el modelo original, con media y d.e. de sus pliegues, tiempos y semillas.
+
+**Uso de la prueba.** Ningún resultado de los capítulos 13b, 19, 20 y 21 ni del dashboard usa la prueba de
+octubre a diciembre.
+
+## Bibliografía
+
+Las referencias del proyecto final están en `jbook/references.bib` (BibTeX) y se citan con `{cite}`.
+
+```{bibliography}
+```

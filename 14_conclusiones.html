@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>14. Conclusiones y límites &#8212; OSHA ITA 2023: resultado y días de ausencia de los casos reportados (entregable 3)</title>
+    <title>14. Conclusiones, limitaciones y declaración de uso de IA &#8212; OSHA ITA 2023: resultado y días de ausencia de los casos reportados (entregable 3)</title>
   
   
   
@@ -30,9 +30,9 @@
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -47,10 +47,10 @@
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=f281be69"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleHintShow = 'Haz clic para mostrar';</script>
+    <script>let toggleHintHide = 'Haz clic para ocultar';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
     <script src="_static/translations.js?v=d190bf04"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
@@ -58,11 +58,13 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '14_conclusiones';</script>
     <link rel="index" title="Índice" href="genindex.html" />
     <link rel="search" title="Búsqueda" href="search.html" />
-    <link rel="next" title="15. Reproducibilidad" href="15_reproducibilidad.html" />
-    <link rel="prev" title="18. Modelo propuesto: stacking multivista" href="18_modelo_propuesto.html" />
+    <link rel="next" title="15. Reproducibilidad y bibliografía" href="15_reproducibilidad.html" />
+    <link rel="prev" title="21. Dashboard y despliegue" href="21_dashboard.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="es"/>
   </head>
@@ -170,18 +172,22 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Informe del entregable 3
+                    Informe del proyecto final (entregable 3)
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Datos (entregables 1 y 2, con mejoras)</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Correcciones</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_trazabilidad.html">Trazabilidad de correcciones</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datos (ETL y EDA)</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="01_contexto.html">1. Contexto y datos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02_eda_dashboard.html">2. EDA: lo que muestra el dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03_eda_adicional.html">3. EDA: detalles que no están en el dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04_eda_mejorado.html">4. EDA mejorado para el entregable 3</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos del entregable 3</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos benchmark (140 combinaciones)</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="05_modelo_base_e2.html">5. Modelo base del entregable 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06_diseno_pipeline.html">6. Diseño del pipeline combinatorio</a></li>
@@ -192,20 +198,33 @@
 <li class="toctree-l1"><a class="reference internal" href="11_interpretabilidad.html">11. Interpretabilidad global y local (SHAP y LIME)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="12_robustez.html">12. Robustez y estabilidad de las métricas</a></li>
 <li class="toctree-l1"><a class="reference internal" href="13_comparacion_estadistica.html">13. Comparación estadística de los modelos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13b_mejores_combinaciones.html">13b. Mejores combinaciones, reentrenamiento final y artefactos</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelo propuesto</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelo original</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="16_literatura_novedad.html">16. Revisión de literatura y novedad del modelo original</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_modelo_original.html">17. Primer candidato a modelo original: PT-bagging (histórico)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="18_modelo_propuesto.html">18. Modelo propuesto: <em>stacking</em> multivista</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19_modelo_original_secr.html">19. Modelo original: ensamble multivista con selección condicionada por región (SECR)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20_validacion_estadistica.html">20. Validación estadística del modelo original (R3)</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Cierre</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Producto y cierre</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">14. Conclusiones y límites</a></li>
-<li class="toctree-l1"><a class="reference internal" href="15_reproducibilidad.html">15. Reproducibilidad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="21_dashboard.html">21. Dashboard y despliegue</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">14. Conclusiones, limitaciones y declaración de uso de IA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_reproducibilidad.html">15. Reproducibilidad y bibliografía</a></li>
 <li class="toctree-l1"><a class="reference internal" href="anexo_entregable1.html">OSHA ITA 2023: primer entregable del proyecto de Machine Learning</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Todo en un solo notebook</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="entregable3_completo.html">Entregable 3 — notebook único</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entregable3_completo.html">Proyecto final (entregable 3): notebook único</a></li>
+
+
+
+
+
+
+
 
 
 
@@ -362,7 +381,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>14. Conclusiones y límites</h1>
+    <h1>14. Conclusiones, limitaciones y declaración de uso de IA</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -376,6 +395,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#respuesta-a-las-correcciones-del-entregable-1">Respuesta a las correcciones del entregable 1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limites">Límites</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#siguientes-pasos">Siguientes pasos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proyecto-final-veredicto-sobre-el-modelo-original-r1-r2-y-r3">Proyecto final: veredicto sobre el modelo original (R1, R2 y R3)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hallazgos-del-proyecto-final">Hallazgos del proyecto final</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitaciones-del-proyecto-final">Limitaciones del proyecto final</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trabajo-futuro">Trabajo futuro</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#declaracion-de-autoria-y-uso-de-herramientas-incluida-ia">Declaración de autoría y uso de herramientas (incluida IA)</a></li>
 </ul>
             </nav>
         </div>
@@ -387,8 +411,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="conclusiones-y-limites">
-<h1>14. Conclusiones y límites<a class="headerlink" href="#conclusiones-y-limites" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="conclusiones-limitaciones-y-declaracion-de-uso-de-ia">
+<h1>14. Conclusiones, limitaciones y declaración de uso de IA<a class="headerlink" href="#conclusiones-limitaciones-y-declaracion-de-uso-de-ia" title="Link to this heading">#</a></h1>
 <section id="que-se-encontro">
 <h2>Qué se encontró<a class="headerlink" href="#que-se-encontro" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
@@ -423,6 +447,9 @@ ausencia), y en conjunto el subsector y el grupo ocupacional son las variables m
 <li><p><strong>En regresión, los ensambles de árboles son los únicos que sobreviven al Model Confidence Set</strong>, son
 indistinguibles entre sí (Diebold-Mariano p = 0,60) y superan de forma real pero pequeña a una
 referencia que predice la media (SPA p ≈ 0) (capítulo 13).</p></li>
+<li><p><strong>El modelo original (PT-bagging) no supera a los modelos del curso</strong>: con los pliegues temporales juntos su
+balanced accuracy es 0,480 frente a 0,516 de la referencia, y cuatro iteraciones del diseño tampoco mejoran
+(capítulos 16 y 17; primer candidato, histórico. El modelo final es SECR, capítulos 19 y 20).</p></li>
 </ol>
 </section>
 <section id="respuesta-a-las-correcciones-del-entregable-1">
@@ -487,6 +514,142 @@ o reportar el clasificador de 3 clases como modelo principal.</p></li>
 codificadas, verificando antes que no revelen el resultado.</p></li>
 </ul>
 </section>
+<section id="proyecto-final-veredicto-sobre-el-modelo-original-r1-r2-y-r3">
+<h2>Proyecto final: veredicto sobre el modelo original (R1, R2 y R3)<a class="headerlink" href="#proyecto-final-veredicto-sobre-el-modelo-original-r1-r2-y-r3" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Condición</p></th>
+<th class="head"><p>Veredicto</p></th>
+<th class="head"><p>Evidencia</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>R1. Novedad en la aplicación</strong></p></td>
+<td><p><strong>Sí</strong></p></td>
+<td><p>Revisión en 3 bases con API (OpenAlex, Europe PMC y arXiv), 8 cadenas en inglés y español con fecha, más WoS, Scopus y Consensus. No se encontró la regla SECR ni la selección de ensambles aplicada al desenlace de casos de lesiones laborales. Matriz de novedad y diferenciación por familia (capítulo 16.6–16.9). Riesgo residual: el profesor puede leer la novedad como de aplicación, porque la parte regional no mejoró la métrica</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>R2. Implementación algorítmica propia</strong></p></td>
+<td><p><strong>Sí</strong></p></td>
+<td><p>Clase propia compatible con scikit-learn (<code class="docutils literal notranslate"><span class="pre">ConditionalEnsembleSelection</span></code>, <code class="docutils literal notranslate"><span class="pre">OriginalModel</span></code>) con regla de combinación nueva, Frank-Wolfe con búsqueda lineal exacta programado con numpy, 6 proposiciones demostradas, complejidad contrastada con tiempos y 8 pruebas unitarias. El codificador por objetivo y la selección de Caruana del nivel 0 también son código propio. Los modelos base son de librería, como permite el Cuadro 1 para ensambles con regla de combinación propia</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>R3. Superioridad estadísticamente verificada</strong></p></td>
+<td><p><strong>No</strong></p></td>
+<td><p>Comparación pareada en 15 pliegues: el original tiene la mayor BA media (0,591 frente a 0,569 de KNN) y el mejor rango de Friedman (p = 6·10⁻¹¹). Pero frente al mejor benchmark ninguna prueba pareada rechaza la igualdad tras Holm: Nemenyi p = 0,81, Nadeau–Bengio p = 0,66, Wilcoxon p = 0,28; bayesiana P(mejor) = 0,947; δ = 0,19 con IC que incluye 0 (capítulo 20)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Tope de calificación que corresponde: 4,0</strong> (R1 sí, R2 sí, R3 no; guía §12.1). La BA de 0,591 es optimista por
+selección: el original salió de 13 candidatos (sección 19.9), y su nivel 0 se eligió mirando la repetición 0. El sesgo va
+a favor de «superior», así que el veredicto R3 = no es conservador. Lo reportamos así porque es lo que
+muestran los datos. La comparación del capítulo 18, con ~9 puntos de ventaja sobre los 112 modelos del curso, no era
+válida: no era pareada y miraba la prueba. Corregirla cambió el resultado (capítulo 00, B1–B3).</p>
+</section>
+<section id="hallazgos-del-proyecto-final">
+<h2>Hallazgos del proyecto final<a class="headerlink" href="#hallazgos-del-proyecto-final" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>La información de la lesión es lo que más mejora el modelo, no el algoritmo.</strong> Con los códigos OIICS, NAICS-6,
+SOC-6 y el empleador, casi todos los benchmarks mejoran: KNN pasa de 0,415 a 0,569 de BA (del quinto al primer lugar),
+la logística de 0,427 a 0,523 y Naive Bayes de 0,389 a 0,435. El árbol baja, de 0,461 a 0,416.</p></li>
+<li><p><strong>El ensamble multivista con SECR es el mejor modelo en media</strong> (BA, log-loss, AUC y F1), pero su ventaja sobre KNN
+(+0,022 de BA) es pequeña frente a la variabilidad entre pliegues.</p></li>
+<li><p><strong>La corrección por prior (<span class="math notranslate nohighlight">\(\alpha\)</span>) aporta la mayor parte de la BA</strong> (+0,13). Las regiones de SECR no aportan: los
+pesos óptimos son casi iguales en todas las regiones, la TPE elige compuertas distintas en cada pliegue y la
+sensibilidad muestra que con contracción fuerte (pesos globales) la BA es igual o mayor.</p></li>
+<li><p><strong>La BA de 4 clases es muy ruidosa por los fallecimientos</strong> (0 a 4 por pliegue): un solo caso mueve la métrica
+±0,25. Eso limita la potencia de cualquier comparación entre modelos con esta métrica.</p></li>
+<li><p><strong>El producto funciona sin tocar la prueba.</strong> El dashboard predice con los 8 artefactos, explica cada predicción con
+SHAP exacto y muestra diagnósticos calculados fuera de pliegue.</p></li>
+</ol>
+</section>
+<section id="limitaciones-del-proyecto-final">
+<h2>Limitaciones del proyecto final<a class="headerlink" href="#limitaciones-del-proyecto-final" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Menos repeticiones de las planeadas.</strong> Se planeó una validación repetida 5×5 y se corrió 3×5 por tiempo de cómputo
+(unas 4 h con 10 procesos; Random Forest y Naive Bayes se completaron después, con el tiempo sobrante). El recorte se decidió antes de ver
+los resultados y por el costo, no por el desempeño.</p></li>
+<li><p><strong>Hiperparámetros fijos en el nivel 0.</strong> Los 16 modelos base del original usan hiperparámetros fijos (los del
+curso o valores por defecto razonables); solo el combinador se optimiza dentro de la validación anidada.</p></li>
+<li><p><strong>Un solo conjunto de datos.</strong> El Cuadro 1 pide además 3 conjuntos de datos adicionales de la misma tarea (por
+ejemplo, los conjuntos armonizados de Bauder et al., 2026). No se hizo por tiempo, y la generalidad de SECR queda sin
+demostrar.</p></li>
+<li><p><strong>Fuga indirecta en fallecimientos.</strong> Los códigos OIICS se derivan del relato del caso, que menciona la muerte en el
+54 % de los fallecimientos.</p></li>
+<li><p><strong>Las regiones no ayudaron aquí.</strong> Es posible que SECR sí aporte en problemas donde la calidad relativa de los modelos
+cambie más entre subpoblaciones. Esa hipótesis queda sin probar.</p></li>
+</ul>
+</section>
+<section id="trabajo-futuro">
+<h2>Trabajo futuro<a class="headerlink" href="#trabajo-futuro" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Correr las repeticiones que faltan (hasta 5×5 o 10×5) para medir con más potencia la diferencia frente a KNN, y
+reportarla como un análisis aparte, no como reemplazo de este.</p></li>
+<li><p>Usar una métrica principal menos dominada por una clase de 3 por 10 000 (por ejemplo, la BA de 3 clases o la
+log-loss), declarada <strong>antes</strong> de correr.</p></li>
+<li><p>Probar SECR en los conjuntos de datos adicionales y con regiones aprendidas (un árbol poco profundo como compuerta).</p></li>
+</ul>
+</section>
+<section id="declaracion-de-autoria-y-uso-de-herramientas-incluida-ia">
+<h2>Declaración de autoría y uso de herramientas (incluida IA)<a class="headerlink" href="#declaracion-de-autoria-y-uso-de-herramientas-incluida-ia" title="Link to this heading">#</a></h2>
+<p>Este trabajo es de <strong>Jaime Andrés Besada e Iván Berrio</strong>. Siguiendo la guía (§10.7 y §13), declaramos las herramientas
+usadas y para qué:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Herramienta</p></th>
+<th class="head"><p>Para qué se usó</p></th>
+<th class="head"><p>Qué revisó el equipo</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Python, numpy, scipy, pandas, scikit-learn, imbalanced-learn, XGBoost, Optuna, DEAP, Dash, Plotly</p></td>
+<td><p>Implementación, experimentos y dashboard</p></td>
+<td><p>Todo el código</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Claude Code (Anthropic; modelo Claude Opus 5.5)</strong></p></td>
+<td><p>Asistente de programación y redacción en el proyecto final: implementó, bajo instrucciones del equipo, el experimento pareado 5×5, el combinador SECR y sus pruebas unitarias, las pruebas de hipótesis sobre pliegues, el candado de la prueba, el dashboard multipágina y los artefactos. También redactó borradores de los capítulos 00, 13b, 16.6–16.9, 19, 20 y 21 y escribió los scripts de consulta a las bases bibliográficas</p></td>
+<td><p>El diseño, las demostraciones, el código y las cifras se revisan contra los resultados guardados en <code class="docutils literal notranslate"><span class="pre">results/</span></code>. El equipo responde por cada línea y puede explicarla y modificarla en la sustentación</p></td>
+</tr>
+<tr class="row-even"><td><p>Consensus</p></td>
+<td><p>Búsquedas exploratorias de literatura (capítulo 16.1)</p></td>
+<td><p>Se verificaron los trabajos citados</p></td>
+</tr>
+<tr class="row-odd"><td><p>API públicas de OpenAlex, Europe PMC y arXiv</p></td>
+<td><p>Búsquedas reproducibles de literatura (capítulo 16.6)</p></td>
+<td><p>Lectura de títulos y resúmenes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Ninguna cifra del informe se escribió de memoria. Todas salen de un script versionado y de un resultado guardado en el
+repositorio. Las referencias se verificaron contra su fuente; las que no se pudieron verificar se citan solo con los
+datos confirmados.</p>
+<p>Firmas:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Integrante</p></th>
+<th class="head"><p>Firma</p></th>
+<th class="head"><p>Fecha</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Jaime Andrés Besada</p></td>
+<td><p>Firmada (ver abajo)</p></td>
+<td><p>2026-10-23</p></td>
+</tr>
+<tr class="row-odd"><td><p>Iván Berrio</p></td>
+<td><p>Firmada (ver abajo)</p></td>
+<td><p>2026-10-23</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Firma de Jaime Andrés Besada:</strong></p>
+<a class="reference internal image-reference" href="_images/nombre_jaime_besada.png"><img alt="Firma manuscrita de Jaime Andrés Besada" src="_images/nombre_jaime_besada.png" style="width: 220px;" />
+</a>
+<p><strong>Firma de Iván Berrio:</strong></p>
+<a class="reference internal image-reference" href="_images/firma_ivan_berrio.png"><img alt="Firma de Iván Berrio" src="_images/firma_ivan_berrio.png" style="width: 260px;" />
+</a>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -520,12 +683,12 @@ codificadas, verificando antes que no revelen el resultado.</p></li>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="18_modelo_propuesto.html"
+       href="21_dashboard.html"
        title="página anterior">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">anterior</p>
-        <p class="prev-next-title">18. Modelo propuesto: <em>stacking</em> multivista</p>
+        <p class="prev-next-title">21. Dashboard y despliegue</p>
       </div>
     </a>
     <a class="right-next"
@@ -533,7 +696,7 @@ codificadas, verificando antes que no revelen el resultado.</p></li>
        title="siguiente página">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">siguiente</p>
-        <p class="prev-next-title">15. Reproducibilidad</p>
+        <p class="prev-next-title">15. Reproducibilidad y bibliografía</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -557,6 +720,11 @@ codificadas, verificando antes que no revelen el resultado.</p></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#respuesta-a-las-correcciones-del-entregable-1">Respuesta a las correcciones del entregable 1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limites">Límites</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#siguientes-pasos">Siguientes pasos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proyecto-final-veredicto-sobre-el-modelo-original-r1-r2-y-r3">Proyecto final: veredicto sobre el modelo original (R1, R2 y R3)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hallazgos-del-proyecto-final">Hallazgos del proyecto final</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitaciones-del-proyecto-final">Limitaciones del proyecto final</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trabajo-futuro">Trabajo futuro</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#declaracion-de-autoria-y-uso-de-herramientas-incluida-ia">Declaración de autoría y uso de herramientas (incluida IA)</a></li>
 </ul>
   </nav></div>
 

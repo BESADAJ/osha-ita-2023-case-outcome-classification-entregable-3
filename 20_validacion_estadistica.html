@@ -1,0 +1,1665 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>20. Validación estadística del modelo original (R3) &#8212; OSHA ITA 2023: resultado y días de ausencia de los casos reportados (entregable 3)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=78d55cf8"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Haz clic para mostrar';</script>
+    <script>let toggleHintHide = 'Haz clic para ocultar';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script src="_static/translations.js?v=d190bf04"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '20_validacion_estadistica';</script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="21. Dashboard y despliegue" href="21_dashboard.html" />
+    <link rel="prev" title="19. Modelo original: ensamble multivista con selección condicionada por región (SECR)" href="19_modelo_original_secr.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Saltar al contenido principal</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Volver arriba</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Advertencia de versión"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">OSHA ITA 2023: resultado y días de ausencia de los casos reportados (entregable 3)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Búsqueda</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Informe del proyecto final (entregable 3)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Correcciones</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_trazabilidad.html">Trazabilidad de correcciones</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datos (ETL y EDA)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_contexto.html">1. Contexto y datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_eda_dashboard.html">2. EDA: lo que muestra el dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_eda_adicional.html">3. EDA: detalles que no están en el dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_eda_mejorado.html">4. EDA mejorado para el entregable 3</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos benchmark (140 combinaciones)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="05_modelo_base_e2.html">5. Modelo base del entregable 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_diseno_pipeline.html">6. Diseño del pipeline combinatorio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_optimizacion_hiperparametros.html">7. Optimización de hiperparámetros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_optimizacion_computacional.html">8. Optimización computacional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_clasificacion.html">9. Evaluación de los modelos de clasificación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_regresion.html">10. Evaluación de los modelos de regresión</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_interpretabilidad.html">11. Interpretabilidad global y local (SHAP y LIME)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_robustez.html">12. Robustez y estabilidad de las métricas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_comparacion_estadistica.html">13. Comparación estadística de los modelos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13b_mejores_combinaciones.html">13b. Mejores combinaciones, reentrenamiento final y artefactos</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelo original</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="16_literatura_novedad.html">16. Revisión de literatura y novedad del modelo original</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_modelo_original.html">17. Primer candidato a modelo original: PT-bagging (histórico)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_modelo_propuesto.html">18. Modelo propuesto: <em>stacking</em> multivista</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19_modelo_original_secr.html">19. Modelo original: ensamble multivista con selección condicionada por región (SECR)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">20. Validación estadística del modelo original (R3)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Producto y cierre</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="21_dashboard.html">21. Dashboard y despliegue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_conclusiones.html">14. Conclusiones, limitaciones y declaración de uso de IA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_reproducibilidad.html">15. Reproducibilidad y bibliografía</a></li>
+<li class="toctree-l1"><a class="reference internal" href="anexo_entregable1.html">OSHA ITA 2023: primer entregable del proyecto de Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Todo en un solo notebook</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="entregable3_completo.html">Proyecto final (entregable 3): notebook único</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/20_validacion_estadistica.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="claro/oscuro" aria-label="claro/oscuro" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>20. Validación estadística del modelo original (R3)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tabla-resumen">20.1 Tabla resumen</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prueba-global-friedman-y-diagrama-de-diferencia-critica">20.2 Prueba global: Friedman y diagrama de diferencia crítica</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pruebas-pareadas-frente-al-mejor-benchmark-y-a-cada-benchmark">20.3 Pruebas pareadas frente al mejor benchmark y a cada benchmark</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ablacion-que-aporta-cada-componente">20.4 Ablación: ¿qué aporta cada componente?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergencia-de-frank-wolfe">20.5 Convergencia de Frank-Wolfe</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#veredicto">20.6 Veredicto</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sensibilidad-y-robustez-descriptivo">20.7 Sensibilidad y robustez (descriptivo)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretabilidad-shap-del-original-frente-al-mejor-benchmark">20.8 Interpretabilidad: SHAP del original frente al mejor benchmark</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="validacion-estadistica-del-modelo-original-r3">
+<h1>20. Validación estadística del modelo original (R3)<a class="headerlink" href="#validacion-estadistica-del-modelo-original-r3" title="Link to this heading">#</a></h1>
+<p>Este capítulo verifica si el modelo original (ensamble multivista + SECR, capítulo 19) <strong>supera</strong> a los benchmarks
+según la definición operativa de la guía (§6.1):</p>
+<ol class="arabic simple">
+<li><p>su BA media del bucle externo es mayor que la del mejor benchmark y que la de la mejor combinación de cada uno de
+los 7 modelos;</p></li>
+<li><p>al menos tres pruebas de hipótesis distintas rechazan la igualdad, con p ajustado por Holm &lt; 0,05, y al menos una
+es global;</p></li>
+<li><p>el tamaño del efecto no es despreciable: |δ de Cliff| ≥ 0,147.</p></li>
+</ol>
+<p><strong>Protocolo común (guía §5.3 y §6.2).</strong></p>
+<ul class="simple">
+<li><p><strong>Mismas variables.</strong> Los 7 benchmarks (la mejor combinación de balanceo y optimizador de cada modelo, capítulo 13b)
+se reentrenan con las mismas variables crudas que usa el original: las 9 del curso, los códigos OIICS de la lesión,
+NAICS-6, SOC-6 y el empleador. Cada uno con su propio preprocesamiento aprendido dentro del pliegue.</p></li>
+<li><p><strong>Mismas particiones.</strong> Validación externa repetida por establecimiento. La repetición 0 es la partición de los
+capítulos 6 a 13; las repeticiones 1 y 2 usan semillas <code class="docutils literal notranslate"><span class="pre">seed_for('outer',</span> <span class="pre">r)</span></code> fijadas antes de correr.
+<strong>Se planeó 5×5 y se recortó a 3×5 (15 pliegues) por tiempo de cómputo</strong>, con el orden de recorte fijado
+antes de ver resultados: las repeticiones 3 y 4 se cortaron para todos los modelos, y Random Forest y Naive
+Bayes (lentos con SMOTE/ADASYN sobre las variables ampliadas) quedaron solo con la repetición 0. KNN, que
+resultó el benchmark más fuerte en la repetición 0, se completó en las 3 repeticiones. Al final de la noche sobró
+tiempo y Random Forest y Naive Bayes también se completaron, así que los 8 modelos tienen las 15 celdas.</p></li>
+<li><p><strong>Mismo presupuesto.</strong> Búsqueda interna de 16 configuraciones con 3 pliegues internos para todos. Los benchmarks
+buscan con su optimizador ganador; el original busca sus hiperparámetros del combinador con TPE.</p></li>
+<li><p><strong>La prueba de octubre a diciembre no se usa</strong> (está bloqueada por código): todas las pruebas son sobre pliegues
+externos. Por eso McNemar y DeLong «sobre el conjunto de prueba» (Figura 4 de la guía) se reemplazan por pruebas
+sobre pliegues que el Cuadro 3 admite: Nadeau–Bengio, Wilcoxon–Holm y la prueba bayesiana con ROPE.</p></li>
+</ul>
+<p>Código: <code class="docutils literal notranslate"><span class="pre">src/osha_e3/paired.py</span></code> (corrida), <code class="docutils literal notranslate"><span class="pre">src/osha_e3/original_eval.py</span></code> (TPE anidado y ablación),
+<code class="docutils literal notranslate"><span class="pre">src/osha_e3/stats_tests.py</span></code> (pruebas) y <code class="docutils literal notranslate"><span class="pre">scripts/analyze_paired.py</span></code> (tablas). Las corridas cuestan horas y sus
+resultados están versionados en <code class="docutils literal notranslate"><span class="pre">results/pareado/</span></code>; este capítulo los lee.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">json</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'../src'</span><span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">Markdown</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">osha_e3</span><span class="w"> </span><span class="kn">import</span> <span class="n">config</span> <span class="k">as</span> <span class="n">C</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">RESULTS</span> <span class="o">/</span> <span class="s1">'pareado'</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">((</span><span class="n">R</span> <span class="o">/</span> <span class="s1">'resumen.json'</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8'</span><span class="p">))</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">R</span> <span class="o">/</span> <span class="s1">'pliegues.csv'</span><span class="p">)</span>
+<span class="n">PRETTY</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'original'</span><span class="p">:</span> <span class="s1">'Original (SECR)'</span><span class="p">,</span> <span class="s1">'knn'</span><span class="p">:</span> <span class="s1">'KNN'</span><span class="p">,</span> <span class="s1">'naive_bayes'</span><span class="p">:</span> <span class="s1">'Naive Bayes'</span><span class="p">,</span> <span class="s1">'logreg'</span><span class="p">:</span> <span class="s1">'Reg. logística'</span><span class="p">,</span>
+          <span class="s1">'tree'</span><span class="p">:</span> <span class="s1">'Árbol'</span><span class="p">,</span> <span class="s1">'random_forest'</span><span class="p">:</span> <span class="s1">'Random Forest'</span><span class="p">,</span> <span class="s1">'xgboost'</span><span class="p">:</span> <span class="s1">'XGBoost'</span><span class="p">,</span> <span class="s1">'svm'</span><span class="p">:</span> <span class="s1">'SVM'</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Celdas (repetición × pliegue) por modelo:'</span><span class="p">,</span> <span class="n">res</span><span class="p">[</span><span class="s1">'n_cells'</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Universo con las 15 celdas:'</span><span class="p">,</span> <span class="p">[</span><span class="n">PRETTY</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="s1">'universe_25'</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Celdas (repetición × pliegue) por modelo: {'knn': 15, 'logreg': 15, 'naive_bayes': 15, 'original': 15, 'random_forest': 15, 'svm': 15, 'tree': 15, 'xgboost': 15}
+Universo con las 15 celdas: ['Original (SECR)', 'SVM', 'Árbol', 'Reg. logística', 'XGBoost', 'KNN', 'Random Forest', 'Naive Bayes']
+</pre></div>
+</div>
+</div>
+</div>
+<section id="tabla-resumen">
+<h2>20.1 Tabla resumen<a class="headerlink" href="#tabla-resumen" title="Link to this heading">#</a></h2>
+<p>Media ± desviación estándar de la balanced accuracy en los pliegues externos, intervalo bootstrap BCa del 95 % de la
+media, otras métricas y tiempos (entrenamiento = búsqueda + reajuste por pliegue; inferencia por caso). La columna
+«BA rep. 0» usa solo los 5 pliegues de la repetición 0, que todos los modelos tienen.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">'summary_raw'</span><span class="p">])</span>
+<span class="n">tab</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">'Modelo'</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">PRETTY</span><span class="p">),</span> <span class="s1">'Balanceo'</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">balance</span><span class="p">,</span> <span class="s1">'Optimizador'</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">optimizer</span><span class="p">,</span> <span class="s1">'Pliegues'</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">n_pliegues</span><span class="p">,</span>
+    <span class="s1">'BA media ± d.e.'</span><span class="p">:</span> <span class="p">[</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">m</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1"> ± </span><span class="si">{</span><span class="n">d</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">'</span> <span class="k">for</span> <span class="n">m</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">ba_mean</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">ba_sd</span><span class="p">)],</span>
+    <span class="s1">'IC BCa 95 %'</span><span class="p">:</span> <span class="p">[</span><span class="sa">f</span><span class="s1">'[</span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">]'</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">ba_ci_lo</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">ba_ci_hi</span><span class="p">)],</span>
+    <span class="s1">'BA rep. 0'</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">ba_rep0_mean</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="s1">'F1 macro'</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">f1_mean</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="s1">'AUC macro'</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">auc_mean</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
+    <span class="s1">'Log-loss'</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">log_loss_mean</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="s1">'Entrenamiento (s/pliegue)'</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">train_s_mean</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+    <span class="s1">'Inferencia (ms/caso)'</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">ms_case_mean</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)})</span>
+<span class="n">tab</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Modelo</th>
+      <th>Balanceo</th>
+      <th>Optimizador</th>
+      <th>Pliegues</th>
+      <th>BA media ± d.e.</th>
+      <th>IC BCa 95 %</th>
+      <th>BA rep. 0</th>
+      <th>F1 macro</th>
+      <th>AUC macro</th>
+      <th>Log-loss</th>
+      <th>Entrenamiento (s/pliegue)</th>
+      <th>Inferencia (ms/caso)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Original (SECR)</td>
+      <td>interno (α)</td>
+      <td>bayes (TPE) del combinador</td>
+      <td>15</td>
+      <td>0.5912 ± 0.0869</td>
+      <td>[0.5413, 0.6281]</td>
+      <td>0.5910</td>
+      <td>0.4437</td>
+      <td>0.8171</td>
+      <td>0.8428</td>
+      <td>3085.0</td>
+      <td>2.468</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>KNN</td>
+      <td>smote</td>
+      <td>genetic</td>
+      <td>15</td>
+      <td>0.5686 ± 0.0776</td>
+      <td>[0.5261, 0.6020]</td>
+      <td>0.5563</td>
+      <td>0.3783</td>
+      <td>0.7635</td>
+      <td>1.5723</td>
+      <td>3854.0</td>
+      <td>12.282</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>SVM</td>
+      <td>smote</td>
+      <td>random</td>
+      <td>15</td>
+      <td>0.5374 ± 0.0846</td>
+      <td>[0.4954, 0.5781]</td>
+      <td>0.5321</td>
+      <td>0.4396</td>
+      <td>0.8002</td>
+      <td>1.0067</td>
+      <td>335.0</td>
+      <td>0.010</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Reg. logística</td>
+      <td>adasyn</td>
+      <td>bayes</td>
+      <td>15</td>
+      <td>0.5228 ± 0.1156</td>
+      <td>[0.4648, 0.5782]</td>
+      <td>0.4912</td>
+      <td>0.4245</td>
+      <td>0.7757</td>
+      <td>0.9512</td>
+      <td>574.0</td>
+      <td>0.008</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>XGBoost</td>
+      <td>class_weight</td>
+      <td>bayes</td>
+      <td>15</td>
+      <td>0.4660 ± 0.0522</td>
+      <td>[0.4464, 0.4990]</td>
+      <td>0.4741</td>
+      <td>0.4331</td>
+      <td>0.8002</td>
+      <td>0.8678</td>
+      <td>260.0</td>
+      <td>0.109</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Random Forest</td>
+      <td>smote</td>
+      <td>bayes</td>
+      <td>15</td>
+      <td>0.4537 ± 0.0470</td>
+      <td>[0.4361, 0.4858]</td>
+      <td>0.4669</td>
+      <td>0.4291</td>
+      <td>0.8044</td>
+      <td>0.8742</td>
+      <td>3013.0</td>
+      <td>0.089</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Naive Bayes</td>
+      <td>adasyn</td>
+      <td>genetic</td>
+      <td>15</td>
+      <td>0.4260 ± 0.0450</td>
+      <td>[0.4087, 0.4563]</td>
+      <td>0.4349</td>
+      <td>0.3984</td>
+      <td>0.7758</td>
+      <td>1.5071</td>
+      <td>386.0</td>
+      <td>0.015</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Árbol</td>
+      <td>class_weight</td>
+      <td>bayes</td>
+      <td>15</td>
+      <td>0.4161 ± 0.0830</td>
+      <td>[0.3731, 0.4534]</td>
+      <td>0.4636</td>
+      <td>0.3507</td>
+      <td>0.6507</td>
+      <td>1.1050</td>
+      <td>20.0</td>
+      <td>0.008</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><strong>Interpretación.</strong> Con las mismas variables y particiones, el modelo original tiene la <strong>BA media más alta</strong>
+(0,591 ± 0,087 en 15 pliegues), seguido de KNN (0,569), SVM (0,537) y la logística (0,523). También tiene la mejor
+log-loss (0,843 frente a 0,868 a 1,57 de los benchmarks), el mejor AUC macro (0,817) y el mejor F1 macro (0,444).
+El ranking cambió respecto al entregable 2: con las variables ampliadas, <strong>KNN pasa a ser el mejor benchmark</strong> (con 9
+variables era el quinto) y el árbol cae al último lugar. Los intervalos BCa de la BA del original y de KNN se solapan
+ampliamente ([0,541; 0,628] y [0,526; 0,602]). El original tarda 51 min de media por pliegue en entrenar (mediana 40, rango
+30–91; nivel 0 + TPE + SECR, columna <code class="docutils literal notranslate"><span class="pre">train_s</span></code>) y 2,5 ms por caso en predecir.</p>
+</section>
+<section id="prueba-global-friedman-y-diagrama-de-diferencia-critica">
+<h2>20.2 Prueba global: Friedman y diagrama de diferencia crítica<a class="headerlink" href="#prueba-global-friedman-y-diagrama-de-diferencia-critica" title="Link to this heading">#</a></h2>
+<p>Friedman (con la corrección F de Iman y Davenport) compara todos los modelos a la vez, con los pliegues como bloques
+y <strong>el modelo original incluido en el universo</strong>. Si rechaza, Nemenyi indica qué pares difieren: dos modelos cuya
+distancia de rangos medios es menor que la diferencia crítica (CD) no se distinguen. Se hace con (a) los modelos que
+tienen las 15 celdas (3 repeticiones × 5 pliegues) y (b) los 8 modelos en los 5 pliegues de la repetición 0.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">cd</span> <span class="ow">in</span> <span class="p">[(</span><span class="s1">'15 pliegues'</span><span class="p">,</span> <span class="s1">'friedman25'</span><span class="p">,</span> <span class="s1">'cd25'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'repetición 0 (5 pliegues)'</span><span class="p">,</span> <span class="s1">'friedman_rep0'</span><span class="p">,</span> <span class="s1">'cd_rep0'</span><span class="p">)]:</span>
+    <span class="n">fr</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">: k = </span><span class="si">{</span><span class="n">fr</span><span class="p">[</span><span class="s1">'k'</span><span class="p">]</span><span class="si">}</span><span class="s2">, N = </span><span class="si">{</span><span class="n">fr</span><span class="p">[</span><span class="s1">'n_blocks'</span><span class="p">]</span><span class="si">}</span><span class="s2">, χ² = </span><span class="si">{</span><span class="n">fr</span><span class="p">[</span><span class="s1">'chi2'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, p = </span><span class="si">{</span><span class="n">fr</span><span class="p">[</span><span class="s1">'p_value'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">; "</span>
+          <span class="sa">f</span><span class="s2">"F de Iman-Davenport = </span><span class="si">{</span><span class="n">fr</span><span class="p">[</span><span class="s1">'iman_davenport_F'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, p = </span><span class="si">{</span><span class="n">fr</span><span class="p">[</span><span class="s1">'p_value_F'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">; CD = </span><span class="si">{</span><span class="n">res</span><span class="p">[</span><span class="n">cd</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s1">'figures/e3_cd_pareado_25.png'</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s1">'figures/e3_cd_pareado_rep0.png'</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15 pliegues: k = 8, N = 15, χ² = 48.44, p = 2.91e-08; F de Iman-Davenport = 11.99, p = 5.76e-11; CD = 2.711
+repetición 0 (5 pliegues): k = 8, N = 5, χ² = 12.33, p = 9.01e-02; F de Iman-Davenport = 2.18, p = 6.77e-02; CD = 4.695
+</pre></div>
+</div>
+<img alt="_images/b605c2d636d02d7807575a6e97e400a935cb8bff640361d1b725ae96bd67568d.png" src="_images/b605c2d636d02d7807575a6e97e400a935cb8bff640361d1b725ae96bd67568d.png" />
+<img alt="_images/4079a1588ae99dbebbd5ce18fe2289c9acbca08c5864d2d797567e481cbd620b.png" src="_images/4079a1588ae99dbebbd5ce18fe2289c9acbca08c5864d2d797567e481cbd620b.png" />
+</div>
+</div>
+<p><strong>Interpretación.</strong> Con 15 pliegues y los 8 modelos, Friedman <strong>rechaza</strong> que todos tengan el mismo rango medio
+(F de Iman-Davenport = 11,99; p = 6·10⁻¹¹). El original tiene el mejor rango medio (2,33), seguido de SVM (3,13), KNN
+(3,67), la logística (3,93), XGBoost (4,07), Random Forest (5,13), el árbol (6,80) y Naive Bayes (6,93). La diferencia
+crítica de Nemenyi es 2,71: <strong>el original se separa de Random Forest, el árbol y Naive Bayes, pero no de SVM, KNN, la
+logística ni XGBoost</strong>. Con solo los 5 pliegues de la
+repetición 0, Friedman no rechaza (p = 0,068): 5 bloques dan muy poca potencia, como ya pasó en el capítulo 13.</p>
+</section>
+<section id="pruebas-pareadas-frente-al-mejor-benchmark-y-a-cada-benchmark">
+<h2>20.3 Pruebas pareadas frente al mejor benchmark y a cada benchmark<a class="headerlink" href="#pruebas-pareadas-frente-al-mejor-benchmark-y-a-cada-benchmark" title="Link to this heading">#</a></h2>
+<p>Tabla obligatoria de la guía (§6.3): prueba, hipótesis nula, supuestos verificados, estadístico, p crudo, p ajustado,
+tamaño del efecto y conclusión. Las 4 pruebas frecuentistas forman una familia y se ajustan con Holm (4 comparaciones).
+La bayesiana no da un p-valor: da probabilidades posteriores de que el original sea peor, equivalente (dentro de la
+ROPE de ±0,01 de BA) o mejor.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">'tests'</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Prueba</th>
+      <th>H0</th>
+      <th>Supuestos</th>
+      <th>Estadístico</th>
+      <th>p crudo</th>
+      <th>p ajustado (Holm, 4)</th>
+      <th>Efecto</th>
+      <th>Conclusión</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Friedman (Iman-Davenport), universo de 15 plie...</td>
+      <td>Todos los modelos tienen el mismo rango medio</td>
+      <td>bloques = pares (rep., pliegue) independientes...</td>
+      <td>F = 11.992</td>
+      <td>5.76e-11</td>
+      <td>2.30e-10</td>
+      <td>δ de Cliff = 0.191 [-0.138, 0.538] (pequeño)</td>
+      <td>Se rechaza H0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Nemenyi post hoc: original vs KNN</td>
+      <td>Igual rango medio</td>
+      <td>tras Friedman; CD = 2.711</td>
+      <td>ΔR = 1.333</td>
+      <td>8.13e-01</td>
+      <td>8.13e-01</td>
+      <td>δ de Cliff = 0.191 [-0.138, 0.538] (pequeño)</td>
+      <td>No se rechaza H0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>t corregida de Nadeau-Bengio: original vs KNN</td>
+      <td>Diferencia media de BA ≤ 0</td>
+      <td>normalidad de diferencias (Shapiro p = 0.049);...</td>
+      <td>t(14) = 0.453</td>
+      <td>3.29e-01</td>
+      <td>6.58e-01</td>
+      <td>δ de Cliff = 0.191 [-0.138, 0.538] (pequeño)</td>
+      <td>No se rechaza H0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Wilcoxon de rangos con signo: original vs KNN</td>
+      <td>Mediana de la diferencia ≤ 0</td>
+      <td>diferencias simétricas, pareadas por pliegue</td>
+      <td>W = 84.0</td>
+      <td>9.38e-02</td>
+      <td>2.81e-01</td>
+      <td>δ de Cliff = 0.191 [-0.138, 0.538] (pequeño)</td>
+      <td>No se rechaza H0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Bayesiana de rangos con signo (ROPE ±0,01 BA):...</td>
+      <td>— (probabilidades posteriores)</td>
+      <td>proceso de Dirichlet, pseudo-observación en 0</td>
+      <td>P(original mejor) = 0.947; P(ROPE) = 0.000; P(...</td>
+      <td>—</td>
+      <td>—</td>
+      <td>Δ BA media = 0.0225, IC BCa 95 % [-0.0317, 0.0...</td>
+      <td>No concluyente</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">'vs_each'</span><span class="p">])</span>
+<span class="n">vs</span><span class="p">[</span><span class="s1">'benchmark'</span><span class="p">]</span> <span class="o">=</span> <span class="n">vs</span><span class="o">.</span><span class="n">benchmark</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">PRETTY</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Wilcoxon de rangos con signo (unilateral, H1: el original es mejor) contra cada benchmark, Holm sobre'</span><span class="p">,</span>
+      <span class="nb">len</span><span class="p">(</span><span class="n">vs</span><span class="p">),</span> <span class="s1">'comparaciones:'</span><span class="p">)</span>
+<span class="n">vs</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Wilcoxon de rangos con signo (unilateral, H1: el original es mejor) contra cada benchmark, Holm sobre 7 comparaciones:
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>benchmark</th>
+      <th>n_pliegues</th>
+      <th>ba_original</th>
+      <th>ba_benchmark</th>
+      <th>diff_mean</th>
+      <th>gana_en</th>
+      <th>W</th>
+      <th>p_crudo</th>
+      <th>cliff</th>
+      <th>cliff_label</th>
+      <th>p_holm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>SVM</td>
+      <td>15</td>
+      <td>0.5912</td>
+      <td>0.5374</td>
+      <td>0.0538</td>
+      <td>11</td>
+      <td>94.0</td>
+      <td>0.0277</td>
+      <td>0.4044</td>
+      <td>mediano</td>
+      <td>0.0719</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Árbol</td>
+      <td>15</td>
+      <td>0.5912</td>
+      <td>0.4161</td>
+      <td>0.1751</td>
+      <td>15</td>
+      <td>120.0</td>
+      <td>0.0000</td>
+      <td>0.8667</td>
+      <td>grande</td>
+      <td>0.0002</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Reg. logística</td>
+      <td>15</td>
+      <td>0.5912</td>
+      <td>0.5228</td>
+      <td>0.0684</td>
+      <td>11</td>
+      <td>95.0</td>
+      <td>0.0240</td>
+      <td>0.3511</td>
+      <td>mediano</td>
+      <td>0.0719</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>XGBoost</td>
+      <td>15</td>
+      <td>0.5912</td>
+      <td>0.4660</td>
+      <td>0.1252</td>
+      <td>11</td>
+      <td>108.0</td>
+      <td>0.0021</td>
+      <td>0.7244</td>
+      <td>grande</td>
+      <td>0.0085</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>KNN</td>
+      <td>15</td>
+      <td>0.5912</td>
+      <td>0.5686</td>
+      <td>0.0225</td>
+      <td>11</td>
+      <td>84.0</td>
+      <td>0.0938</td>
+      <td>0.1911</td>
+      <td>pequeño</td>
+      <td>0.0938</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Random Forest</td>
+      <td>15</td>
+      <td>0.5912</td>
+      <td>0.4537</td>
+      <td>0.1375</td>
+      <td>12</td>
+      <td>113.0</td>
+      <td>0.0006</td>
+      <td>0.7689</td>
+      <td>grande</td>
+      <td>0.0029</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Naive Bayes</td>
+      <td>15</td>
+      <td>0.5912</td>
+      <td>0.4260</td>
+      <td>0.1652</td>
+      <td>14</td>
+      <td>119.0</td>
+      <td>0.0001</td>
+      <td>0.8756</td>
+      <td>grande</td>
+      <td>0.0004</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s1">'figures/e3_ba_pliegues_pareado.png'</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Supuestos de Nadeau-Bengio: Shapiro-Wilk sobre las diferencias, p ='</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">'shapiro_p'</span><span class="p">],</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'IC BCa 95 </span><span class="si">% d</span><span class="s1">e la diferencia media de BA (original − mejor):'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">'diff_ci_bca'</span><span class="p">],</span> <span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'δ de Cliff [IC 95 %]:'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">'cliff'</span><span class="p">],</span> <span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/bd45b432cb3193da9716a74a89ea9c2109409b1e7abc516f82da5967ce471ab0.png" src="_images/bd45b432cb3193da9716a74a89ea9c2109409b1e7abc516f82da5967ce471ab0.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Supuestos de Nadeau-Bengio: Shapiro-Wilk sobre las diferencias, p = 0.049
+IC BCa 95 % de la diferencia media de BA (original − mejor): [-0.0317  0.0563]
+δ de Cliff [IC 95 %]: [ 0.191 -0.138  0.538]
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Interpretación.</strong></p>
+<ul class="simple">
+<li><p><strong>Frente al mejor benchmark (KNN) ninguna prueba pareada rechaza la igualdad</strong> después de Holm: Nemenyi
+(p ajustado 0,81), Nadeau–Bengio (t(14) = 0,45; p ajustado 0,66) y Wilcoxon (p ajustado 0,28). La diferencia media
+de BA es +0,022 con IC BCa 95 % [−0,032; 0,056], que incluye el 0. El δ de Cliff es 0,19 (pequeño), con IC
+[−0,14; 0,54]. La prueba bayesiana da 0,947 de probabilidad posterior de que el original sea mejor por más de 0,01
+de BA: cerca de 0,95, pero sin alcanzarlo.</p></li>
+<li><p><strong>Supuestos.</strong> Las diferencias por pliegue se apartan algo de la normalidad (Shapiro p = 0,049). Por eso la
+conclusión no descansa solo en Nadeau–Bengio: Wilcoxon (sin normalidad) y la prueba bayesiana dicen lo mismo. Los
+pliegues de repeticiones distintas comparten casos, y eso es justo lo que corrige Nadeau–Bengio
+(<span class="math notranslate nohighlight">\(1/J + n_{test}/n_{train}\)</span>).</p></li>
+<li><p><strong>Frente a cada benchmark</strong> (Wilcoxon con Holm sobre 7 comparaciones), el original es significativamente mejor que
+el árbol (p = 0,0002; δ = 0,87), Naive Bayes (p = 0,0004; δ = 0,88), Random Forest (p = 0,003; δ = 0,77) y XGBoost
+(p = 0,009; δ = 0,72), todos con efecto grande. No lo es frente a SVM (p = 0,072), la logística (p = 0,072) ni KNN
+(p = 0,094).</p></li>
+<li><p><strong>Por qué no alcanza.</strong> La BA de 4 clases depende de acertar a los fallecimientos: hay 0 a 4 por pliegue, y acertar
+uno solo mueve la BA ±0,25 (pliegue 1 de la repetición 0: KNN 0,625 frente a 0,407 del original, con un solo
+fallecimiento). Esa varianza entre pliegues (d.e. 0,08–0,09) es cuatro veces la ventaja media (0,022). Con este
+tamaño de efecto harían falta muchos más pliegues para detectarla (del orden de 60 a 100 según la potencia de
+Wilcoxon), y el presupuesto de cómputo de esta corrida no lo permitió.</p></li>
+</ul>
+</section>
+<section id="ablacion-que-aporta-cada-componente">
+<h2>20.4 Ablación: ¿qué aporta cada componente?<a class="headerlink" href="#ablacion-que-aporta-cada-componente" title="Link to this heading">#</a></h2>
+<p>Mismos modelos base, mismas predicciones y mismos 15 pliegues. Se retira un componente cada vez, o la regla de
+combinación se reemplaza por una regla estándar (Cuadro 1 de la guía: promedio simple, pesos por error global,
+stacking lineal). La columna «p (Holm)» es el Wilcoxon unilateral de «SECR completo es mejor que la variante».</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">'ablation'</span><span class="p">])</span>
+<span class="n">a</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>variante</th>
+      <th>ba_mean</th>
+      <th>ba_sd</th>
+      <th>log_loss</th>
+      <th>diff_vs_original</th>
+      <th>p_wilcoxon</th>
+      <th>p_holm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>SECR completo (original)</td>
+      <td>0.5912</td>
+      <td>0.0869</td>
+      <td>0.8428</td>
+      <td>-0.0000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>SECR sin regiones (solo pesos globales)</td>
+      <td>0.5803</td>
+      <td>0.0965</td>
+      <td>0.8428</td>
+      <td>-0.0109</td>
+      <td>0.7032</td>
+      <td>1.0000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>SECR sin corrección por prior (α = 0)</td>
+      <td>0.4641</td>
+      <td>0.0499</td>
+      <td>0.8428</td>
+      <td>-0.1271</td>
+      <td>0.0013</td>
+      <td>0.0092</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Caruana global (modelo G)</td>
+      <td>0.5983</td>
+      <td>0.0869</td>
+      <td>0.8426</td>
+      <td>0.0071</td>
+      <td>0.9760</td>
+      <td>1.0000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Stacking lineal (logística multinomial)</td>
+      <td>0.5232</td>
+      <td>0.0983</td>
+      <td>0.8485</td>
+      <td>-0.0680</td>
+      <td>0.0603</td>
+      <td>0.2411</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Pesos por error global</td>
+      <td>0.5784</td>
+      <td>0.1055</td>
+      <td>0.8716</td>
+      <td>-0.0128</td>
+      <td>0.0473</td>
+      <td>0.2365</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Promedio simple</td>
+      <td>0.5684</td>
+      <td>0.1003</td>
+      <td>0.8757</td>
+      <td>-0.0228</td>
+      <td>0.0062</td>
+      <td>0.0374</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Mejor modelo base individual</td>
+      <td>0.5917</td>
+      <td>0.1010</td>
+      <td>0.8483</td>
+      <td>0.0005</td>
+      <td>0.7556</td>
+      <td>1.0000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><strong>Interpretación (honesta) de la ablación.</strong></p>
+<ul class="simple">
+<li><p><strong>La corrección por prior es el componente que más aporta</strong>: quitarla baja la BA de 0,591 a 0,464 (Wilcoxon con
+Holm p = 0,009). La log-loss no cambia, porque la decisión no altera las probabilidades.</p></li>
+<li><p><strong>Las regiones no aportan en BA</strong>: SECR sin regiones da 0,580 (p = 1,0) y Caruana global 0,598, sin diferencia
+significativa con SECR completo. La búsqueda TPE eligió una compuerta en 14 de 15 pliegues, pero cambia de un pliegue a
+otro (sector, tipo de establecimiento, tipo de incidente, naturaleza o evento) y λ va de 1 a 8 311: no hay una
+estructura regional estable que aprovechar. <strong>El mecanismo nuevo de SECR no mejoró la métrica
+principal en este problema</strong>: con estas vistas, la calidad relativa de los modelos base es parecida entre regiones.</p></li>
+<li><p><strong>Frente a las reglas estándar</strong>: SECR supera de forma significativa al promedio simple (p = 0,037 con Holm). Frente
+a los pesos por error global (p = 0,24) y al stacking lineal (p = 0,24) gana en media (+0,013 y +0,068) sin
+significancia tras Holm. El stacking lineal tiene peor log-loss (0,849) y peor BA (0,523).</p></li>
+</ul>
+</section>
+<section id="convergencia-de-frank-wolfe">
+<h2>20.5 Convergencia de Frank-Wolfe<a class="headerlink" href="#convergencia-de-frank-wolfe" title="Link to this heading">#</a></h2>
+<p>La curva muestra la log-loss fuera de pliegue y la brecha de Frank-Wolfe por iteración (pesos globales,
+repetición 0, pliegue 0). La pérdida nunca sube (proposición 2) y la brecha, que acota la distancia al óptimo
+(proposición 3), cae varios órdenes de magnitud.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s1">'figures/e3_convergencia_fw.png'</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/bc769c30498d4192aa9ac4d39e963b94986710ac17fbeddcbb9aea7b78892d9c.png" src="_images/bc769c30498d4192aa9ac4d39e963b94986710ac17fbeddcbb9aea7b78892d9c.png" />
+</div>
+</div>
+<p>La pérdida baja de forma monótona en todas las iteraciones (proposición 2). La brecha de Frank-Wolfe cae varios
+órdenes de magnitud y, por la proposición 3, certifica que la solución está a menos de esa brecha del óptimo.</p>
+</section>
+<section id="veredicto">
+<h2>20.6 Veredicto<a class="headerlink" href="#veredicto" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="s1">'&gt; **'</span> <span class="o">+</span> <span class="n">res</span><span class="p">[</span><span class="s1">'verdict'</span><span class="p">]</span> <span class="o">+</span> <span class="s1">'**'</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<blockquote>
+<div><p><strong>Veredicto R3: NO SUPERIOR. BA media del original 0.591 frente a 0.569 del mejor benchmark pareado (KNN); 1 de 4 pruebas frecuentistas rechazan H0 con p ajustado por Holm &lt; 0,05 (la global de Friedman sí); δ de Cliff = 0.191 (pequeño). Media mayor que la de los 7 benchmarks: sí.</strong></p>
+</div></blockquote>
+</div>
+</div>
+<p><strong>Lectura del veredicto según la guía (§6.1 y §12.1).</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Condición de superioridad</p></th>
+<th class="head"><p>¿Se cumple?</p></th>
+<th class="head"><p>Evidencia</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1. BA media mayor que la del mejor benchmark y que la de cada uno de los 7</p></td>
+<td><p><strong>Sí</strong></p></td>
+<td><p>0,591 frente a 0,569 (KNN); mayor que los 7 en las celdas comunes y en la repetición 0</p></td>
+</tr>
+<tr class="row-odd"><td><p>2. Al menos 3 pruebas con p ajustado &lt; 0,05, una de ellas global</p></td>
+<td><p><strong>No</strong></p></td>
+<td><p>Solo Friedman (global) rechaza; Nemenyi, Nadeau–Bengio y Wilcoxon frente a KNN no</p></td>
+</tr>
+<tr class="row-even"><td><p>3. Tamaño del efecto no despreciable (</p></td>
+<td><p>δ</p></td>
+<td><p>≥ 0,147)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Sesgo de selección (declarado).</strong> La BA de 0,591 es <strong>optimista</strong>, por dos razones:</p>
+<ul class="simple">
+<li><p>el original salió de elegir entre varios candidatos (sección 19.9: 5 diseños del capítulo 17 y 7 variantes del 18);</p></li>
+<li><p>su nivel 0 (G) se eligió mirando los 5 pliegues de los capítulos 6 a 13, que son la repetición 0 de este capítulo
+(<code class="docutils literal notranslate"><span class="pre">paired.outer_folds(0)</span></code>).</p></li>
+</ul>
+<p>Se nota en las cifras: la ventaja sobre KNN es +0,035 en la repetición 0 (pliegues ya vistos) y +0,006 y +0,027 en las
+repeticiones 1 y 2 (no vistos). El sesgo va <strong>a favor</strong> del original, así que concluir «R3 = no» es conservador: sin
+ese sesgo, la ventaja sería igual o menor.</p>
+<p>Como la condición 2 falla, <strong>R3 no se cumple</strong>: el modelo original es el mejor en media y en rango, pero no es
+superior de forma estadísticamente significativa al mejor benchmark pareado. Con R1 y R2 cumplidos (capítulos 16 y
+19), el tope que corresponde es <strong>4,0</strong> (guía §12.1). Se reporta así aunque sea desfavorable. Lo que no se hizo:
+repetir la corrida con más repeticiones, otra semilla u otra métrica después de ver estos resultados, porque eso sería
+buscar la significancia (guía §13).</p>
+</section>
+<section id="sensibilidad-y-robustez-descriptivo">
+<h2>20.7 Sensibilidad y robustez (descriptivo)<a class="headerlink" href="#sensibilidad-y-robustez-descriptivo" title="Link to this heading">#</a></h2>
+<p>Para ver cómo responde SECR a sus hiperparámetros y a tener menos datos, se fija una configuración base (compuerta =
+sector NAICS-2, λ = 100, 30 pasos, región mínima = 200, α = 1) y se cambia <strong>un</strong> valor cada vez. Para robustez a menor
+tamaño de muestra, los pesos se ajustan con el 10 %, 25 %, 50 % o 100 % de las predicciones internas. Todo se mide en
+los mismos pliegues externos. <strong>Es un análisis descriptivo</strong>: no se usa para elegir nada (eso lo hizo la TPE interna) y
+mirar estas cifras para escoger la configuración sería usar los pliegues externos para ajustar.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sens</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">R</span> <span class="o">/</span> <span class="s1">'sensibilidad_secr.csv'</span><span class="p">)</span>
+<span class="n">sens</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">'param'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">])[[</span><span class="s1">'ba'</span><span class="p">,</span> <span class="s1">'log_loss'</span><span class="p">]]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">'mean'</span><span class="p">,</span> <span class="s1">'std'</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th colspan="2" halign="left">ba</th>
+      <th colspan="2" halign="left">log_loss</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>mean</th>
+      <th>std</th>
+      <th>mean</th>
+      <th>std</th>
+    </tr>
+    <tr>
+      <th>param</th>
+      <th>value</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="5" valign="top">alpha</th>
+      <th>0.0</th>
+      <td>0.4625</td>
+      <td>0.0500</td>
+      <td>0.8427</td>
+      <td>0.0457</td>
+    </tr>
+    <tr>
+      <th>0.25</th>
+      <td>0.4638</td>
+      <td>0.0504</td>
+      <td>0.8427</td>
+      <td>0.0457</td>
+    </tr>
+    <tr>
+      <th>0.5</th>
+      <td>0.4695</td>
+      <td>0.0528</td>
+      <td>0.8427</td>
+      <td>0.0457</td>
+    </tr>
+    <tr>
+      <th>0.75</th>
+      <td>0.5407</td>
+      <td>0.1017</td>
+      <td>0.8427</td>
+      <td>0.0457</td>
+    </tr>
+    <tr>
+      <th>1.0</th>
+      <td>0.5851</td>
+      <td>0.0762</td>
+      <td>0.8427</td>
+      <td>0.0457</td>
+    </tr>
+    <tr>
+      <th rowspan="4" valign="top">frac_datos</th>
+      <th>0.1</th>
+      <td>0.3092</td>
+      <td>0.1997</td>
+      <td>0.8441</td>
+      <td>0.0452</td>
+    </tr>
+    <tr>
+      <th>0.25</th>
+      <td>0.5265</td>
+      <td>0.1180</td>
+      <td>0.8431</td>
+      <td>0.0460</td>
+    </tr>
+    <tr>
+      <th>0.5</th>
+      <td>0.5738</td>
+      <td>0.0953</td>
+      <td>0.8431</td>
+      <td>0.0455</td>
+    </tr>
+    <tr>
+      <th>1.0</th>
+      <td>0.5851</td>
+      <td>0.0762</td>
+      <td>0.8427</td>
+      <td>0.0457</td>
+    </tr>
+    <tr>
+      <th rowspan="8" valign="top">gate</th>
+      <th>establishment_type</th>
+      <td>0.6009</td>
+      <td>0.0695</td>
+      <td>0.8432</td>
+      <td>0.0460</td>
+    </tr>
+    <tr>
+      <th>event1</th>
+      <td>0.5945</td>
+      <td>0.0760</td>
+      <td>0.8434</td>
+      <td>0.0464</td>
+    </tr>
+    <tr>
+      <th>naics2</th>
+      <td>0.5851</td>
+      <td>0.0762</td>
+      <td>0.8427</td>
+      <td>0.0457</td>
+    </tr>
+    <tr>
+      <th>nature1</th>
+      <td>0.6159</td>
+      <td>0.0523</td>
+      <td>0.8428</td>
+      <td>0.0455</td>
+    </tr>
+    <tr>
+      <th>none</th>
+      <td>0.6178</td>
+      <td>0.0506</td>
+      <td>0.8426</td>
+      <td>0.0459</td>
+    </tr>
+    <tr>
+      <th>part1</th>
+      <td>0.6163</td>
+      <td>0.0508</td>
+      <td>0.8433</td>
+      <td>0.0459</td>
+    </tr>
+    <tr>
+      <th>soc2</th>
+      <td>0.6159</td>
+      <td>0.0509</td>
+      <td>0.8432</td>
+      <td>0.0454</td>
+    </tr>
+    <tr>
+      <th>type_of_incident</th>
+      <td>0.6182</td>
+      <td>0.0538</td>
+      <td>0.8428</td>
+      <td>0.0459</td>
+    </tr>
+    <tr>
+      <th rowspan="5" valign="top">lam</th>
+      <th>1.0</th>
+      <td>0.5850</td>
+      <td>0.0765</td>
+      <td>0.8431</td>
+      <td>0.0457</td>
+    </tr>
+    <tr>
+      <th>10.0</th>
+      <td>0.5849</td>
+      <td>0.0765</td>
+      <td>0.8430</td>
+      <td>0.0457</td>
+    </tr>
+    <tr>
+      <th>100.0</th>
+      <td>0.5851</td>
+      <td>0.0762</td>
+      <td>0.8427</td>
+      <td>0.0457</td>
+    </tr>
+    <tr>
+      <th>1000.0</th>
+      <td>0.6125</td>
+      <td>0.0518</td>
+      <td>0.8419</td>
+      <td>0.0458</td>
+    </tr>
+    <tr>
+      <th>10000.0</th>
+      <td>0.6181</td>
+      <td>0.0496</td>
+      <td>0.8420</td>
+      <td>0.0459</td>
+    </tr>
+    <tr>
+      <th rowspan="4" valign="top">n_steps</th>
+      <th>10</th>
+      <td>0.5906</td>
+      <td>0.0764</td>
+      <td>0.8426</td>
+      <td>0.0457</td>
+    </tr>
+    <tr>
+      <th>100</th>
+      <td>0.5854</td>
+      <td>0.0763</td>
+      <td>0.8428</td>
+      <td>0.0457</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>0.5851</td>
+      <td>0.0762</td>
+      <td>0.8427</td>
+      <td>0.0457</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.6010</td>
+      <td>0.0762</td>
+      <td>0.8427</td>
+      <td>0.0460</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><strong>Interpretación.</strong></p>
+<ul class="simple">
+<li><p><strong>α es el hiperparámetro decisivo.</strong> Con α ≤ 0,5 la BA queda en ~0,46; con α = 1 sube a ~0,59. La log-loss no cambia,
+porque α solo mueve la decisión.</p></li>
+<li><p><strong>λ, los pasos y la compuerta casi no cambian la log-loss</strong> (0,842–0,843). En BA, las configuraciones que se acercan a
+pesos globales (sin compuerta, o con λ ≥ 1000) dan ~0,62. Es <strong>más</strong> que el 0,591 del modelo con TPE: la búsqueda
+interna, con 3 pliegues y una BA tan ruidosa, elige compuertas y λ que no generalizan (costo de la selección). Este
+hallazgo es descriptivo y <strong>no se usa para cambiar el modelo</strong>, porque elegir con los pliegues externos invalidaría
+la comparación. Queda como lección para el trabajo futuro: la versión global, más simple, habría sido una mejor
+apuesta <em>a priori</em> en este problema.</p></li>
+<li><p><strong>Robustez a menos datos.</strong> Con el 50 % de las predicciones internas la BA baja poco (0,574); con el 25 % baja a 0,527.
+Con el 10 % el método se vuelve inestable (0,309 ± 0,200): las regiones y α se estiman con muy pocos fallecimientos.</p></li>
+</ul>
+</section>
+<section id="interpretabilidad-shap-del-original-frente-al-mejor-benchmark">
+<h2>20.8 Interpretabilidad: SHAP del original frente al mejor benchmark<a class="headerlink" href="#interpretabilidad-shap-del-original-frente-al-mejor-benchmark" title="Link to this heading">#</a></h2>
+<p>Valores de Shapley exactos por <strong>grupos de variables</strong> (<code class="docutils literal notranslate"><span class="pre">dashboard_final/src/explain.py</span></code>), calculados sobre los mismos
+casos del desarrollo para el modelo original y para la mejor combinación del curso (SVM + SMOTE, 9 variables). Se
+reporta el |SHAP| medio de la probabilidad de la clase predicha. Un grupo que un modelo no usa tiene aporte 0.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shp</span> <span class="o">=</span> <span class="n">R</span> <span class="o">/</span> <span class="s1">'shap_original_vs_benchmark.csv'</span>
+<span class="k">if</span> <span class="n">shp</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">shp</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s1">'figures/e3_shap_original_vs_benchmark.png'</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Original (SECR)</th>
+      <th>SVM + SMOTE (mejor del curso)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Naturaleza de la lesión</th>
+      <td>0.1038</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>Evento y fuente</th>
+      <td>0.0784</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>Estado</th>
+      <td>0.0650</td>
+      <td>0.0184</td>
+    </tr>
+    <tr>
+      <th>Empleador</th>
+      <td>0.0577</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>Actividad (NAICS)</th>
+      <td>0.0495</td>
+      <td>0.1155</td>
+    </tr>
+    <tr>
+      <th>Parte del cuerpo</th>
+      <td>0.0370</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>Ocupación (SOC)</th>
+      <td>0.0176</td>
+      <td>0.0497</td>
+    </tr>
+    <tr>
+      <th>Horario</th>
+      <td>0.0116</td>
+      <td>0.0184</td>
+    </tr>
+    <tr>
+      <th>Tipo de establecimiento</th>
+      <td>0.0046</td>
+      <td>0.0039</td>
+    </tr>
+    <tr>
+      <th>Tipo de incidente</th>
+      <td>0.0038</td>
+      <td>0.0114</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="_images/ab10cd78c0a7bca15cd5c171475df9ed0a365058d42e41f96ba050577286c071.png" src="_images/ab10cd78c0a7bca15cd5c171475df9ed0a365058d42e41f96ba050577286c071.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="19_modelo_original_secr.html"
+       title="página anterior">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">19. Modelo original: ensamble multivista con selección condicionada por región (SECR)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="21_dashboard.html"
+       title="siguiente página">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">siguiente</p>
+        <p class="prev-next-title">21. Dashboard y despliegue</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tabla-resumen">20.1 Tabla resumen</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prueba-global-friedman-y-diagrama-de-diferencia-critica">20.2 Prueba global: Friedman y diagrama de diferencia crítica</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pruebas-pareadas-frente-al-mejor-benchmark-y-a-cada-benchmark">20.3 Pruebas pareadas frente al mejor benchmark y a cada benchmark</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ablacion-que-aporta-cada-componente">20.4 Ablación: ¿qué aporta cada componente?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergencia-de-frank-wolfe">20.5 Convergencia de Frank-Wolfe</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#veredicto">20.6 Veredicto</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sensibilidad-y-robustez-descriptivo">20.7 Sensibilidad y robustez (descriptivo)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretabilidad-shap-del-original-frente-al-mejor-benchmark">20.8 Interpretabilidad: SHAP del original frente al mejor benchmark</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por Jaime Andrés Besada e Iván Berrio
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

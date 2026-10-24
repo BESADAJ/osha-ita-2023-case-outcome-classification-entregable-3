@@ -1,0 +1,1112 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>19. Modelo original: ensamble multivista con selección condicionada por región (SECR) &#8212; OSHA ITA 2023: resultado y días de ausencia de los casos reportados (entregable 3)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=78d55cf8"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Haz clic para mostrar';</script>
+    <script>let toggleHintHide = 'Haz clic para ocultar';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script src="_static/translations.js?v=d190bf04"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '19_modelo_original_secr';</script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="20. Validación estadística del modelo original (R3)" href="20_validacion_estadistica.html" />
+    <link rel="prev" title="18. Modelo propuesto: stacking multivista" href="18_modelo_propuesto.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Saltar al contenido principal</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Volver arriba</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Advertencia de versión"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">OSHA ITA 2023: resultado y días de ausencia de los casos reportados (entregable 3)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Búsqueda</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Informe del proyecto final (entregable 3)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Correcciones</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_trazabilidad.html">Trazabilidad de correcciones</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datos (ETL y EDA)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_contexto.html">1. Contexto y datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_eda_dashboard.html">2. EDA: lo que muestra el dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_eda_adicional.html">3. EDA: detalles que no están en el dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_eda_mejorado.html">4. EDA mejorado para el entregable 3</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos benchmark (140 combinaciones)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="05_modelo_base_e2.html">5. Modelo base del entregable 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_diseno_pipeline.html">6. Diseño del pipeline combinatorio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_optimizacion_hiperparametros.html">7. Optimización de hiperparámetros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_optimizacion_computacional.html">8. Optimización computacional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_clasificacion.html">9. Evaluación de los modelos de clasificación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_regresion.html">10. Evaluación de los modelos de regresión</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_interpretabilidad.html">11. Interpretabilidad global y local (SHAP y LIME)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_robustez.html">12. Robustez y estabilidad de las métricas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_comparacion_estadistica.html">13. Comparación estadística de los modelos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13b_mejores_combinaciones.html">13b. Mejores combinaciones, reentrenamiento final y artefactos</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelo original</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="16_literatura_novedad.html">16. Revisión de literatura y novedad del modelo original</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_modelo_original.html">17. Primer candidato a modelo original: PT-bagging (histórico)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_modelo_propuesto.html">18. Modelo propuesto: <em>stacking</em> multivista</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">19. Modelo original: ensamble multivista con selección condicionada por región (SECR)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20_validacion_estadistica.html">20. Validación estadística del modelo original (R3)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Producto y cierre</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="21_dashboard.html">21. Dashboard y despliegue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_conclusiones.html">14. Conclusiones, limitaciones y declaración de uso de IA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_reproducibilidad.html">15. Reproducibilidad y bibliografía</a></li>
+<li class="toctree-l1"><a class="reference internal" href="anexo_entregable1.html">OSHA ITA 2023: primer entregable del proyecto de Machine Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Todo en un solo notebook</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="entregable3_completo.html">Proyecto final (entregable 3): notebook único</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/19_modelo_original_secr.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="claro/oscuro" aria-label="claro/oscuro" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>19. Modelo original: ensamble multivista con selección condicionada por región (SECR)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivacion">19.1 Motivación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#postura-sobre-las-variables-de-la-lesion">19.2 Postura sobre las variables de la lesión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formulacion">19.3 Formulación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algoritmo">19.4 Algoritmo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-demostradas">19.5 Propiedades demostradas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complejidad">19.6 Complejidad</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion-y-pruebas">19.7 Implementación y pruebas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ablacion-e-interpretabilidad">19.8 Ablación e interpretabilidad</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#candidatos-probados-guia-13">19.9 Candidatos probados (guía §13)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="modelo-original-ensamble-multivista-con-seleccion-condicionada-por-region-secr">
+<h1>19. Modelo original: ensamble multivista con selección condicionada por región (SECR)<a class="headerlink" href="#modelo-original-ensamble-multivista-con-seleccion-condicionada-por-region-secr" title="Link to this heading">#</a></h1>
+<p>Este capítulo presenta el modelo original del proyecto: su motivación, su formulación matemática, el algoritmo con
+pseudocódigo, sus propiedades demostradas, su complejidad, el código y las pruebas unitarias. La revisión de literatura
+y la declaración de novedad están en el capítulo 16. La validación estadística frente a los benchmarks está en el
+capítulo 20.</p>
+<section id="motivacion">
+<h2>19.1 Motivación<a class="headerlink" href="#motivacion" title="Link to this heading">#</a></h2>
+<p>El capítulo 18 mostró que un ensamble de modelos especializados en <strong>vistas</strong> distintas del caso supera a cualquier
+modelo individual con las mismas variables (G supera a D, un XGBoost con todas las variables, en 5 de 5 pliegues
+externos). Las vistas son: el lugar de trabajo (las 9 variables del curso), la lesión (códigos OIICS), los códigos finos
+(NAICS-6, SOC-6 y sus cruces, con codificación por objetivo fuera de pliegue) y el empleador. G combina los 16 modelos
+base con la selección de ensambles de <span id="id1">[<a class="reference internal" href="15_reproducibilidad.html#id2" title="Rich Caruana, Alexandru Niculescu-Mizil, Geoff Crew, and Alex Ksikes. Ensemble selection from libraries of models. In Proceedings of the 21st International Conference on Machine Learning (ICML). 2004. doi:10.1145/1015330.1015432.">CNMCK04</a>]</span>, que asigna <strong>un solo vector de pesos para todo el
+espacio de entrada</strong>.</p>
+<p>Ese diseño tiene dos limitaciones.</p>
+<ol class="arabic simple">
+<li><p><strong>La utilidad de cada vista cambia según el tipo de caso.</strong> El código de la lesión discrimina mucho en manufactura
+y poco en salud. La vista del empleador solo ayuda donde hay empresas con muchos casos. Unos pesos globales
+promedian esas diferencias.</p></li>
+<li><p><strong>Los pesos de Caruana salen de una regla de paso fijo sin garantías.</strong> Cada paso añade un modelo con peso
+<span class="math notranslate nohighlight">\(1/(t+1)\)</span>, aunque eso empeore la pérdida. No hay certificado de optimalidad y el resultado depende de la
+inicialización y del número de pasos. Además, unos pesos globales que solo dependen del error global se parecen a
+una de las «reglas estándar» contra las que la guía (Cuadro 1) pide contrastar la propuesta.</p></li>
+</ol>
+<p><strong>SECR</strong> (<em>selección de ensambles condicionada por región con contracción</em>) ataca las dos limitaciones:</p>
+<ul class="simple">
+<li><p>aprende un vector de pesos convexos <strong>por región</strong> del espacio de entrada;</p></li>
+<li><p><strong>contrae</strong> esos pesos hacia los globales en proporción a la escasez de datos de la región;</p></li>
+<li><p>resuelve cada problema con <strong>Frank-Wolfe con búsqueda lineal exacta</strong>, que da pérdida no creciente, convergencia
+<span class="math notranslate nohighlight">\(O(1/t)\)</span> y un certificado de optimalidad.</p></li>
+</ul>
+</section>
+<section id="postura-sobre-las-variables-de-la-lesion">
+<h2>19.2 Postura sobre las variables de la lesión<a class="headerlink" href="#postura-sobre-las-variables-de-la-lesion" title="Link to this heading">#</a></h2>
+<p>La tarea es <strong>clasificar el desenlace de un caso ya registrado</strong>. Los códigos OIICS (naturaleza, parte del cuerpo,
+evento y fuente) los asigna OSHA a partir del relato del caso, y existen cuando el caso se clasifica: no son información
+del futuro. Hay un <strong>riesgo indirecto</strong> en los fallecimientos, porque el relato menciona la muerte en el 54 % de ellos y
+algunos códigos de naturaleza pueden reflejarlo. Esta es la postura única del libro (corrige la incoherencia B7 del
+capítulo de trazabilidad). Como la comparación del capítulo 20 es pareada, <strong>los benchmarks tienen exactamente las
+mismas variables</strong>, así que ninguna ventaja del modelo original viene de tener más información.</p>
+<p><strong>Por qué dos conjuntos de variables.</strong></p>
+<ul class="simple">
+<li><p><strong>Entregable 2 (capítulos 6 a 13): 9 variables</strong> (<code class="docutils literal notranslate"><span class="pre">data.FEATURES</span></code>). Son las del lugar de trabajo, la ocupación, el
+tipo de incidente y el horario, con NAICS y SOC agrupados (NAICS-3 y SOC menor). Se eligieron así para que los 140
+modelos con búsqueda anidada fueran computables (unas 210 columnas one-hot) y siguiendo el diseño de los entregables
+1 y 2.</p></li>
+<li><p><strong>Modelo original y comparación pareada (capítulos 18 a 20): <code class="docutils literal notranslate"><span class="pre">VPLUS</span></code></strong> (<code class="docutils literal notranslate"><span class="pre">paired.VPLUS</span></code>). Son las 9 anteriores más
+los códigos OIICS, NAICS-6, SOC-6, el EIN y la empresa. El capítulo 18 mostró que esa información es la que más mejora
+el problema.</p></li>
+<li><p><strong>En el capítulo 20 los 7 benchmarks reciben <code class="docutils literal notranslate"><span class="pre">X[VPLUS]</span></code></strong>, las mismas columnas crudas que el original, y cada uno
+aplica su propio preprocesamiento dentro del pliegue (<code class="docutils literal notranslate"><span class="pre">paired.run_benchmark</span></code>).</p></li>
+</ul>
+<p><strong>Limitación.</strong> El balanceo y el optimizador de cada benchmark (la «mejor combinación» del capítulo 13b) se eligieron
+con las 9 variables, no con <code class="docutils literal notranslate"><span class="pre">VPLUS</span></code>. Con las variables ampliadas solo se repite la búsqueda de hiperparámetros dentro
+de esa combinación; no se rehicieron las 16 combinaciones por modelo (habría multiplicado por 16 el cómputo). Con
+otras variables, la mejor combinación podría ser otra. El cambio de ranking muestra que importa: <strong>KNN pasa del quinto
+lugar con 9 variables (BA 0,415, <code class="docutils literal notranslate"><span class="pre">dashboard_final/data/leaderboard.csv</span></code>) al primero con <code class="docutils literal notranslate"><span class="pre">VPLUS</span></code> (BA 0,569,
+<code class="docutils literal notranslate"><span class="pre">results/pareado/resumen_modelos.csv</span></code>)</strong>.</p>
+</section>
+<section id="formulacion">
+<h2>19.3 Formulación<a class="headerlink" href="#formulacion" title="Link to this heading">#</a></h2>
+<p>Sean <span class="math notranslate nohighlight">\(M\)</span> modelos base con probabilidades <span class="math notranslate nohighlight">\(P_m(x)\in\Delta_K\)</span> (<span class="math notranslate nohighlight">\(K=4\)</span> clases) y <span class="math notranslate nohighlight">\(n\)</span> casos de entrenamiento con
+predicciones <strong>fuera de pliegue</strong> <span class="math notranslate nohighlight">\(P_m(x_i)\)</span>. Sea <span class="math notranslate nohighlight">\(T\in[\varepsilon,1]^{n\times M}\)</span> la matriz de probabilidades de la
+clase verdadera:</p>
+<div class="math notranslate nohighlight" id="equation-eq-t">
+<span class="eqno">(5)<a class="headerlink" href="#equation-eq-t" title="Link to this equation">#</a></span>\[
+T_{im} = \max\{P_m(x_i)[y_i],\ \varepsilon\},\qquad \varepsilon = 10^{-6}.
+\]</div>
+<p>Para pesos <span class="math notranslate nohighlight">\(w\in\Delta_M=\{w\ge 0,\ \mathbf 1^\top w=1\}\)</span>, la mezcla <span class="math notranslate nohighlight">\(q(x)=\sum_m w_m P_m(x)\)</span> es una distribución sobre
+las <span class="math notranslate nohighlight">\(K\)</span> clases, y su pérdida logarítmica en el caso <span class="math notranslate nohighlight">\(i\)</span> es <span class="math notranslate nohighlight">\(\ell_i(w) = -\log(T_i^\top w)\)</span>. Dada una variable de
+compuerta <span class="math notranslate nohighlight">\(r(x)\in\{1,\dots,R\}\)</span> de baja cardinalidad, el problema de la región <span class="math notranslate nohighlight">\(g\)</span>, con <span class="math notranslate nohighlight">\(n_g\)</span> casos, es</p>
+<div class="math notranslate nohighlight" id="equation-eq-fg">
+<span class="eqno">(6)<a class="headerlink" href="#equation-eq-fg" title="Link to this equation">#</a></span>\[
+w_g^\star \in \arg\min_{w\in\Delta_M} F_g(w),\qquad
+F_g(w) = \frac{1}{n_g+\lambda}\Big[\sum_{i:\,r(x_i)=g}\ell_i(w) + \frac{\lambda}{n}\sum_{i=1}^{n}\ell_i(w)\Big].
+\]</div>
+<p>Es decir, <span class="math notranslate nohighlight">\(F_g(w) = -\sum_i a_i\log(T_i^\top w)\)</span> con pesos por observación</p>
+<div class="math notranslate nohighlight" id="equation-eq-a">
+<span class="eqno">(7)<a class="headerlink" href="#equation-eq-a" title="Link to this equation">#</a></span>\[
+a_i = \frac{\mathbb 1[r(x_i)=g]}{n_g+\lambda} + \frac{\lambda}{(n_g+\lambda)\,n},\qquad a_i\ge 0,\quad \sum_i a_i = 1 .
+\]</div>
+<p>El hiperparámetro <span class="math notranslate nohighlight">\(\lambda\ge 0\)</span> funciona como <strong><span class="math notranslate nohighlight">\(\lambda\)</span> pseudo-observaciones tomadas de toda la población</strong>:</p>
+<ul class="simple">
+<li><p>con <span class="math notranslate nohighlight">\(\lambda=0\)</span> los pesos son puramente locales;</p></li>
+<li><p>con <span class="math notranslate nohighlight">\(\lambda\to\infty\)</span>, <span class="math notranslate nohighlight">\(F_g\)</span> tiende a la pérdida global <span class="math notranslate nohighlight">\(F_0(w)=-\frac1n\sum_i\log(T_i^\top w)\)</span>;</p></li>
+<li><p>una región con <span class="math notranslate nohighlight">\(n_g\ll\lambda\)</span> queda cerca de los pesos globales, y una con <span class="math notranslate nohighlight">\(n_g\gg\lambda\)</span> usa sus propios datos.</p></li>
+</ul>
+<p>Es la misma lógica de la contracción empírica-bayesiana, aplicada a pesos de combinación en lugar de a medias.
+Las regiones con menos de <span class="math notranslate nohighlight">\(n_{\min}\)</span> casos usan directamente los pesos globales <span class="math notranslate nohighlight">\(w_0^\star=\arg\min F_0\)</span>.</p>
+<p><strong>Predicción.</strong> Para un caso nuevo, con <span class="math notranslate nohighlight">\(\pi\)</span> las proporciones de clase del entrenamiento,</p>
+<div class="math notranslate nohighlight" id="equation-eq-pred">
+<span class="eqno">(8)<a class="headerlink" href="#equation-eq-pred" title="Link to this equation">#</a></span>\[
+q(x) = \sum_{m=1}^{M} w_{r(x),m}^\star\,P_m(x),\qquad \hat y(x)=\arg\max_k\ q_k(x)\,/\,\pi_k^{\alpha}.
+\]</div>
+<p>Con <span class="math notranslate nohighlight">\(\alpha=0\)</span> la decisión es el <span class="math notranslate nohighlight">\(\arg\max\)</span>. Con <span class="math notranslate nohighlight">\(\alpha=1\)</span> es la regla que maximiza la balanced accuracy esperada si
+<span class="math notranslate nohighlight">\(q\)</span> está calibrada <span id="id2">[<a class="reference internal" href="15_reproducibilidad.html#id6" title="Guillem Collell, Drazen Prelec, and Kaustubh R. Patil. A simple plug-in bagging ensemble based on threshold-moving for classifying binary and multiclass imbalanced data. Neurocomputing, 275:330–340, 2018. doi:10.1016/j.neucom.2017.08.035.">CPP18</a>]</span>. <span class="math notranslate nohighlight">\(\alpha\)</span> es un hiperparámetro.</p>
+</section>
+<section id="algoritmo">
+<h2>19.4 Algoritmo<a class="headerlink" href="#algoritmo" title="Link to this heading">#</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Algoritmo SECR
+Entradas : P (n × M × K) probabilidades fuera de pliegue de los modelos base; y (n); región r (n);
+           λ ≥ 0; T_max pasos; tolerancia τ; tamaño mínimo n_min; α ∈ [0, 1]
+Salidas  : w₀ ∈ Δ_M (pesos globales); {w_g ∈ Δ_M} (pesos por región); π (prior de clases)
+
+ 1  T[i,m] ← max(P[i,m,y_i], ε)                                   # ec. (eq-T)
+ 2  w₀ ← FW(T, a = 1/n, inicio = mejor vértice)                   # pesos globales
+ 3  para cada región g con n_g ≥ n_min:
+ 4      a_i ← 1[r_i = g]/(n_g + λ) + λ/((n_g + λ)·n)               # ec. (eq-a)
+ 5      w_g ← FW(T, a, inicio = w₀)
+ 6  π_k ← proporción de la clase k en y
+ 7  devolver w₀, {w_g}, π
+
+Función FW(T, a, w):                                               # Frank-Wolfe con búsqueda lineal exacta
+ 8  para t = 0, 1, …, T_max:
+ 9      q ← T w                                                    # O(nM)
+10      ∇ ← −Tᵀ (a ⊘ q)                                            # gradiente, O(nM)
+11      s ← argmin_m ∇_m                                           # oráculo lineal: un vértice del símplex
+12      G ← ∇ᵀ w − ∇_s                                             # brecha de Frank-Wolfe (≥ 0)
+13      si G ≤ τ o t = T_max: devolver w                           # criterios de parada
+14      δ ← T[:, s] − q ;  φ'(γ) = −Σ_i a_i δ_i / (q_i + γ δ_i)
+15      γ ← 1 si φ'(1) ≤ 0; si no, la raíz de φ' en (0, 1) por bisección (25 pasos)
+16      w ← (1 − γ) w + γ e_s
+</pre></div>
+</div>
+<p><strong>Hiperparámetros y su optimización.</strong> El algoritmo tiene cinco hiperparámetros: la variable de compuerta (ninguna,
+tipo de incidente, tipo de establecimiento, sector NAICS-2, SOC mayor, o la primera cifra de los códigos de naturaleza,
+evento o parte), <span class="math notranslate nohighlight">\(\lambda\in[1,10^4]\)</span>, <span class="math notranslate nohighlight">\(T_{\max}\in[5,100]\)</span>, <span class="math notranslate nohighlight">\(n_{\min}\in[50,3000]\)</span> y <span class="math notranslate nohighlight">\(\alpha\in[0,1]\)</span>. Se optimizan con
+<strong>búsqueda bayesiana TPE</strong> (Optuna; <span id="id3">[<a class="reference internal" href="15_reproducibilidad.html#id7" title="Takuya Akiba, Shotaro Sano, Toshihiko Yanase, Takeru Ohta, and Masanori Koyama. Optuna: a next-generation hyperparameter optimization framework. In Proceedings of the 25th ACM SIGKDD, 2623–2631. 2019.">ASY+19</a>]</span>). La búsqueda tiene 16 configuraciones, igual que los
+benchmarks del capítulo 7, y evalúa la balanced accuracy en 3 pliegues internos por establecimiento, formados solo con
+las predicciones fuera de pliegue del entrenamiento externo. El pliegue externo nunca participa
+(<code class="docutils literal notranslate"><span class="pre">src/osha_e3/original_eval.py</span></code>, función <code class="docutils literal notranslate"><span class="pre">tune</span></code>).</p>
+</section>
+<section id="propiedades-demostradas">
+<h2>19.5 Propiedades demostradas<a class="headerlink" href="#propiedades-demostradas" title="Link to this heading">#</a></h2>
+<p>En toda esta sección, <span class="math notranslate nohighlight">\(F(w)=-\sum_i a_i\log(T_i^\top w)\)</span> con <span class="math notranslate nohighlight">\(a\in\Delta_n\)</span> y <span class="math notranslate nohighlight">\(T\in[\varepsilon,1]^{n\times M}\)</span>; esto
+cubre <span class="math notranslate nohighlight">\(F_0\)</span> y todas las <span class="math notranslate nohighlight">\(F_g\)</span>.</p>
+<p><strong>Proposición 1 (convexidad).</strong> <span class="math notranslate nohighlight">\(F\)</span> es convexa en <span class="math notranslate nohighlight">\(\Delta_M\)</span>.</p>
+<p><em>Demostración.</em> <span class="math notranslate nohighlight">\(w\mapsto T_i^\top w\)</span> es lineal y <span class="math notranslate nohighlight">\(\log\)</span> es cóncava, así que <span class="math notranslate nohighlight">\(\log(T_i^\top w)\)</span> es cóncava y
+<span class="math notranslate nohighlight">\(-a_i\log(T_i^\top w)\)</span> es convexa porque <span class="math notranslate nohighlight">\(a_i\ge0\)</span>. Una suma de convexas es convexa. Equivalentemente,
+<span class="math notranslate nohighlight">\(\nabla^2F(w)=\sum_i a_i\,T_iT_i^\top/(T_i^\top w)^2\succeq0\)</span>. <span class="math notranslate nohighlight">\(\square\)</span></p>
+<p><strong>Proposición 2 (factibilidad y pérdida no creciente).</strong> Si <span class="math notranslate nohighlight">\(w^0\in\Delta_M\)</span>, todos los iterados cumplen
+<span class="math notranslate nohighlight">\(w^t\in\Delta_M\)</span> y <span class="math notranslate nohighlight">\(F(w^{t+1})\le F(w^t)\)</span>.</p>
+<p><em>Demostración.</em> <span class="math notranslate nohighlight">\(w^{t+1}=(1-\gamma)w^t+\gamma e_s\)</span> con <span class="math notranslate nohighlight">\(\gamma\in[0,1]\)</span> es una combinación convexa de dos puntos del
+símplex. La búsqueda lineal minimiza <span class="math notranslate nohighlight">\(\varphi(\gamma)=F(w^t+\gamma(e_s-w^t))\)</span> sobre <span class="math notranslate nohighlight">\([0,1]\)</span>, que contiene
+<span class="math notranslate nohighlight">\(\gamma=0\)</span>, así que <span class="math notranslate nohighlight">\(F(w^{t+1})=\min_\gamma\varphi(\gamma)\le\varphi(0)=F(w^t)\)</span>. La búsqueda es exacta porque
+<span class="math notranslate nohighlight">\(\varphi\)</span> es convexa (restricción de una convexa a un segmento) con <span class="math notranslate nohighlight">\(\varphi'(0)=-G_t\le0\)</span>. Si <span class="math notranslate nohighlight">\(\varphi'(1)\le0\)</span> el
+mínimo está en <span class="math notranslate nohighlight">\(\gamma=1\)</span>. Si no, <span class="math notranslate nohighlight">\(\varphi'\)</span> es continua y creciente, tiene una única raíz en <span class="math notranslate nohighlight">\((0,1)\)</span>, y la bisección la
+encuentra con error <span class="math notranslate nohighlight">\(2^{-25}\)</span>. <span class="math notranslate nohighlight">\(\square\)</span></p>
+<p><strong>Proposición 3 (certificado de optimalidad).</strong> Para todo <span class="math notranslate nohighlight">\(w\in\Delta_M\)</span>, <span class="math notranslate nohighlight">\(F(w)-F^\star\le G(w)\)</span>, con
+<span class="math notranslate nohighlight">\(G(w)=\nabla F(w)^\top w-\min_m\nabla F(w)_m\)</span>.</p>
+<p><em>Demostración.</em> Por convexidad,
+<span class="math notranslate nohighlight">\(F^\star=F(w^\star)\ge F(w)+\nabla F(w)^\top(w^\star-w)\ge F(w)+\min_{v\in\Delta_M}\nabla F(w)^\top(v-w)=F(w)-G(w)\)</span>,
+porque una función lineal alcanza su mínimo sobre el símplex en un vértice. <span class="math notranslate nohighlight">\(\square\)</span></p>
+<p>En consecuencia, el criterio de parada <span class="math notranslate nohighlight">\(G_t\le\tau\)</span> garantiza una solución <span class="math notranslate nohighlight">\(\tau\)</span>-óptima. La prueba unitaria
+<code class="docutils literal notranslate"><span class="pre">test_perdida_no_creciente_y_brecha_certifica</span></code> lo verifica numéricamente.</p>
+<p><strong>Proposición 4 (convergencia <span class="math notranslate nohighlight">\(O(1/t)\)</span>).</strong> <span class="math notranslate nohighlight">\(F(w^t)-F^\star\le\dfrac{2C_F}{t+2}\)</span>, con constante de curvatura
+<span class="math notranslate nohighlight">\(C_F\le 4/\varepsilon^2\)</span>.</p>
+<p><em>Demostración.</em> Para <span class="math notranslate nohighlight">\(w\in\Delta_M\)</span>, <span class="math notranslate nohighlight">\(T_i^\top w\in[\varepsilon,1]\)</span>, porque es un promedio ponderado de valores en
+<span class="math notranslate nohighlight">\([\varepsilon,1]\)</span>. Para <span class="math notranslate nohighlight">\(d=v-w\)</span> con <span class="math notranslate nohighlight">\(v,w\in\Delta_M\)</span> se tiene <span class="math notranslate nohighlight">\(\|d\|_1\le2\)</span> y <span class="math notranslate nohighlight">\(|T_i^\top d|\le\|d\|_1\max_m T_{im}\le2\)</span>,
+así que <span class="math notranslate nohighlight">\(d^\top\nabla^2F(w)d=\sum_ia_i(T_i^\top d)^2/(T_i^\top w)^2\le4/\varepsilon^2\)</span>. Esto acota la constante de
+curvatura de <span id="id4">[<a class="reference internal" href="15_reproducibilidad.html#id5" title="Martin Jaggi. Revisiting Frank-Wolfe: projection-free sparse convex optimization. In Proceedings of the 30th International Conference on Machine Learning (ICML), 427–435. 2013.">Jag13</a>]</span>. Su teorema 1 da la tasa <span class="math notranslate nohighlight">\(2C_F/(t+2)\)</span> para el paso <span class="math notranslate nohighlight">\(2/(t+2)\)</span>. Con búsqueda
+lineal exacta, cada paso reduce <span class="math notranslate nohighlight">\(F\)</span> al menos tanto como ese paso, porque el paso <span class="math notranslate nohighlight">\(2/(t+2)\)</span> es uno de los candidatos de
+la búsqueda, y la misma inducción vale. <span class="math notranslate nohighlight">\(\square\)</span></p>
+<p>La cota es conservadora (<span class="math notranslate nohighlight">\(\varepsilon\)</span> es pequeño). En la práctica la brecha cae varios órdenes de magnitud en pocas
+decenas de iteraciones (figura de convergencia, sección 20.5).</p>
+<p><strong>Proposición 5 (terminación y límites de la contracción).</strong> (a) FW termina en a lo sumo <span class="math notranslate nohighlight">\(T_{\max}+1\)</span> iteraciones.
+(b) Con <span class="math notranslate nohighlight">\(\lambda\to\infty\)</span>, <span class="math notranslate nohighlight">\(F_g\to F_0\)</span> uniformemente en <span class="math notranslate nohighlight">\(\Delta_M\)</span>, y todo punto límite de minimizadores de <span class="math notranslate nohighlight">\(F_g\)</span>
+minimiza <span class="math notranslate nohighlight">\(F_0\)</span>. (c) Con <span class="math notranslate nohighlight">\(\lambda=0\)</span>, <span class="math notranslate nohighlight">\(F_g\)</span> solo depende de los casos de la región.</p>
+<p><em>Demostración.</em> (a) es inmediata por el criterio de parada. (b)
+<span class="math notranslate nohighlight">\(F_g-F_0=\frac{n_g}{n_g+\lambda}\big(\bar F_g-F_0\big)\)</span>, con <span class="math notranslate nohighlight">\(\bar F_g\)</span> la pérdida media de la región. Ambas están
+acotadas en <span class="math notranslate nohighlight">\([0,-\log\varepsilon]\)</span>, así que <span class="math notranslate nohighlight">\(\sup_{\Delta_M}|F_g-F_0|\le\frac{n_g}{n_g+\lambda}(-\log\varepsilon)\to0\)</span>.
+Como <span class="math notranslate nohighlight">\(\Delta_M\)</span> es compacto y las funciones son continuas, la convergencia uniforme preserva los puntos límite de los
+minimizadores. (c) es inmediata de <a class="reference internal" href="#equation-eq-a">(7)</a>. <span class="math notranslate nohighlight">\(\square\)</span></p>
+<p><strong>Proposición 6 (Caruana como caso particular).</strong> La selección de Caruana con reemplazo, después de <span class="math notranslate nohighlight">\(k_0\)</span> modelos
+iniciales, actualiza <span class="math notranslate nohighlight">\(w^{t+1}=(1-\gamma_t)w^t+\gamma_te_s\)</span> con <span class="math notranslate nohighlight">\(\gamma_t=1/(k_0+t+1)\)</span> y
+<span class="math notranslate nohighlight">\(s=\arg\min_mF((1-\gamma_t)w^t+\gamma_te_m)\)</span>. Es un esquema de tipo Frank-Wolfe sin regiones (<span class="math notranslate nohighlight">\(R=1\)</span>), con un paso fijo
+predeterminado y un oráculo que evalúa la pérdida verdadera en lugar de su linealización.</p>
+<p><em>Demostración.</em> Si <span class="math notranslate nohighlight">\(c^t\)</span> son los conteos de selección y <span class="math notranslate nohighlight">\(k=k_0+t\)</span> su total, <span class="math notranslate nohighlight">\(w^t=c^t/k\)</span>. Añadir el modelo <span class="math notranslate nohighlight">\(s\)</span> da
+<span class="math notranslate nohighlight">\(w^{t+1}=(c^t+e_s)/(k+1)=\frac{k}{k+1}w^t+\frac1{k+1}e_s\)</span>. <span class="math notranslate nohighlight">\(\square\)</span></p>
+<p>Como el paso es fijo, Caruana puede <strong>aumentar</strong> la pérdida: se ve cuando el mejor movimiento sería <span class="math notranslate nohighlight">\(\gamma=0\)</span>.
+Tampoco tiene un certificado como el de la proposición 3. SECR conserva el espíritu de Caruana (pesos convexos sobre
+una biblioteca de modelos, ajustados con la pérdida fuera de pliegue) y le añade regiones, contracción y garantías.</p>
+</section>
+<section id="complejidad">
+<h2>19.6 Complejidad<a class="headerlink" href="#complejidad" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Etapa</p></th>
+<th class="head"><p>Tiempo</p></th>
+<th class="head"><p>Memoria</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Matriz <span class="math notranslate nohighlight">\(T\)</span> (ec. <a class="reference internal" href="#equation-eq-t">(5)</a>)</p></td>
+<td><p><span class="math notranslate nohighlight">\(O(nM)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(O(nM)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Una iteración de FW</p></td>
+<td><p><span class="math notranslate nohighlight">\(O(nM + Bn)\)</span>, con <span class="math notranslate nohighlight">\(B=25\)</span> bisecciones</p></td>
+<td><p><span class="math notranslate nohighlight">\(O(n)\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Ajuste de SECR</p></td>
+<td><p><span class="math notranslate nohighlight">\(O\big((R+1)\,T_{\max}\,n\,(M+B)\big)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(O(nM+RM)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Búsqueda TPE del combinador</p></td>
+<td><p><span class="math notranslate nohighlight">\(16\times3\)</span> ajustes de SECR</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p>Nivel 0 (16 modelos base, 5 pliegues + reajuste)</p></td>
+<td><p>domina el costo: <span class="math notranslate nohighlight">\(6\times\sum_m \text{costo}_m(n)\)</span></p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p>Predicción de un caso</p></td>
+<td><p><span class="math notranslate nohighlight">\(O(MK)\)</span> más la de los 16 modelos base</p></td>
+<td><p><span class="math notranslate nohighlight">\(O(RM)\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="align-default" id="fig-complejidad-secr">
+<a class="reference internal image-reference" href="_images/e3_complejidad_secr.png"><img alt="_images/e3_complejidad_secr.png" src="_images/e3_complejidad_secr.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figura 9 </span><span class="caption-text">Tiempo de ajuste de SECR (30 iteraciones) en datos sintéticos al variar el número de casos <span class="math notranslate nohighlight">\(n\)</span>, de modelos base <span class="math notranslate nohighlight">\(M\)</span> y
+de regiones <span class="math notranslate nohighlight">\(R\)</span> (<code class="docutils literal notranslate"><span class="pre">scripts/complejidad_secr.py</span></code>).</span><a class="headerlink" href="#fig-complejidad-secr" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>La <a class="reference internal" href="#fig-complejidad-secr"><span class="std std-numref">Figura 9</span></a> contrasta el análisis con tiempos medidos. El tiempo crece de forma aproximadamente
+lineal con <span class="math notranslate nohighlight">\(n\)</span> y con <span class="math notranslate nohighlight">\(R\)</span>, como predice la tabla. Con <span class="math notranslate nohighlight">\(M\le32\)</span> el término <span class="math notranslate nohighlight">\(Bn\)</span> de la bisección y el costo fijo de
+Python por iteración pesan más que <span class="math notranslate nohighlight">\(nM\)</span>, así que la dependencia en <span class="math notranslate nohighlight">\(M\)</span> solo se nota con <span class="math notranslate nohighlight">\(M=64\)</span>. Con los tamaños del
+proyecto (<span class="math notranslate nohighlight">\(n\approx24\,000\)</span>, <span class="math notranslate nohighlight">\(M=16\)</span>, <span class="math notranslate nohighlight">\(R\le25\)</span>), SECR se ajusta en segundos. El costo del modelo original lo domina el
+nivel 0. <strong>Tiempo de entrenamiento del original por pliegue externo</strong> (nivel 0 + búsqueda TPE + SECR, con 2 hilos y en
+paralelo con otras celdas; columna <code class="docutils literal notranslate"><span class="pre">train_s</span></code> de <code class="docutils literal notranslate"><span class="pre">results/pareado/pliegues.csv</span></code>): <strong>media 51 min, mediana 40 min, rango
+30–91 min</strong>. Es la única cifra de tiempo del original que se usa en el libro; los 22–24 min del capítulo 18 son de otra
+corrida (sin TPE y con menos procesos en paralelo).</p>
+</section>
+<section id="implementacion-y-pruebas">
+<h2>19.7 Implementación y pruebas<a class="headerlink" href="#implementacion-y-pruebas" title="Link to this heading">#</a></h2>
+<p>La clase <code class="docutils literal notranslate"><span class="pre">ConditionalEnsembleSelection</span></code> hereda de <code class="docutils literal notranslate"><span class="pre">BaseEstimator</span></code> y <code class="docutils literal notranslate"><span class="pre">ClassifierMixin</span></code>, implementa <code class="docutils literal notranslate"><span class="pre">fit</span></code>,
+<code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> y <code class="docutils literal notranslate"><span class="pre">predict</span></code>, y valida sus entradas con <code class="docutils literal notranslate"><span class="pre">check_X_y</span></code> y <code class="docutils literal notranslate"><span class="pre">check_array</span></code>. Su entrada es la matriz de
+meta-variables <span class="math notranslate nohighlight">\([P_1|\dots|P_M|r]\)</span>. <code class="docutils literal notranslate"><span class="pre">OriginalModel</span></code> (<code class="docutils literal notranslate"><span class="pre">src/osha_e3/original_final.py</span></code>) encadena el nivel 0, la
+búsqueda TPE y SECR, y es el artefacto que usa el dashboard. Solo usa numpy para la parte numérica propia.</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-number">Lista 1 </span><span class="caption-text">Núcleo de SECR (Frank-Wolfe y clase compatible con scikit-learn)</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">frank_wolfe</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">w0</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Minimiza ``F(w) = −Σ_i a_i log(T_i · w)`` sobre el símplex con Frank-Wolfe y búsqueda lineal exacta.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    T : ndarray (n, M)</span>
+<span class="sd">        Probabilidad de la clase verdadera según cada modelo (``≥ EPS``).</span>
+<span class="sd">    a : ndarray (n,)</span>
+<span class="sd">        Pesos no negativos de las observaciones (suman 1).</span>
+<span class="sd">    n_steps : int</span>
+<span class="sd">        Máximo de iteraciones (criterio de parada 1).</span>
+<span class="sd">    tol : float</span>
+<span class="sd">        Tolerancia de la brecha de Frank-Wolfe (criterio de parada 2).</span>
+<span class="sd">    w0 : ndarray (M,) or None</span>
+<span class="sd">        Punto inicial en el símplex; por defecto, el mejor vértice.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    w : ndarray (M,)</span>
+<span class="sd">    history : dict</span>
+<span class="sd">        ``loss`` y ``gap`` por iteración (curva de convergencia).</span>
+<span class="sd">    """</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">M</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">if</span> <span class="n">w0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+        <span class="n">w</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">a</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">T</span><span class="p">)))]</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">w0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">loss</span><span class="p">,</span> <span class="n">gaps</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">n_steps</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">T</span> <span class="o">@</span> <span class="n">w</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="n">a</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+        <span class="n">grad</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">q</span><span class="p">))</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">grad</span><span class="p">))</span>
+        <span class="n">gap</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">grad</span> <span class="o">@</span> <span class="n">w</span> <span class="o">-</span> <span class="n">grad</span><span class="p">[</span><span class="n">s</span><span class="p">])</span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">gaps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gap</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">gap</span> <span class="o">&lt;=</span> <span class="n">tol</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">n_steps</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">delta</span> <span class="o">=</span> <span class="n">T</span><span class="p">[:,</span> <span class="n">s</span><span class="p">]</span> <span class="o">-</span> <span class="n">q</span>  <span class="c1"># dirección en el espacio de q: q(γ) = q + γ δ</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">dphi</span><span class="p">(</span><span class="n">g</span><span class="p">):</span>
+            <span class="k">return</span> <span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="n">a</span> <span class="o">@</span> <span class="p">(</span><span class="n">delta</span> <span class="o">/</span> <span class="p">(</span><span class="n">q</span> <span class="o">+</span> <span class="n">g</span> <span class="o">*</span> <span class="n">delta</span><span class="p">)))</span>
+
+        <span class="k">if</span> <span class="n">dphi</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># la pérdida sigue bajando hasta el vértice</span>
+            <span class="n">gamma</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># φ'(0) = −gap &lt; 0 &lt; φ'(1): raíz única por convexidad</span>
+            <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span>
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">25</span><span class="p">):</span>  <span class="c1"># |γ − γ*| ≤ 2^-25</span>
+                <span class="n">mid</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">lo</span> <span class="o">+</span> <span class="n">hi</span><span class="p">)</span>
+                <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span> <span class="o">=</span> <span class="p">(</span><span class="n">mid</span><span class="p">,</span> <span class="n">hi</span><span class="p">)</span> <span class="k">if</span> <span class="n">dphi</span><span class="p">(</span><span class="n">mid</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="n">mid</span><span class="p">)</span>
+            <span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">lo</span> <span class="o">+</span> <span class="n">hi</span><span class="p">)</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">gamma</span><span class="p">)</span> <span class="o">*</span> <span class="n">w</span>
+        <span class="n">w</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gamma</span>
+    <span class="k">return</span> <span class="n">w</span><span class="p">,</span> <span class="p">{</span><span class="s1">'loss'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">loss</span><span class="p">),</span> <span class="s1">'gap'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gaps</span><span class="p">)}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">true_class_matrix</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""``T[i, m] = P[i, m, y_i]`` recortada a ``EPS``. ``P`` tiene forma (n, M, K)."""</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">P</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)),</span> <span class="p">:,</span> <span class="n">y</span><span class="p">],</span> <span class="n">EPS</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ConditionalEnsembleSelection</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">ClassifierMixin</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Selección de ensambles condicionada por región con contracción (SECR).</span>
+
+<span class="sd">    La entrada ``X`` es la matriz de meta-variables ``[P_1 | P_2 | … | P_M | región]``: las probabilidades de</span>
+<span class="sd">    los ``M`` modelos base (``M·K`` columnas, en bloques de ``K``) y, al final, el código entero de la región</span>
+<span class="sd">    (0, 1, …). Con ``gate=False`` la última columna se ignora y el modelo aprende pesos globales.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    n_classes : int</span>
+<span class="sd">        Número de clases ``K``.</span>
+<span class="sd">    lam : float</span>
+<span class="sd">        Fuerza de la contracción hacia los pesos globales (pseudo-observaciones, ec. 1).</span>
+<span class="sd">    n_steps : int</span>
+<span class="sd">        Máximo de iteraciones de Frank-Wolfe por región.</span>
+<span class="sd">    min_region : int</span>
+<span class="sd">        Regiones con menos casos de entrenamiento usan los pesos globales.</span>
+<span class="sd">    alpha : float in [0, 1]</span>
+<span class="sd">        Exponente de la corrección por prior en la decisión.</span>
+<span class="sd">    gate : bool</span>
+<span class="sd">        Si se usan regiones (``True``) o solo pesos globales (``False``).</span>
+<span class="sd">    tol : float</span>
+<span class="sd">        Tolerancia de la brecha de Frank-Wolfe.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">lam</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">min_region</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">gate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lam</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_steps</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_region</span> <span class="o">=</span> <span class="n">n_classes</span><span class="p">,</span> <span class="n">lam</span><span class="p">,</span> <span class="n">n_steps</span><span class="p">,</span> <span class="n">min_region</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gate</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">gate</span><span class="p">,</span> <span class="n">tol</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="n">K</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">K</span> <span class="ow">or</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">K</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'X debe tener M·</span><span class="si">{</span><span class="n">K</span><span class="si">}</span><span class="s1"> columnas de probabilidades más una de región; tiene </span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">.'</span><span class="p">)</span>
+        <span class="n">P</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">P</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">P</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="o">+</span> <span class="mf">1e-6</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Las probabilidades de los modelos base deben estar en [0, 1].'</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">r</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">r</span> <span class="o">!=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">r</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'La región debe ser un entero no negativo.'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">P</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">check_X_y</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lam</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_steps</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Se requiere lam &gt;= 0, n_steps &gt;= 0 y 0 &lt;= alpha &lt;= 1.'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classes_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">y</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'y debe estar codificada 0..</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">.'</span><span class="p">)</span>
+        <span class="n">P</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_models_</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">true_class_matrix</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weights_global_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">history_</span> <span class="o">=</span> <span class="n">frank_wolfe</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">n</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_steps</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weights_region_</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">gate</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+                <span class="n">m</span> <span class="o">=</span> <span class="n">r</span> <span class="o">==</span> <span class="n">g</span>
+                <span class="n">ng</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+                <span class="k">if</span> <span class="n">ng</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_region</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lam</span> <span class="o">/</span> <span class="p">((</span><span class="n">ng</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">lam</span><span class="p">)</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span>
+                <span class="n">a</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">ng</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">lam</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">weights_region_</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">g</span><span class="p">)],</span> <span class="n">_</span> <span class="o">=</span> <span class="n">frank_wolfe</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_steps</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights_global_</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prior_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">minlength</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span><span class="p">,</span> <span class="mf">1e-12</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">region_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Matriz (n, M) de pesos que corresponde a cada código de región."""</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weights_global_</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">g</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights_region_</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">W</span><span class="p">[</span><span class="n">r</span> <span class="o">==</span> <span class="n">g</span><span class="p">]</span> <span class="o">=</span> <span class="n">w</span>
+        <span class="k">return</span> <span class="n">W</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">predict_proba</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'weights_global_'</span><span class="p">)</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">P</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">P</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_models_</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Se esperaban </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_models_</span><span class="si">}</span><span class="s1"> modelos base; llegaron </span><span class="si">{</span><span class="n">P</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">.'</span><span class="p">)</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">'nm,nmk-&gt;nk'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">region_weights</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">P</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">q</span> <span class="o">/</span> <span class="n">q</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">decide</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">q</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">prior_</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">classes_</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">decide</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">))]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Balanced accuracy (la métrica principal del proyecto)."""</span>
+        <span class="k">return</span> <span class="n">balanced_accuracy_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">sample_weight</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
+</div>
+<p><strong>Pruebas unitarias</strong> (<code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">tests/test_combinador.py</span></code>; las 8 pasan):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Prueba</p></th>
+<th class="head"><p>Qué verifica</p></th>
+<th class="head"><p>Exigencia de la guía §5.4</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">test_i_aprende_la_solucion_conocida</span></code></p></td>
+<td><p>Dos regiones donde un modelo distinto es casi perfecto en cada una: SECR recupera <span class="math notranslate nohighlight">\(w_1\approx e_0\)</span>, <span class="math notranslate nohighlight">\(w_2\approx e_1\)</span> (pesos &gt; 0,9) y baja la log-loss frente a los pesos globales</p></td>
+<td><p>(i) aprende con solución conocida</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">test_ii_reproducible</span></code></p></td>
+<td><p>Mismos datos, mismas probabilidades (algoritmo determinista)</p></td>
+<td><p>(ii) reproducibilidad</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">test_iii_entradas_invalidas</span></code></p></td>
+<td><p>Columnas que no forman bloques de <span class="math notranslate nohighlight">\(K\)</span>, probabilidades fuera de <span class="math notranslate nohighlight">\([0,1]\)</span>, <span class="math notranslate nohighlight">\(\alpha&gt;1\)</span>, etiquetas fuera de rango, predecir sin ajustar, otro número de modelos base</p></td>
+<td><p>(iii) entradas inválidas</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">test_iv_clone</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sklearn.base.clone</span></code> copia hiperparámetros y no el estado</p></td>
+<td><p>(iv) <code class="docutils literal notranslate"><span class="pre">clone</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">test_pesos_en_simplex_y_probabilidades_validas</span></code></p></td>
+<td><p>Pesos <span class="math notranslate nohighlight">\(\ge0\)</span> que suman 1 y probabilidades válidas</p></td>
+<td><p>Proposición 2</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">test_perdida_no_creciente_y_brecha_certifica</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(F(w^{t+1})\le F(w^t)\)</span> y <span class="math notranslate nohighlight">\(F(w^t)-F^\star\le G_t\)</span> en 300 iteraciones</p></td>
+<td><p>Proposiciones 2 y 3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">test_contraccion_extrema_da_pesos_globales</span></code></p></td>
+<td><p>Con <span class="math notranslate nohighlight">\(\lambda=10^9\)</span> los pesos regionales coinciden con los globales</p></td>
+<td><p>Proposición 5(b)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">test_regiones_nuevas_usan_pesos_globales</span></code></p></td>
+<td><p>Una región no vista usa <span class="math notranslate nohighlight">\(w_0\)</span></p></td>
+<td><p>Robustez</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Además, <code class="docutils literal notranslate"><span class="pre">tests/test_ensemble.py</span></code> (5 pruebas) verifica la codificación por objetivo fuera de pliegue del nivel 0, y
+<code class="docutils literal notranslate"><span class="pre">tests/test_candado_prueba.py</span></code> (2 pruebas) verifica que la prueba de octubre a diciembre esté bloqueada. Cuatro de las
+pruebas del ensamble necesitan <code class="docutils literal notranslate"><span class="pre">results/cache/osha_2023_fullcodes.parquet</span></code>, que no se versiona porque contiene el EIN y
+el nombre de la empresa. Se genera con <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">scripts/build_fullcodes.py</span></code> desde el CSV de OSHA y queda idéntico al
+usado en las corridas (<code class="docutils literal notranslate"><span class="pre">--check</span></code>: 890 372 filas y 0 diferencias). Con ese archivo, <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">tests/</span></code> da <strong>44 de 44
+pruebas aprobadas</strong> (ensamble, SECR, candado y PT-bagging) con scikit-learn 1.3.0, imbalanced-learn 0.12.4 y XGBoost
+2.1.3.</p>
+</section>
+<section id="ablacion-e-interpretabilidad">
+<h2>19.8 Ablación e interpretabilidad<a class="headerlink" href="#ablacion-e-interpretabilidad" title="Link to this heading">#</a></h2>
+<p>El estudio de ablación (sección 20.4) retira cada componente por separado:</p>
+<ul class="simple">
+<li><p>las regiones (pesos solo globales);</p></li>
+<li><p>la corrección por prior (<span class="math notranslate nohighlight">\(\alpha=0\)</span>);</p></li>
+<li><p>la regla de combinación completa, reemplazada por cada regla estándar: promedio simple, pesos por error global,
+stacking lineal y Caruana (G).</p></li>
+</ul>
+<p>Todas las variantes usan los mismos modelos base, las mismas predicciones y los mismos pliegues. La interpretabilidad
+del modelo original (SHAP exacto por grupos de variables, comparado con el mejor benchmark) está en la sección 20.6 y
+en el dashboard.</p>
+</section>
+<section id="candidatos-probados-guia-13">
+<h2>19.9 Candidatos probados (guía §13)<a class="headerlink" href="#candidatos-probados-guia-13" title="Link to this heading">#</a></h2>
+<p>Antes del modelo final se probaron 13 diseños. La guía (§13) pide declarar qué se miró para elegir, porque elegir entre
+varios candidatos introduce un sesgo optimista en el que gana. La tabla resume cada diseño con sus cifras guardadas.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Diseño</p></th>
+<th class="head"><p>Capítulo</p></th>
+<th class="head"><p>Datos usados para elegir</p></th>
+<th class="head"><p>Resultado</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>PT-bagging (bagging + umbral = prior)</p></td>
+<td><p>17</p></td>
+<td><p>Pliegues temporales del diseño de Iván (3 pliegues)</p></td>
+<td><p>BA 0,386 frente a 0,516 de la referencia (XGBoost + <code class="docutils literal notranslate"><span class="pre">class_weight</span></code> + bayes); 1 de 12 fallecimientos (<code class="docutils literal notranslate"><span class="pre">results/modelo_original/cribado.csv</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p>MultiRandBal (Random Balance)</p></td>
+<td><p>17</p></td>
+<td><p>Pliegues temporales</p></td>
+<td><p>BA 0,361; 0 de 12 fallecimientos</p></td>
+</tr>
+<tr class="row-even"><td><p>Metaclasificación jerárquica</p></td>
+<td><p>17</p></td>
+<td><p>Pliegues temporales</p></td>
+<td><p>BA 0,371; 0 fallecimientos marcados</p></td>
+</tr>
+<tr class="row-odd"><td><p>HAFL-XGBoost (pérdida focal propia)</p></td>
+<td><p>17</p></td>
+<td><p>Pliegues temporales</p></td>
+<td><p>BA 0,522 frente a 0,516 de la referencia, igual que su ablación sin pérdida focal (0,523): no mejora por el mecanismo (<code class="docutils literal notranslate"><span class="pre">cribado_r2.csv</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p>Frank–Hall ordinal (clases 2 a 4)</p></td>
+<td><p>17</p></td>
+<td><p>Pliegues temporales</p></td>
+<td><p>BA de 3 clases 0,525 frente a 0,527 del mejor base: no mejora (<code class="docutils literal notranslate"><span class="pre">tabla_r4.csv</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p>A. Stacking con los 5 modelos del curso</p></td>
+<td><p>18</p></td>
+<td><p>Pliegues externos (rep. 0) <strong>y prueba</strong></p></td>
+<td><p>BA externa 0,397, accuracy 0,501</p></td>
+</tr>
+<tr class="row-even"><td><p>B. Stacking multivista sin empleador</p></td>
+<td><p>18</p></td>
+<td><p>Pliegues externos (rep. 0) y prueba</p></td>
+<td><p>BA 0,457, accuracy 0,578</p></td>
+</tr>
+<tr class="row-odd"><td><p>C. Stacking multivista (4 vistas)</p></td>
+<td><p>18</p></td>
+<td><p>Pliegues externos (rep. 0) y prueba</p></td>
+<td><p>BA 0,466, accuracy 0,586</p></td>
+</tr>
+<tr class="row-even"><td><p>D. Un XGBoost con todas las variables</p></td>
+<td><p>18</p></td>
+<td><p>Pliegues externos (rep. 0) y prueba</p></td>
+<td><p>BA 0,469, accuracy 0,590</p></td>
+</tr>
+<tr class="row-odd"><td><p>E. C + 3 modelos con toda la información</p></td>
+<td><p>18</p></td>
+<td><p>Pliegues externos (rep. 0) y prueba</p></td>
+<td><p>BA 0,468, accuracy 0,590</p></td>
+</tr>
+<tr class="row-even"><td><p>F. 16 modelos base + meta-modelo logístico</p></td>
+<td><p>18</p></td>
+<td><p>Pliegues externos (rep. 0) y prueba</p></td>
+<td><p>BA 0,471, accuracy 0,591</p></td>
+</tr>
+<tr class="row-odd"><td><p>G. 16 modelos base + selección de Caruana</p></td>
+<td><p>18</p></td>
+<td><p>Pliegues externos (rep. 0) y prueba</p></td>
+<td><p>BA 0,477, accuracy 0,599: <strong>elegido</strong> como nivel 0 del original</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>SECR sobre los 16 modelos de G (final)</strong></p></td>
+<td><p>19–20</p></td>
+<td><p><strong>Pliegues internos</strong> (TPE dentro de cada pliegue externo)</p></td>
+<td><p>BA 0,591 ± 0,087 en 15 pliegues pareados; no superior a KNN (capítulo 20)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Las cifras de A a G son BA y accuracy con <code class="docutils literal notranslate"><span class="pre">argmax</span></code>, media de los 5 pliegues externos de la repetición 0
+(<code class="docutils literal notranslate"><span class="pre">results/ensemble/*/fold*.npz</span></code>).</p>
+<p><strong>Cómo se eligió SECR y qué se miró.</strong></p>
+<ul class="simple">
+<li><p><strong>El diseño de SECR se fijó antes de ver cualquier resultado del experimento pareado.</strong> El 22 de octubre a las 23:30 el
+equipo eligió «G + combinador condicional por región». La regla, sus hiperparámetros y sus rangos de búsqueda se
+programaron antes de correr la primera celda y no se cambiaron después.</p></li>
+<li><p><strong>Sus hiperparámetros los eligió la búsqueda TPE con las predicciones internas</strong> de cada pliegue externo. El pliegue
+externo no participa (<code class="docutils literal notranslate"><span class="pre">original_eval.tune</span></code>).</p></li>
+<li><p><strong>Los 15 pliegues del veredicto sí se miraron, después de fijar el modelo</strong>: para el análisis de R3, la ablación
+(20.4) y la sensibilidad (20.7). Ninguna de esas miradas cambió el modelo. La sensibilidad mostró que una versión con
+pesos globales habría dado más BA (≈ 0,62 frente a 0,591), y no se adoptó, porque sería elegir con los pliegues del
+veredicto.</p></li>
+<li><p><strong>Decisiones tomadas durante la corrida, y por qué no favorecen al original.</strong></p>
+<ul>
+<li><p>El recorte de 5×5 a 3×5 se decidió por tiempo de cómputo, antes de tener métricas.</p></li>
+<li><p>Al ver en la repetición 0 que KNN era el benchmark más fuerte, se completaron sus repeticiones 1 y 2. Eso endurece
+la comparación contra el original.</p></li>
+<li><p>Random Forest y Naive Bayes se completaron al final, con tiempo sobrante; no cambian la comparación con KNN.</p></li>
+</ul>
+</li>
+<li><p><strong>Fuente de sesgo que se declara</strong>: el nivel 0 (G) se eligió entre A–G mirando los 5 pliegues de los capítulos 6 a
+13, que son la repetición 0 del capítulo 20 (<code class="docutils literal notranslate"><span class="pre">paired.outer_folds(0)</span></code>), y la prueba. En la repetición 0 el original
+supera a KNN por +0,035 de BA; en las repeticiones 1 y 2, que no se habían visto, por +0,006 y +0,027 (sección 20.6).</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="18_modelo_propuesto.html"
+       title="página anterior">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">18. Modelo propuesto: <em>stacking</em> multivista</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="20_validacion_estadistica.html"
+       title="siguiente página">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">siguiente</p>
+        <p class="prev-next-title">20. Validación estadística del modelo original (R3)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivacion">19.1 Motivación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#postura-sobre-las-variables-de-la-lesion">19.2 Postura sobre las variables de la lesión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formulacion">19.3 Formulación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algoritmo">19.4 Algoritmo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-demostradas">19.5 Propiedades demostradas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complejidad">19.6 Complejidad</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion-y-pruebas">19.7 Implementación y pruebas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ablacion-e-interpretabilidad">19.8 Ablación e interpretabilidad</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#candidatos-probados-guia-13">19.9 Candidatos probados (guía §13)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por Jaime Andrés Besada e Iván Berrio
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
