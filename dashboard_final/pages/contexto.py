@@ -139,7 +139,7 @@ layout = html.Div([
                     'los pliegues externos de la validación anidada.')], className='ps-3 mb-0'), lg=8),
         dbc.Col(html.Div([
             html.Div('Autores', className='block-title'),
-            html.P('Jaime Andrés Besada e Iván Berrio', className='mb-2'),
+            html.P('Iván Berrio y Jaime Andrés Besada', className='mb-2'),
             html.Div('Versión', className='block-title'),
             html.P('3.1 · 23 de octubre de 2026', className='mb-2'),
             html.Div('Informe completo', className='block-title'),

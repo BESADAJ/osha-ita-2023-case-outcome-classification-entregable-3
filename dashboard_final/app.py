@@ -31,7 +31,7 @@ topbar = html.Header(dbc.Container(html.Div([
 ], className='inner'), fluid='xxl', className='px-3 px-md-4'), className='topbar')
 
 footer = html.Footer(dbc.Container(html.Div([
-    html.Span('Jaime Andrés Besada e Iván Berrio · Machine Learning (EST 1055-01), Universidad del Norte · '),
+    html.Span('Iván Berrio y Jaime Andrés Besada · Machine Learning (EST 1055-01), Universidad del Norte · '),
     html.Span('Datos: OSHA Injury Tracking Application 2023 · Versión 3.1, octubre de 2026 · '),
     html.A('Informe (Jupyter Book)', href='https://besadaj.github.io/osha-ita-2023-case-outcome-classification-entregable-3/',
            target='_blank')]), fluid='xxl', className='px-3 px-md-4'), className='footer')
