@@ -90,6 +90,13 @@ def original_results():
 
 
 @lru_cache(maxsize=1)
+def proyecto_final():
+    """Candidatos, BA por pliegue, sensibilidad (``scripts/build_dashboard_extras.py``, desde ``results/``)."""
+    p = DATA / 'proyecto_final.json'
+    return json.loads(p.read_text(encoding='utf-8')) if p.exists() else None
+
+
+@lru_cache(maxsize=1)
 def background(n=12, seed=42):
     """Fondo fijo para SHAP (casos del desarrollo)."""
     d = eda()

@@ -1,0 +1,350 @@
+{
+ "per_fold": [
+  {
+   "rep": 0,
+   "fold": 0,
+   "original": 0.6616941042452207,
+   "knn": 0.6088868983057841
+  },
+  {
+   "rep": 0,
+   "fold": 1,
+   "original": 0.4074232303844995,
+   "knn": 0.6254547665484023
+  },
+  {
+   "rep": 0,
+   "fold": 2,
+   "original": 0.5446025134597615,
+   "knn": 0.485847173818855
+  },
+  {
+   "rep": 0,
+   "fold": 3,
+   "original": 0.6480151695518551,
+   "knn": 0.5187924772787189
+  },
+  {
+   "rep": 0,
+   "fold": 4,
+   "original": 0.6932436285869585,
+   "knn": 0.5426420950798165
+  },
+  {
+   "rep": 1,
+   "fold": 0,
+   "original": 0.6048792427580542,
+   "knn": 0.5888926684501512
+  },
+  {
+   "rep": 1,
+   "fold": 1,
+   "original": 0.5932598636108712,
+   "knn": 0.6019356980893852
+  },
+  {
+   "rep": 1,
+   "fold": 2,
+   "original": 0.6896046680320873,
+   "knn": 0.6385245989076634
+  },
+  {
+   "rep": 1,
+   "fold": 3,
+   "original": 0.449893440680691,
+   "knn": 0.4069543712825739
+  },
+  {
+   "rep": 1,
+   "fold": 4,
+   "original": 0.5808306869361113,
+   "knn": 0.6517596022672614
+  },
+  {
+   "rep": 2,
+   "fold": 0,
+   "original": 0.659666647735921,
+   "knn": 0.6089495681996626
+  },
+  {
+   "rep": 2,
+   "fold": 1,
+   "original": 0.5952022900459619,
+   "knn": 0.653079254717429
+  },
+  {
+   "rep": 2,
+   "fold": 2,
+   "original": 0.5497493963028236,
+   "knn": 0.4709583989575073
+  },
+  {
+   "rep": 2,
+   "fold": 3,
+   "original": 0.5090702641080075,
+   "knn": 0.4873285567553019
+  },
+  {
+   "rep": 2,
+   "fold": 4,
+   "original": 0.6807323951165816,
+   "knn": 0.6397133787783691
+  }
+ ],
+ "diff_by_rep": {
+  "0": 0.034671047039343705,
+  "1": 0.006080192604155976,
+  "2": 0.026878367180205132
+ },
+ "sensitivity": [
+  {
+   "param": "lam",
+   "value": "1.0",
+   "ba_mean": 0.5849675720822698,
+   "ba_sd": 0.0764534788652792
+  },
+  {
+   "param": "lam",
+   "value": "10.0",
+   "ba_mean": 0.5848932651025045,
+   "ba_sd": 0.07647896027498981
+  },
+  {
+   "param": "lam",
+   "value": "100.0",
+   "ba_mean": 0.5850970397754637,
+   "ba_sd": 0.07624361168314288
+  },
+  {
+   "param": "lam",
+   "value": "1000.0",
+   "ba_mean": 0.6125115485381419,
+   "ba_sd": 0.051755395888540105
+  },
+  {
+   "param": "lam",
+   "value": "10000.0",
+   "ba_mean": 0.618132918264678,
+   "ba_sd": 0.04959321900837295
+  },
+  {
+   "param": "alpha",
+   "value": "0.0",
+   "ba_mean": 0.4625077107392734,
+   "ba_sd": 0.050043845662090164
+  },
+  {
+   "param": "alpha",
+   "value": "0.25",
+   "ba_mean": 0.4637941881992002,
+   "ba_sd": 0.05039742890171363
+  },
+  {
+   "param": "alpha",
+   "value": "0.5",
+   "ba_mean": 0.4695043938862111,
+   "ba_sd": 0.05284488284995289
+  },
+  {
+   "param": "alpha",
+   "value": "0.75",
+   "ba_mean": 0.5407352801730231,
+   "ba_sd": 0.10167526957821942
+  },
+  {
+   "param": "alpha",
+   "value": "1.0",
+   "ba_mean": 0.5850970397754637,
+   "ba_sd": 0.07624361168314288
+  },
+  {
+   "param": "n_steps",
+   "value": "5",
+   "ba_mean": 0.6009632797920773,
+   "ba_sd": 0.07624111724413962
+  },
+  {
+   "param": "n_steps",
+   "value": "10",
+   "ba_mean": 0.590603344078395,
+   "ba_sd": 0.0763907272422609
+  },
+  {
+   "param": "n_steps",
+   "value": "30",
+   "ba_mean": 0.5850970397754637,
+   "ba_sd": 0.07624361168314288
+  },
+  {
+   "param": "n_steps",
+   "value": "100",
+   "ba_mean": 0.585415651834834,
+   "ba_sd": 0.07632890325189964
+  },
+  {
+   "param": "gate",
+   "value": "none",
+   "ba_mean": 0.6178361806834848,
+   "ba_sd": 0.050645239621714286
+  },
+  {
+   "param": "gate",
+   "value": "type_of_incident",
+   "ba_mean": 0.6182357885931715,
+   "ba_sd": 0.05384870984038192
+  },
+  {
+   "param": "gate",
+   "value": "establishment_type",
+   "ba_mean": 0.6009390625044008,
+   "ba_sd": 0.06949055515020248
+  },
+  {
+   "param": "gate",
+   "value": "naics2",
+   "ba_mean": 0.5850970397754637,
+   "ba_sd": 0.07624361168314288
+  },
+  {
+   "param": "gate",
+   "value": "soc2",
+   "ba_mean": 0.6159474024158322,
+   "ba_sd": 0.05091597347914675
+  },
+  {
+   "param": "gate",
+   "value": "nature1",
+   "ba_mean": 0.6159238460775905,
+   "ba_sd": 0.05230165658382109
+  },
+  {
+   "param": "gate",
+   "value": "event1",
+   "ba_mean": 0.5945152120517976,
+   "ba_sd": 0.07604682327815172
+  },
+  {
+   "param": "gate",
+   "value": "part1",
+   "ba_mean": 0.6163041002456221,
+   "ba_sd": 0.0508499164899952
+  },
+  {
+   "param": "frac_datos",
+   "value": "0.1",
+   "ba_mean": 0.30916933647152306,
+   "ba_sd": 0.19966265341720846
+  },
+  {
+   "param": "frac_datos",
+   "value": "0.25",
+   "ba_mean": 0.5265476313733448,
+   "ba_sd": 0.11803205892626069
+  },
+  {
+   "param": "frac_datos",
+   "value": "0.5",
+   "ba_mean": 0.57384008089342,
+   "ba_sd": 0.09525955041691496
+  },
+  {
+   "param": "frac_datos",
+   "value": "1.0",
+   "ba_mean": 0.5850970397754637,
+   "ba_sd": 0.07624361168314288
+  }
+ ],
+ "candidates": [
+  {
+   "cap": "17",
+   "diseno": "PT-bagging",
+   "datos": "Pliegues temporales (3; diseño del cap. 17)",
+   "resultado": "BA 0,386 vs 0,516 de la referencia; 1 de 12 muertes",
+   "fuente": "cribado.csv"
+  },
+  {
+   "cap": "17",
+   "diseno": "MultiRandBal",
+   "datos": "Pliegues temporales (3; diseño del cap. 17)",
+   "resultado": "BA 0,361; 0 de 12 muertes",
+   "fuente": "cribado.csv"
+  },
+  {
+   "cap": "17",
+   "diseno": "Metaclasificación jerárquica",
+   "datos": "Pliegues temporales (3; diseño del cap. 17)",
+   "resultado": "BA 0,371; 0 de 12 muertes",
+   "fuente": "cribado.csv"
+  },
+  {
+   "cap": "17",
+   "diseno": "HAFL-XGBoost",
+   "datos": "Pliegues temporales (3; diseño del cap. 17)",
+   "resultado": "BA 0,522, igual que sin pérdida focal (0,523): el mecanismo no aporta",
+   "fuente": "cribado_r2.csv"
+  },
+  {
+   "cap": "17",
+   "diseno": "Frank–Hall ordinal (clases 2–4)",
+   "datos": "Pliegues temporales (3; diseño del cap. 17)",
+   "resultado": "BA 2–4 0,525 vs 0,527 del mejor base",
+   "fuente": "tabla_r4.csv"
+  },
+  {
+   "cap": "18",
+   "diseno": "A. Stacking con los 5 modelos del curso (9 variables)",
+   "datos": "Pliegues externos (rep. 0) y prueba",
+   "resultado": "BA 0,397; accuracy 0,501",
+   "fuente": "results/ensemble/"
+  },
+  {
+   "cap": "18",
+   "diseno": "B. Stacking multivista sin la vista del empleador",
+   "datos": "Pliegues externos (rep. 0) y prueba",
+   "resultado": "BA 0,457; accuracy 0,578",
+   "fuente": "results/ensemble/"
+  },
+  {
+   "cap": "18",
+   "diseno": "C. Stacking multivista (4 vistas), meta-modelo logístico",
+   "datos": "Pliegues externos (rep. 0) y prueba",
+   "resultado": "BA 0,466; accuracy 0,586",
+   "fuente": "results/ensemble/"
+  },
+  {
+   "cap": "18",
+   "diseno": "D. Un solo XGBoost con todas las variables",
+   "datos": "Pliegues externos (rep. 0) y prueba",
+   "resultado": "BA 0,469; accuracy 0,590",
+   "fuente": "results/ensemble/"
+  },
+  {
+   "cap": "18",
+   "diseno": "E. C + 3 modelos de información completa, meta-modelo logístico",
+   "datos": "Pliegues externos (rep. 0) y prueba",
+   "resultado": "BA 0,468; accuracy 0,590",
+   "fuente": "results/ensemble/"
+  },
+  {
+   "cap": "18",
+   "diseno": "F. 16 modelos base, meta-modelo logístico",
+   "datos": "Pliegues externos (rep. 0) y prueba",
+   "resultado": "BA 0,471; accuracy 0,591",
+   "fuente": "results/ensemble/"
+  },
+  {
+   "cap": "18",
+   "diseno": "G. 16 modelos base + selección de Caruana",
+   "datos": "Pliegues externos (rep. 0) y prueba",
+   "resultado": "BA 0,477; accuracy 0,599 · elegido como nivel 0",
+   "fuente": "results/ensemble/"
+  },
+  {
+   "cap": "19–20",
+   "diseno": "SECR sobre los 16 modelos de G (modelo final)",
+   "datos": "Pliegues internos (TPE dentro de cada pliegue externo)",
+   "resultado": "BA 0,591 ± 0,087 en 15 pliegues; no superior a KNN (0,569)",
+   "fuente": "resumen_modelos.csv"
+  }
+ ]
+}
