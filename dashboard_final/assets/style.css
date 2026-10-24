@@ -167,3 +167,7 @@ details.more > summary::-webkit-details-marker { display: none; }
 details.more > summary::before { content: '+'; display: inline-block; width: 18px; color: var(--ink-3); font-family: var(--mono); }
 details.more[open] > summary::before { content: '−'; }
 details.more > summary:hover { color: var(--ink); }
+
+/* ---------- imagen de portada (Contexto) ---------- */
+.hero-img { width: 100%; height: 300px; object-fit: cover; object-position: 50% 40%; border-radius: var(--radius); display: block; }
+@media (max-width: 992px) { .hero-img { height: 200px; } }

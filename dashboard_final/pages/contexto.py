@@ -70,11 +70,19 @@ if orig and knn:
 
 layout = html.Div([
     html.Div([
-        html.Div('Contexto', className='eyebrow'),
-        html.H1('¿Cómo termina un caso de lesión laboral?', className='page-title'),
-        html.P(['Con los registros que los empleadores de EE. UU. reportan a OSHA (formularios 300/301, ',
-                html.Em('Injury Tracking Application'), ' 2023) clasificamos el desenlace de cada caso en cuatro clases: '
-                'fallecimiento, días de ausencia, traslado o restricción, u otro caso registrable.'], className='page-lead'),
+        dbc.Row([
+            dbc.Col([
+                html.Div('Contexto', className='eyebrow'),
+                html.H1('¿Cómo termina un caso de lesión laboral?', className='page-title'),
+                html.P(['Con los registros que los empleadores de EE. UU. reportan a OSHA (formularios 300/301, ',
+                        html.Em('Injury Tracking Application'), ' 2023) clasificamos el desenlace de cada caso en cuatro '
+                        'clases: fallecimiento, días de ausencia, traslado o restricción, u otro caso registrable.'],
+                       className='page-lead'),
+            ], lg=6, className='align-self-center'),
+            dbc.Col(html.Img(src=dash.get_asset_url('hero.jpg'), className='hero-img',
+                             alt='Soldador trabajando sobre una viga de acero en un taller, con chispas y careta protectora'),
+                    lg=6, className='mt-4 mt-lg-0'),
+        ], className='g-4'),
         html.Div([
             stat(f'{len(d):,}'.replace(',', '.'), 'casos de desarrollo con los que se entrena (enero–septiembre de 2023)'),
             stat(num(counts['Días de ausencia'] / len(d) * 100), 'de los casos terminan con días de ausencia', unit='%'),
