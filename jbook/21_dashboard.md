@@ -49,10 +49,13 @@ dashboard_final/
   (la suma de aportes es igual a la predicción menos la base) y tarda alrededor de 1 s por predicción (unos 9 s con KNN).
 - **Robustez.** Las entradas se validan antes de predecir: campos obligatorios, longitud y caracteres del texto libre
   y avisos de categorías no vistas. Un error de predicción se muestra en un `dbc.Alert` y la aplicación no se cae.
-- **Diseño visual.** Tema FLATLY de `dash-bootstrap-components`, barra de navegación fija, rejilla responsiva
-  (`dbc.Row`/`dbc.Col` con puntos de corte `xs`, `md` y `lg`), una sola plantilla Plotly y una paleta de 5 colores
-  (azul marino, verde azulado, ámbar, coral y gris). Cada figura tiene título, ejes con unidades e información al pasar
-  el cursor. Ninguna información depende solo del color: las barras de SHAP llevan signo y valor, y la matriz de
+- **Diseño visual.** Un sistema propio sobre Bootstrap (`assets/style.css`): una sola fuente (Inter), una escala
+  tipográfica, superficies planas con bordes finos y sin sombras, y una paleta limitada. Los cuatro colores semánticos se
+  reservan para las clases del desenlace («Otro registrable», la clase residual, en gris) y un único acento azul para el
+  modelo original. Cada página abre con su conclusión y pocas cifras clave; la página Modelos tiene una subnavegación fija
+  por secciones. Rejilla responsiva (`dbc.Row`/`dbc.Col` con puntos de corte `xs`, `md` y `lg`) y una sola plantilla
+  Plotly. Cada figura tiene título, ejes con unidades e información al pasar el cursor, y debajo una frase calculada con
+  los datos. Ninguna información depende solo del color: las barras de SHAP llevan signo y valor, y la matriz de
   confusión lleva conteos.
 
 ## 21.2 Contenido por sección
@@ -61,7 +64,7 @@ dashboard_final/
 |---|---|---|
 | Contexto | Problema y relevancia con cifra citada (BLS, 2,6 millones de casos y 946 500 con días de ausencia en 2023); pregunta y objetivos; fuente, periodo, n, variables, diccionario y tarea; diagrama del pipeline; limitaciones, ética, autores, versión y fecha | `pages/contexto.py` |
 | EDA | Filtros globales (estado, sector, tipo de establecimiento, rango de fechas `DatePickerRange`, `RangeSlider` de tamaño) que actualizan todas las figuras; distribución y balance del objetivo; distribución univariada; asociación (V de Cramér); faltantes; atípicos; tendencia mensual; explorador bivariado con selectores de x, y y color; una frase de interpretación calculada por figura | `pages/eda.py` |
-| Modelos | `DataTable` ordenable y filtrable con las mejores combinaciones (y las 112 a pedido), media ± d.e. e inferencia; formulario de predicción generado desde el esquema con selector de modelo, probabilidad y SHAP local; matriz de confusión, ROC, PR y calibración; SHAP global; diagrama de diferencia crítica con el original incluido; subsección del original con descripción, pseudocódigo, diferencias con la literatura, curva de convergencia, tabla de pruebas y veredicto | `pages/modelos.py` |
+| Modelos | `DataTable` ordenable y filtrable con las mejores combinaciones (y las 112 a pedido), media ± d.e. e inferencia; formulario de predicción generado desde el esquema con selector de modelo, probabilidad y SHAP local; matriz de confusión, ROC, PR y calibración; SHAP global; diagrama de diferencia crítica con el original incluido; subsección del original con descripción, pseudocódigo, diferencias con la literatura, curva de convergencia, los 13 candidatos probados (19.9), la comparación pareada con la BA por pliegue y el sesgo de selección (20.6), la tabla de pruebas, la ablación y la sensibilidad (20.4 y 20.7) y el veredicto R1–R3. Estas tablas salen de `results/` con `scripts/build_dashboard_extras.py` | `pages/modelos.py` |
 
 ```{figure} figures/e3_dash_contexto.png
 :name: fig-dash-contexto
