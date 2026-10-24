@@ -55,6 +55,10 @@ def myst_to_markdown(text):
             lines = lines[int(rng.group(1)) - 1:int(rng.group(2))]
         return '```python\n' + '\n'.join(lines) + '\n```'
     text = re.sub(r'```\{literalinclude\}\s*(\S+)\n(.*?)```', literalinclude, text, flags=re.S)
+    def image(m):
+        alt = re.search(r':alt:\s*(.+)', m.group(2))
+        return f'![{alt.group(1).strip() if alt else ""}]({m.group(1).strip()})'
+    text = re.sub(r'```\{image\}\s*(\S+)\n(.*?)```', image, text, flags=re.S)
     text = re.sub(r'```\{bibliography\}.*?```', '*(Lista de referencias: `jbook/references.bib`.)*', text, flags=re.S)
     text = re.sub(r'\{cite(?::t)?\}`([^`]+)`', r'[\1]', text)  # citas: la clave BibTeX entre corchetes
     text = re.sub(r'\{eq\}`([^`]+)`', r'(\1)', text)

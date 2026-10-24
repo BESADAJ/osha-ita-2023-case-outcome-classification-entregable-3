@@ -156,5 +156,19 @@ Firmas:
 
 | Integrante | Firma | Fecha |
 |---|---|---|
-| Jaime Andrés Besada | <img src="figures/firma_jaime_besada.png" alt="Firma de Jaime Andrés Besada" width="200"><br><img src="figures/nombre_jaime_besada.png" alt="Nombre manuscrito: Jaime Besada" width="160"> | 2026-10-23 |
+| Jaime Andrés Besada | Firmada (ver abajo) | 2026-10-23 |
 | Iván Berrio | ______________________ | 2026-10-__ |
+
+**Firma de Jaime Andrés Besada:**
+
+```{image} figures/firma_jaime_besada.png
+:alt: Firma de Jaime Andrés Besada
+:width: 260px
+```
+
+```{image} figures/nombre_jaime_besada.png
+:alt: Nombre manuscrito de Jaime Besada
+:width: 200px
+```
+
+**Firma de Iván Berrio:** pendiente.
