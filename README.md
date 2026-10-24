@@ -33,7 +33,7 @@ de los entregables anteriores (octubre–diciembre, establecimientos no vistos).
 | Componente obligatorio | Dónde |
 |---|---|
 | 1. Correcciones del entregable 2 (tabla de trazabilidad) | `jbook/00_trazabilidad.md` |
-| 2. Dashboard Dash multipágina (Contexto, EDA, Modelos) para Render | `dashboard_final/` (`app.py`, `pages/`, `src/`, `artifacts/`, `render.yaml`) |
+| 2. Dashboard Dash multipágina (Contexto, EDA, Modelos), desplegado en Render | `dashboard_final/` (`app.py`, `pages/`, `src/`, `artifacts/`, `render.yaml`) y <https://osha-ita-2023-case-outcome-classification.onrender.com> |
 | 3. Modelo original: ensamble multivista + **SECR** (selección de ensambles condicionada por región, Frank-Wolfe) | `src/osha_e3/combinador.py`, `src/osha_e3/original_final.py`, `dashboard_final/src/original_model.py`; pruebas en `tests/test_combinador.py` |
 | 4. Informe en Jupyter Book | `jbook/` (capítulos 00, 13b, 16, 19, 20 y 21 nuevos; `jupyter-book build jbook`) |
 | Tabla maestra de experimentos (140 + pareado + original) | `results/tabla_maestra_experimentos.csv` |

@@ -6,7 +6,7 @@ obligatorios de la guía:
 
 1. **Correcciones** del entregable 2, con su tabla de trazabilidad (capítulo 00).
 2. **Dashboard predictivo** en Dash Plotly, desplegado en Render, con las secciones Contexto, EDA y Modelos
-   (capítulo 21): **<https://osha-ita-2023-dashboard-final.onrender.com>**.
+   (capítulo 21): **<https://osha-ita-2023-case-outcome-classification.onrender.com>**.
 3. **Modelo original**: un ensamble multivista con **selección de ensambles condicionada por región (SECR)**, implementado
    desde cero y comparado estadísticamente con los benchmarks (capítulos 16, 19 y 20).
 4. Este **informe** reproducible.

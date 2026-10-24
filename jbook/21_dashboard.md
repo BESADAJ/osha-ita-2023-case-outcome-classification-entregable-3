@@ -6,7 +6,7 @@ Render.
 
 :::{admonition} URL pública
 :class: tip
-**<https://osha-ita-2023-dashboard-final.onrender.com>** (servicio `osha-ita-2023-dashboard-final`, plan gratuito).
+**<https://osha-ita-2023-case-outcome-classification.onrender.com>** (servicio `osha-ita-2023-case-outcome-classification`, plan gratuito).
 Render asigna el subdominio al crear el servicio: si difiere, se actualiza aquí y en la introducción. El primer acceso
 tras un periodo de inactividad tarda unos 30–60 s en despertar el servidor.
 :::
