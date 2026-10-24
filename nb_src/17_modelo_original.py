@@ -502,14 +502,13 @@ pd.read_csv(J / 'empleador_agregado.csv').set_index('cuantil').round(3)
 #
 # 1. **Pocas muertes.** Hay 12 muertes de validación en el diseño temporal y de 16 a 37 de entrenamiento por pliegue.
 #    El recall de Fallecimiento casi no se puede medir: el intervalo de Wilson para 8 de 12 va de 0,39 a 0,86.
-# 2. **Diseño distinto al de los capítulos 6 a 13.** Las cifras son del diseño temporal de 3 pliegues (12.6). Falta
-#    correr el modelo en el diseño del grupo. El puente entre los dos diseños es la prueba oct–dic, que todavía no se
-#    usa.
-# 3. **Presupuesto desigual.** La Fase B usó 12 evaluaciones por optimizador; la corrida base usó 20. Hay que
-#    igualarlo antes de la comparación final.
+# 2. **Diseño distinto al de los capítulos 6 a 13.** Las cifras son del diseño temporal de 3 pliegues (12.6) y no se
+#    comparan directamente con las de los capítulos 9 y 13. El candidato se descartó antes de correrlo en ese diseño.
+# 3. **Presupuesto desigual.** La Fase B usó 12 evaluaciones por optimizador y la corrida base 20; como el candidato se
+#    descartó, no se igualó.
 # 4. **Desviaciones del paper.** CART con entropía en lugar de J48 (C4.5), con divisiones binarias sobre el one-hot.
 #    En la Fase B se buscan hiperparámetros que el paper deja fijos, porque el curso exige 4 optimizadores.
-# 5. **Árbol de scikit-learn** (riesgo de R2, ver 17.9; resuelto con SECR, capítulo 19).
+# 5. **Árbol de scikit-learn** sin modificar, que la guía no acepta como contribución algorítmica; el modelo final (SECR, capítulo 19) es implementación propia.
 # 6. **Rondas 3 y 4 exploratorias.** Se decidieron después de ver resultados; el efecto de selección se declara.
 # 7. **Entorno distinto** al del resto del repositorio (versiones de scikit-learn, imbalanced-learn y xgboost; ver
 #    `disenio_temporal/LEEME.md`).
