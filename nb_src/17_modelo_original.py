@@ -428,8 +428,8 @@ r4[['ba_2_4', 'ba_2_4_low', 'ba_2_4_high', 'kappa_cuadratico_2_4', 'frac_no_adya
 # **Techo de las 8 variables** (`sensibilidad_variables.md`). Es exploratorio: una sola partición y sin intervalos.
 # - Con las 8 variables del diseño, un *gradient boosting* llega a una BA 2–4 de 0,533, el mismo techo (~0,53) que
 #   toda la corrida base.
-# - Añadir naturaleza, parte del cuerpo, evento y fuente la sube a ~0,60. Pero esas variables salen de las
-#   narrativas y se excluyen por posible fuga.
+# - Añadir naturaleza, parte del cuerpo, evento y fuente la sube a ~0,60. Esas variables las asigna OSHA a partir
+#   del relato del caso; el capítulo 19.2 explica por qué el modelo final sí las usa.
 #
 # **Fuga directa.** Proporción de casos de cada clase con el campo presente o mayor que cero:
 
@@ -458,8 +458,10 @@ display(pd.read_csv(J / 'informacion_mutua.csv', index_col=0).round(3))
 # - Los casos de un año se cargan entre el 2 de enero y el 2 de marzo del año siguiente (ITA Data Users Guide). En el
 #   desarrollo, la mediana de `created_timestamp` es 283 días después del incidente.
 #
-# Interpretación: las narrativas y las `*_pred` se escriben cuando el desenlace ya se conoce. Por eso no están
-# disponibles «a tiempo» para predecirlo.
+# Interpretación: los campos de días y la fecha de muerte definen la etiqueta y nunca se usan como entrada. Los códigos
+# `*_pred` se asignan a partir del relato, cuando el caso ya está registrado. Como la tarea es clasificar casos ya
+# registrados, esos códigos existen al clasificar y no son fuga directa. El riesgo está en los fallecimientos, cuyo
+# relato menciona la muerte en el 54 % de los casos. Es la postura única del libro (capítulo 19.2; corrección B7).
 
 # %%
 display(pd.read_csv(J / 'empleador_resumen.csv').rename(columns={'establecimientos': 'Establecimientos (≥ 20 casos 2–3)',
