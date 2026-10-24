@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>18. Modelo propuesto: stacking multivista &#8212; OSHA ITA 2023: resultado y días de ausencia de los casos reportados (entregable 3)</title>
+    <title>18. Ensamble multivista G (exploratorio) &#8212; OSHA ITA 2023: resultado y días de ausencia de los casos reportados (entregable 3)</title>
   
   
   
@@ -204,7 +204,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="16_literatura_novedad.html">16. Revisión de literatura y novedad del modelo original</a></li>
 <li class="toctree-l1"><a class="reference internal" href="17_modelo_original.html">17. Primer candidato a modelo original: PT-bagging (histórico)</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">18. Modelo propuesto: <em>stacking</em> multivista</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">18. Ensamble multivista G (exploratorio)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="19_modelo_original_secr.html">19. Modelo original: ensamble multivista con selección condicionada por región (SECR)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="20_validacion_estadistica.html">20. Validación estadística del modelo original (R3)</a></li>
 </ul>
@@ -381,7 +381,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>18. Modelo propuesto: stacking multivista</h1>
+    <h1>18. Ensamble multivista G (exploratorio)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -413,8 +413,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="modelo-propuesto-stacking-multivista">
-<h1>18. Modelo propuesto: <em>stacking</em> multivista<a class="headerlink" href="#modelo-propuesto-stacking-multivista" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="ensamble-multivista-g-exploratorio">
+<h1>18. Ensamble multivista G (exploratorio)<a class="headerlink" href="#ensamble-multivista-g-exploratorio" title="Link to this heading">#</a></h1>
 <div class="warning admonition">
 <p class="admonition-title">Declaración sobre el uso de la prueba (corrección B1, 23-oct-2026)</p>
 <p>Las cifras de prueba (octubre–diciembre) de este capítulo son <strong>exploratorias</strong>. La elección entre las variantes A a G se
@@ -425,14 +425,15 @@ quedó bloqueada por código (<code class="docutils literal notranslate"><span c
 de los 9 puntos de ventaja vienen de esas variables. <strong>La evidencia válida para R3 está en el capítulo 20</strong>, con los
 benchmarks reentrenados con las mismas variables y particiones, y con el modelo original final (SECR, capítulo 19).</p>
 </div>
-<div class="admonition-veredicto-adelantado-exploratorio-no-pareado admonition">
-<p class="admonition-title">Veredicto adelantado (exploratorio, no pareado)</p>
+<div class="admonition-resultado-exploratorio-no-pareado admonition">
+<p class="admonition-title">Resultado exploratorio (no pareado)</p>
 <ul class="simple">
-<li><p><strong>Supera a los 112 modelos de clasificación del curso</strong>, con el mismo diseño de evaluación. En la
-prueba (oct–dic), frente al <em>mejor valor de cada métrica</em> entre los 112: accuracy 0,611 frente a 0,524,
-F1 macro 0,457 frente a 0,392, AUC macro 0,836 frente a 0,718 y log-loss 0,821 frente a 0,959. Todas
-las diferencias son significativas (bootstrap por establecimiento, McNemar y DeLong con Holm) y con
-tamaño de efecto grande: el ensamble es el mejor en accuracy las 14 semanas de la prueba (δ de Cliff = 1).</p></li>
+<li><p><strong>Mejora sobre los 112 modelos de 9 variables, sobre todo por la información nueva.</strong> En la prueba
+(oct–dic), frente al <em>mejor valor de cada métrica</em> entre los 112: accuracy 0,611 frente a 0,524, F1 macro
+0,457 frente a 0,392, AUC macro 0,836 frente a 0,718 y log-loss 0,821 frente a 0,959. Esta comparación no
+es pareada (G usa variables que los 112 no tienen) y la prueba se miró para elegir entre A y G, así que <strong>no
+prueba superioridad</strong>. Con las mismas variables y particiones (capítulo 20), la ventaja del modelo final sobre
+el mejor benchmark es pequeña y no significativa.</p></li>
 <li><p><strong>Unir modelos aporta por sí mismo</strong>, aunque la mayor parte de la ganancia viene de la información
 nueva (las vistas de la lesión y de los códigos finos). El ensamble final supera a un solo XGBoost con
 todas las variables (accuracy +0,005; log-loss −0,008; AUC mayor en las 4 clases), con diferencias

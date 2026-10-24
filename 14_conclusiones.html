@@ -204,7 +204,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="16_literatura_novedad.html">16. Revisión de literatura y novedad del modelo original</a></li>
 <li class="toctree-l1"><a class="reference internal" href="17_modelo_original.html">17. Primer candidato a modelo original: PT-bagging (histórico)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="18_modelo_propuesto.html">18. Modelo propuesto: <em>stacking</em> multivista</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_modelo_propuesto.html">18. Ensamble multivista G (exploratorio)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="19_modelo_original_secr.html">19. Modelo original: ensamble multivista con selección condicionada por región (SECR)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="20_validacion_estadistica.html">20. Validación estadística del modelo original (R3)</a></li>
 </ul>
@@ -416,7 +416,7 @@ document.write(`
 <section id="que-se-encontro">
 <h2>Qué se encontró<a class="headerlink" href="#que-se-encontro" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p><strong>Con estas 8 variables el problema tiene un techo bajo y ningún modelo lo rompe.</strong> Las 112
+<li><p><strong>Con estas 9 variables el problema tiene un techo bajo y ningún modelo lo rompe.</strong> Las 112
 combinaciones de clasificación quedan en la prueba entre 0,38 y 0,44 de balanced accuracy y entre 0,62
 y 0,70 de AUC macro. Los mejores en ordenar las clases (Random Forest, XGBoost, la logística: AUC
 0,69–0,70, accuracy 0,51–0,52) igualan, pero no superan, a la logística sin búsqueda del entregable 2
@@ -510,8 +510,6 @@ establecimientos en el desarrollo.</p></li>
 o reportar el clasificador de 3 clases como modelo principal.</p></li>
 <li><p>Quitar <code class="docutils literal notranslate"><span class="pre">time_unknown</span></code> del conjunto de variables.</p></li>
 <li><p>Usar la parada temprana y Successive Halving para ampliar el presupuesto de búsqueda sin más costo.</p></li>
-<li><p>Añadir variables con más información sobre la lesión (naturaleza, parte del cuerpo), que el archivo trae
-codificadas, verificando antes que no revelen el resultado.</p></li>
 </ul>
 </section>
 <section id="proyecto-final-veredicto-sobre-el-modelo-original-r1-r2-y-r3">
@@ -526,7 +524,7 @@ codificadas, verificando antes que no revelen el resultado.</p></li>
 <tbody>
 <tr class="row-even"><td><p><strong>R1. Novedad en la aplicación</strong></p></td>
 <td><p><strong>Sí</strong></p></td>
-<td><p>Revisión en 3 bases con API (OpenAlex, Europe PMC y arXiv), 8 cadenas en inglés y español con fecha, más WoS, Scopus y Consensus. No se encontró la regla SECR ni la selección de ensambles aplicada al desenlace de casos de lesiones laborales. Matriz de novedad y diferenciación por familia (capítulo 16.6–16.9). Riesgo residual: el profesor puede leer la novedad como de aplicación, porque la parte regional no mejoró la métrica</p></td>
+<td><p>Revisión en 3 bases con API (OpenAlex, Europe PMC y arXiv), 8 cadenas en inglés y español con fecha, más WoS, Scopus y Consensus. No se encontró la regla SECR ni la selección de ensambles aplicada al desenlace de casos de lesiones laborales. Matriz de novedad y diferenciación por familia (capítulo 16.5–16.8). Riesgo residual: el profesor puede leer la novedad como de aplicación, porque la parte regional no mejoró la métrica</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>R2. Implementación algorítmica propia</strong></p></td>
 <td><p><strong>Sí</strong></p></td>
@@ -606,7 +604,7 @@ usadas y para qué:</p>
 <td><p>Todo el código</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Claude Code (Anthropic; modelo Claude Opus 5.5)</strong></p></td>
-<td><p>Asistente de programación y redacción en el proyecto final: implementó, bajo instrucciones del equipo, el experimento pareado 5×5, el combinador SECR y sus pruebas unitarias, las pruebas de hipótesis sobre pliegues, el candado de la prueba, el dashboard multipágina y los artefactos. También redactó borradores de los capítulos 00, 13b, 16.6–16.9, 19, 20 y 21 y escribió los scripts de consulta a las bases bibliográficas</p></td>
+<td><p>Asistente de programación y redacción en el proyecto final: implementó, bajo instrucciones del equipo, el experimento pareado 5×5, el combinador SECR y sus pruebas unitarias, las pruebas de hipótesis sobre pliegues, el candado de la prueba, el dashboard multipágina y los artefactos. También redactó borradores de los capítulos 00, 13b, 16.5–16.8, 19, 20 y 21 y escribió los scripts de consulta a las bases bibliográficas</p></td>
 <td><p>El diseño, las demostraciones, el código y las cifras se revisan contra los resultados guardados en <code class="docutils literal notranslate"><span class="pre">results/</span></code>. El equipo responde por cada línea y puede explicarla y modificarla en la sustentación</p></td>
 </tr>
 <tr class="row-even"><td><p>Consensus</p></td>
@@ -614,7 +612,7 @@ usadas y para qué:</p>
 <td><p>Se verificaron los trabajos citados</p></td>
 </tr>
 <tr class="row-odd"><td><p>API públicas de OpenAlex, Europe PMC y arXiv</p></td>
-<td><p>Búsquedas reproducibles de literatura (capítulo 16.6)</p></td>
+<td><p>Búsquedas reproducibles de literatura (capítulo 16.5)</p></td>
 <td><p>Lectura de títulos y resúmenes</p></td>
 </tr>
 </tbody>

@@ -82,13 +82,15 @@ fija `OSHA_ALLOW_TEST=1`; ningún resultado del proyecto final la usa.
 **Corridas del proyecto final** (todas reanudables):
 
 ```
+python scripts/build_fullcodes.py               # códigos completos, OIICS y empleador (no se versiona; caps. 18-20 y pytest)
 python scripts/run_paired.py 10                 # experimento pareado (original + 7 benchmarks; se usó 3×5), results/pareado/
 python scripts/analyze_paired.py 4              # TPE anidado del combinador, ablación, pruebas y figuras (cap. 20)
 python scripts/build_artifacts.py todo          # artefactos + metadata.json + prueba de ida y vuelta
 python scripts/build_dashboard_data.py          # tablas del dashboard (EDA, líderes, fuera de pliegue, SHAP global)
+python scripts/build_dashboard_extras.py        # tablas del dashboard del proyecto final (candidatos, pliegues, sensibilidad)
 python scripts/complejidad_secr.py              # complejidad empírica de SECR (cap. 19)
 python scripts/build_master_table.py            # tabla maestra de experimentos (140 + pareado + original)
-python scripts/literatura/buscar.py             # consultas de la revisión de literatura (cap. 16.6)
+python scripts/literatura/buscar.py             # consultas de la revisión de literatura (cap. 16.5)
 python scripts/build_notebooks.py 20_validacion_estadistica
 pytest tests                                     # pruebas del ensamble, de SECR, del candado y de PT-bagging
 cd dashboard_final && pytest tests && python app.py

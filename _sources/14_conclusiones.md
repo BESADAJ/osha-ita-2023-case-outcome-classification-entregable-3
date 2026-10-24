@@ -2,7 +2,7 @@
 
 ## Qué se encontró
 
-1. **Con estas 8 variables el problema tiene un techo bajo y ningún modelo lo rompe.** Las 112
+1. **Con estas 9 variables el problema tiene un techo bajo y ningún modelo lo rompe.** Las 112
    combinaciones de clasificación quedan en la prueba entre 0,38 y 0,44 de balanced accuracy y entre 0,62
    y 0,70 de AUC macro. Los mejores en ordenar las clases (Random Forest, XGBoost, la logística: AUC
    0,69–0,70, accuracy 0,51–0,52) igualan, pero no superan, a la logística sin búsqueda del entregable 2
@@ -82,15 +82,13 @@
   o reportar el clasificador de 3 clases como modelo principal.
 - Quitar `time_unknown` del conjunto de variables.
 - Usar la parada temprana y Successive Halving para ampliar el presupuesto de búsqueda sin más costo.
-- Añadir variables con más información sobre la lesión (naturaleza, parte del cuerpo), que el archivo trae
-  codificadas, verificando antes que no revelen el resultado.
 
 
 ## Proyecto final: veredicto sobre el modelo original (R1, R2 y R3)
 
 | Condición | Veredicto | Evidencia |
 |---|---|---|
-| **R1. Novedad en la aplicación** | **Sí** | Revisión en 3 bases con API (OpenAlex, Europe PMC y arXiv), 8 cadenas en inglés y español con fecha, más WoS, Scopus y Consensus. No se encontró la regla SECR ni la selección de ensambles aplicada al desenlace de casos de lesiones laborales. Matriz de novedad y diferenciación por familia (capítulo 16.6–16.9). Riesgo residual: el profesor puede leer la novedad como de aplicación, porque la parte regional no mejoró la métrica |
+| **R1. Novedad en la aplicación** | **Sí** | Revisión en 3 bases con API (OpenAlex, Europe PMC y arXiv), 8 cadenas en inglés y español con fecha, más WoS, Scopus y Consensus. No se encontró la regla SECR ni la selección de ensambles aplicada al desenlace de casos de lesiones laborales. Matriz de novedad y diferenciación por familia (capítulo 16.5–16.8). Riesgo residual: el profesor puede leer la novedad como de aplicación, porque la parte regional no mejoró la métrica |
 | **R2. Implementación algorítmica propia** | **Sí** | Clase propia compatible con scikit-learn (`ConditionalEnsembleSelection`, `OriginalModel`) con regla de combinación nueva, Frank-Wolfe con búsqueda lineal exacta programado con numpy, 6 proposiciones demostradas, complejidad contrastada con tiempos y 8 pruebas unitarias. El codificador por objetivo y la selección de Caruana del nivel 0 también son código propio. Los modelos base son de librería, como permite el Cuadro 1 para ensambles con regla de combinación propia |
 | **R3. Superioridad estadísticamente verificada** | **No** | Comparación pareada en 15 pliegues: el original tiene la mayor BA media (0,591 frente a 0,569 de KNN) y el mejor rango de Friedman (p = 6·10⁻¹¹). Pero frente al mejor benchmark ninguna prueba pareada rechaza la igualdad tras Holm: Nemenyi p = 0,81, Nadeau–Bengio p = 0,66, Wilcoxon p = 0,28; bayesiana P(mejor) = 0,947; δ = 0,19 con IC que incluye 0 (capítulo 20) |
 
@@ -146,9 +144,9 @@ usadas y para qué:
 | Herramienta | Para qué se usó | Qué revisó el equipo |
 |---|---|---|
 | Python, numpy, scipy, pandas, scikit-learn, imbalanced-learn, XGBoost, Optuna, DEAP, Dash, Plotly | Implementación, experimentos y dashboard | Todo el código |
-| **Claude Code (Anthropic; modelo Claude Opus 5.5)** | Asistente de programación y redacción en el proyecto final: implementó, bajo instrucciones del equipo, el experimento pareado 5×5, el combinador SECR y sus pruebas unitarias, las pruebas de hipótesis sobre pliegues, el candado de la prueba, el dashboard multipágina y los artefactos. También redactó borradores de los capítulos 00, 13b, 16.6–16.9, 19, 20 y 21 y escribió los scripts de consulta a las bases bibliográficas | El diseño, las demostraciones, el código y las cifras se revisan contra los resultados guardados en `results/`. El equipo responde por cada línea y puede explicarla y modificarla en la sustentación |
+| **Claude Code (Anthropic; modelo Claude Opus 5.5)** | Asistente de programación y redacción en el proyecto final: implementó, bajo instrucciones del equipo, el experimento pareado 5×5, el combinador SECR y sus pruebas unitarias, las pruebas de hipótesis sobre pliegues, el candado de la prueba, el dashboard multipágina y los artefactos. También redactó borradores de los capítulos 00, 13b, 16.5–16.8, 19, 20 y 21 y escribió los scripts de consulta a las bases bibliográficas | El diseño, las demostraciones, el código y las cifras se revisan contra los resultados guardados en `results/`. El equipo responde por cada línea y puede explicarla y modificarla en la sustentación |
 | Consensus | Búsquedas exploratorias de literatura (capítulo 16.1) | Se verificaron los trabajos citados |
-| API públicas de OpenAlex, Europe PMC y arXiv | Búsquedas reproducibles de literatura (capítulo 16.6) | Lectura de títulos y resúmenes |
+| API públicas de OpenAlex, Europe PMC y arXiv | Búsquedas reproducibles de literatura (capítulo 16.5) | Lectura de títulos y resúmenes |
 
 Ninguna cifra del informe se escribió de memoria. Todas salen de un script versionado y de un resultado guardado en el
 repositorio. Las referencias se verificaron contra su fuente; las que no se pudieron verificar se citan solo con los

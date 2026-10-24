@@ -63,7 +63,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '17_modelo_original';</script>
     <link rel="index" title="Índice" href="genindex.html" />
     <link rel="search" title="Búsqueda" href="search.html" />
-    <link rel="next" title="18. Modelo propuesto: stacking multivista" href="18_modelo_propuesto.html" />
+    <link rel="next" title="18. Ensamble multivista G (exploratorio)" href="18_modelo_propuesto.html" />
     <link rel="prev" title="16. Revisión de literatura y novedad del modelo original" href="16_literatura_novedad.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="es"/>
@@ -204,7 +204,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="16_literatura_novedad.html">16. Revisión de literatura y novedad del modelo original</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">17. Primer candidato a modelo original: PT-bagging (histórico)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="18_modelo_propuesto.html">18. Modelo propuesto: <em>stacking</em> multivista</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_modelo_propuesto.html">18. Ensamble multivista G (exploratorio)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="19_modelo_original_secr.html">19. Modelo original: ensamble multivista con selección condicionada por región (SECR)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="20_validacion_estadistica.html">20. Validación estadística del modelo original (R3)</a></li>
 </ul>
@@ -399,7 +399,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fase-b-validacion-anidada-y-ablaciones">17.6 Fase B: validación anidada y ablaciones</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iteraciones-del-diseno-rondas-2-a-4">17.7 Iteraciones del diseño: Rondas 2 a 4</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-no-se-encuentra-mejora-techo-de-informacion-fuga-y-efecto-del-empleador">17.8 Por qué no se encuentra mejora: techo de información, fuga y efecto del empleador</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#veredicto-historico">17.9 Veredicto (histórico)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resultado-del-primer-candidato">17.9 Resultado del primer candidato</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitaciones">17.10 Limitaciones</a></li>
 </ul>
             </nav>
@@ -2114,8 +2114,8 @@ selección). Aquí no hay ventaja que corregir.</p>
 <ul class="simple">
 <li><p>Con las 8 variables del diseño, un <em>gradient boosting</em> llega a una BA 2–4 de 0,533, el mismo techo (~0,53) que
 toda la corrida base.</p></li>
-<li><p>Añadir naturaleza, parte del cuerpo, evento y fuente la sube a ~0,60. Pero esas variables salen de las
-narrativas y se excluyen por posible fuga.</p></li>
+<li><p>Añadir naturaleza, parte del cuerpo, evento y fuente la sube a ~0,60. Esas variables las asigna OSHA a partir
+del relato del caso; el capítulo 19.2 explica por qué el modelo final sí las usa.</p></li>
 </ul>
 <p><strong>Fuga directa.</strong> Proporción de casos de cada clase con el campo presente o mayor que cero:</p>
 <div class="cell docutils container">
@@ -2335,8 +2335,10 @@ Data Dictionary).</p></li>
 <li><p>Los casos de un año se cargan entre el 2 de enero y el 2 de marzo del año siguiente (ITA Data Users Guide). En el
 desarrollo, la mediana de <code class="docutils literal notranslate"><span class="pre">created_timestamp</span></code> es 283 días después del incidente.</p></li>
 </ul>
-<p>Interpretación: las narrativas y las <code class="docutils literal notranslate"><span class="pre">*_pred</span></code> se escriben cuando el desenlace ya se conoce. Por eso no están
-disponibles «a tiempo» para predecirlo.</p>
+<p>Interpretación: los campos de días y la fecha de muerte definen la etiqueta y nunca se usan como entrada. Los códigos
+<code class="docutils literal notranslate"><span class="pre">*_pred</span></code> se asignan a partir del relato, cuando el caso ya está registrado. Como la tarea es clasificar casos ya
+registrados, esos códigos existen al clasificar y no son fuga directa. El riesgo está en los fallecimientos, cuyo
+relato menciona la muerte en el 54 % de los casos. Es la postura única del libro (capítulo 19.2; corrección B7).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">J</span> <span class="o">/</span> <span class="s1">'empleador_resumen.csv'</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">'establecimientos'</span><span class="p">:</span> <span class="s1">'Establecimientos (≥ 20 casos 2–3)'</span><span class="p">,</span>
@@ -2490,53 +2492,26 @@ nuevo.</p></li>
 <li><p>Esto pone un techo a cualquier método, original o del curso, con estas 8 variables.</p></li>
 </ul>
 </section>
-<section id="veredicto-historico">
-<h2>17.9 Veredicto (histórico)<a class="headerlink" href="#veredicto-historico" title="Link to this heading">#</a></h2>
-<blockquote>
-<div><p><strong>Superado.</strong> Este veredicto es el del primer candidato. El veredicto del modelo original final (SECR) está en los
-capítulos 19 y 20 y en las conclusiones (R1 sí, R2 sí, R3 no).</p>
-</div></blockquote>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Requisito</p></th>
-<th class="head"><p>Veredicto</p></th>
-<th class="head"><p>Evidencia</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>R1, novedad</p></td>
-<td><p><strong>Sí, provisional</strong></p></td>
-<td><p>Capítulo 16: no se halló PT-bagging aplicado a la gravedad de lesiones laborales. Faltan una tercera base formal y la cadena de la búsqueda 2 de WoS.</p></td>
-</tr>
-<tr class="row-odd"><td><p>R2, implementación propia</p></td>
-<td><p><strong>En riesgo</strong></p></td>
-<td><p>La regla de decisión, el bootstrap, el promedio y las pruebas son propios. El árbol interno es <code class="docutils literal notranslate"><span class="pre">DecisionTreeClassifier</span></code> sin modificar, que el Cuadro 1 de la guía no acepta. Plan: programar el árbol con numpy.</p></td>
-</tr>
-<tr class="row-even"><td><p>R3, superioridad</p></td>
-<td><p><strong>No</strong></p></td>
-<td><p>Fase A: 1 de 12 muertes frente a 8 de 12. Fase B: más muertes solo marcando de 14.000 a 29.000 casos. BA con los pliegues juntos: 0,480 frente a 0,516. Rondas 2–4: ninguna iteración pasa su regla.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p><strong>Sobre la BA media por pliegue.</strong> El bayesiano tiene 0,511 frente a 0,505 de la referencia. Se reporta, pero no
-se reclama como superioridad: la diferencia la produce la única muerte del pliegue 1, y con los pliegues juntos el
-orden se invierte.</p>
-<p>Según la guía, con R1 y R2 en «sí» y R3 en «no», la nota máxima de esta componente es 4,0.</p>
+<section id="resultado-del-primer-candidato">
+<h2>17.9 Resultado del primer candidato<a class="headerlink" href="#resultado-del-primer-candidato" title="Link to this heading">#</a></h2>
+<p>PT-bagging no supera a la referencia: en la Fase A acierta 1 de 12 muertes frente a 8 de 12; en la Fase B acierta más
+solo marcando de 14.000 a 29.000 casos, y con los pliegues juntos su BA es 0,480 frente a 0,516. Ninguna de las
+iteraciones de las Rondas 2 a 4 pasa su regla. La BA media por pliegue del bayesiano (0,511 frente a 0,505) no se
+reclama como mejora: la produce la única muerte del pliegue 1, y con los pliegues juntos el orden se invierte. El
+modelo original final es SECR (capítulos 19 y 20).</p>
 </section>
 <section id="limitaciones">
 <h2>17.10 Limitaciones<a class="headerlink" href="#limitaciones" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><strong>Pocas muertes.</strong> Hay 12 muertes de validación en el diseño temporal y de 16 a 37 de entrenamiento por pliegue.
 El recall de Fallecimiento casi no se puede medir: el intervalo de Wilson para 8 de 12 va de 0,39 a 0,86.</p></li>
-<li><p><strong>Diseño distinto al de los capítulos 6 a 13.</strong> Las cifras son del diseño temporal de 3 pliegues (12.6). Falta
-correr el modelo en el diseño del grupo. El puente entre los dos diseños es la prueba oct–dic, que todavía no se
-usa.</p></li>
-<li><p><strong>Presupuesto desigual.</strong> La Fase B usó 12 evaluaciones por optimizador; la corrida base usó 20. Hay que
-igualarlo antes de la comparación final.</p></li>
+<li><p><strong>Diseño distinto al de los capítulos 6 a 13.</strong> Las cifras son del diseño temporal de 3 pliegues (12.6) y no se
+comparan directamente con las de los capítulos 9 y 13. El candidato se descartó antes de correrlo en ese diseño.</p></li>
+<li><p><strong>Presupuesto desigual.</strong> La Fase B usó 12 evaluaciones por optimizador y la corrida base 20; como el candidato se
+descartó, no se igualó.</p></li>
 <li><p><strong>Desviaciones del paper.</strong> CART con entropía en lugar de J48 (C4.5), con divisiones binarias sobre el one-hot.
 En la Fase B se buscan hiperparámetros que el paper deja fijos, porque el curso exige 4 optimizadores.</p></li>
-<li><p><strong>Árbol de scikit-learn</strong> (riesgo de R2, ver 17.9; resuelto con SECR, capítulo 19).</p></li>
+<li><p><strong>Árbol de scikit-learn</strong> sin modificar, que la guía no acepta como contribución algorítmica; el modelo final (SECR, capítulo 19) es implementación propia.</p></li>
 <li><p><strong>Rondas 3 y 4 exploratorias.</strong> Se decidieron después de ver resultados; el efecto de selección se declara.</p></li>
 <li><p><strong>Entorno distinto</strong> al del resto del repositorio (versiones de scikit-learn, imbalanced-learn y xgboost; ver
 <code class="docutils literal notranslate"><span class="pre">disenio_temporal/LEEME.md</span></code>).</p></li>
@@ -2590,7 +2565,7 @@ prueba se descartó: la prueba quedó bloqueada (capítulo 00, B1).</p></li>
        title="siguiente página">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">siguiente</p>
-        <p class="prev-next-title">18. Modelo propuesto: <em>stacking</em> multivista</p>
+        <p class="prev-next-title">18. Ensamble multivista G (exploratorio)</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -2618,7 +2593,7 @@ prueba se descartó: la prueba quedó bloqueada (capítulo 00, B1).</p></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fase-b-validacion-anidada-y-ablaciones">17.6 Fase B: validación anidada y ablaciones</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iteraciones-del-diseno-rondas-2-a-4">17.7 Iteraciones del diseño: Rondas 2 a 4</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-no-se-encuentra-mejora-techo-de-informacion-fuga-y-efecto-del-empleador">17.8 Por qué no se encuentra mejora: techo de información, fuga y efecto del empleador</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#veredicto-historico">17.9 Veredicto (histórico)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resultado-del-primer-candidato">17.9 Resultado del primer candidato</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitaciones">17.10 Limitaciones</a></li>
 </ul>
   </nav></div>

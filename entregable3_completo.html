@@ -203,7 +203,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="16_literatura_novedad.html">16. Revisión de literatura y novedad del modelo original</a></li>
 <li class="toctree-l1"><a class="reference internal" href="17_modelo_original.html">17. Primer candidato a modelo original: PT-bagging (histórico)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="18_modelo_propuesto.html">18. Modelo propuesto: <em>stacking</em> multivista</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_modelo_propuesto.html">18. Ensamble multivista G (exploratorio)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="19_modelo_original_secr.html">19. Modelo original: ensamble multivista con selección condicionada por región (SECR)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="20_validacion_estadistica.html">20. Validación estadística del modelo original (R3)</a></li>
 </ul>
@@ -548,11 +548,10 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriz-de-novedad-trabajos-mas-cercanos">16.2 Matriz de novedad: trabajos más cercanos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metodos-afines-por-familia-algoritmica">16.3 Métodos afines por familia algorítmica</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#declaracion-de-novedad">16.4 Declaración de novedad</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pendientes-para-cumplir-la-seccion-5-2">16.5 Pendientes para cumplir la sección 5.2</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revision-de-literatura-del-modelo-original-final-secr-vigente">16.6 Revisión de literatura del modelo original final (SECR) — vigente</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriz-de-novedad-trabajos-mas-cercanos-a-secr">16.7 Matriz de novedad: trabajos más cercanos a SECR</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diferenciacion-por-familia-algoritmica">16.8 Diferenciación por familia algorítmica</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#declaracion-de-novedad-del-modelo-original-secr">16.9 Declaración de novedad del modelo original (SECR)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revision-de-literatura-del-modelo-original-final-secr-vigente">16.5 Revisión de literatura del modelo original final (SECR) — vigente</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriz-de-novedad-trabajos-mas-cercanos-a-secr">16.6 Matriz de novedad: trabajos más cercanos a SECR</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diferenciacion-por-familia-algoritmica">16.7 Diferenciación por familia algorítmica</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#declaracion-de-novedad-del-modelo-original-secr">16.8 Declaración de novedad del modelo original (SECR)</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#primer-candidato-a-modelo-original-pt-bagging-historico">17. Primer candidato a modelo original: PT-bagging (histórico)</a><ul class="visible nav section-nav flex-column">
@@ -564,11 +563,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fase-b-validacion-anidada-y-ablaciones">17.6 Fase B: validación anidada y ablaciones</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iteraciones-del-diseno-rondas-2-a-4">17.7 Iteraciones del diseño: Rondas 2 a 4</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-no-se-encuentra-mejora-techo-de-informacion-fuga-y-efecto-del-empleador">17.8 Por qué no se encuentra mejora: techo de información, fuga y efecto del empleador</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#veredicto-historico">17.9 Veredicto (histórico)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resultado-del-primer-candidato">17.9 Resultado del primer candidato</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitaciones">17.10 Limitaciones</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-propuesto-stacking-multivista">18. Modelo propuesto: <em>stacking</em> multivista</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ensamble-multivista-g-exploratorio">18. Ensamble multivista G (exploratorio)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">18.1 Motivación</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">18.2 Formulación</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vistas-y-modelos-base">18.3 Vistas y modelos base</a></li>
@@ -914,7 +913,7 @@ quedaban, invalidaban la comparación del modelo original. Se tratan como observ
 <tr class="row-odd"><td><p>B8</p></td>
 <td><p>No había capítulo de literatura ni matriz de novedad para el modelo propuesto</p></td>
 <td><p>Búsqueda en 3 bases con API pública, 8 cadenas (inglés y español) con fecha, matriz y declaración de novedad</p></td>
-<td><p>Capítulo 16 (sección 16.6)</p></td>
+<td><p>Capítulo 16 (sección 16.5)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">scripts/literatura/buscar.py</span></code>, <code class="docutils literal notranslate"><span class="pre">results/literatura/</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>B9</p></td>
@@ -967,8 +966,8 @@ termina en uno de cuatro resultados:</p>
 <li><p>Traslado o restricción laboral</p></li>
 <li><p>Otro caso registrable</p></li>
 </ol>
-<p>La tarea es <strong>clasificar</strong> el resultado de un caso a partir de ocho datos que se conocen del establecimiento y
-del incidente. Es una clasificación retrospectiva sobre casos ya reportados. No predice quién se lesionará y no
+<p>La tarea es <strong>clasificar</strong> el resultado de un caso a partir de datos que se conocen del establecimiento y del
+incidente: 8 predictores en los entregables 1 y 2, y 9 en el entregable 3 (ver abajo). Es una clasificación retrospectiva sobre casos ya reportados. No predice quién se lesionará y no
 atribuye causas.</p>
 <p><strong>Tarea de regresión (nueva en el entregable 3).</strong> La guía del tercer entregable exige también modelos de
 regresión. El objetivo es el <strong>número de días de ausencia</strong> de los casos que terminaron en «días de ausencia»,
@@ -9092,7 +9091,7 @@ a 0,435, árbol de 0,461 a 0,384), consistente con que su ventaja anidada era en
 El mejor balanced accuracy en la prueba es el de SVM (0,435), pero con F1 macro bajo (0,366). Random Forest,
 XGBoost y la logística dan el mejor equilibrio: accuracy de 0,51 a 0,52, F1 macro de 0,38 a 0,39 y AUC de
 0,69 a 0,70. Frente al entregable 2 (logística con C = 1 y 1.433 columnas: balanced accuracy 0,40, F1 0,40,
-AUC 0,69), <strong>ningún modelo mejora de forma clara</strong>: con estas 8 variables el techo parece estar en torno a
+AUC 0,69), <strong>ningún modelo mejora de forma clara</strong>: con estas 9 variables el techo parece estar en torno a
 0,40 de balanced accuracy y 0,70 de AUC, y el capítulo 13 contrasta si alguna diferencia es significativa.
 KNN y el árbol son los peores en AUC (0,62 a 0,63).</p>
 </section>
@@ -14949,15 +14948,10 @@ sin diferencias.</p>
 <h1>16. Revisión de literatura y novedad del modelo original<a class="headerlink" href="#revision-de-literatura-y-novedad-del-modelo-original" title="Link to this heading">#</a></h1>
 <blockquote>
 <div><p><strong>Dos modelos en este capítulo.</strong>
-Las secciones 16.1 a 16.5 documentan la revisión del <strong>primer candidato</strong> (PT-bagging, capítulo 17), que no superó a los
-benchmarks y quedó como modelo explorado. Las secciones 16.6 a 16.9 documentan la revisión del <strong>modelo original final</strong>
-(SECR, capítulos 19 y 20) y su declaración de novedad. Las cifras salen de las exportaciones de las búsquedas o de las
-respuestas guardadas de cada consulta; no se completó nada de memoria.</p>
-</div></blockquote>
-<blockquote>
-<div><p><strong>Secciones 16.1 a 16.5: histórico.</strong>
-Estas secciones documentan la revisión del <strong>primer candidato</strong> (PT-bagging). Se conservan como registro, pero ya no
-describen el modelo original final. <strong>Las secciones vigentes son 16.6 a 16.9</strong> (SECR).</p>
+Las secciones 16.1 a 16.4 son <strong>histórico</strong>: la revisión del primer candidato (PT-bagging, capítulo 17), que no superó a
+los benchmarks. Las secciones <strong>16.5 a 16.8 son las vigentes</strong>: la revisión del modelo original final (SECR, capítulos 19
+y 20) y su declaración de novedad. Las cifras salen de las exportaciones de las búsquedas o de las respuestas guardadas
+de cada consulta; no se completó nada de memoria.</p>
 </div></blockquote>
 <p>El primer candidato a modelo original fue <strong>PT-bagging</strong> (<em>probability thresholding bagging</em>). Fue propuesto por Collell, Prelec y Patil
 (<em>Neurocomputing</em>, 2018; versión previa en arXiv, 2016). El método combina tres pasos: bagging de árboles sin podar
@@ -15256,40 +15250,22 @@ entrenamiento.</p></li>
 <p>Ninguno conserva la distribución natural de entrenamiento y corrige el desbalance solo al decidir, con la regla que
 maximiza la balanced accuracy.</p>
 </div></blockquote>
-<p><strong>Alcance.</strong> La novedad es de aplicación. Además, la declaración es <strong>provisional</strong> mientras falten los puntos de
-16.5. Las iteraciones del diseño no reclaman novedad propia: la pérdida focal en boosting y la clasificación ordinal
+<p><strong>Alcance.</strong> La novedad es de aplicación y quedó <strong>provisional</strong>: el candidato se descartó antes de completar la
+búsqueda en una tercera base. Las iteraciones del diseño no reclaman novedad propia: la pérdida focal en boosting y la clasificación ordinal
 ya se aplicaron con datos de OSHA (Wang, 2026).</p>
-</section>
-<section id="pendientes-para-cumplir-la-seccion-5-2">
-<h2>16.5 Pendientes para cumplir la sección 5.2<a class="headerlink" href="#pendientes-para-cumplir-la-seccion-5-2" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>[ ] <strong>Tercera base formal.</strong> Consensus agrega Semantic Scholar, OpenAlex y PubMed, pero no es una de las bases que
-nombra la guía. Falta Google Scholar o arXiv con fecha y número de resultados. Cadenas propuestas, sin ejecutar:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;threshold-moving&quot;</span> <span class="pre">bagging</span> <span class="pre">&quot;injury</span> <span class="pre">severity&quot;</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;PT-bagging&quot;</span> <span class="pre">OR</span> <span class="pre">&quot;probability</span> <span class="pre">thresholding</span> <span class="pre">bagging&quot;</span> <span class="pre">occupational</span></code></p></li>
-</ul>
-</li>
-<li><p>[ ] <strong>Cadena de la búsqueda 2 de Web of Science.</strong> Hay que recuperarla del historial de WoS. Si no se puede, hay que
-repetir la búsqueda y anotar la cadena.</p></li>
-<li><p>[ ] <strong>Scopus con la familia de PT-bagging.</strong> Cadena propuesta, sin ejecutar:
-<code class="docutils literal notranslate"><span class="pre">TITLE-ABS-KEY((bagging</span> <span class="pre">AND</span> <span class="pre">(&quot;threshold</span> <span class="pre">moving&quot;</span> <span class="pre">OR</span> <span class="pre">&quot;threshold-moving&quot;</span> <span class="pre">OR</span> <span class="pre">&quot;class</span> <span class="pre">prior&quot;))</span> <span class="pre">AND</span> <span class="pre">(&quot;occupational</span> <span class="pre">injury&quot;</span> <span class="pre">OR</span> <span class="pre">&quot;workplace</span> <span class="pre">injury&quot;</span> <span class="pre">OR</span> <span class="pre">OSHA</span> <span class="pre">OR</span> <span class="pre">&quot;accident</span> <span class="pre">severity&quot;))</span></code></p></li>
-<li><p>[ ] <strong>Una cadena en español en una base formal</strong>, por ejemplo Google Scholar:
-<code class="docutils literal notranslate"><span class="pre">&quot;gravedad</span> <span class="pre">de</span> <span class="pre">lesiones</span> <span class="pre">laborales&quot;</span> <span class="pre">&quot;aprendizaje</span> <span class="pre">automático&quot;</span></code>.</p></li>
-<li><p>[ ] <strong>Contar los relevantes</strong> de las búsquedas 1 y 2 de WoS, revisando título y resumen de los registros que
-coincidan.</p></li>
-<li><p>[ ] <strong>Pasar las referencias a <code class="docutils literal notranslate"><span class="pre">references.bib</span></code></strong> y citarlas con `[.</p></li>
-</ul>
 </section>
 <hr class="docutils" />
 <section id="revision-de-literatura-del-modelo-original-final-secr-vigente">
-<h2>16.6 Revisión de literatura del modelo original final (SECR) — vigente<a class="headerlink" href="#revision-de-literatura-del-modelo-original-final-secr-vigente" title="Link to this heading">#</a></h2>
-<p>PT-bagging (secciones 16.1 a 16.5) fue el primer candidato a modelo original y <strong>no superó</strong> a los modelos del curso
+<h2>16.5 Revisión de literatura del modelo original final (SECR) — vigente<a class="headerlink" href="#revision-de-literatura-del-modelo-original-final-secr-vigente" title="Link to this heading">#</a></h2>
+<p>PT-bagging (secciones 16.1 a 16.4) fue el primer candidato a modelo original y <strong>no superó</strong> a los modelos del curso
 (capítulo 17). El modelo original final es el <strong>ensamble multivista con selección condicionada por región (SECR)</strong>, del
 capítulo 19. Esta sección documenta su revisión de literatura según la guía §5.2: al menos tres bases, al menos cinco
 cadenas que combinen la familia del modelo, el problema y sinónimos en inglés y en español, la fecha de cada consulta,
 una matriz de novedad y una declaración de novedad.</p>
-<p><strong>Bases y procedimiento.</strong> Las consultas son reproducibles: ]scripts/literatura/buscar.py<code class="docutils literal notranslate"><span class="pre">las</span> <span class="pre">lanza</span> <span class="pre">contra</span> <span class="pre">las</span> <span class="pre">API</span> <span class="pre">públicas</span> <span class="pre">de</span> <span class="pre">**OpenAlex**</span> <span class="pre">(índice</span> <span class="pre">bibliográfico</span> <span class="pre">abierto</span> <span class="pre">que</span> <span class="pre">reemplazó</span> <span class="pre">a</span> <span class="pre">Microsoft</span> <span class="pre">Academic),</span> <span class="pre">**Europe</span> <span class="pre">PMC**</span> <span class="pre">(incluye</span> <span class="pre">PubMed/MEDLINE)</span> <span class="pre">y</span> <span class="pre">**arXiv**.</span> <span class="pre">Guarda</span> <span class="pre">la</span> <span class="pre">URL</span> <span class="pre">exacta,</span> <span class="pre">el</span> <span class="pre">total</span> <span class="pre">de</span> <span class="pre">resultados</span> <span class="pre">y</span> <span class="pre">los</span> <span class="pre">25</span> <span class="pre">primeros</span> <span class="pre">títulos</span> <span class="pre">por</span> <span class="pre">relevancia</span> <span class="pre">en</span></code>results/literatura/`. Las tres admiten operadores booleanos. Semantic Scholar respondió «429 Too Many Requests» sin
+<p><strong>Bases y procedimiento.</strong> Las consultas son reproducibles: <code class="docutils literal notranslate"><span class="pre">scripts/literatura/buscar.py</span></code> las lanza contra las API
+públicas de <strong>OpenAlex</strong> (índice bibliográfico abierto que reemplazó a Microsoft Academic), <strong>Europe PMC</strong> (incluye
+PubMed/MEDLINE) y <strong>arXiv</strong>. Guarda la URL exacta, el total de resultados y los 25 primeros títulos por relevancia en
+<code class="docutils literal notranslate"><span class="pre">results/literatura/</span></code>. Las tres admiten operadores booleanos. Semantic Scholar respondió «429 Too Many Requests» sin
 clave y Crossref no admite operadores booleanos, por eso no se usaron. A estas tres se suman las búsquedas en Web of
 Science, Scopus y Consensus de la sección 16.1, que cubren la aplicación y las familias de ensambles (stacking y
 votación). Fecha de las consultas: <strong>2026-10-23</strong> (hora de Colombia).</p>
@@ -15386,7 +15362,7 @@ ponderada local de clasificadores. «Relevantes» cuenta esos trabajos.</p>
 </div>
 <p><strong>Nota sobre arXiv.</strong> La API de arXiv respondió «Rate exceeded» en la primera pasada. <code class="docutils literal notranslate"><span class="pre">scripts/literatura/buscar_arxiv.py</span></code>
 repite las 8 cadenas con 30 segundos entre consultas y guarda los totales en <code class="docutils literal notranslate"><span class="pre">results/literatura/arXiv_&lt;n&gt;.json</span></code>. La
-tabla 16.6b los resume.</p>
+tabla 16.5b los resume.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>#</p></th>
@@ -15439,10 +15415,10 @@ tabla 16.6b los resume.</p>
 </tbody>
 </table>
 </div>
-<p>Tabla 16.6b. Resultados de arXiv (consultas del 2026-10-23, segunda pasada con 30 s entre consultas).</p>
+<p>Tabla 16.5b. Resultados de arXiv (consultas del 2026-10-23, segunda pasada con 30 s entre consultas).</p>
 </section>
 <section id="matriz-de-novedad-trabajos-mas-cercanos-a-secr">
-<h2>16.7 Matriz de novedad: trabajos más cercanos a SECR<a class="headerlink" href="#matriz-de-novedad-trabajos-mas-cercanos-a-secr" title="Link to this heading">#</a></h2>
+<h2>16.6 Matriz de novedad: trabajos más cercanos a SECR<a class="headerlink" href="#matriz-de-novedad-trabajos-mas-cercanos-a-secr" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Trabajo</p></th>
@@ -15522,7 +15498,7 @@ tabla 16.6b los resume.</p>
 </div>
 </section>
 <section id="diferenciacion-por-familia-algoritmica">
-<h2>16.8 Diferenciación por familia algorítmica<a class="headerlink" href="#diferenciacion-por-familia-algoritmica" title="Link to this heading">#</a></h2>
+<h2>16.7 Diferenciación por familia algorítmica<a class="headerlink" href="#diferenciacion-por-familia-algoritmica" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Familia</p></th>
@@ -15577,7 +15553,7 @@ tabla 16.6b los resume.</p>
 </div>
 </section>
 <section id="declaracion-de-novedad-del-modelo-original-secr">
-<h2>16.9 Declaración de novedad del modelo original (SECR)<a class="headerlink" href="#declaracion-de-novedad-del-modelo-original-secr" title="Link to this heading">#</a></h2>
+<h2>16.8 Declaración de novedad del modelo original (SECR)<a class="headerlink" href="#declaracion-de-novedad-del-modelo-original-secr" title="Link to this heading">#</a></h2>
 <blockquote>
 <div><p>Al mejor de nuestro conocimiento y según la búsqueda descrita (OpenAlex, Europe PMC y arXiv, 8 cadenas en inglés y
 español, 2026-10-23; más Web of Science, Scopus y Consensus, 2026-10-20 a 2026-10-23), <strong>no se encontraron estudios
@@ -15594,7 +15570,7 @@ contracción y en otro fenómeno (tránsito).</p></li>
 </ul>
 </div></blockquote>
 <p><strong>Alcance de la novedad.</strong> La novedad es <strong>de mecanismo y de aplicación</strong>. Es de mecanismo porque la regla de combinación
-(ec. 19.2), su algoritmo y sus propiedades demostradas son nuevos frente a los métodos afines de la tabla 16.8. Es de
+(ec. 19.2), su algoritmo y sus propiedades demostradas son nuevos frente a los métodos afines de la tabla 16.7. Es de
 aplicación porque no se halló ningún uso de esa regla, ni de la selección de ensambles en general, para el desenlace de
 casos ITA. Frank-Wolfe, la selección de Caruana y la contracción empírica-bayesiana existen por separado y se citan como
 fuentes. La contribución es su combinación en una regla de ponderación por región con garantías, que es lo que pide el
@@ -17305,8 +17281,8 @@ selección). Aquí no hay ventaja que corregir.</p>
 <ul class="simple">
 <li><p>Con las 8 variables del diseño, un <em>gradient boosting</em> llega a una BA 2–4 de 0,533, el mismo techo (~0,53) que
 toda la corrida base.</p></li>
-<li><p>Añadir naturaleza, parte del cuerpo, evento y fuente la sube a ~0,60. Pero esas variables salen de las
-narrativas y se excluyen por posible fuga.</p></li>
+<li><p>Añadir naturaleza, parte del cuerpo, evento y fuente la sube a ~0,60. Esas variables las asigna OSHA a partir
+del relato del caso; el capítulo 19.2 explica por qué el modelo final sí las usa.</p></li>
 </ul>
 <p><strong>Fuga directa.</strong> Proporción de casos de cada clase con el campo presente o mayor que cero:</p>
 <div class="cell docutils container">
@@ -17526,8 +17502,10 @@ Data Dictionary).</p></li>
 <li><p>Los casos de un año se cargan entre el 2 de enero y el 2 de marzo del año siguiente (ITA Data Users Guide). En el
 desarrollo, la mediana de <code class="docutils literal notranslate"><span class="pre">created_timestamp</span></code> es 283 días después del incidente.</p></li>
 </ul>
-<p>Interpretación: las narrativas y las <code class="docutils literal notranslate"><span class="pre">*_pred</span></code> se escriben cuando el desenlace ya se conoce. Por eso no están
-disponibles «a tiempo» para predecirlo.</p>
+<p>Interpretación: los campos de días y la fecha de muerte definen la etiqueta y nunca se usan como entrada. Los códigos
+<code class="docutils literal notranslate"><span class="pre">*_pred</span></code> se asignan a partir del relato, cuando el caso ya está registrado. Como la tarea es clasificar casos ya
+registrados, esos códigos existen al clasificar y no son fuga directa. El riesgo está en los fallecimientos, cuyo
+relato menciona la muerte en el 54 % de los casos. Es la postura única del libro (capítulo 19.2; corrección B7).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">J</span> <span class="o">/</span> <span class="s1">'empleador_resumen.csv'</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">'establecimientos'</span><span class="p">:</span> <span class="s1">'Establecimientos (≥ 20 casos 2–3)'</span><span class="p">,</span>
@@ -17681,53 +17659,26 @@ nuevo.</p></li>
 <li><p>Esto pone un techo a cualquier método, original o del curso, con estas 8 variables.</p></li>
 </ul>
 </section>
-<section id="veredicto-historico">
-<h2>17.9 Veredicto (histórico)<a class="headerlink" href="#veredicto-historico" title="Link to this heading">#</a></h2>
-<blockquote>
-<div><p><strong>Superado.</strong> Este veredicto es el del primer candidato. El veredicto del modelo original final (SECR) está en los
-capítulos 19 y 20 y en las conclusiones (R1 sí, R2 sí, R3 no).</p>
-</div></blockquote>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Requisito</p></th>
-<th class="head"><p>Veredicto</p></th>
-<th class="head"><p>Evidencia</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>R1, novedad</p></td>
-<td><p><strong>Sí, provisional</strong></p></td>
-<td><p>Capítulo 16: no se halló PT-bagging aplicado a la gravedad de lesiones laborales. Faltan una tercera base formal y la cadena de la búsqueda 2 de WoS.</p></td>
-</tr>
-<tr class="row-odd"><td><p>R2, implementación propia</p></td>
-<td><p><strong>En riesgo</strong></p></td>
-<td><p>La regla de decisión, el bootstrap, el promedio y las pruebas son propios. El árbol interno es <code class="docutils literal notranslate"><span class="pre">DecisionTreeClassifier</span></code> sin modificar, que el Cuadro 1 de la guía no acepta. Plan: programar el árbol con numpy.</p></td>
-</tr>
-<tr class="row-even"><td><p>R3, superioridad</p></td>
-<td><p><strong>No</strong></p></td>
-<td><p>Fase A: 1 de 12 muertes frente a 8 de 12. Fase B: más muertes solo marcando de 14.000 a 29.000 casos. BA con los pliegues juntos: 0,480 frente a 0,516. Rondas 2–4: ninguna iteración pasa su regla.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p><strong>Sobre la BA media por pliegue.</strong> El bayesiano tiene 0,511 frente a 0,505 de la referencia. Se reporta, pero no
-se reclama como superioridad: la diferencia la produce la única muerte del pliegue 1, y con los pliegues juntos el
-orden se invierte.</p>
-<p>Según la guía, con R1 y R2 en «sí» y R3 en «no», la nota máxima de esta componente es 4,0.</p>
+<section id="resultado-del-primer-candidato">
+<h2>17.9 Resultado del primer candidato<a class="headerlink" href="#resultado-del-primer-candidato" title="Link to this heading">#</a></h2>
+<p>PT-bagging no supera a la referencia: en la Fase A acierta 1 de 12 muertes frente a 8 de 12; en la Fase B acierta más
+solo marcando de 14.000 a 29.000 casos, y con los pliegues juntos su BA es 0,480 frente a 0,516. Ninguna de las
+iteraciones de las Rondas 2 a 4 pasa su regla. La BA media por pliegue del bayesiano (0,511 frente a 0,505) no se
+reclama como mejora: la produce la única muerte del pliegue 1, y con los pliegues juntos el orden se invierte. El
+modelo original final es SECR (capítulos 19 y 20).</p>
 </section>
 <section id="limitaciones">
 <h2>17.10 Limitaciones<a class="headerlink" href="#limitaciones" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><strong>Pocas muertes.</strong> Hay 12 muertes de validación en el diseño temporal y de 16 a 37 de entrenamiento por pliegue.
 El recall de Fallecimiento casi no se puede medir: el intervalo de Wilson para 8 de 12 va de 0,39 a 0,86.</p></li>
-<li><p><strong>Diseño distinto al de los capítulos 6 a 13.</strong> Las cifras son del diseño temporal de 3 pliegues (12.6). Falta
-correr el modelo en el diseño del grupo. El puente entre los dos diseños es la prueba oct–dic, que todavía no se
-usa.</p></li>
-<li><p><strong>Presupuesto desigual.</strong> La Fase B usó 12 evaluaciones por optimizador; la corrida base usó 20. Hay que
-igualarlo antes de la comparación final.</p></li>
+<li><p><strong>Diseño distinto al de los capítulos 6 a 13.</strong> Las cifras son del diseño temporal de 3 pliegues (12.6) y no se
+comparan directamente con las de los capítulos 9 y 13. El candidato se descartó antes de correrlo en ese diseño.</p></li>
+<li><p><strong>Presupuesto desigual.</strong> La Fase B usó 12 evaluaciones por optimizador y la corrida base 20; como el candidato se
+descartó, no se igualó.</p></li>
 <li><p><strong>Desviaciones del paper.</strong> CART con entropía en lugar de J48 (C4.5), con divisiones binarias sobre el one-hot.
 En la Fase B se buscan hiperparámetros que el paper deja fijos, porque el curso exige 4 optimizadores.</p></li>
-<li><p><strong>Árbol de scikit-learn</strong> (riesgo de R2, ver 17.9; resuelto con SECR, capítulo 19).</p></li>
+<li><p><strong>Árbol de scikit-learn</strong> sin modificar, que la guía no acepta como contribución algorítmica; el modelo final (SECR, capítulo 19) es implementación propia.</p></li>
 <li><p><strong>Rondas 3 y 4 exploratorias.</strong> Se decidieron después de ver resultados; el efecto de selección se declara.</p></li>
 <li><p><strong>Entorno distinto</strong> al del resto del repositorio (versiones de scikit-learn, imbalanced-learn y xgboost; ver
 <code class="docutils literal notranslate"><span class="pre">disenio_temporal/LEEME.md</span></code>).</p></li>
@@ -17736,8 +17687,8 @@ prueba se descartó: la prueba quedó bloqueada (capítulo 00, B1).</p></li>
 </ol>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="modelo-propuesto-stacking-multivista">
-<h1>18. Modelo propuesto: <em>stacking</em> multivista<a class="headerlink" href="#modelo-propuesto-stacking-multivista" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="ensamble-multivista-g-exploratorio">
+<h1>18. Ensamble multivista G (exploratorio)<a class="headerlink" href="#ensamble-multivista-g-exploratorio" title="Link to this heading">#</a></h1>
 <div class="warning admonition">
 <p class="admonition-title">Declaración sobre el uso de la prueba (corrección B1, 23-oct-2026)</p>
 <p>Las cifras de prueba (octubre–diciembre) de este capítulo son <strong>exploratorias</strong>. La elección entre las variantes A a G se
@@ -17748,14 +17699,15 @@ quedó bloqueada por código (<code class="docutils literal notranslate"><span c
 de los 9 puntos de ventaja vienen de esas variables. <strong>La evidencia válida para R3 está en el capítulo 20</strong>, con los
 benchmarks reentrenados con las mismas variables y particiones, y con el modelo original final (SECR, capítulo 19).</p>
 </div>
-<div class="admonition-veredicto-adelantado-exploratorio-no-pareado admonition">
-<p class="admonition-title">Veredicto adelantado (exploratorio, no pareado)</p>
+<div class="admonition-resultado-exploratorio-no-pareado admonition">
+<p class="admonition-title">Resultado exploratorio (no pareado)</p>
 <ul class="simple">
-<li><p><strong>Supera a los 112 modelos de clasificación del curso</strong>, con el mismo diseño de evaluación. En la
-prueba (oct–dic), frente al <em>mejor valor de cada métrica</em> entre los 112: accuracy 0,611 frente a 0,524,
-F1 macro 0,457 frente a 0,392, AUC macro 0,836 frente a 0,718 y log-loss 0,821 frente a 0,959. Todas
-las diferencias son significativas (bootstrap por establecimiento, McNemar y DeLong con Holm) y con
-tamaño de efecto grande: el ensamble es el mejor en accuracy las 14 semanas de la prueba (δ de Cliff = 1).</p></li>
+<li><p><strong>Mejora sobre los 112 modelos de 9 variables, sobre todo por la información nueva.</strong> En la prueba
+(oct–dic), frente al <em>mejor valor de cada métrica</em> entre los 112: accuracy 0,611 frente a 0,524, F1 macro
+0,457 frente a 0,392, AUC macro 0,836 frente a 0,718 y log-loss 0,821 frente a 0,959. Esta comparación no
+es pareada (G usa variables que los 112 no tienen) y la prueba se miró para elegir entre A y G, así que <strong>no
+prueba superioridad</strong>. Con las mismas variables y particiones (capítulo 20), la ventaja del modelo final sobre
+el mejor benchmark es pequeña y no significativa.</p></li>
 <li><p><strong>Unir modelos aporta por sí mismo</strong>, aunque la mayor parte de la ganancia viene de la información
 nueva (las vistas de la lesión y de los códigos finos). El ensamble final supera a un solo XGBoost con
 todas las variables (accuracy +0,005; log-loss −0,008; AUC mayor en las 4 clases), con diferencias
@@ -21491,10 +21443,13 @@ ocupación, horario, lesión, empleador…). Usa un fondo fijo de casos del desa
 (la suma de aportes es igual a la predicción menos la base) y tarda alrededor de 1 s por predicción (unos 9 s con KNN).</p></li>
 <li><p><strong>Robustez.</strong> Las entradas se validan antes de predecir: campos obligatorios, longitud y caracteres del texto libre
 y avisos de categorías no vistas. Un error de predicción se muestra en un <code class="docutils literal notranslate"><span class="pre">dbc.Alert</span></code> y la aplicación no se cae.</p></li>
-<li><p><strong>Diseño visual.</strong> Tema FLATLY de <code class="docutils literal notranslate"><span class="pre">dash-bootstrap-components</span></code>, barra de navegación fija, rejilla responsiva
-(<code class="docutils literal notranslate"><span class="pre">dbc.Row</span></code>/<code class="docutils literal notranslate"><span class="pre">dbc.Col</span></code> con puntos de corte <code class="docutils literal notranslate"><span class="pre">xs</span></code>, <code class="docutils literal notranslate"><span class="pre">md</span></code> y <code class="docutils literal notranslate"><span class="pre">lg</span></code>), una sola plantilla Plotly y una paleta de 5 colores
-(azul marino, verde azulado, ámbar, coral y gris). Cada figura tiene título, ejes con unidades e información al pasar
-el cursor. Ninguna información depende solo del color: las barras de SHAP llevan signo y valor, y la matriz de
+<li><p><strong>Diseño visual.</strong> Un sistema propio sobre Bootstrap (<code class="docutils literal notranslate"><span class="pre">assets/style.css</span></code>): una sola fuente (Inter), una escala
+tipográfica, superficies planas con bordes finos y sin sombras, y una paleta limitada. Los cuatro colores semánticos se
+reservan para las clases del desenlace («Otro registrable», la clase residual, en gris) y un único acento azul para el
+modelo original. Cada página abre con su conclusión y pocas cifras clave; la página Modelos tiene una subnavegación fija
+por secciones y deja el detalle en secciones plegables. Rejilla responsiva (<code class="docutils literal notranslate"><span class="pre">dbc.Row</span></code>/<code class="docutils literal notranslate"><span class="pre">dbc.Col</span></code> con puntos de corte <code class="docutils literal notranslate"><span class="pre">xs</span></code>, <code class="docutils literal notranslate"><span class="pre">md</span></code> y <code class="docutils literal notranslate"><span class="pre">lg</span></code>) y una sola plantilla
+Plotly. Cada figura tiene título, ejes con unidades e información al pasar el cursor, y debajo una frase calculada con
+los datos. Ninguna información depende solo del color: las barras de SHAP llevan signo y valor, y la matriz de
 confusión lleva conteos.</p></li>
 </ul>
 </section>
@@ -21517,7 +21472,7 @@ confusión lleva conteos.</p></li>
 <td><p><code class="docutils literal notranslate"><span class="pre">pages/eda.py</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Modelos</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">DataTable</span></code> ordenable y filtrable con las mejores combinaciones (y las 112 a pedido), media ± d.e. e inferencia; formulario de predicción generado desde el esquema con selector de modelo, probabilidad y SHAP local; matriz de confusión, ROC, PR y calibración; SHAP global; diagrama de diferencia crítica con el original incluido; subsección del original con descripción, pseudocódigo, diferencias con la literatura, curva de convergencia, tabla de pruebas y veredicto</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DataTable</span></code> ordenable y filtrable con las mejores combinaciones (y las 112 a pedido), media ± d.e. e inferencia; formulario de predicción generado desde el esquema con selector de modelo, probabilidad y SHAP local; matriz de confusión, ROC, PR y calibración; SHAP global; diagrama de diferencia crítica con el original incluido; subsección del original con descripción, pseudocódigo, diferencias con la literatura, curva de convergencia, los 13 candidatos probados (19.9), la comparación pareada con la BA por pliegue y el sesgo de selección (20.6), la tabla de pruebas, la ablación y la sensibilidad (20.4 y 20.7). El detalle (algoritmo, candidatos, pruebas y sensibilidad) va en secciones plegables. Estas tablas salen de <code class="docutils literal notranslate"><span class="pre">results/</span></code> con <code class="docutils literal notranslate"><span class="pre">scripts/build_dashboard_extras.py</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">pages/modelos.py</span></code></p></td>
 </tr>
 </tbody>
@@ -21542,14 +21497,40 @@ además NCCL, que ocupa disco pero no se carga en memoria. <code class="docutils
 <li><p><strong>Subir a GitHub.</strong> La carpeta <code class="docutils literal notranslate"><span class="pre">dashboard_final/</span></code> vive en la rama del entregable del repositorio.</p></li>
 <li><p><strong>Crear el servicio.</strong> En Render: <em>New → Blueprint</em>, elegir el repositorio y la rama; Render lee
 <code class="docutils literal notranslate"><span class="pre">dashboard_final/render.yaml</span></code> (<code class="docutils literal notranslate"><span class="pre">rootDir:</span> <span class="pre">dashboard_final</span></code>, <code class="docutils literal notranslate"><span class="pre">buildCommand:</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code>,
-<code class="docutils literal notranslate"><span class="pre">startCommand:</span> <span class="pre">gunicorn</span> <span class="pre">app:server</span> <span class="pre">--workers</span> <span class="pre">1</span> <span class="pre">--threads</span> <span class="pre">2</span> <span class="pre">--timeout</span> <span class="pre">120</span></code>). También se puede crear un <em>Web Service</em>
+<code class="docutils literal notranslate"><span class="pre">startCommand:</span> <span class="pre">gunicorn</span> <span class="pre">app:server</span> <span class="pre">--workers</span> <span class="pre">1</span> <span class="pre">--threads</span> <span class="pre">1</span> <span class="pre">--timeout</span> <span class="pre">180</span></code>). También se puede crear un <em>Web Service</em>
 a mano con esos mismos valores.</p></li>
 <li><p><strong>Verificar.</strong> Revisar los <em>logs</em> de construcción y abrir las tres páginas y los callbacks (filtros del EDA,
 predicción con cada modelo) en la URL pública.</p></li>
 </ol>
-<p><strong>Memoria del plan gratuito.</strong> Con un solo <em>worker</em> de gunicorn los datos y los modelos se cargan una sola vez. Los 7
-benchmarks pesan unos 4 MB y el modelo original se carga solo cuando alguien lo elige. Si el servicio supera la memoria
-del plan, la medida documentada es no cargar el original al iniciar y ofrecer su predicción solo con los benchmarks.</p>
+<p><strong>Memoria del plan gratuito (512 MB).</strong> Medida localmente (Python 3.11, mismas versiones) al predecir con los 8 modelos
+uno tras otro:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Momento</p></th>
+<th class="head"><p>Memoria (RSS)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Después de iniciar la app</p></td>
+<td><p>100 MB</p></td>
+</tr>
+<tr class="row-odd"><td><p>Con los 7 benchmarks cargados</p></td>
+<td><p>294 MB</p></td>
+</tr>
+<tr class="row-even"><td><p>Con el modelo original cargado</p></td>
+<td><p>413–424 MB</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pico de la sesión (SHAP del original)</p></td>
+<td><p>479 MB</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>El SHAP del original se calcula por bloques de 512 filas (<code class="docutils literal notranslate"><span class="pre">chunk</span></code> en <code class="docutils literal notranslate"><span class="pre">src/explain.py</span></code>); sin bloques, el pico llegaba a
+512 MB. Para dejar margen, <code class="docutils literal notranslate"><span class="pre">render.yaml</span></code> arranca gunicorn con 1 <em>worker</em> y 1 hilo y fija <code class="docutils literal notranslate"><span class="pre">MALLOC_ARENA_MAX=2</span></code> (menos
+fragmentación de memoria en Linux). <strong>Si Render reinicia el servicio por memoria</strong>, se pone <code class="docutils literal notranslate"><span class="pre">DASH_SIN_ORIGINAL=1</span></code> en las
+variables de entorno: la app sigue funcionando con los 7 benchmarks y la sección del original (pruebas, CD y veredicto),
+pero sin predicción en vivo del original. La otra opción es un plan con más memoria.</p>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="conclusiones-limitaciones-y-declaracion-de-uso-de-ia">
@@ -21557,7 +21538,7 @@ del plan, la medida documentada es no cargar el original al iniciar y ofrecer su
 <section id="que-se-encontro">
 <h2>Qué se encontró<a class="headerlink" href="#que-se-encontro" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p><strong>Con estas 8 variables el problema tiene un techo bajo y ningún modelo lo rompe.</strong> Las 112
+<li><p><strong>Con estas 9 variables el problema tiene un techo bajo y ningún modelo lo rompe.</strong> Las 112
 combinaciones de clasificación quedan en la prueba entre 0,38 y 0,44 de balanced accuracy y entre 0,62
 y 0,70 de AUC macro. Los mejores en ordenar las clases (Random Forest, XGBoost, la logística: AUC
 0,69–0,70, accuracy 0,51–0,52) igualan, pero no superan, a la logística sin búsqueda del entregable 2
@@ -21651,8 +21632,6 @@ establecimientos en el desarrollo.</p></li>
 o reportar el clasificador de 3 clases como modelo principal.</p></li>
 <li><p>Quitar <code class="docutils literal notranslate"><span class="pre">time_unknown</span></code> del conjunto de variables.</p></li>
 <li><p>Usar la parada temprana y Successive Halving para ampliar el presupuesto de búsqueda sin más costo.</p></li>
-<li><p>Añadir variables con más información sobre la lesión (naturaleza, parte del cuerpo), que el archivo trae
-codificadas, verificando antes que no revelen el resultado.</p></li>
 </ul>
 </section>
 <section id="proyecto-final-veredicto-sobre-el-modelo-original-r1-r2-y-r3">
@@ -21667,7 +21646,7 @@ codificadas, verificando antes que no revelen el resultado.</p></li>
 <tbody>
 <tr class="row-even"><td><p><strong>R1. Novedad en la aplicación</strong></p></td>
 <td><p><strong>Sí</strong></p></td>
-<td><p>Revisión en 3 bases con API (OpenAlex, Europe PMC y arXiv), 8 cadenas en inglés y español con fecha, más WoS, Scopus y Consensus. No se encontró la regla SECR ni la selección de ensambles aplicada al desenlace de casos de lesiones laborales. Matriz de novedad y diferenciación por familia (capítulo 16.6–16.9). Riesgo residual: el profesor puede leer la novedad como de aplicación, porque la parte regional no mejoró la métrica</p></td>
+<td><p>Revisión en 3 bases con API (OpenAlex, Europe PMC y arXiv), 8 cadenas en inglés y español con fecha, más WoS, Scopus y Consensus. No se encontró la regla SECR ni la selección de ensambles aplicada al desenlace de casos de lesiones laborales. Matriz de novedad y diferenciación por familia (capítulo 16.5–16.8). Riesgo residual: el profesor puede leer la novedad como de aplicación, porque la parte regional no mejoró la métrica</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>R2. Implementación algorítmica propia</strong></p></td>
 <td><p><strong>Sí</strong></p></td>
@@ -21747,7 +21726,7 @@ usadas y para qué:</p>
 <td><p>Todo el código</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Claude Code (Anthropic; modelo Claude Opus 5.5)</strong></p></td>
-<td><p>Asistente de programación y redacción en el proyecto final: implementó, bajo instrucciones del equipo, el experimento pareado 5×5, el combinador SECR y sus pruebas unitarias, las pruebas de hipótesis sobre pliegues, el candado de la prueba, el dashboard multipágina y los artefactos. También redactó borradores de los capítulos 00, 13b, 16.6–16.9, 19, 20 y 21 y escribió los scripts de consulta a las bases bibliográficas</p></td>
+<td><p>Asistente de programación y redacción en el proyecto final: implementó, bajo instrucciones del equipo, el experimento pareado 5×5, el combinador SECR y sus pruebas unitarias, las pruebas de hipótesis sobre pliegues, el candado de la prueba, el dashboard multipágina y los artefactos. También redactó borradores de los capítulos 00, 13b, 16.5–16.8, 19, 20 y 21 y escribió los scripts de consulta a las bases bibliográficas</p></td>
 <td><p>El diseño, las demostraciones, el código y las cifras se revisan contra los resultados guardados en <code class="docutils literal notranslate"><span class="pre">results/</span></code>. El equipo responde por cada línea y puede explicarla y modificarla en la sustentación</p></td>
 </tr>
 <tr class="row-even"><td><p>Consensus</p></td>
@@ -21755,7 +21734,7 @@ usadas y para qué:</p>
 <td><p>Se verificaron los trabajos citados</p></td>
 </tr>
 <tr class="row-odd"><td><p>API públicas de OpenAlex, Europe PMC y arXiv</p></td>
-<td><p>Búsquedas reproducibles de literatura (capítulo 16.6)</p></td>
+<td><p>Búsquedas reproducibles de literatura (capítulo 16.5)</p></td>
 <td><p>Lectura de títulos y resúmenes</p></td>
 </tr>
 </tbody>
@@ -21915,13 +21894,15 @@ repositorio aparte). El entregable 3 no lo modifica.</p>
 (cualquier acceso lanza <code class="docutils literal notranslate"><span class="pre">PermissionError</span></code>). Para reproducir las cifras ya publicadas de los capítulos 9 a 13 y 18 se
 fija <code class="docutils literal notranslate"><span class="pre">OSHA_ALLOW_TEST=1</span></code>; ningún resultado del proyecto final la usa.</p>
 <p><strong>Corridas del proyecto final</strong> (todas reanudables):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">scripts</span><span class="o">/</span><span class="n">run_paired</span><span class="o">.</span><span class="n">py</span> <span class="mi">10</span>                 <span class="c1"># experimento pareado (original + 7 benchmarks; se usó 3×5), results/pareado/</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">scripts</span><span class="o">/</span><span class="n">build_fullcodes</span><span class="o">.</span><span class="n">py</span>               <span class="c1"># códigos completos, OIICS y empleador (no se versiona; caps. 18-20 y pytest)</span>
+<span class="n">python</span> <span class="n">scripts</span><span class="o">/</span><span class="n">run_paired</span><span class="o">.</span><span class="n">py</span> <span class="mi">10</span>                 <span class="c1"># experimento pareado (original + 7 benchmarks; se usó 3×5), results/pareado/</span>
 <span class="n">python</span> <span class="n">scripts</span><span class="o">/</span><span class="n">analyze_paired</span><span class="o">.</span><span class="n">py</span> <span class="mi">4</span>              <span class="c1"># TPE anidado del combinador, ablación, pruebas y figuras (cap. 20)</span>
 <span class="n">python</span> <span class="n">scripts</span><span class="o">/</span><span class="n">build_artifacts</span><span class="o">.</span><span class="n">py</span> <span class="n">todo</span>          <span class="c1"># artefactos + metadata.json + prueba de ida y vuelta</span>
 <span class="n">python</span> <span class="n">scripts</span><span class="o">/</span><span class="n">build_dashboard_data</span><span class="o">.</span><span class="n">py</span>          <span class="c1"># tablas del dashboard (EDA, líderes, fuera de pliegue, SHAP global)</span>
+<span class="n">python</span> <span class="n">scripts</span><span class="o">/</span><span class="n">build_dashboard_extras</span><span class="o">.</span><span class="n">py</span>        <span class="c1"># tablas del dashboard del proyecto final (candidatos, pliegues, sensibilidad)</span>
 <span class="n">python</span> <span class="n">scripts</span><span class="o">/</span><span class="n">complejidad_secr</span><span class="o">.</span><span class="n">py</span>              <span class="c1"># complejidad empírica de SECR (cap. 19)</span>
 <span class="n">python</span> <span class="n">scripts</span><span class="o">/</span><span class="n">build_master_table</span><span class="o">.</span><span class="n">py</span>            <span class="c1"># tabla maestra de experimentos (140 + pareado + original)</span>
-<span class="n">python</span> <span class="n">scripts</span><span class="o">/</span><span class="n">literatura</span><span class="o">/</span><span class="n">buscar</span><span class="o">.</span><span class="n">py</span>             <span class="c1"># consultas de la revisión de literatura (cap. 16.6)</span>
+<span class="n">python</span> <span class="n">scripts</span><span class="o">/</span><span class="n">literatura</span><span class="o">/</span><span class="n">buscar</span><span class="o">.</span><span class="n">py</span>             <span class="c1"># consultas de la revisión de literatura (cap. 16.5)</span>
 <span class="n">python</span> <span class="n">scripts</span><span class="o">/</span><span class="n">build_notebooks</span><span class="o">.</span><span class="n">py</span> <span class="mi">20</span><span class="n">_validacion_estadistica</span>
 <span class="n">pytest</span> <span class="n">tests</span>                                     <span class="c1"># pruebas del ensamble, de SECR, del candado y de PT-bagging</span>
 <span class="n">cd</span> <span class="n">dashboard_final</span> <span class="o">&amp;&amp;</span> <span class="n">pytest</span> <span class="n">tests</span> <span class="o">&amp;&amp;</span> <span class="n">python</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span>
@@ -31692,11 +31673,10 @@ Establishment bootstrap is conditional on the fixed quarter and fitted models; i
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriz-de-novedad-trabajos-mas-cercanos">16.2 Matriz de novedad: trabajos más cercanos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metodos-afines-por-familia-algoritmica">16.3 Métodos afines por familia algorítmica</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#declaracion-de-novedad">16.4 Declaración de novedad</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pendientes-para-cumplir-la-seccion-5-2">16.5 Pendientes para cumplir la sección 5.2</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revision-de-literatura-del-modelo-original-final-secr-vigente">16.6 Revisión de literatura del modelo original final (SECR) — vigente</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriz-de-novedad-trabajos-mas-cercanos-a-secr">16.7 Matriz de novedad: trabajos más cercanos a SECR</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diferenciacion-por-familia-algoritmica">16.8 Diferenciación por familia algorítmica</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#declaracion-de-novedad-del-modelo-original-secr">16.9 Declaración de novedad del modelo original (SECR)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revision-de-literatura-del-modelo-original-final-secr-vigente">16.5 Revisión de literatura del modelo original final (SECR) — vigente</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriz-de-novedad-trabajos-mas-cercanos-a-secr">16.6 Matriz de novedad: trabajos más cercanos a SECR</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diferenciacion-por-familia-algoritmica">16.7 Diferenciación por familia algorítmica</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#declaracion-de-novedad-del-modelo-original-secr">16.8 Declaración de novedad del modelo original (SECR)</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#primer-candidato-a-modelo-original-pt-bagging-historico">17. Primer candidato a modelo original: PT-bagging (histórico)</a><ul class="visible nav section-nav flex-column">
@@ -31708,11 +31688,11 @@ Establishment bootstrap is conditional on the fixed quarter and fitted models; i
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fase-b-validacion-anidada-y-ablaciones">17.6 Fase B: validación anidada y ablaciones</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iteraciones-del-diseno-rondas-2-a-4">17.7 Iteraciones del diseño: Rondas 2 a 4</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-no-se-encuentra-mejora-techo-de-informacion-fuga-y-efecto-del-empleador">17.8 Por qué no se encuentra mejora: techo de información, fuga y efecto del empleador</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#veredicto-historico">17.9 Veredicto (histórico)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resultado-del-primer-candidato">17.9 Resultado del primer candidato</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitaciones">17.10 Limitaciones</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-propuesto-stacking-multivista">18. Modelo propuesto: <em>stacking</em> multivista</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ensamble-multivista-g-exploratorio">18. Ensamble multivista G (exploratorio)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">18.1 Motivación</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">18.2 Formulación</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vistas-y-modelos-base">18.3 Vistas y modelos base</a></li>
