@@ -2,16 +2,10 @@
 
 :::{admonition} Dos modelos en este capítulo
 :class: note
-Las secciones 16.1 a 16.5 documentan la revisión del **primer candidato** (PT-bagging, capítulo 17), que no superó a los
-benchmarks y quedó como modelo explorado. Las secciones 16.6 a 16.9 documentan la revisión del **modelo original final**
-(SECR, capítulos 19 y 20) y su declaración de novedad. Las cifras salen de las exportaciones de las búsquedas o de las
-respuestas guardadas de cada consulta; no se completó nada de memoria.
-:::
-
-:::{admonition} Secciones 16.1 a 16.5: histórico
-:class: warning
-Estas secciones documentan la revisión del **primer candidato** (PT-bagging). Se conservan como registro, pero ya no
-describen el modelo original final. **Las secciones vigentes son 16.6 a 16.9** (SECR).
+Las secciones 16.1 a 16.4 son **histórico**: la revisión del primer candidato (PT-bagging, capítulo 17), que no superó a
+los benchmarks. Las secciones **16.5 a 16.8 son las vigentes**: la revisión del modelo original final (SECR, capítulos 19
+y 20) y su declaración de novedad. Las cifras salen de las exportaciones de las búsquedas o de las respuestas guardadas
+de cada consulta; no se completó nada de memoria.
 :::
 
 El primer candidato a modelo original fue **PT-bagging** (*probability thresholding bagging*). Fue propuesto por Collell, Prelec y Patil
@@ -101,32 +95,15 @@ cada tres o cuatro casos. Por eso el método no supera a los modelos del curso (
 > Ninguno conserva la distribución natural de entrenamiento y corrige el desbalance solo al decidir, con la regla que
 > maximiza la balanced accuracy.
 
-**Alcance.** La novedad es de aplicación. Además, la declaración es **provisional** mientras falten los puntos de
-16.5. Las iteraciones del diseño no reclaman novedad propia: la pérdida focal en boosting y la clasificación ordinal
+**Alcance.** La novedad es de aplicación y quedó **provisional**: el candidato se descartó antes de completar la
+búsqueda en una tercera base. Las iteraciones del diseño no reclaman novedad propia: la pérdida focal en boosting y la clasificación ordinal
 ya se aplicaron con datos de OSHA (Wang, 2026).
-
-## 16.5 Pendientes para cumplir la sección 5.2
-
-- [ ] **Tercera base formal.** Consensus agrega Semantic Scholar, OpenAlex y PubMed, pero no es una de las bases que
-  nombra la guía. Falta Google Scholar o arXiv con fecha y número de resultados. Cadenas propuestas, sin ejecutar:
-  - `"threshold-moving" bagging "injury severity"`
-  - `"PT-bagging" OR "probability thresholding bagging" occupational`
-- [ ] **Cadena de la búsqueda 2 de Web of Science.** Hay que recuperarla del historial de WoS. Si no se puede, hay que
-  repetir la búsqueda y anotar la cadena.
-- [ ] **Scopus con la familia de PT-bagging.** Cadena propuesta, sin ejecutar:
-  `TITLE-ABS-KEY((bagging AND ("threshold moving" OR "threshold-moving" OR "class prior")) AND ("occupational injury" OR "workplace injury" OR OSHA OR "accident severity"))`
-- [ ] **Una cadena en español en una base formal**, por ejemplo Google Scholar:
-  `"gravedad de lesiones laborales" "aprendizaje automático"`.
-- [ ] **Contar los relevantes** de las búsquedas 1 y 2 de WoS, revisando título y resumen de los registros que
-  coincidan.
-- [ ] **Pasar las referencias a `references.bib`** y citarlas con `{cite}`.
-
 
 ---
 
-## 16.6 Revisión de literatura del modelo original final (SECR) — vigente
+## 16.5 Revisión de literatura del modelo original final (SECR) — vigente
 
-PT-bagging (secciones 16.1 a 16.5) fue el primer candidato a modelo original y **no superó** a los modelos del curso
+PT-bagging (secciones 16.1 a 16.4) fue el primer candidato a modelo original y **no superó** a los modelos del curso
 (capítulo 17). El modelo original final es el **ensamble multivista con selección condicionada por región (SECR)**, del
 capítulo 19. Esta sección documenta su revisión de literatura según la guía §5.2: al menos tres bases, al menos cinco
 cadenas que combinen la familia del modelo, el problema y sinónimos en inglés y en español, la fecha de cada consulta,
@@ -157,7 +134,7 @@ ponderada local de clasificadores. «Relevantes» cuenta esos trabajos.
 
 **Nota sobre arXiv.** La API de arXiv respondió «Rate exceeded» en la primera pasada. `scripts/literatura/buscar_arxiv.py`
 repite las 8 cadenas con 30 segundos entre consultas y guarda los totales en `results/literatura/arXiv_<n>.json`. La
-tabla 16.6b los resume.
+tabla 16.5b los resume.
 
 | # | arXiv: resultados | Títulos | Relevantes |
 |---|---|---|---|
@@ -170,9 +147,9 @@ tabla 16.6b los resume.
 | 7 | 0 | — | 0 |
 | 8 | 1 | *Abex-rat: … Classification of Occupational Accident Reports* | 1 (aplicación: clasifica informes de accidentes laborales con aumento de datos y entrenamiento adversario; no combina modelos con pesos) |
 
-Tabla 16.6b. Resultados de arXiv (consultas del 2026-10-23, segunda pasada con 30 s entre consultas).
+Tabla 16.5b. Resultados de arXiv (consultas del 2026-10-23, segunda pasada con 30 s entre consultas).
 
-## 16.7 Matriz de novedad: trabajos más cercanos a SECR
+## 16.6 Matriz de novedad: trabajos más cercanos a SECR
 
 | Trabajo | Problema | Mecanismo de combinación | ¿Pesos convexos por región? | ¿Contracción hacia lo global? | ¿Garantía de optimización? |
 |---|---|---|---|---|---|
@@ -186,7 +163,7 @@ Tabla 16.6b. Resultados de arXiv (consultas del 2026-10-23, segunda pasada con 3
 | Combinación con restricción ℓp (consulta 4) | Detección de anomalías | Pesos con norma ℓp, a veces locales | Parcial (fusión local) | No | Sí (optimización convexa) |
 | **SECR (este trabajo)** | **Desenlace de casos ITA de OSHA (4 clases)** | **Combinación convexa por región con Frank-Wolfe exacto** | **Sí** | **Sí (λ pseudo-observaciones)** | **Sí: convexidad, monotonía, brecha y O(1/t)** |
 
-## 16.8 Diferenciación por familia algorítmica
+## 16.7 Diferenciación por familia algorítmica
 
 | Familia | Qué conserva SECR | Qué cambia SECR | Por qué la familia no resuelve la limitación abordada |
 |---|---|---|---|
@@ -199,7 +176,7 @@ Tabla 16.6b. Resultados de arXiv (consultas del 2026-10-23, segunda pasada con 3
 | Aprendizaje multivista por partición de variables {cite}`kumar2016multiview` | Un modelo por vista | La combinación de vistas cambia por región | Combina las vistas con votación o pesos globales |
 | Contracción empírica-bayesiana {cite}`efron1973stein` | Mezcla local–global ponderada por $n_g$ | Se aplica a los **pesos de combinación** de un ensamble | En la literatura revisada se aplica a medias o coeficientes, no a pesos de un ensamble de clasificadores |
 
-## 16.9 Declaración de novedad del modelo original (SECR)
+## 16.8 Declaración de novedad del modelo original (SECR)
 
 > Al mejor de nuestro conocimiento y según la búsqueda descrita (OpenAlex, Europe PMC y arXiv, 8 cadenas en inglés y
 > español, 2026-10-23; más Web of Science, Scopus y Consensus, 2026-10-20 a 2026-10-23), **no se encontraron estudios
@@ -215,7 +192,7 @@ Tabla 16.6b. Resultados de arXiv (consultas del 2026-10-23, segunda pasada con 3
 > - **Caruana et al. (2004):** pesos globales con paso fijo; SECR lo generaliza (proposición 6 del capítulo 19).
 
 **Alcance de la novedad.** La novedad es **de mecanismo y de aplicación**. Es de mecanismo porque la regla de combinación
-(ec. 19.2), su algoritmo y sus propiedades demostradas son nuevos frente a los métodos afines de la tabla 16.8. Es de
+(ec. 19.2), su algoritmo y sus propiedades demostradas son nuevos frente a los métodos afines de la tabla 16.7. Es de
 aplicación porque no se halló ningún uso de esa regla, ni de la selección de ensambles en general, para el desenlace de
 casos ITA. Frank-Wolfe, la selección de Caruana y la contracción empírica-bayesiana existen por separado y se citan como
 fuentes. La contribución es su combinación en una regla de ponderación por región con garantías, que es lo que pide el

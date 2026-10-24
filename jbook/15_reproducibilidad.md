@@ -90,7 +90,7 @@ python scripts/build_dashboard_data.py          # tablas del dashboard (EDA, lí
 python scripts/build_dashboard_extras.py        # tablas del dashboard del proyecto final (candidatos, pliegues, sensibilidad)
 python scripts/complejidad_secr.py              # complejidad empírica de SECR (cap. 19)
 python scripts/build_master_table.py            # tabla maestra de experimentos (140 + pareado + original)
-python scripts/literatura/buscar.py             # consultas de la revisión de literatura (cap. 16.6)
+python scripts/literatura/buscar.py             # consultas de la revisión de literatura (cap. 16.5)
 python scripts/build_notebooks.py 20_validacion_estadistica
 pytest tests                                     # pruebas del ensamble, de SECR, del candado y de PT-bagging
 cd dashboard_final && pytest tests && python app.py
