@@ -65,7 +65,10 @@ def model(name):
 
 
 def available_models():
-    return [m for m in MODELS + ['original'] if (ART / f'{m}.joblib').exists()]
+    """Modelos con artefacto. ``DASH_SIN_ORIGINAL=1`` oculta el original (unos 130 MB más de memoria) si el plan de
+    Render se queda corto."""
+    extra = [] if os.environ.get('DASH_SIN_ORIGINAL') == '1' else ['original']
+    return [m for m in MODELS + extra if (ART / f'{m}.joblib').exists()]
 
 
 @lru_cache(maxsize=None)

@@ -1,19 +1,17 @@
 # %% [markdown]
-# # 17. Modelo original: PT-bagging
+# # 17. Primer candidato a modelo original: PT-bagging (histórico)
 #
-# :::{admonition} Versión preliminar (2026-10-21)
-# :class: warning
-# Este capítulo reporta lo que ya está calculado. Faltan cinco cosas:
+# :::{admonition} Capítulo histórico: primer candidato a modelo original
+# :class: note
+# Este capítulo documenta **PT-bagging, el primer candidato a modelo original, que no superó a los benchmarks**, y sus
+# cuatro iteraciones de diseño. Se conserva como registro de los candidatos probados (guía §13; tabla de la sección 19.9).
+# Los pendientes que listaba la versión preliminar del 2026-10-21 quedaron superados o descartados:
 #
-# 1. **Árbol propio.** Hoy el componente interno es `DecisionTreeClassifier` de scikit-learn sin modificar. El
-#    Cuadro 1 de la guía no lo acepta como contribución algorítmica, así que **R2 está en riesgo** mientras no se
-#    programe el árbol con numpy.
-# 2. **Confirmación en la prueba (oct–dic).** Todavía no se ejecuta. Se hará una sola vez, con la regla fijada en
-#    `results/modelo_original/regla_confirmacion.md` y sobre el modelo final.
-# 3. **Tabla de las tres pruebas de hipótesis** de la sección 6 de la guía, con Holm y δ de Cliff.
-# 4. **Corrida en el diseño de validación del grupo** (capítulos 6 a 13). Las cifras de este capítulo son del diseño
-#    temporal de 3 pliegues (capítulo 12.6), así que no se comparan directamente con las de los capítulos 9 y 13.
-# 5. **Declaración de uso de herramientas de IA** (sección 13 de la guía).
+# - el árbol propio, la confirmación en la prueba y la corrida en el diseño del grupo ya no aplican, porque el modelo
+#   original final es **SECR (capítulo 19)** y la prueba de octubre a diciembre quedó bloqueada (capítulo 00, B1);
+# - las tres pruebas de hipótesis con Holm y δ de Cliff están en el **capítulo 20**;
+# - la declaración de uso de herramientas de IA está en el capítulo 14;
+# - `pytest tests/test_original_model.py` ya se corrió en el entorno del repositorio (sección 17.4).
 # :::
 #
 # **Cómo se lee este capítulo.**
@@ -25,7 +23,7 @@
 #
 # **Veredicto adelantado.**
 # - R1 (novedad de aplicación): sí, de forma provisional (capítulo 16).
-# - R2 (implementación propia): en riesgo, por el punto 1 del recuadro.
+# - R2 (implementación propia): quedó en riesgo (árbol de scikit-learn sin modificar); por eso se pasó a SECR (capítulo 19).
 # - R3 (superioridad): **no**. PT-bagging no supera a los modelos del curso.
 
 # %%
@@ -185,8 +183,11 @@ print(inspect.getsource(OM.PTBagging))
 # diferencias finitas.
 #
 # **Resultado:** 29 pruebas pasan y 0 fallan. Se ejecutaron el 2026-10-21 en el entorno de `disenio_temporal/` con un
-# ejecutor mínimo equivalente, porque pytest no está instalado en ese entorno. **Pendiente:** correr
-# `pytest tests/test_original_model.py` en el entorno del repositorio.
+# ejecutor mínimo equivalente, porque pytest no está instalado en ese entorno. **Actualización (2026-10-23):**
+# `pytest tests/test_original_model.py` en el entorno del repositorio (scikit-learn 1.3.0, imbalanced-learn 0.12.4 y
+# xgboost 2.1.3) da **29 de 29 aprobadas**. Antes fallaba la prueba (iii): desde scikit-learn 1.3 el árbol acepta NaN y
+# `PTBagging.fit` ya no los rechazaba; ahora valida la entrada con `check_array(..., force_all_finite=True)`. La suite
+# completa (`pytest tests/`) da 44 de 44.
 #
 # **Ilustración del Teorema 1 con datos sintéticos.** La celda siguiente usa datos con una clase rara (~1 %) y compara
 # la balanced accuracy con y sin umbral, en una partición aparte de prueba:
@@ -486,7 +487,10 @@ pd.read_csv(J / 'empleador_agregado.csv').set_index('cuantil').round(3)
 # - Esto pone un techo a cualquier método, original o del curso, con estas 8 variables.
 
 # %% [markdown]
-# ## 17.9 Veredicto
+# ## 17.9 Veredicto (histórico)
+#
+# > **Superado.** Este veredicto es el del primer candidato. El veredicto del modelo original final (SECR) está en los
+# > capítulos 19 y 20 y en las conclusiones (R1 sí, R2 sí, R3 no).
 #
 # | Requisito | Veredicto | Evidencia |
 # |---|---|---|
@@ -512,9 +516,9 @@ pd.read_csv(J / 'empleador_agregado.csv').set_index('cuantil').round(3)
 #    igualarlo antes de la comparación final.
 # 4. **Desviaciones del paper.** CART con entropía en lugar de J48 (C4.5), con divisiones binarias sobre el one-hot.
 #    En la Fase B se buscan hiperparámetros que el paper deja fijos, porque el curso exige 4 optimizadores.
-# 5. **Árbol de scikit-learn** (riesgo de R2, ver 17.9).
+# 5. **Árbol de scikit-learn** (riesgo de R2, ver 17.9; resuelto con SECR, capítulo 19).
 # 6. **Rondas 3 y 4 exploratorias.** Se decidieron después de ver resultados; el efecto de selección se declara.
 # 7. **Entorno distinto** al del resto del repositorio (versiones de scikit-learn, imbalanced-learn y xgboost; ver
 #    `disenio_temporal/LEEME.md`).
-# 8. **Faltan las tres pruebas de hipótesis formales** de la sección 6 y la confirmación en la prueba (recuadro
-#    inicial).
+# 8. Las tres pruebas de hipótesis formales se hicieron para el modelo final (capítulo 20). La confirmación en la
+#    prueba se descartó: la prueba quedó bloqueada (capítulo 00, B1).

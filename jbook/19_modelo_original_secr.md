@@ -40,6 +40,25 @@ algunos códigos de naturaleza pueden reflejarlo. Esta es la postura única del 
 capítulo de trazabilidad). Como la comparación del capítulo 20 es pareada, **los benchmarks tienen exactamente las
 mismas variables**, así que ninguna ventaja del modelo original viene de tener más información.
 
+**Por qué dos conjuntos de variables.**
+
+- **Entregable 2 (capítulos 6 a 13): 9 variables** (`data.FEATURES`). Son las del lugar de trabajo, la ocupación, el
+  tipo de incidente y el horario, con NAICS y SOC agrupados (NAICS-3 y SOC menor). Se eligieron así para que los 140
+  modelos con búsqueda anidada fueran computables (unas 210 columnas one-hot) y siguiendo el diseño de los entregables
+  1 y 2.
+- **Modelo original y comparación pareada (capítulos 18 a 20): `VPLUS`** (`paired.VPLUS`). Son las 9 anteriores más
+  los códigos OIICS, NAICS-6, SOC-6, el EIN y la empresa. El capítulo 18 mostró que esa información es la que más mejora
+  el problema.
+- **En el capítulo 20 los 7 benchmarks reciben `X[VPLUS]`**, las mismas columnas crudas que el original, y cada uno
+  aplica su propio preprocesamiento dentro del pliegue (`paired.run_benchmark`).
+
+**Limitación.** El balanceo y el optimizador de cada benchmark (la «mejor combinación» del capítulo 13b) se eligieron
+con las 9 variables, no con `VPLUS`. Con las variables ampliadas solo se repite la búsqueda de hiperparámetros dentro
+de esa combinación; no se rehicieron las 16 combinaciones por modelo (habría multiplicado por 16 el cómputo). Con
+otras variables, la mejor combinación podría ser otra. El cambio de ranking muestra que importa: **KNN pasa del quinto
+lugar con 9 variables (BA 0,415, `dashboard_final/data/leaderboard.csv`) al primero con `VPLUS` (BA 0,569,
+`results/pareado/resumen_modelos.csv`)**.
+
 ## 19.3 Formulación
 
 Sean $M$ modelos base con probabilidades $P_m(x)\in\Delta_K$ ($K=4$ clases) y $n$ casos de entrenamiento con
@@ -208,7 +227,10 @@ La {numref}`fig-complejidad-secr` contrasta el análisis con tiempos medidos. El
 lineal con $n$ y con $R$, como predice la tabla. Con $M\le32$ el término $Bn$ de la bisección y el costo fijo de
 Python por iteración pesan más que $nM$, así que la dependencia en $M$ solo se nota con $M=64$. Con los tamaños del
 proyecto ($n\approx24\,000$, $M=16$, $R\le25$), SECR se ajusta en segundos. El costo del modelo original lo domina el
-nivel 0: unos 20 minutos por pliegue externo con 2 hilos.
+nivel 0. **Tiempo de entrenamiento del original por pliegue externo** (nivel 0 + búsqueda TPE + SECR, con 2 hilos y en
+paralelo con otras celdas; columna `train_s` de `results/pareado/pliegues.csv`): **media 51 min, mediana 40 min, rango
+30–91 min**. Es la única cifra de tiempo del original que se usa en el libro; los 22–24 min del capítulo 18 son de otra
+corrida (sin TPE y con menos procesos en paralelo).
 
 ## 19.7 Implementación y pruebas
 
@@ -237,7 +259,12 @@ búsqueda TPE y SECR, y es el artefacto que usa el dashboard. Solo usa numpy par
 | `test_regiones_nuevas_usan_pesos_globales` | Una región no vista usa $w_0$ | Robustez |
 
 Además, `tests/test_ensemble.py` (5 pruebas) verifica la codificación por objetivo fuera de pliegue del nivel 0, y
-`tests/test_candado_prueba.py` verifica que la prueba de octubre a diciembre esté bloqueada.
+`tests/test_candado_prueba.py` (2 pruebas) verifica que la prueba de octubre a diciembre esté bloqueada. Cuatro de las
+pruebas del ensamble necesitan `results/cache/osha_2023_fullcodes.parquet`, que no se versiona porque contiene el EIN y
+el nombre de la empresa. Se genera con `python scripts/build_fullcodes.py` desde el CSV de OSHA y queda idéntico al
+usado en las corridas (`--check`: 890 372 filas y 0 diferencias). Con ese archivo, `pytest tests/` da **44 de 44
+pruebas aprobadas** (ensamble, SECR, candado y PT-bagging) con scikit-learn 1.3.0, imbalanced-learn 0.12.4 y XGBoost
+2.1.3.
 
 ## 19.8 Ablación e interpretabilidad
 
@@ -251,3 +278,47 @@ El estudio de ablación (sección 20.4) retira cada componente por separado:
 Todas las variantes usan los mismos modelos base, las mismas predicciones y los mismos pliegues. La interpretabilidad
 del modelo original (SHAP exacto por grupos de variables, comparado con el mejor benchmark) está en la sección 20.6 y
 en el dashboard.
+
+## 19.9 Candidatos probados (guía §13)
+
+Antes del modelo final se probaron 13 diseños. La guía (§13) pide declarar qué se miró para elegir, porque elegir entre
+varios candidatos introduce un sesgo optimista en el que gana. La tabla resume cada diseño con sus cifras guardadas.
+
+| Diseño | Capítulo | Datos usados para elegir | Resultado |
+|---|---|---|---|
+| PT-bagging (bagging + umbral = prior) | 17 | Pliegues temporales del diseño de Iván (3 pliegues) | BA 0,386 frente a 0,516 de la referencia (XGBoost + `class_weight` + bayes); 1 de 12 fallecimientos (`results/modelo_original/cribado.csv`) |
+| MultiRandBal (Random Balance) | 17 | Pliegues temporales | BA 0,361; 0 de 12 fallecimientos |
+| Metaclasificación jerárquica | 17 | Pliegues temporales | BA 0,371; 0 fallecimientos marcados |
+| HAFL-XGBoost (pérdida focal propia) | 17 | Pliegues temporales | BA 0,522 frente a 0,516 de la referencia, igual que su ablación sin pérdida focal (0,523): no mejora por el mecanismo (`cribado_r2.csv`) |
+| Frank–Hall ordinal (clases 2 a 4) | 17 | Pliegues temporales | BA de 3 clases 0,525 frente a 0,527 del mejor base: no mejora (`tabla_r4.csv`) |
+| A. Stacking con los 5 modelos del curso | 18 | Pliegues externos (rep. 0) **y prueba** | BA externa 0,397, accuracy 0,501 |
+| B. Stacking multivista sin empleador | 18 | Pliegues externos (rep. 0) y prueba | BA 0,457, accuracy 0,578 |
+| C. Stacking multivista (4 vistas) | 18 | Pliegues externos (rep. 0) y prueba | BA 0,466, accuracy 0,586 |
+| D. Un XGBoost con todas las variables | 18 | Pliegues externos (rep. 0) y prueba | BA 0,469, accuracy 0,590 |
+| E. C + 3 modelos con toda la información | 18 | Pliegues externos (rep. 0) y prueba | BA 0,468, accuracy 0,590 |
+| F. 16 modelos base + meta-modelo logístico | 18 | Pliegues externos (rep. 0) y prueba | BA 0,471, accuracy 0,591 |
+| G. 16 modelos base + selección de Caruana | 18 | Pliegues externos (rep. 0) y prueba | BA 0,477, accuracy 0,599: **elegido** como nivel 0 del original |
+| **SECR sobre los 16 modelos de G (final)** | 19–20 | **Pliegues internos** (TPE dentro de cada pliegue externo) | BA 0,591 ± 0,087 en 15 pliegues pareados; no superior a KNN (capítulo 20) |
+
+Las cifras de A a G son BA y accuracy con `argmax`, media de los 5 pliegues externos de la repetición 0
+(`results/ensemble/*/fold*.npz`).
+
+**Cómo se eligió SECR y qué se miró.**
+
+- **El diseño de SECR se fijó antes de ver cualquier resultado del experimento pareado.** El 22 de octubre a las 23:30 el
+  equipo eligió «G + combinador condicional por región». La regla, sus hiperparámetros y sus rangos de búsqueda se
+  programaron antes de correr la primera celda y no se cambiaron después.
+- **Sus hiperparámetros los eligió la búsqueda TPE con las predicciones internas** de cada pliegue externo. El pliegue
+  externo no participa (`original_eval.tune`).
+- **Los 15 pliegues del veredicto sí se miraron, después de fijar el modelo**: para el análisis de R3, la ablación
+  (20.4) y la sensibilidad (20.7). Ninguna de esas miradas cambió el modelo. La sensibilidad mostró que una versión con
+  pesos globales habría dado más BA (≈ 0,62 frente a 0,591), y no se adoptó, porque sería elegir con los pliegues del
+  veredicto.
+- **Decisiones tomadas durante la corrida, y por qué no favorecen al original.**
+  - El recorte de 5×5 a 3×5 se decidió por tiempo de cómputo, antes de tener métricas.
+  - Al ver en la repetición 0 que KNN era el benchmark más fuerte, se completaron sus repeticiones 1 y 2. Eso endurece
+    la comparación contra el original.
+  - Random Forest y Naive Bayes se completaron al final, con tiempo sobrante; no cambian la comparación con KNN.
+- **Fuente de sesgo que se declara**: el nivel 0 (G) se eligió entre A–G mirando los 5 pliegues de los capítulos 6 a
+  13, que son la repetición 0 del capítulo 20 (`paired.outer_folds(0)`), y la prueba. En la repetición 0 el original
+  supera a KNN por +0,035 de BA; en las repeticiones 1 y 2, que no se habían visto, por +0,006 y +0,027 (sección 20.6).

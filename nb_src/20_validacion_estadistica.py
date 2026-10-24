@@ -70,8 +70,8 @@ tab
 # log-loss (0,843 frente a 0,868 a 1,57 de los benchmarks), el mejor AUC macro (0,817) y el mejor F1 macro (0,444).
 # El ranking cambió respecto al entregable 2: con las variables ampliadas, **KNN pasa a ser el mejor benchmark** (con 9
 # variables era el quinto) y el árbol cae al último lugar. Los intervalos BCa de la BA del original y de KNN se solapan
-# ampliamente ([0,541; 0,628] y [0,526; 0,602]). El costo del original es de unos 50 minutos de entrenamiento por pliegue
-# (16 modelos base) y 2,5 ms por caso para predecir.
+# ampliamente ([0,541; 0,628] y [0,526; 0,602]). El original tarda 51 min de media por pliegue en entrenar (mediana 40, rango
+# 30–91; nivel 0 + TPE + SECR, columna `train_s`) y 2,5 ms por caso en predecir.
 
 # %% [markdown]
 # ## 20.2 Prueba global: Friedman y diagrama de diferencia crítica
@@ -196,6 +196,16 @@ display(Markdown('> **' + res['verdict'] + '**'))
 # | 1. BA media mayor que la del mejor benchmark y que la de cada uno de los 7 | **Sí** | 0,591 frente a 0,569 (KNN); mayor que los 7 en las celdas comunes y en la repetición 0 |
 # | 2. Al menos 3 pruebas con p ajustado < 0,05, una de ellas global | **No** | Solo Friedman (global) rechaza; Nemenyi, Nadeau–Bengio y Wilcoxon frente a KNN no |
 # | 3. Tamaño del efecto no despreciable (|δ| ≥ 0,147) | **Sí** (pequeño) | δ = 0,19, pero su IC incluye el 0 |
+#
+# **Sesgo de selección (declarado).** La BA de 0,591 es **optimista**, por dos razones:
+#
+# - el original salió de elegir entre varios candidatos (sección 19.9: 5 diseños del capítulo 17 y 7 variantes del 18);
+# - su nivel 0 (G) se eligió mirando los 5 pliegues de los capítulos 6 a 13, que son la repetición 0 de este capítulo
+#   (`paired.outer_folds(0)`).
+#
+# Se nota en las cifras: la ventaja sobre KNN es +0,035 en la repetición 0 (pliegues ya vistos) y +0,006 y +0,027 en las
+# repeticiones 1 y 2 (no vistos). El sesgo va **a favor** del original, así que concluir «R3 = no» es conservador: sin
+# ese sesgo, la ventaja sería igual o menor.
 #
 # Como la condición 2 falla, **R3 no se cumple**: el modelo original es el mejor en media y en rango, pero no es
 # superior de forma estadísticamente significativa al mejor benchmark pareado. Con R1 y R2 cumplidos (capítulos 16 y

@@ -56,7 +56,7 @@ pytest tests                         # pruebas de humo
 
 En Render: *New → Blueprint* con este repositorio y la rama `entregable3-final` (lee `dashboard_final/render.yaml`), o un
 *Web Service* con `Root Directory = dashboard_final`, `Build = pip install -r requirements.txt` y
-`Start = gunicorn app:server --workers 1 --threads 2 --timeout 120`.
+`Start = gunicorn app:server --workers 1 --threads 1 --timeout 180`.
 
 ## Estructura del código
 

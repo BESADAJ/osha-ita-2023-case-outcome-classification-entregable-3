@@ -8,7 +8,13 @@ benchmarks y quedó como modelo explorado. Las secciones 16.6 a 16.9 documentan 
 respuestas guardadas de cada consulta; no se completó nada de memoria.
 :::
 
-El modelo original es **PT-bagging** (*probability thresholding bagging*). Fue propuesto por Collell, Prelec y Patil
+:::{admonition} Secciones 16.1 a 16.5: histórico
+:class: warning
+Estas secciones documentan la revisión del **primer candidato** (PT-bagging). Se conservan como registro, pero ya no
+describen el modelo original final. **Las secciones vigentes son 16.6 a 16.9** (SECR).
+:::
+
+El primer candidato a modelo original fue **PT-bagging** (*probability thresholding bagging*). Fue propuesto por Collell, Prelec y Patil
 (*Neurocomputing*, 2018; versión previa en arXiv, 2016). El método combina tres pasos: bagging de árboles sin podar
 entrenados con la distribución natural de las clases, promedio de sus probabilidades y decisión
 `argmax P(k|x)/λ_k`, donde `λ_k` es la proporción de la clase *k*. El modelo, sus fórmulas y sus resultados están en
@@ -118,7 +124,7 @@ ya se aplicaron con datos de OSHA (Wang, 2026).
 
 ---
 
-## 16.6 Revisión de literatura del modelo original final (SECR)
+## 16.6 Revisión de literatura del modelo original final (SECR) — vigente
 
 PT-bagging (secciones 16.1 a 16.5) fue el primer candidato a modelo original y **no superó** a los modelos del curso
 (capítulo 17). El modelo original final es el **ensamble multivista con selección condicionada por región (SECR)**, del

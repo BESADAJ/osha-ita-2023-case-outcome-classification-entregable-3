@@ -15,7 +15,7 @@ import numpy as np
 import pandas as pd
 
 
-def exact_shapley(predict_proba, x, background, groups, cls):
+def exact_shapley(predict_proba, x, background, groups, cls, chunk=512):
     """Valores de Shapley exactos de ``x`` (DataFrame de una fila) para la clase ``cls``.
 
     Parameters
@@ -25,6 +25,8 @@ def exact_shapley(predict_proba, x, background, groups, cls):
     background : DataFrame (B filas, mismas columnas)
     groups : dict {nombre: [columnas]}; cada grupo es un jugador
     cls : int
+    chunk : int
+        Filas por llamada a ``predict_proba`` (acota la memoria pico; no cambia el resultado).
 
     Returns
     -------
@@ -42,7 +44,10 @@ def exact_shapley(predict_proba, x, background, groups, cls):
                 for c in groups[names[j]]:
                     z[c] = xv[c]
         rows.append(z)
-    p = predict_proba(pd.concat(rows, ignore_index=True))[:, cls].reshape(2 ** d, B).mean(axis=1)
+    # Se predice por bloques de coaliciones para acotar la memoria (el modelo original tiene 16 modelos base).
+    step = max(1, chunk // B)
+    p = np.concatenate([predict_proba(pd.concat(rows[i:i + step], ignore_index=True))[:, cls]
+                        for i in range(0, len(rows), step)]).reshape(2 ** d, B).mean(axis=1)
     w = [factorial(s) * factorial(d - s - 1) / factorial(d) for s in range(d)]
     size = np.array([bin(m).count('1') for m in range(2 ** d)])
     phi = np.zeros(d)

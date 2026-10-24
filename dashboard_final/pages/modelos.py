@@ -187,7 +187,11 @@ layout = html.Div([
         html.P('Una fila por modelo: la combinación (balanceo, optimizador) con mayor balanced accuracy (BA) media en los 5 '
                'pliegues externos de la validación anidada. La tabla se puede ordenar y filtrar.', className='small text-muted'),
         dbc.Switch(id='show-all', label='Mostrar las 112 combinaciones', value=False, className='mb-2'),
-        leaderboard]), className='mb-3 shadow-sm'),
+        leaderboard,
+        html.P('Mejores combinaciones del Entregable 2 (9 variables). La comparación con el modelo original usa estos '
+               'mismos 7 modelos reentrenados con las variables ampliadas (capítulo 20 del informe; tabla «Comparación '
+               'pareada» al final de esta página).', className='small text-muted mt-2 mb-0')]),
+        className='mb-3 shadow-sm'),
     dbc.Card(dbc.CardBody([
         dbc.Row([dbc.Col([dbc.Label('Modelo', html_for='model-sel', className='fw-bold'),
                           dcc.Dropdown([{'label': model_label(m), 'value': m} for m in MODELS],

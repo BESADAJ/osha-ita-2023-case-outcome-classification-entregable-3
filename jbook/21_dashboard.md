@@ -95,11 +95,23 @@ Sección Modelos: tabla de líderes, predicción en vivo con explicación SHAP l
 3. **Subir a GitHub.** La carpeta `dashboard_final/` vive en la rama del entregable del repositorio.
 4. **Crear el servicio.** En Render: *New → Blueprint*, elegir el repositorio y la rama; Render lee
    `dashboard_final/render.yaml` (`rootDir: dashboard_final`, `buildCommand: pip install -r requirements.txt`,
-   `startCommand: gunicorn app:server --workers 1 --threads 2 --timeout 120`). También se puede crear un *Web Service*
+   `startCommand: gunicorn app:server --workers 1 --threads 1 --timeout 180`). También se puede crear un *Web Service*
    a mano con esos mismos valores.
 5. **Verificar.** Revisar los *logs* de construcción y abrir las tres páginas y los callbacks (filtros del EDA,
    predicción con cada modelo) en la URL pública.
 
-**Memoria del plan gratuito.** Con un solo *worker* de gunicorn los datos y los modelos se cargan una sola vez. Los 7
-benchmarks pesan unos 4 MB y el modelo original se carga solo cuando alguien lo elige. Si el servicio supera la memoria
-del plan, la medida documentada es no cargar el original al iniciar y ofrecer su predicción solo con los benchmarks.
+**Memoria del plan gratuito (512 MB).** Medida localmente (Python 3.11, mismas versiones) al predecir con los 8 modelos
+uno tras otro:
+
+| Momento | Memoria (RSS) |
+|---|---|
+| Después de iniciar la app | 100 MB |
+| Con los 7 benchmarks cargados | 294 MB |
+| Con el modelo original cargado | 413–424 MB |
+| Pico de la sesión (SHAP del original) | 479 MB |
+
+El SHAP del original se calcula por bloques de 512 filas (`chunk` en `src/explain.py`); sin bloques, el pico llegaba a
+512 MB. Para dejar margen, `render.yaml` arranca gunicorn con 1 *worker* y 1 hilo y fija `MALLOC_ARENA_MAX=2` (menos
+fragmentación de memoria en Linux). **Si Render reinicia el servicio por memoria**, se pone `DASH_SIN_ORIGINAL=1` en las
+variables de entorno: la app sigue funcionando con los 7 benchmarks y la sección del original (pruebas, CD y veredicto),
+pero sin predicción en vivo del original. La otra opción es un plan con más memoria.

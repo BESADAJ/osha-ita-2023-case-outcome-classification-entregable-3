@@ -5,7 +5,11 @@ services:
     plan: free
     rootDir: dashboard_final                    # el dashboard vive en esta carpeta del repositorio
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:server --workers 1 --threads 2 --timeout 120
+    startCommand: gunicorn app:server --workers 1 --threads 1 --timeout 180
     envVars:
       - key: PYTHON_VERSION                     # fija la versión de Python
         value: 3.11.9
+      - key: MALLOC_ARENA_MAX                   # menos fragmentación de memoria en Linux (plan de 512 MB)
+        value: "2"
+      - key: DASH_SIN_ORIGINAL                  # "1" oculta el modelo original si el servicio se queda sin memoria
+        value: "0"

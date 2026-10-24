@@ -43,7 +43,7 @@
 
 9. **El modelo original (PT-bagging) no supera a los modelos del curso**: con los pliegues temporales juntos su
    balanced accuracy es 0,480 frente a 0,516 de la referencia, y cuatro iteraciones del diseño tampoco mejoran
-   (capítulos 16 y 17, versión preliminar).
+   (capítulos 16 y 17; primer candidato, histórico. El modelo final es SECR, capítulos 19 y 20).
 
 ## Respuesta a las correcciones del entregable 1
 
@@ -94,7 +94,9 @@
 | **R2. Implementación algorítmica propia** | **Sí** | Clase propia compatible con scikit-learn (`ConditionalEnsembleSelection`, `OriginalModel`) con regla de combinación nueva, Frank-Wolfe con búsqueda lineal exacta programado con numpy, 6 proposiciones demostradas, complejidad contrastada con tiempos y 8 pruebas unitarias. El codificador por objetivo y la selección de Caruana del nivel 0 también son código propio. Los modelos base son de librería, como permite el Cuadro 1 para ensambles con regla de combinación propia |
 | **R3. Superioridad estadísticamente verificada** | **No** | Comparación pareada en 15 pliegues: el original tiene la mayor BA media (0,591 frente a 0,569 de KNN) y el mejor rango de Friedman (p = 6·10⁻¹¹). Pero frente al mejor benchmark ninguna prueba pareada rechaza la igualdad tras Holm: Nemenyi p = 0,81, Nadeau–Bengio p = 0,66, Wilcoxon p = 0,28; bayesiana P(mejor) = 0,947; δ = 0,19 con IC que incluye 0 (capítulo 20) |
 
-**Tope de calificación que corresponde: 4,0** (R1 sí, R2 sí, R3 no; guía §12.1). Lo reportamos así porque es lo que
+**Tope de calificación que corresponde: 4,0** (R1 sí, R2 sí, R3 no; guía §12.1). La BA de 0,591 es optimista por
+selección: el original salió de 13 candidatos (sección 19.9), y su nivel 0 se eligió mirando la repetición 0. El sesgo va
+a favor de «superior», así que el veredicto R3 = no es conservador. Lo reportamos así porque es lo que
 muestran los datos. La comparación del capítulo 18, con ~9 puntos de ventaja sobre los 112 modelos del curso, no era
 válida: no era pareada y miraba la prueba. Corregirla cambió el resultado (capítulo 00, B1–B3).
 
