@@ -17,6 +17,7 @@ SEQ = [[0, '#ffffff'], [0.5, '#93c5fd'], [1, '#1e3a8a']]
 _axis = dict(gridcolor='#eef2f6', zeroline=False, linecolor='#cbd5e1', ticks='outside', tickcolor='#cbd5e1', ticklen=4,
              title=dict(font=dict(size=12, color='#475569')), tickfont=dict(size=11.5, color='#475569'), automargin=True)
 pio.templates['osha'] = go.layout.Template(layout=go.Layout(
+    separators=',.',  # coma decimal y punto de miles, como el resto del dashboard
     font=dict(family='Inter, Segoe UI, system-ui, sans-serif', size=12.5, color='#0f172a'),
     colorway=[INK, TEAL, AMBER, CORAL, GRAY], paper_bgcolor='white', plot_bgcolor='white',
     margin=dict(l=56, r=16, t=56, b=48), title=dict(x=0, xref='paper', y=0.98, yanchor='top',
@@ -26,12 +27,12 @@ pio.templates['osha'] = go.layout.Template(layout=go.Layout(
 pio.templates.default = 'osha'
 
 
-def empty(msg='Sin datos para los filtros elegidos.'):
+def empty(msg='Sin datos para los filtros elegidos.', height=280):
     fig = go.Figure()
     fig.add_annotation(text=msg, showarrow=False, font=dict(size=14, color=GRAY), x=0.5, y=0.5, xref='paper', yref='paper')
     fig.update_xaxes(visible=False)
     fig.update_yaxes(visible=False)
-    fig.update_layout(height=280)
+    fig.update_layout(height=height)
     return fig
 
 

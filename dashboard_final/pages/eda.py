@@ -31,7 +31,7 @@ def figure(gid, iid, lg=6, h=360):
 
 
 def group(eyebrow, title, desc, *rows):
-    return html.Section([html.Div(eyebrow, className='eyebrow'), html.H2(title, className='section-title'),
+    return html.Section([html.H2(title, className='section-title'),
                          html.P(desc, className='section-desc'), *rows], className='section')
 
 

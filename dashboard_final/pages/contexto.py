@@ -24,7 +24,7 @@ def stat(value, label, accent=False, unit=None):
 
 
 def section(eyebrow, title, desc, body):
-    return html.Section([html.Div(eyebrow, className='eyebrow'), html.H2(title, className='section-title'),
+    return html.Section([html.H2(title, className='section-title'),
                          html.P(desc, className='section-desc') if desc else None, body], className='section')
 
 

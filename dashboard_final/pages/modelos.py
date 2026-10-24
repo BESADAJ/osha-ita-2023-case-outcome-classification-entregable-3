@@ -1,11 +1,14 @@
 """Sección 3: tabla de líderes, predicción en vivo con SHAP local, diagnósticos, interpretabilidad global,
 comparación estadística y subsección del modelo original."""
+import re
+
 import numpy as np
 import pandas as pd
 
 import dash
 import dash_bootstrap_components as dbc
 from dash import Input, Output, State, callback, dash_table, dcc, html, no_update
+from dash.dash_table.Format import Format, Scheme
 
 from src import data, plots
 from src.explain import exact_shapley
@@ -20,7 +23,7 @@ PF = data.proyecto_final()
 TABLE = dict(style_table={'overflowX': 'auto', 'border': '1px solid #e2e8f0', 'borderRadius': '6px'},
              style_cell={'fontFamily': 'Inter, Segoe UI, sans-serif', 'fontSize': 13, 'padding': '8px 10px',
                          'textAlign': 'left', 'border': 'none', 'borderBottom': '1px solid #f1f5f9', 'color': '#0f172a',
-                         'whiteSpace': 'normal', 'height': 'auto'},
+                         'whiteSpace': 'normal', 'height': 'auto', 'minWidth': '84px'},
              style_header={'backgroundColor': '#f8fafc', 'color': '#475569', 'fontWeight': 600, 'fontSize': 12,
                            'borderBottom': '1px solid #e2e8f0'},
              style_filter={'backgroundColor': '#ffffff', 'borderBottom': '1px solid #e2e8f0'})
@@ -36,12 +39,15 @@ lb_tab = pd.DataFrame({
     'Log-loss': lb.outer_log_loss_mean.round(4), 'Inferencia (ms/caso)': lb.inference_ms_per_case.round(4),
 }).sort_values('BA media', ascending=False)
 
+FMT3 = Format(precision=3, scheme=Scheme.fixed, decimal_delimiter=',')
+LB_COLS = [('Modelo', 'text', None), ('Balanceo', 'text', None), ('Optimizador', 'text', None),
+           ('BA media', 'numeric', FMT3), ('BA d.e.', 'numeric', FMT3), ('F1 macro', 'numeric', FMT3),
+           ('AUC macro', 'numeric', FMT3), ('Log-loss', 'numeric', FMT3), ('Inferencia (ms/caso)', 'numeric', FMT3)]
 leaderboard = dash_table.DataTable(
     id='leaderboard', data=lb_tab[lb_tab['Mejor del modelo'] == 'sí'].to_dict('records'),
-    columns=[{'name': c, 'id': c, 'type': 'numeric' if lb_tab[c].dtype.kind == 'f' else 'text'}
-             for c in lb_tab.columns if c != 'Mejor del modelo'],
-    sort_action='native', filter_action='native', page_size=10, **TABLE,
-    style_cell_conditional=[{'if': {'column_type': 'numeric'}, 'textAlign': 'right'}],
+    columns=[{'name': c, 'id': c, 'type': k, **({'format': f} if f else {})} for c, k, f in LB_COLS],
+    sort_action='native', filter_action='native', filter_options={'placeholder_text': 'Filtrar…'}, page_size=10,
+    **TABLE, style_cell_conditional=[{'if': {'column_type': 'numeric'}, 'textAlign': 'right'}],
     style_data_conditional=[{'if': {'row_index': 0}, 'backgroundColor': '#f8fafc', 'fontWeight': 600}])
 
 # ------------------------------------------------------------------------------- formulario de predicción
@@ -124,7 +130,7 @@ def num(x, nd=3, sign=False):
 def tests_table():
     if not RES:
         return html.Div('Los resultados del experimento pareado no están disponibles.', className='callout warn')
-    t = pd.DataFrame(RES['tests'])
+    t = pd.DataFrame(RES['tests']).map(es)
     return dash_table.DataTable(data=t.to_dict('records'), columns=[{'name': c, 'id': c} for c in t.columns],
                                 sort_action='native', **{**TABLE, 'style_cell': {**TABLE['style_cell'], 'fontSize': 12.5,
                                                                                  'maxWidth': '260px'}},
@@ -132,12 +138,27 @@ def tests_table():
                                                          'backgroundColor': '#ecfdf5'}])
 
 
+def es(s):
+    """Coma decimal en un texto (los separadores de listas pasan a punto y coma)."""
+    s = str(s).replace(', ', '; ')
+    return re.sub(r'(\d)\.(\d)', lambda m: m.group(1) + ',' + m.group(2), s)
+
+
 def paired_table():
     if not RES:
         return html.Div()
-    t = pd.DataFrame(RES['summary'])
-    return dash_table.DataTable(data=t.to_dict('records'), columns=[{'name': c, 'id': c} for c in t.columns],
-                                sort_action='native', **TABLE,
+    rows = []
+    for r in RES['summary']:
+        rows.append({'Modelo': 'Original (SECR)' if 'original' in r['Modelo'].lower() else r['Modelo'],
+                     'Balanceo': data.PRETTY.get(r['Balanceo'], r['Balanceo']) if 'Original' not in r['Modelo'] else 'Corrección por prior (α)',
+                     'Optimizador': data.PRETTY.get(r['Optimizador'], r['Optimizador']) if 'Original' not in r['Modelo'] else 'Bayesiana (TPE) del combinador',
+                     'BA (media ± d.e.)': es(r['BA (media ± d.e.)']), 'IC BCa 95 %': es(r['IC BCa 95 % de la media']),
+                     'F1 macro': es(f"{r['F1 macro']:.3f}"), 'AUC macro': es(f"{r['AUC']:.3f}"),
+                     'Entrenamiento (min/pliegue)': es(f"{r['Entrenamiento (s/pliegue)'] / 60:.1f}"),
+                     'Inferencia (ms/caso)': es(f"{r['Inferencia (ms/caso)']:.3f}")})
+    num_cols = ['BA (media ± d.e.)', 'IC BCa 95 %', 'F1 macro', 'AUC macro', 'Entrenamiento (min/pliegue)', 'Inferencia (ms/caso)']
+    return dash_table.DataTable(data=rows, columns=[{'name': c, 'id': c} for c in rows[0]], **TABLE,
+                                style_cell_conditional=[{'if': {'column_id': c}, 'textAlign': 'right'} for c in num_cols],
                                 style_data_conditional=[{'if': {'filter_query': '{Modelo} contains "Original"'},
                                                          'backgroundColor': '#eff6ff', 'fontWeight': 600}])
 
@@ -169,7 +190,7 @@ DIFFS = [('Stacking lineal (Wolpert, 1992; Hassan y Khalifa, 2025 con datos OSHA
 
 
 def section(id_, eyebrow, title, desc, *children):
-    return html.Section([html.Div(eyebrow, className='eyebrow'), html.H2(title, className='section-title'),
+    return html.Section([html.H2(title, className='section-title'),
                          html.P(desc, className='section-desc') if desc else None, *children], id=id_, className='section')
 
 
@@ -256,10 +277,10 @@ layout = html.Div([
                      className='panel panel-soft'),
             html.Div(id='pred-alert', className='mt-3'),
             dbc.Row([dbc.Col(html.Div(dcc.Loading(dcc.Graph(id='g-proba', config={'displaylogo': False},
-                                                            figure=plots.empty('Pulse «Predecir».')),
+                                                            figure=plots.empty('Pulse «Predecir».', height=150)),
                                                   type='dot', color='#94a3b8'), className='panel'), lg=5),
                      dbc.Col(html.Div(dcc.Loading(dcc.Graph(id='g-shap', config={'displaylogo': False},
-                                                            figure=plots.empty('Aquí aparecerá el aporte de cada variable.')),
+                                                            figure=plots.empty('Aquí aparecerá el aporte de cada variable.', height=150)),
                                                   type='dot', color='#94a3b8'), className='panel'), lg=7)],
                     className='grid-gap mt-1')),
 
@@ -302,7 +323,7 @@ layout = html.Div([
             dbc.Row([dbc.Col(html.Div([dcc.Graph(id='g-cd', figure=(plots.cd_diagram(
                 RES['cd']['names'], np.array(RES['cd']['ranks']), RES['cd']['cd'], highlight='Original (SECR)')
                 if RES else plots.empty('Resultados pendientes'))),
-                html.P(RES['cd']['insight'] if RES else '', className='finding')], className='panel'), lg=5),
+                html.P(es(RES['cd']['insight']) if RES else '', className='finding')], className='panel'), lg=5),
                      dbc.Col(html.Div([dcc.Graph(id='g-folds', figure=plots.paired_folds(PF['per_fold']) if PF
                                                  else plots.empty()),
                                        html.P((f'La ventaja media sobre KNN es {num(BYREP[0], sign=True)} en la repetición 0 '
@@ -354,7 +375,7 @@ def update_model(m):
     o = data.oof(m)
     if o is None:
         e = plots.empty('Diagnóstico pendiente.')
-        return info, e, e, e, e, '', e, ''
+        return es(info), e, e, e, e, '', e, ''
     y, P = o.y.to_numpy(), o[[f'p{k}' for k in range(4)]].to_numpy()
     prior = np.bincount(y, minlength=4) / len(y)
     pred = (P / prior ** (meta['hyperparameters']['alpha'] if m == 'original' else 0)).argmax(1)
@@ -375,7 +396,7 @@ def update_model(m):
         g_txt = f'La variable que más mueve la probabilidad de la clase predicha es «{data.LABELS[s.idxmax()]}».'
     else:
         g_fig, g_txt = plots.empty('SHAP global no disponible para este modelo.'), ''
-    return info, plots.confusion(y, pred), plots.calibration(y, P), plots.roc_pr(y, P, 'roc'), plots.roc_pr(y, P, 'pr'), \
+    return es(info), plots.confusion(y, pred), plots.calibration(y, P), plots.roc_pr(y, P, 'roc'), plots.roc_pr(y, P, 'pr'), \
         txt, g_fig, g_txt
 
 
