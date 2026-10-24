@@ -240,7 +240,7 @@ def cd_diagram(names, ranks, cd, highlight=None):
     fig.add_shape(type='rect', x0=best, x1=best + cd, y0=-k - 0.6, y1=-0.4, fillcolor='rgba(29,78,216,0.08)', line_width=0)
     fig.add_annotation(x=best + cd / 2, y=-0.2, text=f'CD de Nemenyi = {cd:.2f}'.replace('.', ','), showarrow=False,
                        font=dict(color=ACCENT))
-    fig.update_layout(title='Diagrama de diferencia crítica (rango 1 = mejor; la franja marca la CD desde el mejor)',
+    fig.update_layout(title='Diferencia crítica de Nemenyi (rango 1 = mejor)',
                       xaxis=dict(title='Rango medio en los pliegues (menor es mejor)', range=[0.5, k + 2.5]),
                       yaxis=dict(visible=False), height=60 + 45 * k)
     return fig

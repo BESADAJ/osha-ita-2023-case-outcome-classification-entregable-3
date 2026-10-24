@@ -159,3 +159,11 @@ pre.pseudo { font-family: var(--mono); font-size: 12px; background: var(--bg-sof
 html, body { max-width: 100%; overflow-x: hidden; }
 .dash-table-container, .js-plotly-plot, .panel { max-width: 100%; min-width: 0; }
 .row > * { min-width: 0; }
+
+/* ---------- detalle plegable ---------- */
+details.more { border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 14px; }
+details.more > summary { cursor: pointer; font-size: 14px; font-weight: 500; color: var(--ink-2); list-style: none; }
+details.more > summary::-webkit-details-marker { display: none; }
+details.more > summary::before { content: '+'; display: inline-block; width: 18px; color: var(--ink-3); font-family: var(--mono); }
+details.more[open] > summary::before { content: '−'; }
+details.more > summary:hover { color: var(--ink); }

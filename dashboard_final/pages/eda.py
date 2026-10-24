@@ -52,31 +52,30 @@ filters = html.Div(dbc.Row([
 
 layout = html.Div([
     html.Div([
-        html.Div('Sección 2 · Análisis exploratorio', className='eyebrow'),
+        html.Div('Análisis exploratorio', className='eyebrow'),
         html.H1('Qué muestran los datos antes de modelar', className='page-title'),
-        html.P('Submuestra de desarrollo: 30 030 casos de enero a septiembre de 2023; la prueba no se muestra. Los filtros '
-               'actualizan todas las figuras, y debajo de cada una hay una frase calculada con los datos filtrados.',
+        html.P('30 030 casos de desarrollo, de enero a septiembre de 2023. Los filtros actualizan todas las figuras.',
                className='page-lead'),
     ], className='page-head', style={'borderBottom': 'none', 'paddingBottom': '16px'}),
     filters,
     html.Div(id='eda-n', className='count-badge mt-2'),
-    group('2.1 · Objetivo', 'El desenlace y su evolución',
+    group('Desenlace', 'El desenlace y su evolución',
           'El desbalance entre clases define la métrica del proyecto; la estabilidad mensual respalda el corte temporal '
           'de la prueba.',
           dbc.Row([figure('g-target', 'i-target'), figure('g-month', 'i-month')], className='grid-gap')),
-    group('2.2 · Variables', 'Distribución univariada', 'Composición del desenlace en las categorías más frecuentes de la '
+    group('Variables', 'Distribución univariada', 'Composición del desenlace en las categorías más frecuentes de la '
           'variable elegida; las numéricas se muestran en escala logarítmica.',
           dbc.Row(dbc.Col([dbc.Label('Variable', html_for='uni-var'),
                            dcc.Dropdown(CAT_VARS + NUM_VARS, 'type_of_incident', id='uni-var', clearable=False,
                                         optionHeight=30)], xs=12, md=4), className='mb-3'),
           html.Div([dcc.Loading(dcc.Graph(id='g-uni', config={'displaylogo': False}), type='dot', color='#94a3b8'),
                     insight('i-uni')], className='panel')),
-    group('2.3 · Asociaciones y calidad', 'Qué variables se relacionan con el desenlace y cuánto falta',
+    group('Asociaciones y calidad', 'Qué variables se relacionan con el desenlace y cuánto falta',
           'V de Cramér entre pares de categóricas (0 = independencia, 1 = asociación perfecta) y proporción de casos sin '
           'dato por variable.',
           dbc.Row([figure('g-corr', 'i-corr', 7, 520), figure('g-miss', 'i-miss', 5, 520)], className='grid-gap'),
           dbc.Row([figure('g-out', 'i-out', 12)], className='grid-gap mt-3')),
-    group('2.4 · Explorador', 'Explorador bivariado', 'Elija una variable para el eje x, la respuesta y el color.',
+    group('Explorador', 'Explorador bivariado', 'Elija una variable para el eje x, la respuesta y el color.',
           dbc.Row([dbc.Col([dbc.Label('Eje x (categórica)', html_for='bx'),
                             dcc.Dropdown(CAT_VARS, 'naics2', id='bx', clearable=False)], xs=12, md=4),
                    dbc.Col([dbc.Label('Eje y / respuesta', html_for='by'),

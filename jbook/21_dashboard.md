@@ -53,7 +53,7 @@ dashboard_final/
   tipográfica, superficies planas con bordes finos y sin sombras, y una paleta limitada. Los cuatro colores semánticos se
   reservan para las clases del desenlace («Otro registrable», la clase residual, en gris) y un único acento azul para el
   modelo original. Cada página abre con su conclusión y pocas cifras clave; la página Modelos tiene una subnavegación fija
-  por secciones. Rejilla responsiva (`dbc.Row`/`dbc.Col` con puntos de corte `xs`, `md` y `lg`) y una sola plantilla
+  por secciones y deja el detalle en secciones plegables. Rejilla responsiva (`dbc.Row`/`dbc.Col` con puntos de corte `xs`, `md` y `lg`) y una sola plantilla
   Plotly. Cada figura tiene título, ejes con unidades e información al pasar el cursor, y debajo una frase calculada con
   los datos. Ninguna información depende solo del color: las barras de SHAP llevan signo y valor, y la matriz de
   confusión lleva conteos.
@@ -64,7 +64,7 @@ dashboard_final/
 |---|---|---|
 | Contexto | Problema y relevancia con cifra citada (BLS, 2,6 millones de casos y 946 500 con días de ausencia en 2023); pregunta y objetivos; fuente, periodo, n, variables, diccionario y tarea; diagrama del pipeline; limitaciones, ética, autores, versión y fecha | `pages/contexto.py` |
 | EDA | Filtros globales (estado, sector, tipo de establecimiento, rango de fechas `DatePickerRange`, `RangeSlider` de tamaño) que actualizan todas las figuras; distribución y balance del objetivo; distribución univariada; asociación (V de Cramér); faltantes; atípicos; tendencia mensual; explorador bivariado con selectores de x, y y color; una frase de interpretación calculada por figura | `pages/eda.py` |
-| Modelos | `DataTable` ordenable y filtrable con las mejores combinaciones (y las 112 a pedido), media ± d.e. e inferencia; formulario de predicción generado desde el esquema con selector de modelo, probabilidad y SHAP local; matriz de confusión, ROC, PR y calibración; SHAP global; diagrama de diferencia crítica con el original incluido; subsección del original con descripción, pseudocódigo, diferencias con la literatura, curva de convergencia, los 13 candidatos probados (19.9), la comparación pareada con la BA por pliegue y el sesgo de selección (20.6), la tabla de pruebas, la ablación y la sensibilidad (20.4 y 20.7) y el veredicto R1–R3. Estas tablas salen de `results/` con `scripts/build_dashboard_extras.py` | `pages/modelos.py` |
+| Modelos | `DataTable` ordenable y filtrable con las mejores combinaciones (y las 112 a pedido), media ± d.e. e inferencia; formulario de predicción generado desde el esquema con selector de modelo, probabilidad y SHAP local; matriz de confusión, ROC, PR y calibración; SHAP global; diagrama de diferencia crítica con el original incluido; subsección del original con descripción, pseudocódigo, diferencias con la literatura, curva de convergencia, los 13 candidatos probados (19.9), la comparación pareada con la BA por pliegue y el sesgo de selección (20.6), la tabla de pruebas, la ablación y la sensibilidad (20.4 y 20.7). El detalle (algoritmo, candidatos, pruebas y sensibilidad) va en secciones plegables. Estas tablas salen de `results/` con `scripts/build_dashboard_extras.py` | `pages/modelos.py` |
 
 ```{figure} figures/e3_dash_contexto.png
 :name: fig-dash-contexto

@@ -65,12 +65,12 @@ if orig and knn:
         f'El modelo original (SECR) tiene la mayor balanced accuracy media en la comparación pareada '
         f'({orig["BA (media ± d.e.)"].split(" ")[0].replace(".", ",")} frente a '
         f'{knn["BA (media ± d.e.)"].split(" ")[0].replace(".", ",")} de KNN, 15 pliegues), pero la ventaja '
-        'no es estadísticamente significativa: R1 sí, R2 sí, R3 no. ',
+        'no es estadísticamente significativa. ',
         dcc.Link('Ver la evaluación →', href='/modelos#original')], className='callout mt-4')
 
 layout = html.Div([
     html.Div([
-        html.Div('Proyecto final · Machine Learning', className='eyebrow'),
+        html.Div('Contexto', className='eyebrow'),
         html.H1('¿Cómo termina un caso de lesión laboral?', className='page-title'),
         html.P(['Con los registros que los empleadores de EE. UU. reportan a OSHA (formularios 300/301, ',
                 html.Em('Injury Tracking Application'), ' 2023) clasificamos el desenlace de cada caso en cuatro clases: '
@@ -84,7 +84,7 @@ layout = html.Div([
         headline,
     ], className='page-head'),
 
-    section('1 · Problema', 'Por qué importa',
+    section('Problema', 'Por qué importa',
             None,
             dbc.Row([
                 dbc.Col([
@@ -113,7 +113,7 @@ layout = html.Div([
                             className='mb-0 ps-3')], className='panel panel-soft'), lg=6),
             ])),
 
-    section('2 · Datos', 'Fuente, partición y variables',
+    section('Datos', 'Fuente, partición y variables',
             ['Fuente: ', html.A('OSHA, ITA Case Detail Data 2023 (CSV con códigos OIICS)',
                                 href='https://www.osha.gov/Establishment-Specific-Injury-and-Illness-Data', target='_blank'),
              '. 890 372 casos de 2023. Partición del entregable 1: el 60 % de los establecimientos se reserva para la prueba '
@@ -121,12 +121,12 @@ layout = html.Div([
              'entrenan con una submuestra de 30 030 casos tomada por establecimientos completos.'],
             dict_table()),
 
-    section('3 · Método', 'Del dato crudo al veredicto', None,
+    section('Método', 'Del dato crudo al veredicto', None,
             html.Div([html.Div([html.Div(f'0{i + 1}', className='n'), html.Div(t, className='t'),
                                 html.Div(s, className='s')], className='st') for i, (t, s) in enumerate(STEPS)],
                      className='steps')),
 
-    section('4 · Alcance', 'Limitaciones, ética y autoría', None, dbc.Row([
+    section('Alcance', 'Limitaciones, ética y autoría', None, dbc.Row([
         dbc.Col(html.Ul([
             html.Li('Los datos los reportan los empleadores: hay subregistro y diferencias entre sectores y estados.'),
             html.Li('Los códigos OIICS se asignan a partir del relato del caso. Existen cuando el caso se clasifica, pero el '

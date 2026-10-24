@@ -209,70 +209,62 @@ def stat(value, label, accent=False):
                     className='stat accent' if accent else 'stat')
 
 
-def verdict_strip():
-    req = [('R1 · Novedad', 'Sí', 'ok', 'Revisión en 3 bases con 8 cadenas; no se halló SECR aplicado a este problema '
-            '(cap. 16.6–16.9).'),
-           ('R2 · Implementación propia', 'Sí', 'ok', 'Clase compatible con scikit-learn, Frank-Wolfe en numpy, '
-            '6 proposiciones y 8 pruebas unitarias (cap. 19).'),
-           ('R3 · Superioridad', 'No', 'bad', 'Mayor BA media, pero ninguna prueba pareada contra KNN rechaza la '
-            'igualdad tras Holm (cap. 20).')]
-    return html.Div([html.Div([html.Div(k, className='k'), html.Div(html.Span(s, className=f'pill {c}'), className='s'),
-                               html.Div(d, className='d')], className='req') for k, s, c, d in req], className='verdict')
+def more(summary, *children):
+    """Detalle plegable: lo esencial queda a la vista y el resto a un clic."""
+    return html.Details([html.Summary(summary), html.Div(children, className='pt-3')], className='more mt-3')
 
 
 subnav = html.Nav([html.A(t, href=f'#{i}') for i, t in [
-    ('benchmarks', 'Benchmarks'), ('prediccion', 'Predicción'), ('diagnostico', 'Diagnóstico'), ('original', 'Modelo original'),
-    ('candidatos', 'Candidatos'), ('comparacion', 'Comparación pareada'), ('ablacion', 'Ablación'), ('veredicto', 'Veredicto')]],
+    ('benchmarks', 'Benchmarks'), ('prediccion', 'Predicción'), ('diagnostico', 'Diagnóstico'),
+    ('original', 'Modelo original'), ('comparacion', 'Comparación'), ('ablacion', 'Ablación')]],
     className='subnav', **{'aria-label': 'Secciones de la página'})
 
 # --------------------------------------------------------------------------------------------- layout
 layout = html.Div([
     html.Div([
-        html.Div('Sección 3 · Modelos', className='eyebrow'),
-        html.H1('Siete benchmarks del curso y un modelo original', className='page-title'),
-        html.P('El original (ensamble multivista + SECR) obtiene la mayor balanced accuracy media cuando se compara con los '
-               '7 benchmarks con las mismas variables y los mismos pliegues, pero su ventaja sobre KNN no es '
-               'estadísticamente significativa.', className='page-lead'),
-        html.Div([stat(num(BA.get('Original (SECR)', np.nan)), 'BA media del original (15 pliegues pareados)', accent=True),
+        html.Div('Modelos', className='eyebrow'),
+        html.H1('El modelo original gana en media, pero no por un margen claro', className='page-title'),
+        html.P('Con las mismas variables y los mismos 15 pliegues, el ensamble multivista con SECR obtiene la mayor balanced '
+               'accuracy de los 8 modelos. Su ventaja sobre KNN, el mejor benchmark, es pequeña frente a la variación entre '
+               'pliegues y ninguna prueba pareada la confirma.', className='page-lead'),
+        html.Div([stat(num(BA.get('Original (SECR)', np.nan)), 'BA media del original (15 pliegues)', accent=True),
                   stat(num(BA.get('KNN', np.nan)), 'BA media de KNN, el mejor benchmark'),
-                  stat(num(DELTA, sign=True), 'diferencia; IC BCa 95 % [−0,032; 0,056] incluye el 0'),
-                  stat(FRIEDMAN_P.replace('.', ','), 'p de Friedman (global): los 8 modelos no son iguales')],
+                  stat(num(DELTA, sign=True), 'diferencia; IC BCa 95 % [−0,032; 0,056]'),
+                  stat(num(ABL['SECR sin corrección por prior (α = 0)']['ba_mean']) if ABL else '—',
+                       'BA del original sin la corrección por prior: el componente que más aporta')],
                  className='stats'),
-        html.Div(verdict_strip(), className='mt-3'),
     ], className='page-head'),
     subnav,
 
-    section('benchmarks', '3.1 · Benchmarks', 'Tabla de líderes del Entregable 2',
-            'Mejores combinaciones del Entregable 2 (9 variables): una fila por modelo, la combinación de balanceo y '
-            'optimizador con mayor BA media en los 5 pliegues externos de la validación anidada. La comparación con el '
-            'modelo original usa estos mismos 7 modelos reentrenados con las variables ampliadas (sección 3.6).',
+    section('benchmarks', 'Benchmarks', 'Mejores combinaciones del Entregable 2',
+            'Una fila por modelo: la combinación de balanceo y optimizador con mayor BA media en los 5 pliegues externos, '
+            'con las 9 variables del lugar de trabajo. Estos mismos 7 modelos se reentrenan con las variables ampliadas '
+            'para compararlos con el original.',
             dbc.Switch(id='show-all', label='Mostrar las 112 combinaciones', value=False, className='mb-2'),
             leaderboard),
 
-    section('prediccion', '3.2 · Predicción', 'Predicción en vivo con explicación',
-            'Describa un caso y elija el modelo. Los benchmarks usan las 9 variables del lugar de trabajo; el original usa '
-            'además los códigos de la lesión y el empleador. NAICS de 3 dígitos, ocupación SOC menor y horas desde el '
-            'inicio de la jornada se derivan automáticamente. El modelo elegido también controla el diagnóstico (3.3).',
+    section('prediccion', 'Predicción', 'Un caso, paso a paso',
+            'Los benchmarks usan las 9 variables del lugar de trabajo; el original añade la lesión y el empleador. El '
+            'modelo elegido aquí es también el del diagnóstico.',
             dbc.Row([dbc.Col([dbc.Label('Modelo', html_for='model-sel'),
                               dcc.Dropdown([{'label': model_label(m), 'value': m} for m in MODELS],
                                            'original' if 'original' in MODELS else MODELS[0], id='model-sel',
                                            clearable=False)], xs=12, md=5),
                      dbc.Col(html.Div(id='model-info', className='note pt-md-4'), xs=12, md=7)], className='mb-3'),
             html.Div([form,
-                      dbc.Button('Predecir y explicar', id='btn-pred', color='primary', className='mt-2')],
+                      dbc.Button('Predecir', id='btn-pred', color='primary', className='mt-2')],
                      className='panel panel-soft'),
             html.Div(id='pred-alert', className='mt-3'),
             dbc.Row([dbc.Col(html.Div(dcc.Loading(dcc.Graph(id='g-proba', config={'displaylogo': False},
-                                                            figure=plots.empty('Pulse «Predecir y explicar».')),
+                                                            figure=plots.empty('Pulse «Predecir».')),
                                                   type='dot', color='#94a3b8'), className='panel'), lg=5),
                      dbc.Col(html.Div(dcc.Loading(dcc.Graph(id='g-shap', config={'displaylogo': False},
-                                                            figure=plots.empty('Aquí aparecerá la explicación SHAP local.')),
+                                                            figure=plots.empty('Aquí aparecerá el aporte de cada variable.')),
                                                   type='dot', color='#94a3b8'), className='panel'), lg=7)],
                     className='grid-gap mt-1')),
 
-    section('diagnostico', '3.3 · Diagnóstico', 'Cómo se equivoca el modelo seleccionado',
-            'Calculado con las predicciones fuera de pliegue externo (30 030 casos); la prueba de octubre a diciembre no se '
-            'usa.',
+    section('diagnostico', 'Diagnóstico', 'Dónde acierta y dónde se equivoca',
+            'Predicciones fuera de pliegue externo de los 30 030 casos de desarrollo.',
             html.P(id='i-diag', className='finding mb-3'),
             dbc.Row([dbc.Col(html.Div(dcc.Graph(id='g-cm'), className='panel'), lg=6),
                      dbc.Col(html.Div(dcc.Graph(id='g-cal'), className='panel'), lg=6),
@@ -281,34 +273,31 @@ layout = html.Div([
                      dbc.Col(html.Div([dcc.Graph(id='g-shapglob'), html.P(id='i-shapglob', className='finding')],
                                       className='panel'), lg=12)], className='grid-gap')),
 
-    section('original', '3.4 · Modelo original', 'Ensamble multivista + SECR',
-            '16 modelos base, cada uno especializado en una vista de los datos (lugar de trabajo, lesión OIICS, códigos '
-            'finos con codificación por objetivo, empleador), se combinan con SECR: selección de ensambles condicionada '
-            'por región con contracción. Los pesos de cada región minimizan la log-loss fuera de pliegue sobre el símplex '
-            'con Frank-Wolfe y se contraen hacia los pesos globales con λ pseudo-observaciones. La compuerta, λ, los pasos, '
-            'el tamaño mínimo de región y el α de la decisión se eligen con TPE dentro de cada pliegue externo, con el '
-            'mismo presupuesto (16) que los benchmarks.',
-            dbc.Row([dbc.Col([html.Div('Pseudocódigo', className='block-title mb-2'), html.Pre(PSEUDO, className='pseudo')],
-                             lg=6),
-                     dbc.Col([html.Div('Diferencias frente a la literatura', className='block-title mb-2'),
-                              simple_table(['Método afín', 'Qué cambia SECR'],
-                                           [html.Tr([html.Td(a), html.Td(b)]) for a, b in DIFFS])], lg=6)],
-                    className='grid-gap'),
-            html.Div(dcc.Graph(id='g-conv', config={'displaylogo': False}), className='panel mt-3'),
-            html.P('La log-loss no sube nunca (proposición 2) y la brecha de Frank-Wolfe, que acota la distancia al óptimo '
-                   '(proposición 3), cae varios órdenes de magnitud.', className='finding')),
+    section('original', 'Modelo original', 'Ensamble multivista + SECR',
+            '16 modelos base, cada uno especializado en una vista del caso (lugar de trabajo, lesión, códigos finos, '
+            'empleador), se combinan con pesos aprendidos por región del espacio de entrada y contraídos hacia unos pesos '
+            'globales cuando la región tiene pocos datos. Los pesos se optimizan con Frank-Wolfe, que garantiza que la '
+            'pérdida no sube y certifica qué tan cerca está del óptimo. La decisión final divide cada probabilidad por la '
+            'frecuencia de su clase.',
+            more('Algoritmo, diferencias con la literatura y convergencia',
+                 dbc.Row([dbc.Col([html.Div('Pseudocódigo', className='block-title mb-2'),
+                                   html.Pre(PSEUDO, className='pseudo')], lg=6),
+                          dbc.Col([html.Div('Diferencias con métodos afines', className='block-title mb-2'),
+                                   simple_table(['Método afín', 'Qué cambia SECR'],
+                                                [html.Tr([html.Td(a), html.Td(b)]) for a, b in DIFFS])], lg=6)],
+                         className='grid-gap'),
+                 html.Div(dcc.Graph(id='g-conv', config={'displaylogo': False}), className='panel mt-3'),
+                 html.P('La log-loss no sube nunca y la brecha de Frank-Wolfe, que acota la distancia al óptimo, cae varios '
+                        'órdenes de magnitud.', className='finding')),
+            more('Los 13 diseños probados antes de llegar a SECR',
+                 html.P('Elegir el mejor de varios intentos sobrestima su ventaja, así que se listan todos con los datos que '
+                        'se miraron para elegirlos. Las cifras de bloques distintos no son comparables entre sí.',
+                        className='note'),
+                 candidates_table())),
 
-    section('candidatos', '3.5 · Candidatos', 'Trece diseños probados antes del modelo final',
-            'La guía (§13) pide declarar todos los diseños probados y qué datos se miraron para elegir, porque elegir el '
-            'mejor de varios candidatos sobrestima su ventaja. Las cifras de bloques distintos no se comparan entre sí.',
-            candidates_table(),
-            html.P('El diseño de SECR (regla, hiperparámetros y rangos) se fijó antes de correr el experimento pareado, y '
-                   'sus hiperparámetros los eligió TPE con predicciones internas de cada pliegue externo (cap. 19.9).',
-                   className='finding mt-3')),
-
-    section('comparacion', '3.6 · Comparación pareada', 'Mismas variables, mismas particiones, 3 × 5 pliegues',
-            'Los 7 benchmarks se reentrenan con las mismas columnas que el original y se evalúan en los mismos 15 pliegues '
-            'externos, con el mismo presupuesto de búsqueda.',
+    section('comparacion', 'Comparación pareada', 'Mismas variables, mismos 15 pliegues',
+            'Los 7 benchmarks se reentrenan con las mismas columnas que el original y se evalúan en los mismos 3 × 5 '
+            'pliegues externos, con el mismo presupuesto de búsqueda.',
             paired_table(),
             dbc.Row([dbc.Col(html.Div([dcc.Graph(id='g-cd', figure=(plots.cd_diagram(
                 RES['cd']['names'], np.array(RES['cd']['ranks']), RES['cd']['cd'], highlight='Original (SECR)')
@@ -318,47 +307,28 @@ layout = html.Div([
                                                  else plots.empty()),
                                        html.P((f'La ventaja media sobre KNN es {num(BYREP[0], sign=True)} en la repetición 0 '
                                                f'(pliegues ya vistos al elegir el nivel 0) y {num(BYREP[1], sign=True)} y '
-                                               f'{num(BYREP[2], sign=True)} en las repeticiones 1 y 2. En 15 pliegues la '
-                                               'variación entre pliegues (d.e. ≈ 0,08) es unas cuatro veces la ventaja media.')
+                                               f'{num(BYREP[2], sign=True)} en las otras dos. La variación entre pliegues '
+                                               '(d.e. ≈ 0,08) es unas cuatro veces la ventaja media.')
                                               if BYREP else '', className='finding')], className='panel'), lg=7)],
                     className='grid-gap mt-3'),
-            html.Div('Pruebas de hipótesis (familia de 4, ajuste de Holm)', className='block-title mt-4 mb-2'),
-            tests_table()),
+            more('Pruebas de hipótesis (Friedman, Nemenyi, Nadeau–Bengio, Wilcoxon y bayesiana)', tests_table())),
 
-    section('ablacion', '3.7 · Ablación y sensibilidad', 'Qué aporta cada componente',
-            'Mismos modelos base, mismas predicciones y mismos 15 pliegues; se retira un componente cada vez o la regla '
-            'de combinación se reemplaza por una regla estándar. La sensibilidad es descriptiva: no se usó para elegir '
-            'nada, porque eso sería ajustar con los pliegues del veredicto.',
-            dbc.Row([dbc.Col(html.Div([dcc.Graph(figure=plots.ablation_bar(RES['ablation']) if RES else plots.empty()),
-                                       html.P(('La corrección por prior (α) es lo que más aporta: sin ella la BA cae a '
-                                               f"{num(ABL['SECR sin corrección por prior (α = 0)']['ba_mean'])} (Holm p = "
-                                               f"{num(ABL['SECR sin corrección por prior (α = 0)']['p_holm'])}). Las regiones "
-                                               f"no aportan: sin ellas la BA es {num(ABL['SECR sin regiones (solo pesos globales)']['ba_mean'])}, "
-                                               'sin diferencia significativa. Las variantes marcadas con * difieren de SECR '
-                                               'de forma significativa tras Holm.')
-                                              if 'SECR sin corrección por prior (α = 0)' in ABL else '',
-                                              className='finding')], className='panel'), lg=12)],
-                    className='grid-gap'),
-            html.Div('Sensibilidad de SECR (descriptiva; media ± d.e. en 15 pliegues)', className='block-title mt-4 mb-2'),
-            dbc.Row([dbc.Col(html.Div(dcc.Graph(figure=plots.sensitivity(PF['sensitivity'], prm) if PF else plots.empty()),
-                                      className='panel'), md=6, xl=3)
-                     for prm in ['alpha', 'lam', 'gate', 'frac_datos']], className='grid-gap'),
-            html.P('α decide la BA (≈ 0,46 con α ≤ 0,5 y ≈ 0,59 con α = 1). Con contracción fuerte (λ ≥ 1000) o sin compuerta '
-                   'la BA sube a ≈ 0,62, más que el 0,591 del modelo con TPE: la búsqueda interna eligió compuertas que no '
-                   'generalizan. No se cambió el modelo por esto, porque sería elegir con los pliegues del veredicto. Con el '
-                   '10 % de los datos internos el método se vuelve inestable.', className='finding mt-3')),
-
-    section('veredicto', '3.8 · Veredicto', 'R1 sí, R2 sí, R3 no: tope de calificación 4,0',
-            None,
-            verdict_strip(),
-            html.Div([html.B('Resultado del experimento. '), RES['verdict'] if RES else 'Veredicto pendiente.'],
-                     className='callout warn mt-3', id='verdict'),
-            html.Div([html.B('Por qué «R3 = no» es conservador. '),
-                      'La BA de 0,591 es optimista por selección: el original salió de 13 diseños, y su nivel 0 se eligió '
-                      'mirando los 5 pliegues de la repetición 0. Ese sesgo favorece declarar «superior»; corregirlo solo '
-                      'podría reducir la ventaja. No se repitió la corrida con más repeticiones, otra semilla u otra '
-                      'métrica después de ver los resultados, porque eso sería buscar la significancia (guía §13).'],
-                     className='callout mt-3')),
+    section('ablacion', 'Ablación', 'Qué aporta cada componente',
+            'Mismos modelos base y mismos pliegues; se quita un componente cada vez o se cambia la regla de combinación.',
+            html.Div([dcc.Graph(figure=plots.ablation_bar(RES['ablation']) if RES else plots.empty()),
+                      html.P(('La corrección por prior es lo que más aporta: sin ella la BA cae a '
+                              f"{num(ABL['SECR sin corrección por prior (α = 0)']['ba_mean'])} (Holm p = "
+                              f"{num(ABL['SECR sin corrección por prior (α = 0)']['p_holm'])}). Las regiones no aportan: "
+                              f"sin ellas la BA es {num(ABL['SECR sin regiones (solo pesos globales)']['ba_mean'])}, sin "
+                              'diferencia significativa. Las variantes con * difieren de SECR tras Holm.')
+                             if ABL else '', className='finding')], className='panel'),
+            more('Sensibilidad a los hiperparámetros',
+                 dbc.Row([dbc.Col(html.Div(dcc.Graph(figure=plots.sensitivity(PF['sensitivity'], prm) if PF
+                                                     else plots.empty()), className='panel'), md=6, xl=3)
+                          for prm in ['alpha', 'lam', 'gate', 'frac_datos']], className='grid-gap'),
+                 html.P('α decide la BA (≈ 0,46 con α ≤ 0,5 y ≈ 0,59 con α = 1). Con contracción fuerte o sin compuerta la BA '
+                        'sube a ≈ 0,62: la búsqueda interna eligió compuertas que no generalizan. No se cambió el modelo por '
+                        'esto, porque sería elegir con los pliegues de la evaluación.', className='finding mt-3'))),
 ])
 
 
