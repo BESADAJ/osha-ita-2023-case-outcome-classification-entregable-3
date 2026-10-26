@@ -102,6 +102,9 @@ display(Image('figures/e3_cd_pareado_rep0.png'))
 #
 # Tabla obligatoria de la guía (§6.3): prueba, hipótesis nula, supuestos verificados, estadístico, p crudo, p ajustado,
 # tamaño del efecto y conclusión. Las 4 pruebas frecuentistas forman una familia y se ajustan con Holm (4 comparaciones).
+# Incluir a Friedman (prueba global) y a Nemenyi (que ya controla el error por familia) es conservador: la guía técnica
+# (`guia_entregable_3.pdf`, §6.2) pide Holm para las comparaciones dirigidas que se añaden a Friedman–Nemenyi. Ninguna
+# decisión cambia: con Holm solo sobre Nadeau–Bengio y Wilcoxon, sus p ajustados serían 0,33 y 0,19.
 # La bayesiana no da un p-valor: da probabilidades posteriores de que el original sea peor, equivalente (dentro de la
 # ROPE de ±0,01 de BA) o mejor.
 
