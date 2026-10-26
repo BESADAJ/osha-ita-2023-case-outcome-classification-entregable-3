@@ -197,7 +197,7 @@ def tests_table():
                                                  html.Th('P(original peor)', className='num'), html.Th('Lectura')])),
                              html.Tbody(bay_row)], className='table-clean tests'), style={'overflowX': 'auto'}),
         html.P('Sobre Holm: el ajuste se aplicó a las 4 pruebas frecuentistas como una sola familia, Friedman incluida. La '
-               'guía (§6.2) lo pide para las comparaciones dirigidas que se añaden a Friedman–Nemenyi; Friedman es la prueba '
+               'guía técnica (guia_entregable_3.pdf, §6.2) lo pide para las comparaciones dirigidas que se añaden a Friedman–Nemenyi; Friedman es la prueba '
                'global y Nemenyi ya controla el error por familia, así que incluirlas solo hace el ajuste más conservador. '
                'Ninguna decisión cambia: con Holm solo sobre Nadeau–Bengio y Wilcoxon, sus p ajustados serían 0,33 y 0,19. '
                'Nadeau–Bengio y Wilcoxon son unilaterales (H1: el original es mejor).', className='note mt-3'),
