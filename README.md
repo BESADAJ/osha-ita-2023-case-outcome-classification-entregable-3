@@ -2,6 +2,8 @@
 
 Autores: Jaime Andrés Besada e Iván Berrio.
 
+> **Entrega registrada en el curso como Entregable 4**; enunciado: `Entregable3MachineLearningProject.pdf` (en el repositorio, `docs/guia_proyecto_final.pdf`); guía técnica: `guia_entregable_3.pdf` (`docs/`).
+
 Continuación del [entregable 2](https://github.com/sak-buks/osha-ita-2023-case-outcome-classification-segundo-entregable)
 (este repositorio parte de su historial). Sobre el archivo de casos de OSHA (ITA 2023) se entrenan, optimizan y
 evalúan **140 modelos**:

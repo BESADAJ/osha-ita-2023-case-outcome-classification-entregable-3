@@ -11,6 +11,10 @@ obligatorios de la guía:
    desde cero y comparado estadísticamente con los benchmarks (capítulos 16, 19 y 20).
 4. Este **informe** reproducible.
 
+:::{note}
+Entrega registrada en el curso como **Entregable 4**; enunciado: `Entregable3MachineLearningProject.pdf` (en el repositorio, `docs/guia_proyecto_final.pdf`); guía técnica: `guia_entregable_3.pdf` (`docs/`). En este libro, «guía §N» remite a la guía del proyecto final; las pocas citas a la guía técnica lo dicen expresamente.
+:::
+
 ## Resumen ejecutivo
 
 **Problema.** Con los registros que los empleadores de EE. UU. reportan a OSHA se predice el desenlace de cada caso
