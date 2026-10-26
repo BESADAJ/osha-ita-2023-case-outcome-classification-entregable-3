@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.io as pio
 
-from .data import CLASSES, LABELS, PRETTY, TYPE_OF_INCIDENT
+from .data import CLASSES, LABELS, PRETTY, TYPE_OF_INCIDENT, fmt_pct
 
 # Paleta limitada (guía §7.4): cuatro colores semánticos, uno por clase del desenlace, más tinta, gris y un acento
 # reservado al modelo original. «Otro registrable», la clase residual, va en gris.
@@ -13,6 +13,7 @@ ACCENT, SLATE = '#1d4ed8', '#64748b'
 NAVY = INK  # alias conservado por compatibilidad
 CLASS_COLORS = dict(zip(CLASSES, [CORAL, TEAL, AMBER, SLATE]))
 SEQ = [[0, '#ffffff'], [0.5, '#93c5fd'], [1, '#1e3a8a']]
+SMALL = 1.0  # % bajo el cual la etiqueta lleva también el conteo n (clases raras como «Fallecimiento»)
 
 _axis = dict(gridcolor='#eef2f6', zeroline=False, linecolor='#cbd5e1', ticks='outside', tickcolor='#cbd5e1', ticklen=4,
              title=dict(font=dict(size=12, color='#475569')), tickfont=dict(size=11.5, color='#475569'), automargin=True)
@@ -40,8 +41,12 @@ def target_bar(d):
     vc = d.outcome.value_counts().reindex(CLASSES).fillna(0)
     pct = vc / vc.sum() * 100
     fig = go.Figure(go.Bar(x=vc.index, y=vc.values, marker_color=[CLASS_COLORS[c] for c in vc.index],
-                           text=[f'{p:.1f} %'.replace('.', ',') for p in pct], textposition='outside',
-                           hovertemplate='%{x}<br>%{y:,} casos<extra></extra>'))
+                           text=[fmt_pct(p, n if p < SMALL else None) for p, n in zip(pct, vc)], textposition='outside',
+                           cliponaxis=False, customdata=[fmt_pct(p) for p in pct],
+                           hovertemplate='%{x}<br>%{y:,} casos (%{customdata})<extra></extra>'))
+    for c in vc.index[(pct > 0) & (pct < SMALL)]:  # barra invisible a escala lineal: se señala en vez de usar escala log
+        fig.add_annotation(x=c, y=vc.max() * 0.06, ax=0, ay=-48, text='barra casi invisible<br>a esta escala',
+                           showarrow=True, arrowhead=0, arrowcolor=GRAY, font=dict(size=11, color='#475569'))
     fig.update_layout(title='Distribución del desenlace (balance de clases)', yaxis_title='Casos (n)', xaxis_title='Desenlace')
     return fig
 
@@ -80,7 +85,8 @@ def cramer_heatmap(d, cols):
     M = np.array([[1.0 if a == b else cramers_v(d[a], d[b]) for b in cols] for a in cols])
     names = [LABELS.get(c, c) for c in cols]
     fig = go.Figure(go.Heatmap(z=M, x=names, y=names, colorscale=SEQ, zmin=0, zmax=1,
-                               text=np.round(M, 2), texttemplate='%{text}', colorbar=dict(title='V'),
+                               text=[['<0,01' if 0 < v < 0.005 else f'{v:.2f}'.replace('.', ',') for v in row] for row in M],
+                               texttemplate='%{text}', colorbar=dict(title='V'),
                                hovertemplate='%{y} × %{x}<br>V de Cramér = %{z:.2f}<extra></extra>'))
     fig.update_layout(title='Asociación entre variables (V de Cramér; categóricas)', height=560,
                       xaxis=dict(tickangle=-40))
@@ -91,8 +97,8 @@ def missing_bar(d, cols):
     miss = pd.Series({LABELS.get(c, c): float((d[c].isna() | d[c].astype(str).eq('Unknown')).mean() * 100) for c in cols})
     miss = miss.sort_values()
     fig = go.Figure(go.Bar(x=miss.values, y=miss.index, orientation='h', marker_color=SLATE,
-                           text=[f'{v:.1f} %'.replace('.', ',') for v in miss.values], textposition='outside', cliponaxis=False,
-                           hovertemplate='%{y}: %{x:.1f} % faltante<extra></extra>'))
+                           text=[fmt_pct(v) for v in miss.values], textposition='outside', cliponaxis=False,
+                           hovertemplate='%{y}: %{text} faltante<extra></extra>'))
     fig.update_layout(title='Valores faltantes o «Unknown» por variable', xaxis_title='Casos sin dato (%)', height=460,
                       margin=dict(r=48))
     return fig
@@ -114,7 +120,8 @@ def monthly(d):
     ct = pd.crosstab(d.date.dt.to_period('M').astype(str), d.outcome).reindex(columns=CLASSES).fillna(0)
     share = ct.div(ct.sum(axis=1), axis=0) * 100
     fig = go.Figure([go.Scatter(x=share.index, y=share[c], name=c, mode='lines+markers', line_color=CLASS_COLORS[c],
-                                hovertemplate='%{x}: %{y:.1f} %<extra>' + c + '</extra>') for c in CLASSES])
+                                customdata=[fmt_pct(p, n) for p, n in zip(share[c], ct[c])],
+                                hovertemplate='%{x}: %{customdata}<extra>' + c + '</extra>') for c in CLASSES])
     fig.update_layout(title='Participación mensual de cada desenlace', yaxis_title='Casos del mes (%)', xaxis_title='Mes')
     return fig
 
@@ -135,11 +142,13 @@ def bivariate(d, x, y, color):
         return fig
     top_x = d[x].value_counts().index[:12]
     dd = d[d[x].isin(top_x)]
-    ct = pd.crosstab(dd[x].astype(str), dd[color].astype(str), normalize='index') * 100
+    cnt = pd.crosstab(dd[x].astype(str), dd[color].astype(str))
+    ct = cnt.div(cnt.sum(axis=1), axis=0) * 100
     cols = [c for c in (CLASSES if color == 'outcome' else ct.sum().sort_values(ascending=False).index[:5]) if c in ct]
     fig = go.Figure([go.Bar(x=ct.index, y=ct[c], name=str(c),
                             marker_color=CLASS_COLORS.get(c, [NAVY, TEAL, AMBER, CORAL, GRAY][i % 5]),
-                            hovertemplate='%{x}: %{y:.1f} %<extra>' + str(c) + '</extra>') for i, c in enumerate(cols)])
+                            customdata=[fmt_pct(p, n) for p, n in zip(ct[c], cnt[c])],
+                            hovertemplate='%{x}: %{customdata}<extra>' + str(c) + '</extra>') for i, c in enumerate(cols)])
     fig.update_layout(barmode='stack', title=f'Composición de {LABELS.get(color, color)} según {LABELS.get(x, x)}',
                       yaxis_title='Casos de la categoría (%)', xaxis_title=LABELS.get(x, x))
     return fig
@@ -148,7 +157,7 @@ def bivariate(d, x, y, color):
 def proba_bar(p, pred):
     fig = go.Figure(go.Bar(x=CLASSES, y=p * 100, marker_color=[CLASS_COLORS[c] for c in CLASSES],
                            marker_line_width=[3 if i == pred else 0 for i in range(4)], marker_line_color='#111',
-                           text=[f'{v * 100:.1f} %'.replace('.', ',') for v in p], textposition='outside'))
+                           text=[fmt_pct(v * 100) for v in p], textposition='outside'))
     fig.update_layout(title='Probabilidad estimada por desenlace', yaxis_title='Probabilidad (%)',
                       yaxis_range=[0, max(100, p.max() * 115)], height=330)
     return fig
@@ -169,7 +178,8 @@ def confusion(y, pred):
     rec = cm.div(cm.sum(axis=1).replace(0, np.nan), axis=0) * 100
     fig = go.Figure(go.Heatmap(z=rec.values, x=CLASSES, y=CLASSES, colorscale=SEQ,
                                zmin=0, zmax=100, text=cm.values.astype(int), texttemplate='%{text}',
-                               hovertemplate='Real %{y}<br>Predicho %{x}<br>%{z:.1f} % de la fila<extra></extra>',
+                               customdata=[[fmt_pct(v) for v in row] for row in rec.values],
+                               hovertemplate='Real %{y}<br>Predicho %{x}<br>%{customdata} de la fila<extra></extra>',
                                colorbar=dict(title='% fila')))
     fig.update_layout(title='Matriz de confusión (conteos; color = % de la fila)', xaxis_title='Predicho',
                       yaxis=dict(title='Real', autorange='reversed'), height=420, margin=dict(l=150))
@@ -188,7 +198,8 @@ def roc_pr(y, P, kind='roc'):
             name = f'{c} (AUC {auc(a, b):.3f})'.replace('.', ',')
         else:
             b, a, _ = precision_recall_curve(yk, P[:, k])
-            name = f'{c} (prevalencia {yk.mean() * 100:.1f} %)'.replace('.', ',')
+            prev = yk.mean() * 100
+            name = f'{c} (prevalencia {fmt_pct(prev)}' + (f'; n = {yk.sum()})' if prev < SMALL else ')')
         step = max(1, len(a) // 400)
         fig.add_trace(go.Scatter(x=a[::step], y=b[::step], mode='lines', name=name, line_color=CLASS_COLORS[c]))
     if kind == 'roc':

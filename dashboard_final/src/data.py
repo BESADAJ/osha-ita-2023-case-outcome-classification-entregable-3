@@ -111,3 +111,20 @@ def options(col, top=None):
 
 def fmt(x, nd=3):
     return '—' if x is None or (isinstance(x, float) and np.isnan(x)) else f'{x:.{nd}f}'.replace('.', ',')
+
+
+def fmt_pct(p, n=None, nd=1):
+    """Porcentaje (``p`` ya en %) con coma decimal y decimales adaptativos, para que una clase rara no se lea como 0.
+
+    Usa ``nd`` decimales; si el valor es positivo pero redondearía a 0, sube a 2 decimales (9 de 30 030 casos se
+    muestra «0,03 %», no «0,0 %») y por debajo de 0,01 % escribe «<0,01 %». Con ``n`` añade el conteo: «0,03 % (n = 9)».
+    """
+    if p is None or (isinstance(p, float) and np.isnan(p)):
+        return '—'
+    if 0 < p < 0.01:
+        s = '<0,01 %'
+    else:
+        while nd < 2 and 0 < p < 10 ** -nd:
+            nd += 1
+        s = f'{p:.{nd}f} %'.replace('.', ',')
+    return s if n is None else s + f' (n = {int(n):,})'.replace(',', '.')

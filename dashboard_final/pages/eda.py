@@ -111,8 +111,7 @@ FILTERS = [Input('f-state', 'value'), Input('f-sector', 'value'), Input('f-est',
 
 
 def pct(x):
-    nd = 2 if 0 < x < 0.001 else 1
-    return f'{x * 100:.{nd}f} %'.replace('.', ',')
+    return data.fmt_pct(x * 100)
 
 
 @callback(Output('eda-n', 'children'), Output('g-target', 'figure'), Output('i-target', 'children'),
@@ -128,8 +127,9 @@ def update_all(states, sectors, est, start, end, emp):
     share = d.outcome.value_counts(normalize=True).reindex(data.CLASSES).fillna(0)
     maj = share.idxmax()
     i_target = (f'«{maj}» es la clase mayoritaria ({pct(share.max())}); los fallecimientos son '
-                f'{int((d.outcome == "Fallecimiento").sum())} casos ({pct(share["Fallecimiento"])}). El desbalance extremo '
-                'justifica la balanced accuracy como métrica principal y las técnicas de balanceo.')
+                f'{int((d.outcome == "Fallecimiento").sum())} casos ({pct(share["Fallecimiento"])}), tan pocos que su barra '
+                'no se ve en escala lineal: por eso la etiqueta lleva el conteo n. El desbalance extremo justifica la '
+                'balanced accuracy como métrica principal y las técnicas de balanceo.')
     m = pd.crosstab(d.date.dt.month, d.outcome, normalize='index').reindex(columns=data.CLASSES).fillna(0)
     i_month = (f'La participación de «Días de ausencia» varía entre {pct(m["Días de ausencia"].min())} y '
                f'{pct(m["Días de ausencia"].max())} según el mes: la composición es estable en el tiempo, por eso un '
