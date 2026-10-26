@@ -4,13 +4,14 @@ La guía del proyecto final (Bloque A, §3) pide una tabla con cada observación
 libro y la evidencia. Este capítulo la reúne.
 
 :::{important}
-**Estado de la retroalimentación del entregable 2.** Al cierre de este informe (23 de octubre de 2026) el docente
-**no había entregado observaciones escritas** sobre el entregable 2. Por eso la tabla tiene tres partes:
+**Estado de la retroalimentación del entregable 2.** Hasta el 23 de octubre de 2026 el docente **no había entregado
+observaciones escritas** sobre el entregable 2. Después hizo dos observaciones sobre el dashboard, que se atendieron
+antes de la entrega final (25 de octubre). Por eso la tabla tiene tres partes:
 
 - **A.** Las observaciones del entregable 1, que ya se habían atendido y se conservan con su evidencia.
 - **B.** Las autocorrecciones del entregable 2 que encontró la revisión interna del equipo: fallas de método que, si
   quedaban, invalidaban la comparación del modelo original. Se tratan como observaciones y cada una tiene su fila.
-- **C.** Un espacio reservado para las observaciones que el docente entregue antes del cierre.
+- **C.** Las observaciones del docente sobre el dashboard recibidas después del 23 de octubre.
 :::
 
 ## A. Observaciones del entregable 1 (docente)
@@ -47,4 +48,5 @@ capítulos 6 a 13 no cambian: ninguna corrección toca sus datos, sus particione
 
 | # | Observación del docente | Acción realizada | Ubicación en el libro | Evidencia |
 |---|---|---|---|---|
-| C1 | *Pendiente: no se recibieron observaciones escritas antes del 23 de octubre de 2026* | — | — | — |
+| C1 | En la distribución del desenlace (EDA del dashboard), Fallecimiento aparece como «0,0 %» aunque es 0,03 % (9 casos) | Porcentajes con decimales adaptativos (2 decimales si el valor redondearía a 0; «<0,01 %» por debajo) y el conteo n en las clases de menos del 1 %, en todas las figuras y hovers con porcentajes (EDA, curvas PR, matriz de confusión, probabilidades). La barra de Fallecimiento se señala con una nota, sin pasar a escala logarítmica | Dashboard (EDA y Modelos); capítulo 21, {numref}`fig-dash-eda` | `dashboard_final/src/data.py` (`fmt_pct`) y `src/plots.py`; commit 2fe0e9d |
+| C2 | La tabla de pruebas de hipótesis del dashboard es poco legible: 8 columnas apretadas, textos largos y el mismo δ de Cliff en todas las filas | Una fila por prueba (prueba, comparación, estadístico, p crudo, p Holm, decisión), p en notación legible, el tamaño del efecto una sola vez, la prueba bayesiana en tabla aparte, H0 y supuestos plegables y una nota sobre la familia de Holm. No cambia ninguna cifra | Dashboard (Modelos › Comparación pareada); capítulo 20, que tiene las mismas cifras | `dashboard_final/pages/modelos.py` (`tests_table`); commit 16e5c1f |
