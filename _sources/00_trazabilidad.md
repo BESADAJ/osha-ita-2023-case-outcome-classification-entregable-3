@@ -3,15 +3,13 @@
 La guía del proyecto final (Bloque A, §3) pide una tabla con cada observación, la acción tomada, su ubicación en este
 libro y la evidencia. Este capítulo la reúne.
 
-:::{important}
-**Estado de la retroalimentación del entregable 2.** Hasta el 23 de octubre de 2026 el docente **no había entregado
-observaciones escritas** sobre el entregable 2. Después hizo dos observaciones sobre el dashboard, que se atendieron
-antes de la entrega final (25 de octubre). Por eso la tabla tiene tres partes:
+:::{note}
+**Organización de la tabla.** La tabla tiene tres partes:
 
-- **A.** Las observaciones del entregable 1, que ya se habían atendido y se conservan con su evidencia.
-- **B.** Las autocorrecciones del entregable 2 que encontró la revisión interna del equipo: fallas de método que, si
-  quedaban, invalidaban la comparación del modelo original. Se tratan como observaciones y cada una tiene su fila.
-- **C.** Las observaciones del docente sobre el dashboard recibidas después del 23 de octubre.
+- **A.** Las observaciones del docente sobre el entregable 1, ya atendidas, que se conservan con su evidencia.
+- **B.** Las correcciones del entregable 2 que surgieron de la revisión interna del equipo: fallas de método que habrían
+  invalidado la comparación del modelo original. Cada una tiene su fila.
+- **C.** Las observaciones del docente sobre el dashboard (formato de porcentajes y tabla de pruebas de hipótesis).
 :::
 
 ## A. Observaciones del entregable 1 (docente)
