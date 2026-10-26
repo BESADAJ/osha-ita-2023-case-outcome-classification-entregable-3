@@ -546,6 +546,11 @@ fija <code class="docutils literal notranslate"><span class="pre">OSHA_ALLOW_TES
 <span class="n">cd</span> <span class="n">dashboard_final</span> <span class="o">&amp;&amp;</span> <span class="n">pytest</span> <span class="n">tests</span> <span class="o">&amp;&amp;</span> <span class="n">python</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
+<p><strong>Herramienta exploratoria (no produce cifras del libro).</strong> <code class="docutils literal notranslate"><span class="pre">scripts/jugar_con_secr.py</span></code> reajusta SECR en segundos
+sobre las predicciones ya guardadas de cada pliegue (<code class="docutils literal notranslate"><span class="pre">results/pareado/original/*.npz</span></code>) con los hiperparámetros que se le
+pasen (<code class="docutils literal notranslate"><span class="pre">--gate</span></code>, <code class="docutils literal notranslate"><span class="pre">--lam</span></code>, <code class="docutils literal notranslate"><span class="pre">--alpha</span></code>, <code class="docutils literal notranslate"><span class="pre">--steps</span></code>) y muestra la BA por pliegue. Sirvió para estudiar el modelo y preparar la
+sustentación. Sus cifras no se usan para elegir hiperparámetros, porque eso sería mirar los pliegues del veredicto
+(sección 19.9); el modelo reportado es el que eligió la TPE interna.</p>
 <p><strong>Entornos.</strong> Las corridas usan <code class="docutils literal notranslate"><span class="pre">ml_venv</span></code> (arriba). El dashboard usa Python 3.11.9 con las versiones de
 <code class="docutils literal notranslate"><span class="pre">dashboard_final/requirements.txt</span></code>: las mismas librerías numéricas que entrenaron los artefactos, más <code class="docutils literal notranslate"><span class="pre">dash</span></code> 2.18.2,
 <code class="docutils literal notranslate"><span class="pre">dash-bootstrap-components</span></code> 1.6.0, <code class="docutils literal notranslate"><span class="pre">plotly</span></code> 5.24.1 y <code class="docutils literal notranslate"><span class="pre">gunicorn</span></code> 23.0.0. Se probó localmente en el entorno conda

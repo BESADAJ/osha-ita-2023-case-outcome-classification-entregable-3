@@ -96,6 +96,12 @@ pytest tests                                     # pruebas del ensamble, de SECR
 cd dashboard_final && pytest tests && python app.py
 ```
 
+**Herramienta exploratoria (no produce cifras del libro).** `scripts/jugar_con_secr.py` reajusta SECR en segundos
+sobre las predicciones ya guardadas de cada pliegue (`results/pareado/original/*.npz`) con los hiperparámetros que se le
+pasen (`--gate`, `--lam`, `--alpha`, `--steps`) y muestra la BA por pliegue. Sirvió para estudiar el modelo y preparar la
+sustentación. Sus cifras no se usan para elegir hiperparámetros, porque eso sería mirar los pliegues del veredicto
+(sección 19.9); el modelo reportado es el que eligió la TPE interna.
+
 **Entornos.** Las corridas usan `ml_venv` (arriba). El dashboard usa Python 3.11.9 con las versiones de
 `dashboard_final/requirements.txt`: las mismas librerías numéricas que entrenaron los artefactos, más `dash` 2.18.2,
 `dash-bootstrap-components` 1.6.0, `plotly` 5.24.1 y `gunicorn` 23.0.0. Se probó localmente en el entorno conda

@@ -720,6 +720,10 @@ obligatorios de la guía:</p>
 desde cero y comparado estadísticamente con los benchmarks (capítulos 16, 19 y 20).</p></li>
 <li><p>Este <strong>informe</strong> reproducible.</p></li>
 </ol>
+<blockquote>
+<div><p><strong>Nota.</strong>
+Entrega registrada en el curso como <strong>Entregable 4</strong>; enunciado: <code class="docutils literal notranslate"><span class="pre">Entregable3MachineLearningProject.pdf</span></code> (en el repositorio, <code class="docutils literal notranslate"><span class="pre">docs/guia_proyecto_final.pdf</span></code>); guía técnica: <code class="docutils literal notranslate"><span class="pre">guia_entregable_3.pdf</span></code> (<code class="docutils literal notranslate"><span class="pre">docs/</span></code>). En este libro, «guía §N» remite a la guía del proyecto final; las pocas citas a la guía técnica lo dicen expresamente.</p>
+</div></blockquote>
 <section id="resumen-ejecutivo">
 <h2>Resumen ejecutivo<a class="headerlink" href="#resumen-ejecutivo" title="Link to this heading">#</a></h2>
 <p><strong>Problema.</strong> Con los registros que los empleadores de EE. UU. reportan a OSHA se predice el desenlace de cada caso
@@ -801,13 +805,14 @@ cap. 15.</p>
 libro y la evidencia. Este capítulo la reúne.</p>
 <blockquote>
 <div><p><strong>important.</strong>
-<strong>Estado de la retroalimentación del entregable 2.</strong> Al cierre de este informe (23 de octubre de 2026) el docente
-<strong>no había entregado observaciones escritas</strong> sobre el entregable 2. Por eso la tabla tiene tres partes:</p>
+<strong>Estado de la retroalimentación del entregable 2.</strong> Hasta el 23 de octubre de 2026 el docente <strong>no había entregado
+observaciones escritas</strong> sobre el entregable 2. Después hizo dos observaciones sobre el dashboard, que se atendieron
+antes de la entrega final (25 de octubre). Por eso la tabla tiene tres partes:</p>
 <ul class="simple">
 <li><p><strong>A.</strong> Las observaciones del entregable 1, que ya se habían atendido y se conservan con su evidencia.</p></li>
 <li><p><strong>B.</strong> Las autocorrecciones del entregable 2 que encontró la revisión interna del equipo: fallas de método que, si
 quedaban, invalidaban la comparación del modelo original. Se tratan como observaciones y cada una tiene su fila.</p></li>
-<li><p><strong>C.</strong> Un espacio reservado para las observaciones que el docente entregue antes del cierre.</p></li>
+<li><p><strong>C.</strong> Las observaciones del docente sobre el dashboard recibidas después del 23 de octubre.</p></li>
 </ul>
 </div></blockquote>
 <section id="a-observaciones-del-entregable-1-docente">
@@ -944,10 +949,16 @@ capítulos 6 a 13 no cambian: ninguna corrección toca sus datos, sus particione
 </thead>
 <tbody>
 <tr class="row-even"><td><p>C1</p></td>
-<td><p><em>Pendiente: no se recibieron observaciones escritas antes del 23 de octubre de 2026</em></p></td>
-<td><p>—</p></td>
-<td><p>—</p></td>
-<td><p>—</p></td>
+<td><p>En la distribución del desenlace (EDA del dashboard), Fallecimiento aparece como «0,0 %» aunque es 0,03 % (9 casos)</p></td>
+<td><p>Porcentajes con decimales adaptativos (2 decimales si el valor redondearía a 0; «&lt;0,01 %» por debajo) y el conteo n en las clases de menos del 1 %, en todas las figuras y hovers con porcentajes (EDA, curvas PR, matriz de confusión, probabilidades). La barra de Fallecimiento se señala con una nota, sin pasar a escala logarítmica</p></td>
+<td><p>Dashboard (EDA y Modelos); capítulo 21, la figura «fig-dash-eda»</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dashboard_final/src/data.py</span></code> (<code class="docutils literal notranslate"><span class="pre">fmt_pct</span></code>) y <code class="docutils literal notranslate"><span class="pre">src/plots.py</span></code>; commit 2fe0e9d</p></td>
+</tr>
+<tr class="row-odd"><td><p>C2</p></td>
+<td><p>La tabla de pruebas de hipótesis del dashboard es poco legible: 8 columnas apretadas, textos largos y el mismo δ de Cliff en todas las filas</p></td>
+<td><p>Una fila por prueba (prueba, comparación, estadístico, p crudo, p Holm, decisión), p en notación legible, el tamaño del efecto una sola vez, la prueba bayesiana en tabla aparte, H0 y supuestos plegables y una nota sobre la familia de Holm. No cambia ninguna cifra</p></td>
+<td><p>Dashboard (Modelos › Comparación pareada); capítulo 20, que tiene las mismas cifras</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dashboard_final/pages/modelos.py</span></code> (<code class="docutils literal notranslate"><span class="pre">tests_table</span></code>); commit 16e5c1f</p></td>
 </tr>
 </tbody>
 </table>
@@ -20541,6 +20552,9 @@ repetición 0, Friedman no rechaza (p = 0,068): 5 bloques dan muy poca potencia,
 <h2>20.3 Pruebas pareadas frente al mejor benchmark y a cada benchmark<a class="headerlink" href="#pruebas-pareadas-frente-al-mejor-benchmark-y-a-cada-benchmark" title="Link to this heading">#</a></h2>
 <p>Tabla obligatoria de la guía (§6.3): prueba, hipótesis nula, supuestos verificados, estadístico, p crudo, p ajustado,
 tamaño del efecto y conclusión. Las 4 pruebas frecuentistas forman una familia y se ajustan con Holm (4 comparaciones).
+Incluir a Friedman (prueba global) y a Nemenyi (que ya controla el error por familia) es conservador: la guía técnica
+(<code class="docutils literal notranslate"><span class="pre">guia_entregable_3.pdf</span></code>, §6.2) pide Holm para las comparaciones dirigidas que se añaden a Friedman–Nemenyi. Ninguna
+decisión cambia: con Holm solo sobre Nadeau–Bengio y Wilcoxon, sus p ajustados serían 0,33 y 0,19.
 La bayesiana no da un p-valor: da probabilidades posteriores de que el original sea peor, equivalente (dentro de la
 ROPE de ±0,01 de BA) o mejor.</p>
 <div class="cell docutils container">
@@ -21908,6 +21922,11 @@ fija <code class="docutils literal notranslate"><span class="pre">OSHA_ALLOW_TES
 <span class="n">cd</span> <span class="n">dashboard_final</span> <span class="o">&amp;&amp;</span> <span class="n">pytest</span> <span class="n">tests</span> <span class="o">&amp;&amp;</span> <span class="n">python</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
+<p><strong>Herramienta exploratoria (no produce cifras del libro).</strong> <code class="docutils literal notranslate"><span class="pre">scripts/jugar_con_secr.py</span></code> reajusta SECR en segundos
+sobre las predicciones ya guardadas de cada pliegue (<code class="docutils literal notranslate"><span class="pre">results/pareado/original/*.npz</span></code>) con los hiperparámetros que se le
+pasen (<code class="docutils literal notranslate"><span class="pre">--gate</span></code>, <code class="docutils literal notranslate"><span class="pre">--lam</span></code>, <code class="docutils literal notranslate"><span class="pre">--alpha</span></code>, <code class="docutils literal notranslate"><span class="pre">--steps</span></code>) y muestra la BA por pliegue. Sirvió para estudiar el modelo y preparar la
+sustentación. Sus cifras no se usan para elegir hiperparámetros, porque eso sería mirar los pliegues del veredicto
+(sección 19.9); el modelo reportado es el que eligió la TPE interna.</p>
 <p><strong>Entornos.</strong> Las corridas usan <code class="docutils literal notranslate"><span class="pre">ml_venv</span></code> (arriba). El dashboard usa Python 3.11.9 con las versiones de
 <code class="docutils literal notranslate"><span class="pre">dashboard_final/requirements.txt</span></code>: las mismas librerías numéricas que entrenaron los artefactos, más <code class="docutils literal notranslate"><span class="pre">dash</span></code> 2.18.2,
 <code class="docutils literal notranslate"><span class="pre">dash-bootstrap-components</span></code> 1.6.0, <code class="docutils literal notranslate"><span class="pre">plotly</span></code> 5.24.1 y <code class="docutils literal notranslate"><span class="pre">gunicorn</span></code> 23.0.0. Se probó localmente en el entorno conda
