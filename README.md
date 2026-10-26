@@ -17,7 +17,9 @@ de los entregables anteriores (octubre–diciembre, establecimientos no vistos).
 
 | Qué | Dónde |
 |---|---|
+| Repositorio | <https://github.com/BESADAJ/osha-ita-2023-case-outcome-classification-entregable-3> |
 | Informe (Jupyter Book) | <https://besadaj.github.io/osha-ita-2023-case-outcome-classification-entregable-3/> (fuentes en `jbook/`) |
+| Dashboard final (Render) | <https://osha-ita-2023-case-outcome-classification.onrender.com> (fuentes en `dashboard_final/`) |
 | **Notebook único con todo el entregable** | `jbook/entregable3_completo.ipynb` (también como última página del libro) |
 | Código | `src/osha_e3/` |
 | Corridas largas | `scripts/` |
