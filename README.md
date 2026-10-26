@@ -32,7 +32,7 @@ de los entregables anteriores (octubre–diciembre, establecimientos no vistos).
 | Guía del entregable (PDF) | `docs/guia_entregable_3.pdf` |
 | Dashboard del entregable 2 | `dashboard/` y <https://osha-ita-2023-case-outcome.onrender.com/> |
 
-## Proyecto final (rama `entregable3-final`)
+## Proyecto final
 
 | Componente obligatorio | Dónde |
 |---|---|
