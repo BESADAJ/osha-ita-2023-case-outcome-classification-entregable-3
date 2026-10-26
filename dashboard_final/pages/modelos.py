@@ -127,15 +127,82 @@ def num(x, nd=3, sign=False):
     return s.replace('.', ',')
 
 
+SUP = str.maketrans('0123456789-', '⁰¹²³⁴⁵⁶⁷⁸⁹⁻')
+
+
+def fmt_p(p):
+    """p legible: 3 decimales desde 0,01; 2 cifras significativas por debajo; notación a × 10⁻ᵏ bajo 0,001."""
+    p = float(p)
+    if p >= 0.01:
+        return num(p)
+    if p >= 0.001:
+        return num(p, 4)
+    m, e = f'{p:.1e}'.split('e')
+    return f'{m.replace(".", ",")} × 10{str(int(e)).translate(SUP)}'
+
+
+def sci(text):
+    """Cambia 5.76e-11 por 5,8 × 10⁻¹¹ dentro de un texto."""
+    return re.sub(r'\d\.\d+e-\d+', lambda m: fmt_p(m.group()), text)
+
+
+def nums(text):
+    return [float(x) for x in re.findall(r'-?\d+\.\d+', text)]
+
+
+def neg(x, nd=2):
+    return num(x, nd).replace('-', '−')
+
+
+# Nombre corto, comparación y H0/supuestos de cada fila de RES['tests'] (mismo orden que scripts/analyze_paired.py).
+TEST_SHORT = ['Friedman (Iman–Davenport)', 'Nemenyi (post hoc)', 't corregida de Nadeau–Bengio',
+              'Wilcoxon de rangos con signo']
+
+
 def tests_table():
     if not RES:
         return html.Div('Los resultados del experimento pareado no están disponibles.', className='callout warn')
-    t = pd.DataFrame(RES['tests']).map(es)
-    return dash_table.DataTable(data=t.to_dict('records'), columns=[{'name': c, 'id': c} for c in t.columns],
-                                sort_action='native', **{**TABLE, 'style_cell': {**TABLE['style_cell'], 'fontSize': 12.5,
-                                                                                 'maxWidth': '260px'}},
-                                style_data_conditional=[{'if': {'filter_query': '{Conclusión} contains "Se rechaza"'},
-                                                         'backgroundColor': '#ecfdf5'}])
+    freq, bay = RES['tests'][:4], RES['tests'][4]
+    rival = bay['Prueba'].split(' vs ')[-1]
+    rows = []
+    for name, t in zip(TEST_SHORT, freq):
+        ok = t['Conclusión'].startswith('Se rechaza')
+        rows.append(html.Tr([html.Td(name, title=f"H0: {t['H0']}. Supuestos: {es(t['Supuestos'])}."),
+                             html.Td('Los 8 modelos (global)' if name.startswith('Friedman') else f'Original vs {rival}'),
+                             html.Td(es(t['Estadístico']), className='num'), html.Td(fmt_p(t['p crudo']), className='num'),
+                             html.Td(fmt_p(t['p ajustado (Holm, 4)']), className='num'),
+                             html.Td(html.Span(t['Conclusión'], className='dec yes' if ok else 'dec no'))]))
+    p_mejor, p_rope, p_peor = nums(bay['Estadístico'])
+    bay_row = html.Tr([html.Td(f'Original vs {rival}'), html.Td(num(p_mejor), className='num'),
+                       html.Td(num(p_rope), className='num'), html.Td(num(p_peor), className='num'),
+                       html.Td(html.Span(bay['Conclusión'], className='dec no'))])
+    cliff, lo, hi = nums(freq[0]['Efecto'].split('=')[1])
+    d_mean, d_lo, d_hi = nums(bay['Efecto'].replace('95 %', ''))
+    cliff_lbl = re.search(r'\((\w+)\)', freq[0]['Efecto']).group(1)
+    defs = [html.Li([html.B(n + ': '), f"H0: {t['H0']}. Supuestos: {es(t['Supuestos'])}."]) for n, t in zip(TEST_SHORT, freq)]
+    defs.append(html.Li([html.B('Bayesiana de rangos con signo: '),
+                         f"sin H0; da probabilidades posteriores. Supuestos: {es(bay['Supuestos'])}; ROPE = ±0,01 de BA."]))
+    return html.Div([
+        html.Div(html.Table([html.Thead(html.Tr([html.Th(h, className='num' if h.startswith(('p ', 'Est')) else None)
+                                                 for h in ['Prueba', 'Comparación', 'Estadístico', 'p crudo', 'p Holm',
+                                                           'Decisión']])),
+                             html.Tbody(rows)], className='table-clean tests'), style={'overflowX': 'auto'}),
+        html.P([html.B('Tamaño del efecto (original vs ' + rival + ', 15 pliegues): '),
+                f'δ de Cliff = {neg(cliff)} [{neg(lo)}; {neg(hi)}], {cliff_lbl}. Diferencia media de BA = '
+                f'{num(d_mean, 4, sign=True)}, IC BCa 95 % [{neg(d_lo, 3)}; {neg(d_hi, 3)}]. Se reporta una sola vez: '
+                'describe el par original–KNN, no la prueba global de Friedman sobre los 8 modelos.'], className='finding mt-3'),
+        html.Div('Prueba bayesiana de rangos con signo (ROPE ±0,01 de BA)', className='block-title mt-4 mb-2'),
+        html.Div(html.Table([html.Thead(html.Tr([html.Th('Comparación'), html.Th('P(original mejor)', className='num'),
+                                                 html.Th('P(equivalentes, ROPE)', className='num'),
+                                                 html.Th('P(original peor)', className='num'), html.Th('Lectura')])),
+                             html.Tbody(bay_row)], className='table-clean tests'), style={'overflowX': 'auto'}),
+        html.P('Sobre Holm: el ajuste se aplicó a las 4 pruebas frecuentistas como una sola familia, Friedman incluida. La '
+               'guía (§6.2) lo pide para las comparaciones dirigidas que se añaden a Friedman–Nemenyi; Friedman es la prueba '
+               'global y Nemenyi ya controla el error por familia, así que incluirlas solo hace el ajuste más conservador. '
+               'Ninguna decisión cambia: con Holm solo sobre Nadeau–Bengio y Wilcoxon, sus p ajustados serían 0,33 y 0,19. '
+               'Nadeau–Bengio y Wilcoxon son unilaterales (H1: el original es mejor).', className='note mt-3'),
+        html.Details([html.Summary('H0 y supuestos de cada prueba'), html.Ul(defs, className='note mt-2 mb-0')],
+                     className='mt-2 note')])
 
 
 def es(s):
@@ -323,7 +390,7 @@ layout = html.Div([
             dbc.Row([dbc.Col(html.Div([dcc.Graph(id='g-cd', figure=(plots.cd_diagram(
                 RES['cd']['names'], np.array(RES['cd']['ranks']), RES['cd']['cd'], highlight='Original (SECR)')
                 if RES else plots.empty('Resultados pendientes'))),
-                html.P(es(RES['cd']['insight']) if RES else '', className='finding')], className='panel'), lg=5),
+                html.P(es(sci(RES['cd']['insight'])) if RES else '', className='finding')], className='panel'), lg=5),
                      dbc.Col(html.Div([dcc.Graph(id='g-folds', figure=plots.paired_folds(PF['per_fold']) if PF
                                                  else plots.empty()),
                                        html.P((f'La ventaja media sobre KNN es {num(BYREP[0], sign=True)} en la repetición 0 '

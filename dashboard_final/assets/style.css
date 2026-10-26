@@ -117,6 +117,12 @@ a:hover { text-decoration: underline; }
                            letter-spacing: .05em; }
 .table-clean tr.hl td { background: var(--accent-soft); }
 .table-clean td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.table-clean th.num { text-align: right; }
+.table-clean.tests td { vertical-align: middle; }
+/* Decisión de una prueba: verde solo si se rechaza H0; neutro si no se rechaza o no es concluyente. */
+.dec { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.dec.yes { background: var(--ok-soft); color: var(--ok); }
+.dec.no { background: var(--line-2); color: var(--ink-2); }
 .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner th { font-family: var(--font) !important; }
 .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td { font-family: var(--font) !important; }
 
